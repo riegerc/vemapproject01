@@ -1,0 +1,27 @@
+:root {
+    --ams-blue: #093c7d;
+    --ams-background: #ebf5fc;
+}
+
+#wrapper {
+    background-color: var(--ams-background);
+}
+
+#page-logo {
+    width: 70px;
+    height: auto;
+}
+
+#search-button-wrap {
+    display: flex;
+}
+
+#suche_senden, #verkaufen {
+    width: 100%;
+    align-self: flex-end;
+}
+
+i {
+    text-align: center;
+    width: 1.2em;
+}

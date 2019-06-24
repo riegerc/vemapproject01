@@ -1,0 +1,5 @@
+AMS-Blau:                   #093c7d
+AMS-Background-blau/grau:   #ebf5fc
+AMS-Font:                   Roboto,Arial,sans-serif;
+AMS-Font-color-blau:        #005db4
+Logo:                       AMS -> Vemap-Academy

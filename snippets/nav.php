@@ -1,0 +1,71 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+        <div class="sidebar-brand-icon">
+            <img src="<?php echo $pageLogo ?>" id="page-logo" alt="Seiten-Logo"/>
+        </div>
+        <div class="sidebar-brand-text mx-3"><?php echo $pageTitle ?></div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <?php
+    if (empty($_SESSION)) {
+        echo "
+            <li class='nav-item'>
+                <div class='nav-link'>
+                    <form action='' method='POST'>
+                        <div class='form-group'>
+                            <label for='email'><small>Email</small></label>
+                            <input class='form-control' type='email' name='email' id='email'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='password'><small>Passwort</small></label>
+                            <input class='form-control' type='password' name='password' id='password'>
+                        </div>
+                        <div class='form-group'>
+                            <button class='btn btn-secondary float-right' type='submit' name='login' id='submit'>Login</button>
+                        </div>
+                    </form>
+                </div>
+            </li>";
+    } else {
+        echo "
+            <li class='nav-item'>
+                <a class='nav-link ' href='index.php'>
+                    <i class='fa fa-home'></i>
+                    <span>Home</span>
+                </a>
+            </li>";
+        // Output Navigation-Sections
+        foreach ($navigationItems as $sectionKey => $section) {
+            // Check user-permission
+            if ($section["minUserLevel"] <= $_SESSION["userRole"]) {
+                echo "<div class='sidebar-heading'>$section[section]</div>";
+
+                // Output Navigation-Categories
+                foreach ($section["categories"] as $categoryKey => $category) {
+                    // Check user-permission
+                    if ($category["minUserLevel"] <= $_SESSION["userRole"]) {
+                        echo "<li class='nav-item'>
+                            <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapse$sectionKey$categoryKey'
+                               aria-expanded='true' aria-controls='collapse$sectionKey$categoryKey'>
+                                <span class='navbar-icon'>$category[icon]</span> 
+                                <span>$category[name]</span>
+                            </a>
+                            <div id='collapse$sectionKey$categoryKey' class='collapse' aria-labelledby='heading$sectionKey$categoryKey' data-parent='#accordionSidebar'>
+                              <div class='bg-white py-2 collapse-inner rounded'>";
+                                // Output Category-Links
+                                foreach ($category["links"] as $linkKey => $link) {
+                                    // Check user-permission
+                                    if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
+                                        echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
+                                    }
+                                }
+                        echo "</div>
+                  </div>
+                </li>";
+                    }
+                }
+            }
+        }
+    }
+    ?>
+</ul>
