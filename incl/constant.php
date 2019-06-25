@@ -3,7 +3,7 @@
 #first draft
 #requires variable $checkme
 if($GLOBALS['checkme'] !== "a30ee472364c50735ad1d43cc09be0a1"){
-    extit();
+    exit();
 }
 #$_SESSION BLOCK
 const USER_ROLE = "userRole";
