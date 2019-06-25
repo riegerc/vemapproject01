@@ -21,7 +21,7 @@ if ($pageRestricted === true) {
         header("location:logout.php");
     }
 
-    if ($userLevel > $_SESSION["userRole"]) {
+    if ($userLevel > $_SESSION[USER_ROLE]) {
         header("location:error.php?e=403");
     }
 }
