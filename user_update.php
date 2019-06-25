@@ -1,20 +1,16 @@
 <?php
 // defines if the page is restricted to logged-in Users only
 $pageRestricted = true;
-
 // defindes the minimum userRole to access the page, if the
 // userRole is lower than the level, a 403 Error-Page is returned
 $userLevel = 0;
-
 // includes base function like session handling
 include "snippets/init.php";
-
 // defindes the name of the current page, displayed in the title and as a header on the page
 $title = "User Update";
 include "snippets/header.php";
 include "snippets/top.php";
 ?>
-
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
@@ -55,16 +51,24 @@ include "snippets/top.php";
             //output
             echo "hallo";
             // SQL Statement LIKE userName SELECT
-            $sql="SELECT firstName, lastName, telNr, mobilNr, `roles`.name, `rights`.name
+            $sql="SELECT firstName, lastName, telNr, mobilNr, `roles`.name/*, `rights`.name*/
             FROM ams
-            INNER JOIN roles
+            LEFT JOIN roles
             ON `roles`.objectID=`ams`.rolesFID
-            INNER JOIN rolesRights
+            LEFT JOIN rolesRights
             ON `rolesRights`.rolesFID=`roles`.objectID
-            INNER JOIN rights
+            LEFT JOIN rights
             ON `rights`.objectID=`rolesRights`.rightsFID
+            WHERE firstName LIKE :suche
+            OR lastName LIKE :suche
+            OR telNr LIKE :suche
+            OR mobilNR LIKE :suche
+            OR `roles`.name LIKE :suche
             ";
-            $statement=connectDB()->query($sql);
+            $suche="%". $_GET["userName"] ."%";
+            $statement=connectDB()->prepare($sql);
+            $statement->bindParam(":suche", $suche);
+            $statement->execute();
             echo "<table>";
                 echo "<tr>";
                     echo "<th>firstName:</th>";
@@ -72,6 +76,7 @@ include "snippets/top.php";
                     echo "<th>telNr:</th>";
                     echo "<th>mobilNr:</th>";
                     echo "<th>role:</th>";
+                    echo "<th>rights:</th>";
                 echo "</tr>";
             while( $row=$statement->fetch() ) {
                 echo "<tr>";
@@ -79,7 +84,7 @@ include "snippets/top.php";
                 echo "<td>$row[lastName]</td>";
                 echo "<td>$row[telNr]</td>";
                 echo "<td>$row[mobilNr]</td>";
-                echo "<td>$row[name]</td>";
+//                echo "<td>$row[roles.name]</td>";
                 echo "<td>$row[name]</td>";
                 echo "</tr>";
             }
@@ -88,5 +93,4 @@ include "snippets/top.php";
         ?>
     </div>
 </div>
-
 <?php include "snippets/bottom.php"; ?>
