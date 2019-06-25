@@ -1,6 +1,7 @@
 <?php
-include "settings.php";
-include "db.php";
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+include "constant.php";
+include "include/database.php";
 session_start();
 session_regenerate_id(true);
 $loggedIn = false;
@@ -20,7 +21,7 @@ if ($pageRestricted === true) {
         header("location:logout.php");
     }
 
-    if ($userLevel > $_SESSION["userRole"]) {
+    if ($userLevel > $_SESSION[USER_ROLE]) {
         header("location:error.php?e=403");
     }
 }
@@ -29,7 +30,7 @@ if (isset($_POST["login"])) {
     $email = htmlspecialchars($_POST["email"]);
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
-        $sql = "SELECT * FROM login WHERE email=:email";
+        $sql = "SELECT * FROM user WHERE email=:email";
         $stmt = connectDB()->prepare($sql);
         $stmt->bindParam(":email", $email);
         $stmt->execute();
@@ -37,10 +38,10 @@ if (isset($_POST["login"])) {
         $loggedIn = true;
 
         if ($row) {
-            if (password_verify($_POST["password"], $row["userPassword"])) {
-                $_SESSION["userID"] = $row["userID"];
-                $_SESSION["userName"] = $row["userName"];
-                $_SESSION["userRole"] = $row["userRole"];
+            if (password_verify($_POST["password"], $row["password"])) {
+                $_SESSION[USER_ID] = $row["objectID"];
+                $_SESSION[USER_NAME] = $row["email"];
+                $_SESSION[USER_ROLE] = $row["rolesFID"];
                 header("location:index.php");
             } else {
                 $error = "Die Email/Passwort Kombination stimmt nicht.";
@@ -49,4 +50,10 @@ if (isset($_POST["login"])) {
     } else {
         $error = "Die Email/Passwort Kombination stimmt nicht.";
     }
+}
+
+if (isset($_POST["logout"])) {
+    session_start();
+    session_destroy();
+    header("location:index.php");
 }
