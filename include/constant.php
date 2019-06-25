@@ -15,6 +15,7 @@ const PAGE_DESC = "Beschaffungsportal für das AMS Wien";
 const USER_ROLE = "userRole";
 const USER_ID = "userID";
 const USER_NAME = "userName";
+const USER_PERMISSION = "userPermission";
 
 
 #pwd validation
