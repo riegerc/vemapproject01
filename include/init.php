@@ -42,7 +42,11 @@ if (isset($_POST["login"])) {
                 $_SESSION[USER_ID] = $row["objectID"];
                 $_SESSION[USER_NAME] = $row["email"];
                 $_SESSION[USER_ROLE] = $row["rolesFID"];
-                header("location:index.php");
+                if(!loadPermissions($_SESSION[USER_ID])){
+                    $error = "Laden der Berechtigungen fehlgeschlagen.";
+                }else{
+                    header("location:index.php");
+                }  
             } else {
                 $error = "Die Email/Passwort Kombination stimmt nicht.";
             }
