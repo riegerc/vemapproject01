@@ -29,8 +29,8 @@ const PERM_CED_USER = "cedUser";
 const PERM_VIEW_USER = "viewUser";
 
 #db data
-const DB_HOST = "remotemysql.com";
-const DB_NAME = "e5En6pGWNA";
+const DB_HOST = "192.168.1.84";
+const DB_NAME = "vemap02";
 CONST DB_CHARSET = "utf8";
-const DB_USER = "e5En6pGWNA";
-const DB_PWD = "gwWmxvxZbZ";
+const DB_USER = "vemap";
+const DB_PWD = "vemap1234!";
