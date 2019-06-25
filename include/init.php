@@ -38,9 +38,9 @@ if (isset($_POST["login"])) {
 
         if ($row) {
             if (password_verify($_POST["password"], $row["password"])) {
-                $_SESSION["userID"] = $row["objectID"];
-                $_SESSION["userName"] = $row["email"];
-                $_SESSION["userRole"] = $row["amsLogin"];
+                $_SESSION[USER_ID] = $row["objectID"];
+                $_SESSION[USER_NAME] = $row["email"];
+                $_SESSION[USER_ROLE] = $row["amsLogin"];
                 header("location:index.php");
             } else {
                 $error = "Die Email/Passwort Kombination stimmt nicht.";

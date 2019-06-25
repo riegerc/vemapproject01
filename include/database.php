@@ -2,11 +2,11 @@
 
 function connectDB(): PDO
 {
-    $dbHost = "remotemysql.com";
-    $dbName = "e5En6pGWNA";
-    $dbCharset = "utf8";
-    $dbUser = "e5En6pGWNA";
-    $dbPw = "gwWmxvxZbZ";
+    $dbHost = DB_HOST;
+    $dbName = DB_NAME;
+    $dbCharset = DB_CHARSET;
+    $dbUser = DB_USER;
+    $dbPw = DB_PWD;
 
     try {
         return new PDO(
