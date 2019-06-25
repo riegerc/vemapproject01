@@ -28,7 +28,7 @@ include "snippets/top.php";
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="row">
                 <div class="form-group col-sm-3">
-                    <label>
+                    <label for="product_name">
                         <small>Produktname</small>
                     </label>
                     <input type="text" class="form-control" name="product_name" id="product_name"/>
@@ -43,22 +43,24 @@ include "snippets/top.php";
                             <option>Büromaterial</option>
                             <option>Reinigungsmittel</option>
                             <option>Elektronik & Computer</option>
-                            <optgroup label="Dienstleistung:">
-                                <option>Kurse</option>
-                                <option>Trainer</option>
+                        </optgroup>
+                        <optgroup label="Dienstleistung:">
+                            <option>Kurse</option>
+                            <option>Trainer</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div class="form-group col-sm-2">
-                    <label>
+                    <label for="product_price">
                         <small>Preis</small>
                     </label>
-                    <input class="form-control" type="number" name='product_price' min="0"/>
+                    <input class="form-control" type="number" name='product_price' id='product_price' min="0"/>
                 </div>
                 <div class="form-group col-sm-2">
-                    <label>
+                    <label for="product_stueck">
                         <small>Stückzahl</small>
                     </label>
-                    <input class="form-control" type="number" name='product_stueck' min="0"/>
+                    <input class="form-control" type="number" name='product_stueck' id='product_stueck' min="0"/>
                 </div>
                 <div class="form-group col-sm-2" id="search-button-wrap">
                     <button class="btn btn-primary" type="submit" name="verkaufen" id="verkaufen">Verkaufen</button>
@@ -80,7 +82,7 @@ include "snippets/top.php";
                         echo "    <th>Löschen</th>\n";
                         echo "    </tr>";
                         $sql = "SELECT * FROM bestellungen";
-                        foreach ($db->query($sql) as $row) {
+                        foreach (connectDB()->query($sql) as $row) {
                             echo "    <tr>\n";
                             echo "    <td>" . $row['produktName'] . "</td>\n";
                             echo "    <td>" . $row['kategorie'] . "</td>\n";
@@ -98,7 +100,7 @@ include "snippets/top.php";
                         $sql = "INSERT INTO bestellungen(produktName,stueck,preis)
                                 VALUES(:produktName,:stueck,:preis)";
 
-                        $stmt = $db->prepare($sql);
+                        $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":produktName", $produktName);
                         $stmt->bindParam(":stueck", $produktStueck);
                         $stmt->bindParam(":preis", $produktPreis);
