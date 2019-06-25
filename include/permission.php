@@ -15,9 +15,10 @@ class Permission {
             return FALSE;
         }
         $ret = TRUE;
-        $sql = "SELECT * FROM user 
-                INNER JOIN rolesRights AS rr ON rr.rolesFID = user.rolesFID
-                WHERE userID = $userID;";
+        $sql = "SELECT r.name FROM user AS u
+                INNER JOIN rolesrights AS rr ON rr.rolesFID = u.rolesFID
+                INNER JOIN rights AS r ON r.objectID = rr.rightsFID
+                WHERE u.objectID = $userID;";
         $result = readDB($sql);
         if(count($result) == 0){
             $ret = FALSE;
