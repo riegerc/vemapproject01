@@ -30,7 +30,7 @@ function connectDB(): PDO
  */
 function readDB(string $sql, array $params = NULL){
     $result = [];
-    if(!isSqlSelect($ql)){return "No SELECT SQL Statement!";}
+    if(!isSqlSelect($sql)){return "No SELECT SQL Statement!";}
 
     $db = connectDB();
     

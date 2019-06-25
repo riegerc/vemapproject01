@@ -1,7 +1,8 @@
 <?php
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 include "constant.php";
-include "include/database.php";
+require_once "include/database.php";
+require_once "include/permission.php";
 session_start();
 session_regenerate_id(true);
 $loggedIn = false;
@@ -42,7 +43,8 @@ if (isset($_POST["login"])) {
                 $_SESSION[USER_ID] = $row["objectID"];
                 $_SESSION[USER_NAME] = $row["email"];
                 $_SESSION[USER_ROLE] = $row["rolesFID"];
-                if(!loadPermissions($_SESSION[USER_ID])){
+                $perm = new Permission();
+                if(!$perm->loadPermissions($_SESSION[USER_ID])){
                     $error = "Laden der Berechtigungen fehlgeschlagen.";
                 }else{
                     header("location:index.php");

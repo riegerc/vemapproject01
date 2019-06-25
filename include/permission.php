@@ -1,6 +1,6 @@
 <?php
 require_once "constant.php";
-include "include/database.php";
+require_once "include/database.php";
 /**
  * class Permissson handels all permission releated methods
  */
