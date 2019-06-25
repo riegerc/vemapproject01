@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "AMS";
 $pageLogo = "img/ams.svg";
-$pageDescription = "";
+$pageDescription = "Beschaffungsportal für das AMS Wien";
 
 $navigationItems =
     [
