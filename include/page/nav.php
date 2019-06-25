@@ -1,9 +1,38 @@
+<?php
+
+$navigationItems =
+    [
+        [
+            "section" => "Allgemein",
+            "categories" => [
+                ["name" => "Ausschreibungen",
+                    "links" => [
+                        ["name" => "Dokumente", "url" => "ausschreibungen_dokumente.php", "minUserLevel" => 0],
+                    ],
+                    "icon" => "<i class='fas fa-file-invoice'></i>",
+                    "minUserLevel" => 0
+                ],
+                ["name" => "Webshop",
+                    "links" => [
+                        ["name" => "Kunde", "url" => "webshop_kunde.php", "minUserLevel" => 0],
+                        ["name" => "Lieferant", "url" => "webshop_lieferant.php", "minUserLevel" => 0],
+                    ],
+                    "icon" => "<i class='fas fa-store-alt'></i>",
+                    "minUserLevel" => 0
+                ],
+            ],
+            "minUserLevel" => 0
+        ],
+    ];
+
+
+?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon">
-            <img src="<?php echo $pageLogo ?>" id="page-logo" alt="Seiten-Logo"/>
+            <img src="<?php echo PAGE_ICON ?>" id="page-logo" alt="Seiten-Logo"/>
         </div>
-        <div class="sidebar-brand-text mx-3"><?php echo $pageTitle ?></div>
+        <div class="sidebar-brand-text mx-3"><?php echo PAGE_NAME ?></div>
     </a>
     <hr class="sidebar-divider my-0">
     <?php
@@ -52,13 +81,13 @@
                             </a>
                             <div id='collapse$sectionKey$categoryKey' class='collapse' aria-labelledby='heading$sectionKey$categoryKey' data-parent='#accordionSidebar'>
                               <div class='bg-white py-2 collapse-inner rounded'>";
-                                // Output Category-Links
-                                foreach ($category["links"] as $linkKey => $link) {
-                                    // Check user-permission
-                                    if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
-                                        echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
-                                    }
-                                }
+                        // Output Category-Links
+                        foreach ($category["links"] as $linkKey => $link) {
+                            // Check user-permission
+                            if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
+                                echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
+                            }
+                        }
                         echo "</div>
                   </div>
                 </li>";

@@ -1,6 +1,6 @@
 <?php
-include "settings.php";
-include "db.php";
+include "constant.php";
+include "include/database.php";
 session_start();
 session_regenerate_id(true);
 $loggedIn = false;
@@ -49,4 +49,10 @@ if (isset($_POST["login"])) {
     } else {
         $error = "Die Email/Passwort Kombination stimmt nicht.";
     }
+}
+
+if (isset($_POST["logout"])) {
+    session_start();
+    session_destroy();
+    header("location:index.php");
 }

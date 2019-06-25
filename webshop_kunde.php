@@ -7,12 +7,12 @@ $pageRestricted = false;
 $userLevel = 1;
 
 // includes base function like session handling
-include "snippets/init.php";
+include "include/init.php";
 
 // defindes the name of the current page, displayed in the title and as a header on the page
 $title = "Webshop - Kunde";
-include "snippets/header.php";
-include "snippets/top.php";
+include "include/page/header.php";
+include "include/page/top.php";
 ?>
 
 <div class="container-fluid">
@@ -122,5 +122,5 @@ include "snippets/top.php";
 <script>
     $('#search-results').DataTable();
 </script>
-<?php include "snippets/bottom.php"; ?>
+<?php include "include/page/bottom.php"; ?>
 

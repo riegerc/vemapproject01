@@ -2,9 +2,15 @@
 #constant.php
 #first draft
 #requires variable $checkme
-if($GLOBALS['checkme'] !== "a30ee472364c50735ad1d43cc09be0a1"){
+if(isset($GLOBALS['checkme']) && $GLOBALS['checkme'] !== "a30ee472364c50735ad1d43cc09be0a1"){
     exit();
 }
+
+#page settings
+const PAGE_NAME = "AMS";
+const PAGE_ICON = "img/ams.svg";
+const PAGE_DESC = "Beschaffungsportal für das AMS Wien";
+
 #$_SESSION BLOCK
 const USER_ROLE = "userRole";
 const USER_ID = "userID";
@@ -18,11 +24,9 @@ const PWD_REQ_UPPER_CASE = 0;
 const PWD_REQ_LOWER_CASE = 0;
 const PWD_REQ_SPECIAL_CHAR = 0;
 
-
 #permissions example
 const PERM_CED_USER = "cedUser";
 const PERM_VIEW_USER = "viewUser";
-
 
 #db data
 const DB_HOST = "remotemysql.com";

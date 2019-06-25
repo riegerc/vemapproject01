@@ -7,11 +7,11 @@ $pageRestricted = false;
 $userLevel = 0;
 
 // includes base function like session handling
-include "snippets/init.php";
+include "include/init.php";
 
 // defines the name of the current page, displayed in the title and as a header on the page
 $title = "Willkommen am Beschaffungsportal vom AMS Wien";
-include "snippets/top.php";
+include "include/page/top.php";
 ?>
 
 <div class="container-fluid">
@@ -39,4 +39,4 @@ include "snippets/top.php";
     </div>
 </div>
 
-<?php include "snippets/bottom.php"; ?>
+<?php include "include/page/bottom.php"; ?>

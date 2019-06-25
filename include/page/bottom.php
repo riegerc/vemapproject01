@@ -1,9 +1,8 @@
-
 </div>
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; <?php echo $pageTitle ?> 2019</span>
+            <span>Copyright &copy; <?php echo PAGE_NAME ?> 2019</span>
         </div>
     </div>
 </footer>
@@ -12,7 +11,7 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-<?php include "snippets/logoutModal.php"; ?>
+<?php include "logoutModal.php"; ?>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
