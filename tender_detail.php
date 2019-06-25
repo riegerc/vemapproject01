@@ -13,7 +13,7 @@ include "snippets/init.php";
 $title = "";
 include "snippets/header.php";
 include "snippets/top.php";
-include_once "include_pdb.php";
+include_once "db.php";
 ?>
 
 <div class="container-fluid">
