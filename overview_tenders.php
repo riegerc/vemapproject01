@@ -1,20 +1,10 @@
 <?php
-// defines if the page is restricted to logged-in Users only
-$pageRestricted = false;
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = 0; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$title = "Ausschreibungen"; // defines the name of the current page, displayed in the title and as a header on the page
 
-// defindes the minimum userRole to access the page, if the
-// userRole is lower than the level, a 403 Error-Page is returned
-$userLevel = 1;
-
-// includes base function like session handling
-include "snippets/init.php";
-
-// defindes the name of the current page, displayed in the title and as a header on the page
-$title = "Ausschreibungen";
-
-include "snippets/top.php";
-
-require_once("include_pdb.php");
+include "include/init.php"; // includes base function like session handling
+include "include/page/top.php";
 
 if (isset($_POST["send"])) {
     if (isset($_POST["search"]) AND $_POST["search"] != "") {
@@ -66,7 +56,7 @@ if (isset($_POST["send"])) {
                         <select class="form-control" name='branchName' id='bName'><br>x
                             <?php
                             $sql = "SELECT branchName FROM user GROUP BY branchName";
-                            $stmt = $db->query($sql);
+                            $stmt = connectDB()->query($sql);
                             echo "<option value='' selected disabled='disabled'>Auswählen...</option>>";
 
                             while ($row = $stmt->fetch()) {
@@ -86,7 +76,7 @@ if (isset($_POST["send"])) {
                         <select class="form-control" name='tenderTyp' id='orderType'><br>
                             <?php
                             $sql = "SELECT tenderType FROM tenders GROUP BY tenderType";
-                            $stmt = $db->query($sql);
+                            $stmt = connectDB()->query($sql);
                             echo "<option value='' selected disabled='disabled'>Auswählen...</option>>";
 
                             while ($row = $stmt->fetch()) {
@@ -126,7 +116,7 @@ if (isset($_POST["send"])) {
                         OR tenders.begin LIKE :dateBegin
                         OR tenders.end LIKE :dateEnd";
 
-                $stmt = $db->prepare($sql);
+                $stmt = connectDB()->prepare($sql);
                 $stmt->bindParam(":search", $search);
                 $stmt->bindParam(":tenderTyp", $tenderTyp);
                 $stmt->bindParam(":branchName", $branchName);
@@ -159,4 +149,4 @@ if (isset($_POST["send"])) {
     <script>
         $('#search-results').DataTable();
     </script>
-<?php include "snippets/bottom.php"; ?>
+<?php include "include/page/bottom.php"; ?>

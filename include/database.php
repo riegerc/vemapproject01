@@ -51,7 +51,7 @@ function readDB(string $sql, array $params = NULL){
  * the param array is to use like in the readDB (only  with an INSERT INTO Statement):
  * $param = array(":placeholder1"=>$variable1,":placeholder2"=>$variable2); This replaces the bindParam()
  */
-function writeDB(string $sql, array $params):int{
+function insertDB(string $sql, array $params):int{
     $ret = 0;
     if(!isSqlInsert($sql)){return -1;}
 
@@ -66,4 +66,25 @@ function writeDB(string $sql, array $params):int{
         return -1;
     }
     return $ret;
+}
+/**
+ * important the SQL statement MUST start with UPDATE (case insensitive)!
+ * the param array is to use like in the readDB (only  with an UPDATE Statement):
+ * $param = array(":placeholder1"=>$variable1,":placeholder2"=>$variable2); This replaces the bindParam()
+ */
+function updateDB(string $sql, array $params):bool{
+    $ret = FALSE;
+    if(!isSqlSelect($sql)){return FALSE;}
+
+    $db = connectDB();
+
+    try{
+        $stmt = $db->prepare($sql);
+        $ret = $stmt->execute($param);        
+    }catch(Exception $ex){
+        die("DB - Error UPDATE");
+        return FALSE;
+    }
+    return $ret;
+
 }
