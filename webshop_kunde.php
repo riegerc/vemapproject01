@@ -26,7 +26,7 @@ include "snippets/top.php";
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="row">
                 <div class="form-group col-sm-3">
-                    <label>
+                    <label for="suche">
                         <small>Produktname</small>
                     </label>
                     <input type="text" class="form-control" name="suche" id="suche"/>
@@ -41,22 +41,24 @@ include "snippets/top.php";
                             <option>Büromaterial</option>
                             <option>Reinigungsmittel</option>
                             <option>Elektronik & Computer</option>
-                            <optgroup label="Dienstleistung:">
-                                <option>Kurse</option>
-                                <option>Trainer</option>
+                        </optgroup>
+                        <optgroup label="Dienstleistung:">
+                            <option>Kurse</option>
+                            <option>Trainer</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div class="form-group col-sm-2">
-                    <label>
+                    <label for="vonPreis">
                         <small>Preis von</small>
                     </label>
-                    <input class="form-control" type="number" name='vonPreis' min="0"/>
+                    <input class="form-control" type="number" name='vonPreis' id='vonPreis' min="0"/>
                 </div>
                 <div class="form-group col-sm-2">
-                    <label>
+                    <label for="bisPreis">
                         <small>Preis bis</small>
                     </label>
-                    <input class="form-control" type="number" name='bisPreis' min="0"/>
+                    <input class="form-control" type="number" name='bisPreis' id='bisPreis' min="0"/>
                 </div>
                 <div class="form-group col-sm-2" id="search-button-wrap">
                     <button class="btn btn-primary" type="submit" name="suche_senden" id="suche_senden">Suchen</button>
@@ -84,15 +86,13 @@ include "snippets/top.php";
                         echo "<th>Kaufen</th>\n";
                         echo "</tr>";
                         //outputs the amount of results you got, counter counts in foreach loop down below
-                    } else {
-                        //this is empty for now
                     }
 
-                    //sql statement for artikel!
+                    //sql statement for artikel
                     $sql = "SELECT * FROM artikel
                             WHERE artikelName 
                             LIKE :suche OR artikelGruppe LIKE :suche OR artikelBeschreibung LIKE :suche";
-                    $stmt = $db->prepare($sql);
+                    $stmt = connectDB()->prepare($sql);
                     $stmt->bindParam(":suche", $suche);
                     $stmt->execute();
 
