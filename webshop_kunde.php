@@ -19,7 +19,7 @@ include "include/page/top.php";
     <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <h5>Budget: 941.64 &euro;</h5>
+                <h5>Budget: 940.64 &euro;</h5>
             </div>
         </div>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
