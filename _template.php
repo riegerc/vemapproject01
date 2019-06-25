@@ -1,16 +1,9 @@
 <?php
-// defines if the page is restricted to logged-in Users only
-$pageRestricted = true;
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
-// defines the minimum userRole to access the page, if the
-// userRole is lower than the level, a 403 Error-Page is returned
-$userLevel = 1;
-
-// includes base function like session handling
-include "include/init.php";
-
-// defines the name of the current page, displayed in the title and as a header on the page
-$title = "";
+include "include/init.php"; // includes base function like session handling
 include "include/page/top.php";
 ?>
 
@@ -22,4 +15,3 @@ include "include/page/top.php";
 </div>
 
 <?php include "include/page/bottom.php"; ?>
-
