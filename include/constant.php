@@ -2,7 +2,7 @@
 #constant.php
 #first draft
 #requires variable $checkme
-if(isset($GLOBALS['checkme']) && $GLOBALS['checkme'] !== "a30ee472364c50735ad1d43cc09be0a1"){
+if($GLOBALS['checkme'] !== "a30ee472364c50735ad1d43cc09be0a1"){
     exit();
 }
 
