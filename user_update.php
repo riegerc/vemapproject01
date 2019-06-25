@@ -20,28 +20,30 @@ include "snippets/top.php";
     <div class="content">
         <!-- Content -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
-            <label for="userName">User:
+            <label for="userName">Username:
                 <input type="text" name="userName" id="userName">
             </label>
             <br>
             <label for="userRole">Role:
-                <select name="userRole">
+                <select name="userRole" id="userRole">
                     <?php
-                    // SQL Statement userRole SELECT
-                    /*while(true) {
-                        echo "<option>$i</option>";
-                    }*/
+                    $sql="SELECT name FROM roles";
+                    $statement=connectDB()->query($sql);
+                    while($row=$statement->fetch()) {
+                        echo "<option>$row[name]</option>";
+                    }
                     ?>
                 </select>
             </label>
             <br>
             <label for="userRights">Rights:
-                <select name="userRights">
+                <select name="userRights" id="userRights">
                     <?php
-                    // SQL Statement userRights SELECT
-                    /*while(true) {
-                        echo "<option>$i</option>";
-                    }*/
+                    $sql="SELECT name FROM rights";
+                    $statement=connectDB()->query($sql);
+                    while($row=$statement->fetch()) {
+                        echo "<option>$row[name]</option>";
+                    }
                     ?>
                 </select>
             </label>
@@ -53,10 +55,38 @@ include "snippets/top.php";
             //output
             echo "hallo";
             // SQL Statement LIKE userName SELECT
+            $sql="SELECT firstName, lastName, telNr, mobilNr, `roles`.name, `rights`.name
+            FROM ams
+            INNER JOIN roles
+            ON `roles`.objectID=`ams`.rolesFID
+            INNER JOIN rolesRights
+            ON `rolesRights`.rolesFID=`roles`.objectID
+            INNER JOIN rights
+            ON `rights`.objectID=`rolesRights`.rightsFID
+            ";
+            $statement=connectDB()->query($sql);
+            echo "<table>";
+                echo "<tr>";
+                    echo "<th>firstName:</th>";
+                    echo "<th>lastName:</th>";
+                    echo "<th>telNr:</th>";
+                    echo "<th>mobilNr:</th>";
+                    echo "<th>role:</th>";
+                echo "</tr>";
+            while( $row=$statement->fetch() ) {
+                echo "<tr>";
+                echo "<td>$row[firstName]</td>";
+                echo "<td>$row[lastName]</td>";
+                echo "<td>$row[telNr]</td>";
+                echo "<td>$row[mobilNr]</td>";
+                echo "<td>$row[name]</td>";
+                echo "<td>$row[name]</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
         }
         ?>
     </div>
 </div>
 
 <?php include "snippets/bottom.php"; ?>
-
