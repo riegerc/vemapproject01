@@ -1,7 +1,2 @@
-.settings/org.eclipse.php.core.prefs
-.settings/org.eclipse.wst.common.project.facet.core.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/vemapproject01.iml
-.idea/dataSources.xml
+.settings/
+.idea/
