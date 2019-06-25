@@ -29,8 +29,8 @@ if (isset($_POST["login"])) {
     $email = htmlspecialchars($_POST["email"]);
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
-        $sql = "SELECT * FROM user WHERE userEmail=:email";
-        $stmt = $db->prepare($sql);
+        $sql = "SELECT * FROM login WHERE email=:email";
+        $stmt = connectDB()->prepare($sql);
         $stmt->bindParam(":email", $email);
         $stmt->execute();
         $row = $stmt->fetch();
