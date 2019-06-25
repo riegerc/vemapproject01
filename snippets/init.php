@@ -37,10 +37,10 @@ if (isset($_POST["login"])) {
         $loggedIn = true;
 
         if ($row) {
-            if (password_verify($_POST["password"], $row["userPassword"])) {
-                $_SESSION["userID"] = $row["userID"];
-                $_SESSION["userName"] = $row["userName"];
-                $_SESSION["userRole"] = $row["userRole"];
+            if (password_verify($_POST["password"], $row["password"])) {
+                $_SESSION["userID"] = $row["objectID"];
+                $_SESSION["userName"] = $row["email"];
+                $_SESSION["userRole"] = $row["amsLogin"];
                 header("location:index.php");
             } else {
                 $error = "Die Email/Passwort Kombination stimmt nicht.";
