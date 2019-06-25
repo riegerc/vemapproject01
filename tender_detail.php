@@ -11,7 +11,6 @@ include "include/init.php";
 
 // defindes the name of the current page, displayed in the title and as a header on the page
 $title = "";
-include "include/page/header.php";
 include "include/page/top.php";
 include_once "include/database.php";
 ?>
