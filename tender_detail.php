@@ -52,7 +52,7 @@ $dateEnd=date_create($row["end"]);
         <a href="overview_tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
         <h2><?php echo $row["tender"] ?></h2>
 
-        <a href="pdf.php?id=7" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
+        <a href="pdf.php?id=<?php echo $tenderGetID ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
         <br>
         <table class="table">
             <thead class="thead-dark">

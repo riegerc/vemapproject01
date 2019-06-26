@@ -30,5 +30,13 @@ i {
 	width:50%;
 }
 .cr-gewichtung{
-	width:4%;
+	width:10%;
+}
+.criterion {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+.subcriterion {
+    font-style: italic;
+    font-size: 1.2em;
 }
