@@ -7,12 +7,12 @@ $pageRestricted = false;
 $userLevel = 1;
 
 // includes base function like session handling
-include "snippets/init.php";
+include "include/init.php";
 
 // defindes the name of the current page, displayed in the title and as a header on the page
 $title = "";
-include "snippets/header.php";
-include "snippets/top.php";
+
+include "include/page/top.php";
 echo "<h6>". "Ams ID : " . $_SESSION["amsFID"] . "<h6>". "<br>";
 echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
 ?>
@@ -48,8 +48,16 @@ echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
 
            </div>
             <br>
+            <label>Wählen Sie Excel-Datei
+            </label><br> <input class="btn btn-primary" type="file" name="file"
+                                id="file" accept=".xls,.xlsx">
+            <br>
+            <br>
             <button type="submit" class="btn btn-primary" name="absenden" > abschicken</button>
             <button  type="reset" class="btn btn-danger"  >Reset</button>
+            <br>
+
+
         </form>
    </div>
 </div>
@@ -83,4 +91,4 @@ if( isset($_POST["absenden"]) ){
 
 
 
- include "snippets/bottom.php"; ?>
+ include "include/page/bottom.php"; ?>

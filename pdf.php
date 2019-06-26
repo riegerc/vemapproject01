@@ -1,10 +1,12 @@
 <?php
-session_start();
-session_regenerate_id(true);
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = 0; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$title = "Ausschreibungen-PDF"; // defines the name of the current page, displayed in the title and as a header on the page
 
 $pdfID = (int)$_GET["id"];
 
 if ($pdfID < 1) header("location:error.php?e=400");
+include ("include/init.php");
 include ("include/database.php");
 $db=connectDB();
 
@@ -26,7 +28,7 @@ if (!$row = $stmt->fetch()) header("location:error.php?e=400");
 $bdate= date_create($row["begin"]);
 $edate= date_create($row["end"]);
 
-require('fpdf.php');
+require('classes/FPDF/fpdf.php');
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'A4');
