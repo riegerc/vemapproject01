@@ -46,15 +46,14 @@ echo "    </tr>";
             if(empty($_POST['bisPreis'])) {
               $bisPreis=1000000;
             }
-            $sql="SELECT article.name,article.description,articlegroup.name,article.articleState FROM `article` LEFT JOIN articlegroup ON `articleGroupFID`=articlegroup.objectID
-            WHERE (articlegroup.name=:product_type) OR (name LIKE :suche) AND (article.price BETWEEN :vonPreis AND :bisPreis)";
+            $sql="SELECT * FROM `article`
+            WHERE (description=:product_type) AND (name LIKE :suche) AND (price BETWEEN :vonPreis AND :bisPreis)";
     $stmt=$db->prepare($sql);
     $stmt->bindParam(":product_type",$product_type);
     $stmt->bindParam(':vonPreis',$vonPreis);
     $stmt->bindParam(':bisPreis',$bisPreis);
     $stmt->bindParam(":suche",$suche);
     $stmt->execute();
-    $output="";
 
 
     //this is the counter for the amount of results you get
