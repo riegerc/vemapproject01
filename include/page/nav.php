@@ -20,6 +20,14 @@ $navigationItems =
                     "icon" => "<i class='fas fa-store-alt'></i>",
                     "minUserLevel" => 0
                 ],
+                ["name" => "Bewertungen",
+                    "links" => [
+                        ["name" => "Einkauf", "url" => "#", "minUserLevel" => 0],
+                        ["name" => "Lieferant", "url" => "#", "minUserLevel" => 0],
+                    ],
+                    "icon" => "<i class='fas fa-edit'></i>",
+                    "minUserLevel" => 0
+                ],
             ],
             "minUserLevel" => 0
         ],
