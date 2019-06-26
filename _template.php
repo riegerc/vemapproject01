@@ -4,7 +4,7 @@ $userLevel = 1; // defines the minimum userRole to access the page, if the userR
 $title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
-include "include/page/top.php";
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 ?>
 
 <div class="container-fluid">
@@ -14,4 +14,4 @@ include "include/page/top.php";
     </div>
 </div>
 
-<?php include "include/page/bottom.php"; ?>
+<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
