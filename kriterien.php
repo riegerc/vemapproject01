@@ -18,7 +18,7 @@ require_once("classes/repository.inc.php");
 require_once("include/helper.inc.php");
 
 $rep=new Repository();
-$sum=0;
+$summekriterien=0;
 $ok=true;
 $meldung="";
 $name="";
@@ -40,26 +40,24 @@ if(isset($_POST["senden"])){
 	unset($_POST["gewichtung"]);
 	unset($_POST["kid"]);
 	$extKriterien=array();
-	
+
 	foreach($_POST as $key=>$val){
 		$key=Helper::getId($key);
 		$extKriterien[$key]=(int)Helper::sanitize($val);
-		$sum+=$val;
 	}
-	$sum+=$gewichtung;
-	// echo "Summe: ".$sum;
-	if($sum!==100){
-		$meldung="Die Gewichtung der Kriterien muss in Summe 100 ergeben!";
+	if(isset($kid)){
+		$rep->createUnterKriterium(new Kriterium($name,$gewichtung,0,$kid));
+		$rep->update($extKriterien, $kid);
 	}else{
-		if(isset($kid)){
-			$rep->createUnterKriterium(new Kriterium($name,$gewichtung,0,$kid));
-			$rep->update($extKriterien, $kid);
-		}else{
-			$rep->create(new Kriterium($name,$gewichtung));
-			$rep->update($extKriterien);
-		}
-		echo '<meta http-equiv="refresh" content="0">';
+		$rep->create(new Kriterium($name,$gewichtung));
+		$rep->update($extKriterien);
 	}
+	echo '<meta http-equiv="refresh" content="0">';
+
+}
+
+foreach($kriterien as $kriterium){
+	$summekriterien+=$kriterium->getGewichtung();
 }
 ?>
 
@@ -76,11 +74,19 @@ if(isset($_POST["senden"])){
 		}
 			foreach($kriterien as $kriterium){
 				$unterkriterien=$rep->readUnterKriterien($kriterium->getId());
-				$ausgabe.="<li><span class='criterion'>" . $kriterium->getName(). "</span> <label>(Gewichtung <input type='text' name='inp".$kriterium->getId()."' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> %)</label> ";
+				$summeunterkriterien=0;
+				foreach($unterkriterien as $unterkriterium){
+					$summeunterkriterien+=$unterkriterium->getGewichtung();
+				}
+								
+				$ausgabe.="<li><span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
+							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
+							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ")</label> ";
 					if(count($unterkriterien)>0&&!isset($kid)){
 						$ausgabe.="<ul>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung ".$unterkriterium->getGewichtung()." %)</li>";
+								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung ".
+											number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
 						$ausgabe.="</ul>";
 					}
