@@ -16,7 +16,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
     //this variable is for the amount of results here. it scales with foreach loop below
     $counter=0;
-    
+    $db=connectDB();
 
 //if suche button is clicked
 if( isset ($_POST['suche_senden'])){
