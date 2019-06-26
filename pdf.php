@@ -7,7 +7,6 @@ $pdfID = (int)$_GET["id"];
 
 if ($pdfID < 1) header("location:error.php?e=400");
 include ("include/init.php");
-include ("include/database.php");
 $db=connectDB();
 
 $sql = "SELECT *,tenders.objectID AS DocNr
@@ -42,7 +41,7 @@ $pdf->SetRightMargin(10);
 /* --- Rect --- */
 $pdf->Rect(10, 10, 190, 270, 'D');
 /* --- Image --- */
-$pdf->Image('logo-social.png', 10, 11, 63, 37);
+$pdf->Image('img/amsPDFlogo.png', 10, 11, 63, 37);
 /* --- Cell_DOC.NR --- */
 $pdf->SetXY(75, 11);
 $pdf->SetFont('', 'B', 12);
