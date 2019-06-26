@@ -133,7 +133,7 @@ if (isset($_POST["send"])) {
 
                     echo "<tr>";
                     echo "<td>" . $row["DocNumber"] . "</td>";
-                    echo "<td> <a href='#'>$row[tender]</a> </td>";
+                    echo "<td> <a href='tender_detail.php?tenderID=$row[DocNumber]'>$row[tender]</a> </td>";
                     echo "<td>" . $row["branchName"] . "</td>";
                     echo "<td>" . date_format($bdate, 'd.m.Y') . "</td>";
                     echo "<td>" . date_format($edate, 'd.m.Y') . "</td>";

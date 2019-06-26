@@ -1,11 +1,12 @@
 <?php
-session_start();
-session_regenerate_id(true);
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = 0; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$title = "Ausschreibungen-PDF"; // defines the name of the current page, displayed in the title and as a header on the page
 
 $pdfID = (int)$_GET["id"];
 
 if ($pdfID < 1) header("location:error.php?e=400");
-include ("include/database.php");
+include ("include/init.php");
 $db=connectDB();
 
 $sql = "SELECT *,tenders.objectID AS DocNr
@@ -26,7 +27,7 @@ if (!$row = $stmt->fetch()) header("location:error.php?e=400");
 $bdate= date_create($row["begin"]);
 $edate= date_create($row["end"]);
 
-require('fpdf.php');
+require('classes/FPDF/fpdf.php');
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'A4');
@@ -40,7 +41,7 @@ $pdf->SetRightMargin(10);
 /* --- Rect --- */
 $pdf->Rect(10, 10, 190, 270, 'D');
 /* --- Image --- */
-$pdf->Image('logo-social.png', 10, 11, 63, 37);
+$pdf->Image('img/amsPDFlogo.png', 10, 11, 63, 37);
 /* --- Cell_DOC.NR --- */
 $pdf->SetXY(75, 11);
 $pdf->SetFont('', 'B', 12);

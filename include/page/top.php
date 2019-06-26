@@ -9,7 +9,7 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="css/sb-admin-2.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
-    <title><?php echo "$title |" . PAGE_NAME ?></title>
+    <title><?php echo "$title | " . PAGE_NAME ?></title>
 </head>
 <body id="page-top">
 <div id="wrapper">
