@@ -61,4 +61,4 @@ const DB_HOST = "remotemysql.com";
 const DB_NAME = "XlYChOI4BN";
 CONST DB_CHARSET = "utf8";
 const DB_USER = "XlYChOI4BN";
-const DB_PWD = "e8qAM7qkK6!";
+const DB_PWD = "e8qAM7qkK6";

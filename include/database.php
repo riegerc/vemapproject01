@@ -17,7 +17,7 @@ function connectDB(): PDO
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
         );
     } catch (PDOException $e) {
-        die("That didn't work");
+        die("That didn't work.<br><br>$e");
     }
 }
 
