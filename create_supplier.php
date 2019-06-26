@@ -189,6 +189,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     $stmt->bindParam(":sectorCode", $country);
 
                  $stmt->execute();
+                 echo $password;
 //                    // echo "IN DATENBANK GESPEICHER!";
 //
 //
