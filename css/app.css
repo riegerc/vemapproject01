@@ -25,3 +25,10 @@ i {
     text-align: center;
     width: 1.2em;
 }
+.cr-list{
+	list-style:none;
+	width:50%;
+}
+.cr-gewichtung{
+	width:4%;
+}
