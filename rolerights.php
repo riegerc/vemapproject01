@@ -1,14 +1,16 @@
 <?php
-$pageRestricted = TRUE; // defines if the page is restricted to logged-in Users only
-$userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once 'include/constant.php';
+$pageRestricted = true; // defines if the page is restricted to logged-in Users only
+$userLevel = PERM_EDIT_PERM; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
 $title = "Rolle Rechtzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
-include "include/init.php"; // includes base function like session handling
-include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-$perm = new Permission();
+require_once "include/init.php"; // includes base function like session handling
+require_once "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+/*
 if(!$perm->hasPermission(PERM_EDIT_PERM)){
     echo "Keine Berechtigung!<br>";
     die("Leider nicht.");
-}
+}*/
 
 if(isset($_POST['saverolerights'])){
     #TODO: save new rigths
@@ -28,12 +30,12 @@ if(isset($_POST['saverolerights'])){
             $stmt = $db->prepare($sql);
             $stmt->execute($param);
         }
+        
         $db->commit();
     }catch(Exception $ex){
         echo $ex;
         $db->rollBack();
     }
-    
 }
 
 ?>
