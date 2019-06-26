@@ -10,7 +10,7 @@ $userLevel = 0;
 include "include/init.php";
 
 // defines the name of the current page, displayed in the title and as a header on the page
-$title = "User Update";
+$title = "Benutzer";
 include "include/page/top.php";
 $suche="%%";
 if(isset($_GET["delete"])){
@@ -20,9 +20,7 @@ if(isset($_GET["delete"])){
     $statement->bindParam(":user", $_GET["delete"]);
     $statement->execute();
 }
-if(isset($_GET["update"])) {
 
-}
 ?>
 
 <div class="container-fluid">
@@ -30,7 +28,7 @@ if(isset($_GET["update"])) {
     <div class="content">
         <!-- Content -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
-            <label for="userName">Username:
+            <label for="userName">Suche:
                 <input type="text" name="userName" id="userName">
             </label>
             <br>
@@ -66,10 +64,8 @@ if(isset($_GET["update"])) {
         if( isset( $_GET["suchen"] ) ) {
             $suche="%". $_GET["userName"] ."%";
         }
-            //output
-            echo "hallo";
             // SQL Statement LIKE userName SELECT
-            $sql="SELECT firstName, lastName, email, roles.name AS rolesName, user.objectID, postCode
+            $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS rolesName, user.objectID
             FROM user
             LEFT JOIN roles
             ON user.rolesFID = roles.objectID
@@ -85,11 +81,21 @@ if(isset($_GET["update"])) {
             $statement->execute();
             echo "<table>";
                 echo "<tr>";
-                    echo "<th>firstName:</th>";
-                    echo "<th>lastName:</th>";
+                    echo "<th>Vorname:</th>";
+                    echo "<th>Nachname:</th>";
                     echo "<th>Email:</th>";
-                    echo "<th>PLZ:</th>";
                     echo "<th>role:</th>";
+                    echo "<th>Telefon:</th>";
+                    echo "<th>Mobil:</th>";
+                    echo "<th>Filiale:</th>";
+                    echo "<th>Straße:</th>";
+                    echo "<th>Haus Nr.:</th>";
+                    echo "<th>Stiege:</th>";
+                    echo "<th>Tür:</th>";
+                    echo "<th>PLZ:</th>";
+                    echo "<th>Stadt:</th>";
+                    echo "<th>Land:</th>";
+                    echo "<th>Sektor:</th>";
                     echo "<th>Bearbeiten</th>";
                     echo "<th>Löschen</th>";
                 echo "</tr>";
@@ -99,9 +105,19 @@ if(isset($_GET["update"])) {
                 echo "<td>$row[firstName]</td>";
                 echo "<td>$row[lastName]</td>";
                 echo "<td>$row[email]</td>";
-                echo "<td>$row[postCode]</td>";
                 echo "<td>$row[rolesName]</td>";
-                echo "<td><a href='?update=$row[objectID]'>bearbeiten</a></td>";
+                echo "<td>$row[telNr]</td>";
+                echo "<td>$row[mobilNr]</td>";
+                echo "<td>$row[branchName]</td>";
+                echo "<td>$row[street]</td>";
+                echo "<td>$row[houseNumber]</td>";
+                echo "<td>$row[stairs]</td>";
+                echo "<td>$row[door]</td>";
+                echo "<td>$row[postCode]</td>";
+                echo "<td>$row[city]</td>";
+                echo "<td>$row[country]</td>";
+                echo "<td>$row[sectorCode]</td>";
+                echo "<td><a href='user_update_update.php?user=$row[objectID]'>bearbeiten</a></td>";
                 echo "<td><a href='?delete=$row[objectID]'>löschen</a></td>";
                 echo "</tr>";
             }
