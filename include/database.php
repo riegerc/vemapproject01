@@ -22,13 +22,16 @@ function connectDB(): PDO
 }
 
 /**
+ * @deprecated do not use if not familar with it!
  * important: the SQL Statement in the $sql variable MUST start with select (case insensitive)!
  * please use $param array if the statement contains user imput. This goes like this:
  * $sql = "SELECT * FROM tablename WHERE column1 = :placeholder1 and column2 = :placeholder2;";
  * $param = array(":placeholder1"=>$variable1,":placeholder2"=>$variable2); This replaces the bindParam()
  * @param string $sql
  * @param array|null $params
- * @return array|string
+ * @return array|string if returns array, it looks like: array[ array[row[columname1,columnname2,columnname3],
+ *                                                                    row[columname1,columnname2,columnname3],
+ *                                                                    row[columname1,columnname2,columnname3]]]
  */
 function readDB(string $sql, array $params = NULL)
 {
@@ -52,12 +55,13 @@ function readDB(string $sql, array $params = NULL)
 }
 
 /**
+ * @deprecated do not use if not familar with it!
  * important the SQL statement MUST start with INSERT (case insensitive)!
  * the param array is to use like in the readDB (only  with an INSERT INTO Statement):
  * $param = array(":placeholder1"=>$variable1,":placeholder2"=>$variable2); This replaces the bindParam()
  * @param string $sql
  * @param array $params
- * @return int
+ * @return int index (objectID) of last inserted row
  */
 function insertDB(string $sql, array $params): int
 {
@@ -80,6 +84,7 @@ function insertDB(string $sql, array $params): int
 }
 
 /**
+ * @deprecated do not use if not familar with it!
  * important the SQL statement MUST start with UPDATE (case insensitive)!
  * the param array is to use like in the readDB (only  with an UPDATE Statement):
  * $param = array(":placeholder1"=>$variable1,":placeholder2"=>$variable2); This replaces the bindParam()
