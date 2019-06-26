@@ -12,7 +12,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <div class="content">
         <?php
 
-        function generateStrongPassword($length = 10, $add_dashes = true, $available_sets = 'luds')
+        function generateStrongPassword($length = 10, $add_dashes = false, $available_sets = 'luds')
         {
             $sets = array();
             if (strpos($available_sets, 'l') !== false)
@@ -20,7 +20,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             if (strpos($available_sets, 'u') !== false)
                 $sets[] = 'ABCDEFGHJKMNPQRSTUVWXYZ';
             if (strpos($available_sets, 'd') !== false)
-                $sets[] = '23456789';
+                $sets[] = '0123456789';
             if (strpos($available_sets, 's') !== false)
                 $sets[] = '!@#$%&*?';
             $all = '';
@@ -190,7 +190,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
                  $stmt->execute();
                  echo $password;
-//                    // echo "IN DATENBANK GESPEICHER!";
+                 echo "IN DATENBANK GESPEICHERT!";
 //
 //
 //
