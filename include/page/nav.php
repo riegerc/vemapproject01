@@ -30,8 +30,8 @@ $navigationItems =
                     "minUserLevel" => 0
                 ],["name" => "User",
                     "links" => [
-                        ["name" => "User", "url" => "#", "minUserLevel" => 0],
-                        ["name" => "Update", "url" => "#", "minUserLevel" => 0],
+                        ["name" => "User", "url" => "user.php", "minUserLevel" => 0],
+                        ["name" => "Update", "url" => "update.php", "minUserLevel" => 0],
                     ],
                     "icon" => "<i class='fas fa-edit'></i>",
                     "minUserLevel" => 0
