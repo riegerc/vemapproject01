@@ -26,8 +26,32 @@ const PWD_REQ_LOWER_CASE = 0;
 const PWD_REQ_SPECIAL_CHAR = 0;
 
 #permissions example
-const PERM_CED_USER = "cedUser";
-const PERM_VIEW_USER = "viewUser";
+const PERM_CED_USER = "cedUser"; # NOT including SELF!
+const PERM_EDIT_SELF = "editSelf"; #useless, because everyone can edit him/herself, but noone can delete him/herself
+const PERM_VIEW_USER = "viewUser"; # NOT including SELF!
+const PERM_EDIT_BUDGED = "editBudtget"; # can not apply to SELF
+const PERM_CED_OFFER = "cedOffer";
+const PERM_VIEW_OFFER = "viewOffer";
+const PERM_CED_CATALOGE = "cedCataloge";
+const PERM_VIEW_CATALOGE = "viewCataloge";
+const PERM_ORDER_FROM_CATALOGE = "orderFromCataloge";
+const PERM_INSERT_INTO_CATALOGE = "insertIntoCataloge";
+const PERM_SHOP_CATALOGE = "shopCataloge";
+const PERM_SHOP_ARTICLE = "shopArticle";
+const PERM_VIEW_KLIENT_MENU = "viewKlientMenu";
+const PERM_VIEW_SUPPLIER_MENU  = "viewSupplierMenu";
+const PERM_EDIT_KLIENT_ADDRESS = "editKlientAddress";
+const PERM_RELEASE_CATALOG_ITEM = "releaseCalalogItem";
+const PERM_CED_REVIEW = "cedReview";
+const PERM_VIEW_REVIEW = "viewReview";
+const PERM_MAKE_REVIEW = "makeReview";
+const PERM_REVIEW_SUPPLIER = "reviewSupplier";
+const PERM_REVIEW_ARTICLE = "reviewArticle";
+const PERM_SUBMIT_OFFER = "submitOffer";
+const PERM_TICKET_TO_RIDE = "yeahYeahYeah";
+
+
+
 
 #db data
 const DB_HOST = "192.168.1.84";
