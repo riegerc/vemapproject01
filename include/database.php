@@ -3,11 +3,11 @@ require_once "validate.php";
 
 function connectDB(): PDO
 {
-    $dbHost = "https://remotemysql.com/phpmyadmin";
-    $dbName = "XlYChOI4BN";
+    $dbHost = DB_HOST;
+    $dbName = DB_NAME;
     $dbCharset = DB_CHARSET;
-    $dbUser = "XlYChOI4BN";
-    $dbPw = "e8qAM7qkK6";
+    $dbUser = DB_USER;
+    $dbPw = DB_PWD;
 
     try {
         return new PDO(
