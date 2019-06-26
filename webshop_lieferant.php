@@ -16,6 +16,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <h3>Lieferant Ansicht | Kontostand:53,941&euro;</h3> 
 
 <?php
+$db=connectDB();
 $sql="SELECT 
 article.objectID as article_id, 
 article.name as article_name, 
@@ -50,7 +51,7 @@ foreach($db->query($sql) as $row){
     echo "    </tr>";}
 
 ?>
-</form>
+
 
     </div>
 </div>
