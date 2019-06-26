@@ -5,6 +5,7 @@ session_regenerate_id(true);
 $pdfID = (int)$_GET["id"];
 
 if ($pdfID < 1) header("location:error.php?e=400");
+include ("include/init.php");
 include ("include/database.php");
 $db=connectDB();
 
@@ -26,7 +27,7 @@ if (!$row = $stmt->fetch()) header("location:error.php?e=400");
 $bdate= date_create($row["begin"]);
 $edate= date_create($row["end"]);
 
-require('fpdf.php');
+require('classes/FPDF/fpdf.php');
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'A4');
