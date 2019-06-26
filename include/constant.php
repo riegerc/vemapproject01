@@ -57,7 +57,7 @@ const PERM_SUBMIT_OFFER = "submitOffer";
 //const DB_PWD = "vemap1234!";
 
 //# new db data
-const DB_HOST = "remotemysql.com";
+const DB_HOST = "remotemysql.com/phpmyadmin";
 const DB_NAME = "XlYChOI4BN";
 CONST DB_CHARSET = "utf8";
 const DB_USER = "XlYChOI4BN";
