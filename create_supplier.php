@@ -10,6 +10,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
+
         <?php
 
         function generateStrongPassword($length = 10, $add_dashes = false, $available_sets = 'luds')
@@ -46,94 +47,135 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         }
 
         ?>
+
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <label>Firma: </label>
-            <input type="text" class="form-control" name="branchName"
-                   placeholder="Firmenname..."><br>
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label>Firma: </label>
+                    <input type="text" class="form-control" name="branchName"
+                           placeholder="Firmenname..."></div>
 
-            <label>Adressedaten: </label>
-            <input type="text" class="form-control" name="street"
-                   placeholder="Straße..."><br>
-            <input type="text" class="form-control" name="houseNumber"
-                   placeholder="Hausnummer..."><br>
-            <input type="text" class="form-control" name="stairs"
-                   placeholder="Stiege..."><br>
-            <input type="text" class="form-control" name="door"
-                   placeholder="Tür..."><br>
-            <input type="text" class="form-control" name="postCode"
-                   placeholder="PLZ..."><br>
-            <input type="text" class="form-control" name="city"
-                   placeholder="Stadt.."><br>
-            <input type="text" class="form-control" name="country"
-                   placeholder="Land..."><br>
+                <div class="form-group col-sm-3">
+                    <label>Adressedaten: </label>
+                    <label>Strasse: </label>
+                    <input type="text" class="form-control" name="street"
+                           placeholder="Straße..."></div>
+                <div class="form-group col-sm-3">
+                    <label>Hausnummer: </label>
+                    <input type="text" class="form-control" name="houseNumber"
+                           placeholder="Hausnummer..."></div>
+                <div class="form-group col-sm-3">
+                    <label>Stiege: </label>
+                    <input type="text" class="form-control" name="stairs"
+                           placeholder="Stiege..."></div>
+                <div class="form-group col-sm-3">
+                    <label>Tür: </label>
+                    <input type="text" class="form-control" name="door"
+                           placeholder="Tür..."></div>
+                <div class="form-group col-sm-3">
+                    <label>PLZ: </label>
+                    <input type="text" class="form-control" name="postCode"
+                           placeholder="PLZ..."></div>
+                <div class="form-group col-sm-3">
+                    <label>Stadt: </label>
+                    <input type="text" class="form-control" name="city"
+                           placeholder="Stadt.."></div>
+                <div class="form-group col-sm-3">
+                    <label>Land: </label>
+                    <input type="text" class="form-control" name="country"
+                           placeholder="Land..."></div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label>Ansprechpartner: </label><br>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label>Vorname: </label>
+                    <input type="text" class="form-control" name="firstName"
+                           placeholder="Vorname..."></div>
+                <div class="form-group col-sm-3">
+                    <label>Nachname: </label>
+                    <input type="text" class="form-control" name="lastName"
+                           placeholder="Nachname..."></div>
+                <div class="form-group col-sm-3">
+                    <label>E-Mail: </label>
+                    <input type="email" class="form-control" name="email"
+                           placeholder="E-Mail..."></div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3">
 
-            <label>Ansprechpartner: </label>
-            <input type="text" class="form-control" name="firstName"
-                   placeholder="Vorname..."><br>
-            <input type="text" class="form-control" name="lastName"
-                   placeholder="Nachname..."><br>
-            <input type="text" class="form-control" name="email"
-                   placeholder="E-Mail..."><br>
-            <input type="text" class="form-control" name="telNr"
-                   placeholder="Festnetz..."><br>
-            <input type="text" class="form-control" name="mobilNr"
-                   placeholder="Mobil..."><br>
+                    <label>Telefonnummer: </label><br>
+                    </div>
+                <div class="form-group col-sm-3">
+                    <label>Festnetz: </label>
+                    <input type="text" class="form-control" name="telNr"
+                           placeholder="Festnetz..."></div>
+                <div class="form-group col-sm-3">
+                    <label>Mobil: </label>
+                    <input type="text" class="form-control" name="mobilNr"
+                           placeholder="Mobil..."></div>
+                <div class="form-group col-sm-3">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Absenden"><br>
+                </div>
+            </div>
 
-            <input type="submit" class="btn btn-primary" name="submit" value="Absenden"><br>
         </form>
+    </div>
+</div>
 
 
-        <?php
+<?php
 
 
-        $password = generateStrongPassword();
+$password = generateStrongPassword();
 
-        $options = [
-            'cost' => 12,
-        ];
+$options = [
+    'cost' => 12,
+];
 
-        if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
 
-            $roles = 10;
-            htmlspecialchars($branchName = $_POST['branchName']);
-            htmlspecialchars($street = $_POST['street']);
-            htmlspecialchars($houseNumber = $_POST['houseNumber']);
-            htmlspecialchars($stairs = $_POST['stairs']);
-            htmlspecialchars($door = $_POST['door']);
-            htmlspecialchars($postCode = $_POST['postCode']);
-            htmlspecialchars($city = $_POST['city']);
-            htmlspecialchars($country = $_POST['country']);
-            htmlspecialchars($firstName = $_POST['firstName']);
-            htmlspecialchars($lastName = $_POST['lastName']);
-            htmlspecialchars($email = $_POST['email']);
-            htmlspecialchars($telNr = $_POST['telNr']);
-            htmlspecialchars($mobilNr = $_POST['mobilNr']);
+    $roles = 10;
+    htmlspecialchars($branchName = $_POST['branchName']);
+    htmlspecialchars($street = $_POST['street']);
+    htmlspecialchars($houseNumber = $_POST['houseNumber']);
+    htmlspecialchars($stairs = $_POST['stairs']);
+    htmlspecialchars($door = $_POST['door']);
+    htmlspecialchars($postCode = $_POST['postCode']);
+    htmlspecialchars($city = $_POST['city']);
+    htmlspecialchars($country = $_POST['country']);
+    htmlspecialchars($firstName = $_POST['firstName']);
+    htmlspecialchars($lastName = $_POST['lastName']);
+    htmlspecialchars($email = $_POST['email']);
+    htmlspecialchars($telNr = $_POST['telNr']);
+    htmlspecialchars($mobilNr = $_POST['mobilNr']);
 
-            //generate Password
-
-
-            $hash = password_hash($password, PASSWORD_BCRYPT, $options);
-            $ok=true;
-
-            $sql = "SELECT * FROM user WHERE email=:email";
-            $stmt = connectDB()->prepare($sql);
-            $stmt->bindParam(":email", $email);
-            $stmt->execute();
-            $row = $stmt->fetch();
-            //Wenn etwas gefunden wurde
+    //generate Password
 
 
+    $hash = password_hash($password, PASSWORD_BCRYPT, $options);
+    $ok = true;
+
+    $sql = "SELECT * FROM user WHERE email=:email";
+    $stmt = connectDB()->prepare($sql);
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    //Wenn etwas gefunden wurde
 
 
-            if ($row !== false) {
+    if ($row !== false) {
 
-                $ok = false;
-                $bericht = "Email existiert bereits!<br>";
+        $ok = false;
+        $bericht = "Email existiert bereits!<br>";
 
-            } else {
-                if ($ok == true) {
+    } else {
+        if ($ok == true) {
 
-                    $sql = "INSERT INTO user (
+            $sql = "INSERT INTO user (
                   firstName,
                   lastName,
                   email,
@@ -169,28 +211,28 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                           :sectorCode)";
 
 
-                    $stmt = connectDB()->prepare($sql);
+            $stmt = connectDB()->prepare($sql);
 
-                    $stmt->bindParam(":firstName", $firstName);
-                    $stmt->bindParam(":lastName", $lastName);
-                    $stmt->bindParam(":email", $email);
-                    $stmt->bindParam(":password", $hash);
-                    $stmt->bindParam(":telNr", $telNr);
-                    $stmt->bindParam(":mobilNr", $mobilNr);
-                    $stmt->bindParam(":rolesFID", $roles);
-                    $stmt->bindParam(":branchName", $branchName);
-                    $stmt->bindParam(":street", $street);
-                    $stmt->bindParam(":houseNumber", $houseNumber);
-                    $stmt->bindParam(":stairs", $stairs);
-                    $stmt->bindParam(":door", $door);
-                    $stmt->bindParam(":postCode", $postCode);
-                    $stmt->bindParam(":city", $city);
-                    $stmt->bindParam(":country", $country);
-                    $stmt->bindParam(":sectorCode", $country);
+            $stmt->bindParam(":firstName", $firstName);
+            $stmt->bindParam(":lastName", $lastName);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":password", $hash);
+            $stmt->bindParam(":telNr", $telNr);
+            $stmt->bindParam(":mobilNr", $mobilNr);
+            $stmt->bindParam(":rolesFID", $roles);
+            $stmt->bindParam(":branchName", $branchName);
+            $stmt->bindParam(":street", $street);
+            $stmt->bindParam(":houseNumber", $houseNumber);
+            $stmt->bindParam(":stairs", $stairs);
+            $stmt->bindParam(":door", $door);
+            $stmt->bindParam(":postCode", $postCode);
+            $stmt->bindParam(":city", $city);
+            $stmt->bindParam(":country", $country);
+            $stmt->bindParam(":sectorCode", $country);
 
-                 $stmt->execute();
-                 echo $password;
-                 echo "IN DATENBANK GESPEICHERT!";
+            $stmt->execute();
+            echo $password;
+            echo "IN DATENBANK GESPEICHERT!";
 //
 //
 //
@@ -203,14 +245,14 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 //                    mail($email,
 //                        "Ihre Zugangsdaten zu unserem Portal",
 //                        $msg);
-                }
-
-            }
         }
-        ?>
+
+    }
+}
+?>
 
 
-    </div>
+</div>
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
