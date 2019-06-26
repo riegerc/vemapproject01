@@ -32,34 +32,9 @@ if(isset($_GET["delete"])){
                 <input type="text" name="userName" id="userName">
             </label>
             <br>
-<!--            -->
-<!--            <label for="userRole">Role:-->
-<!--                <select name="userRole" id="userRole">-->
-<!--                    --><?php
-//                    $sql="SELECT name FROM roles";
-//                    $statement=connectDB()->query($sql);
-//                    while($row=$statement->fetch()) {
-//                        echo "<option>$row[name]</option>";
-//                    }
-//                    ?>
-<!--                </select>-->
-<!--            </label>-->
-<!--            <br>-->
-<!--            <label for="userRights">Rights:-->
-<!--                <select name="userRights" id="userRights">-->
-<!--                    --><?php
-//                    $sql="SELECT name FROM rights";
-//                    $statement=connectDB()->query($sql);
-//                    while($row=$statement->fetch()) {
-//                        echo "<option>$row[name]</option>";
-//                    }
-//                    ?>
-<!--                </select>-->
-<!--            </label>-->
-<!--            -->
-            <br>
             <button type="submit" name="suchen">Suchen</button>
         </form>
+        <a href="user_update_update.php"></a>
         <?php
         if( isset( $_GET["suchen"] ) ) {
             $suche="%". $_GET["userName"] ."%";
@@ -117,13 +92,14 @@ if(isset($_GET["delete"])){
                 echo "<td>$row[city]</td>";
                 echo "<td>$row[country]</td>";
                 echo "<td>$row[sectorCode]</td>";
-                echo "<td><a href='user_update_update.php?user=$row[objectID]'>bearbeiten</a></td>";
+                echo "<td><a href='update.php?user=$row[objectID]'>bearbeiten</a></td>";
                 echo "<td><a href='?delete=$row[objectID]'>löschen</a></td>";
                 echo "</tr>";
             }
             echo "</table>";
 
         ?>
+
     </div>
 </div>
 
