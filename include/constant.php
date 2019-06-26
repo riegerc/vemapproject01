@@ -48,6 +48,7 @@ const PERM_MAKE_REVIEW = "makeReview";
 const PERM_REVIEW_SUPPLIER = "reviewSupplier";
 const PERM_REVIEW_ARTICLE = "reviewArticle";
 const PERM_SUBMIT_OFFER = "submitOffer";
+const PERM_EDIT_PERM = "editPermission";
 
 #db data
 //const DB_HOST = "192.168.1.84";

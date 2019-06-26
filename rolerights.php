@@ -1,10 +1,41 @@
 <?php
-$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$pageRestricted = TRUE; // defines if the page is restricted to logged-in Users only
 $userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
 $title = "Rolle Rechtzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
-
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+$perm = new Permission();
+if(!$perm->hasPermission(PERM_EDIT_PERM)){
+    echo "Keine Berechtigung!<br>";
+    die("Leider nicht.");
+}
+
+if(isset($_POST['saverolerights'])){
+    #TODO: save new rigths
+    unset($_POST['saverolerights']);
+    
+    try{
+        $db = connectDB();
+        $db->beginTransaction();
+        $sql = "DELETE FROM rolesrights;"; #"TRUNICATE TABLE rolerights;";
+        $db->query($sql);
+        foreach ($_POST as $key=>$value){
+            $tmpArr = explode("-", $key);
+            $rightID = (int)$tmpArr[0];
+            $roleID = (int)$tmpArr[1];
+            $sql = "INSERT INTO rolesrights (rightsFID, rolesFID) VALUES(:rightsFID,:roleFID);";           
+            $param = [":rightsFID"=>$rightID, ":roleFID"=>$roleID];
+            $stmt = $db->prepare($sql);
+            $stmt->execute($param);
+        }
+        $db->commit();
+    }catch(Exception $ex){
+        echo $ex;
+        $db->rollBack();
+    }
+    
+}
+
 ?>
 
 <div class="container-fluid">
@@ -12,20 +43,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <div class="content">
         <!-- Content -->
         <form action="" method="post" name="rolerightsform">
+        <div class="table-responsive">
             <table class="table table-bordered" id="rights" style="overflow: scroll;">
+            <thead>
             <?php
                 $sql = "SELECT r.objectID, r.name  FROM rights AS r ORDER BY objectID ASC;";
                 $result = readDB($sql); #, NULL, PDO::FETCH_BOTH
-                #var_dump($result);
-                $rightArr = [];
-                $rowTemplateArr = [];
+                $columncount = 0;
                 $tableStr = "<tr><th>&nbsp;</th>\n";
+                $columncount = count($result);
                 foreach ($result as $row) {
-                    $tableStr .= "<td>$row[name]</td>";
-                    $rightArr[$row['objectID']] = $row['name'];
-                    $rowTemplateArr[$row['objectID']] = 0;
+                    $tableStr .= "<th>$row[name]</th>\n";                    
                 }
-                $tableStr .= "</tr>\n";
+                $tableStr .= "</tr>\n</thead>\n<tbody>\n";
                 $sql1 = "SELECT roles.objectID, roles.name FROM roles";
                 $rolesList = readDB($sql1);
                 foreach ($rolesList as $roleRow) {
@@ -46,17 +76,21 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             ORDER BY THErightsID;"; 
                     $param = [":roleID"=>$roleID];
                     $result = readDB($sql, $param);
-                    $tableStr .= "<tr><td>$roleRow[name]</td>";
-                    $tmpArr = new ArrayObject($rowTemplateArr);
+                    $tableStr .= "<tr>\n<td>$roleRow[name]</td>\n";
+                    
                     foreach ($result as $row) {
-                        $checked = $row['haspermission'] == 1 ? "checked" : "";
-                        $tableStr .= "<td><input type='checkbox' id='x' $checked></td><tr>";
+                        $checked = $row['haspermission'] != NULL ? "checked" : "";
+                        $tableStr .= "<td><input type='checkbox' name='$row[THErightsID]-$roleID' $checked></td>\n";
                     }  
-                    $tableStr .= "</tr>";
+                    $tableStr .= "</tr>\n";
                 }
+                $columncount++;
+                $tableStr .= "<tr><td colspan='$columncount' class='buttonrow'><input type='submit' name='saverolerights' value='Speichern' class='btn'></td></tr>\n";
+                $tableStr .= "</tbody>\n";
                 echo $tableStr;
             ?>
             </table>
+            </div>
         </form>
     </div>
 </div>
