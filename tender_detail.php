@@ -13,21 +13,41 @@ include "include/init.php";
 $title = "";
 include "include/page/top.php";
 include_once "include/database.php";
+
+$tenderGetID=(int)$_GET["tenderID"];
+
+$sql = "SELECT tenders.objectID AS DocNumber, 
+                               tenders.tender, 
+                               tenders.description,
+                               tenders.tenderType,
+                               user.branchName AS branchName,
+                               tenders.begin,
+                               tenders.end
+                        FROM tenders
+                        LEFT JOIN user ON tenders.userFID = user.objectID 
+
+                        WHERE tenders.objectID=:tenderGetID  ";
+
+$stmt = connectDB()->prepare($sql);
+$stmt->bindParam(":tenderGetID", $tenderGetID);
+$stmt->execute();
+
+$row=$stmt->fetch();
 ?>
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <a href="../PHP/project/pdf.php?id=tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
+        <a href="overview_tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
         <h2>Kugelschreiber für die  Standortverteidigung des AMS</h2>
 
-        <a href="../PHP/project/pdf.php?id=7" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
+        <a href="pdf.php?id=7" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
         <br>
         <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th scope="row">Art des Auftrags:</th>
-                <td>Produkt</td>
+                <td><?php echo $row["tenderType"] ?></td>
             </tr>
 
             <tr>
