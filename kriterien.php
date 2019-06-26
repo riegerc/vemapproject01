@@ -76,11 +76,11 @@ if(isset($_POST["senden"])){
 		}
 			foreach($kriterien as $kriterium){
 				$unterkriterien=$rep->readUnterKriterien($kriterium->getId());
-				$ausgabe.="<li><label>Gewichtung in %</label> <input type='text' name='inp".$kriterium->getId()."' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> <label class='cr-label'>".$kriterium->getName()."</label>";
+				$ausgabe.="<li><span class='criterion'>" . $kriterium->getName(). "</span> <label>(Gewichtung <input type='text' name='inp".$kriterium->getId()."' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> %)</label> ";
 					if(count($unterkriterien)>0&&!isset($kid)){
 						$ausgabe.="<ul>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<li>Gewichtung in % ".$unterkriterium->getGewichtung()." ".$unterkriterium->getName()."</li>";
+								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung ".$unterkriterium->getGewichtung()." %)</li>";
 							}
 						$ausgabe.="</ul>";
 					}
@@ -92,9 +92,9 @@ if(isset($_POST["senden"])){
 			echo $ausgabe;
 		?>
 		<hr>
-		<li><label>neuesKriterium: </label><br><input type="text" name="kriterium" placeholder="Name des neuen Kriteriums" value="<?php echo $name; ?>" required><br>
+		<li><label for="kriterium">neues Kriterium: </label><br><input type="text" name="kriterium" id="kriterium" placeholder="Name des neuen Kriteriums" value="<?php echo $name; ?>" required><br>
 		<input type="text" name="gewichtung" id="gewichtung"
-				placeholder="Gewichtung des neuen Kriteriums" value="<?php echo $gewichtung; ?>" required></li>
+				placeholder="Gewichtung" value="<?php echo $gewichtung; ?>" required></li>
 		</ul>
 		<button type="submit" name="senden">Absenden</button>
 	</form>
