@@ -1,5 +1,5 @@
 <?php
-require_once("include/db.php");
+require_once("include/database.php");
 class Repository{
 	private $db;
 	
