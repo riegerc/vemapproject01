@@ -5,6 +5,7 @@ session_regenerate_id(true);
 $pdfID = (int)$_GET["id"];
 
 if ($pdfID < 1) header("location:error.php?e=400");
+include ("include/init.php");
 include ("include/database.php");
 $db=connectDB();
 
