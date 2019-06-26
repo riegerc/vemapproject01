@@ -23,11 +23,11 @@ $sql = "SELECT tenders.objectID AS DocNumber,
                                user.branchName AS branchName,
                                 user.street,
                                 user.houseNumber,
-            user.stairs,
-       user.door,
-       user.postCode,
-       user.city,
-       user.country,
+                                user.stairs,
+                               user.door,
+                               user.postCode,
+                               user.city,
+                               user.country,
                                tenders.begin,
                                tenders.end,
                                 tenders.amount
@@ -50,9 +50,9 @@ $dateEnd=date_create($row["end"]);
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <a href="overview_tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
-        <h2><?php $row["tender"] ?></h2>
+        <h2><?php echo $row["tender"] ?></h2>
 
-        <a href="pdf.php?id=7" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
+        <a href="pdf.php?id=<?php echo $tenderGetID ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
         <br>
         <table class="table">
             <thead class="thead-dark">

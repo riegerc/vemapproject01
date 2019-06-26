@@ -7,11 +7,11 @@ if ( empty($_SESSION["userID"]) ) {           # wenn Session leer ist d.h. niema
 }
 
 # Verbindung zur Datenbank herstellen
-require_once( "include_db.php" );
+require_once( "include/database.php" );
 
 
 // include autoloader
-require_once 'dompdf/autoload.inc.php';
+require_once 'classes/DomPDF/dompdf/autoload.inc.php';
 
 
 // reference the Dompdf namespace
