@@ -11,8 +11,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-    <?php //data bank connection
-require_once ("inc/include_db2.php");
+    <?php
+
 
     //this variable is for the amount of results here. it scales with foreach loop below
     $counter=0;
