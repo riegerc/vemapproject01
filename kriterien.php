@@ -7,12 +7,11 @@ $pageRestricted = false;
 $userLevel = 1;
 
 // includes base function like session handling
-include "snippets/init.php";
+include "include/init.php";
 
 // defindes the name of the current page, displayed in the title and as a header on the page
 $title = "";
-include "snippets/header.php";
-include "snippets/top.php";
+include "include/page/top.php";
 
 require_once("classes/types/kriterium.inc.php");
 require_once("classes/repository.inc.php");
@@ -48,7 +47,7 @@ if(isset($_POST["senden"])){
 		$sum+=$val;
 	}
 	$sum+=$gewichtung;
-	echo "Summe: ".$sum;
+	// echo "Summe: ".$sum;
 	if($sum!==100){
 		$meldung="Die Gewichtung der Kriterien muss in Summe 100 ergeben!";
 	}else{
@@ -59,7 +58,7 @@ if(isset($_POST["senden"])){
 			$rep->create(new Kriterium($name,$gewichtung));
 			$rep->update($extKriterien);
 		}
-		header("location: ".$_SERVER["PHP_SELF"]);
+		echo '<meta http-equiv="refresh" content="0">';
 	}
 }
 ?>
@@ -95,7 +94,7 @@ if(isset($_POST["senden"])){
 		<hr>
 		<li><label>neuesKriterium: </label><br><input type="text" name="kriterium" placeholder="Name des neuen Kriteriums" value="<?php echo $name; ?>" required><br>
 		<input type="text" name="gewichtung" id="gewichtung"
-				placeholder="Gewichtung des neuen Kriteriums" value="<?php echo $gewichtung; ?>" required></li><button onclick="calcWeight()">Berechnen</button>
+				placeholder="Gewichtung des neuen Kriteriums" value="<?php echo $gewichtung; ?>" required></li>
 		</ul>
 		<button type="submit" name="senden">Absenden</button>
 	</form>
@@ -103,5 +102,5 @@ if(isset($_POST["senden"])){
 	<script src="js/functions.js"></script>
 </div>
 
-<?php include "snippets/bottom.php"; ?>
+<?php include "include/page/bottom.php"; ?>
 

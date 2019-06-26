@@ -34,7 +34,7 @@ if(isset($_GET["delete"])){
             <br>
             <button type="submit" name="suchen">Suchen</button>
         </form>
-        <a href="user_update_update.php"></a>
+        <a href="update.php"></a>
         <?php
         if( isset( $_GET["suchen"] ) ) {
             $suche="%". $_GET["userName"] ."%";

@@ -5,7 +5,22 @@ $title = "User Update Update"; // defines the name of the current page, displaye
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php";
+if(isset($_GET["user"])){
+    $user=$_GET["user"];
+}
+if(isset($_GET["senden"])) {
+    foreach($_GET as $key=>$value) {
+        if($key=="user"){}
+        else {$sql="UPDATE user SET $key=:param
+        WHERE objectID=$user";
+        $statement=connectDB()->prepare($sql);
+        $statement->bindParam(":param", $value);
+        $statement->execute();
+            echo "$key : $value";
+        }
 
+    }
+}
 
 ?>
 
@@ -33,7 +48,7 @@ include "include/page/top.php";
                 ?>
                 <label for="firstName">Vorname : <input type="text" name="firstName" id="firstName"></label><br>
                 <label for="lastName">Nachname : <input type="text" name="lastName" id="lastName"></label><br>
-                <label for="role">Rolle : <input type="text" name="role" id="role"></label><br>
+                <label for="rolesFID">Rolle : <input type="text" name="rolesFID" id="rolesFID"></label><br>
                 <label for="email">Email : <input type="text" name="email" id="email"></label><br>
                 <label for="telNr">telephone : <input type="text" name="telNr" id="telNr"></label><br>
                 <label for="mobilNr">mobile : <input type="text" name="mobilNr" id="mobilNr"></label><br>
@@ -46,7 +61,7 @@ include "include/page/top.php";
                 <label for="city">Stadt : <input type="text" name="city" id="city"></label><br>
                 <label for="country">Land : <input type="text" name="country" id="country"></label><br>
                 <label for="sectorCode">Sektor : <input type="text" name="sectorCode" id="sectorCode"></label><br>
-
+                <button type="submit" name="senden">Senden</button>
                 <?php
                 while ($row = $statement->fetch()) {
                     echo "User: $row[email]";
@@ -69,8 +84,11 @@ include "include/page/top.php";
                     echo "<br>";
                 }
             }
+
+
+
             ?>
-            <button type="submit" name="senden">Senden</button>
+            <input type="hidden" name="user" value="<?php echo htmlspecialchars($_GET['user']);?>">
         </form>
         <a href="user.php"></a>
     </div>
