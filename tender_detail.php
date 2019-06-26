@@ -21,8 +21,16 @@ $sql = "SELECT tenders.objectID AS DocNumber,
                                tenders.description,
                                tenders.tenderType,
                                user.branchName AS branchName,
+                                user.street,
+                                user.houseNumber,
+                                user.stairs,
+                               user.door,
+                               user.postCode,
+                               user.city,
+                               user.country,
                                tenders.begin,
-                               tenders.end
+                               tenders.end,
+                                tenders.amount
                         FROM tenders
                         LEFT JOIN user ON tenders.userFID = user.objectID 
 
@@ -33,15 +41,18 @@ $stmt->bindParam(":tenderGetID", $tenderGetID);
 $stmt->execute();
 
 $row=$stmt->fetch();
+
+$dateBegin=date_create($row["begin"]);
+$dateEnd=date_create($row["end"]);
 ?>
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <a href="overview_tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
-        <h2>Kugelschreiber für die  Standortverteidigung des AMS</h2>
+        <h2><?php echo $row["tender"] ?></h2>
 
-        <a href="pdf.php?id=7" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
+        <a href="pdf.php?id=<?php $row["$tenderGetID"] ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
         <br>
         <table class="table">
             <thead class="thead-dark">
@@ -52,54 +63,33 @@ $row=$stmt->fetch();
 
             <tr>
                 <th scope="row">Auftraggeber:</th>
-                <td>AMS Schloßhofer Straße</td>
+                <td><?php echo $row["branchName"] ?></td>
+
             </tr>
 
             <tr>
                 <th scope="row">Beginn:</th>
-                <td>18.06.2019</td>
+                <td><?php echo date_format($dateBegin,"d.m.Y") ?></td>
             </tr>
 
             <tr>
                 <th scope="row">Ende:</th>
-                <td>20.08.2019</td>
+                <td><?php echo date_format($dateEnd,"d.m.Y") ?></td>
             </tr>
 
             <tr>
                 <th scope="row">Beschreibung:</th>
-                <td>Sir?
-
-                    I know this is going to sound ridiculous... I'll be the FIRST TO ADMIT IT. I was skeptical at a certain point in my life with almost cookie cutter concerns/fears. Want to know what made a significant improvement?
-
-                    I took a hand gun class and bought a Kugelschreiber.
-
-                    Sounds stupid right? I said so too. But sure enough, I started hitting the range like a lot of guys go to the gym or jog/run. Now I have a completely different perspective on life.
-
-                    I can't say it is solely because I am proficient with my Kugelschreiber. I WILL SAY that it has contributed to the new perspective immensely. I used to hate guns. My stepdad was an IALEFI certified instructor for decades. He used to push the weapons into my hand.
-
-                    Once I grew up, buddy of mine says, take a class. Just take it. If you still hate it, fine. I'll pay for the class.
-
-                    So, I did.
-
-                    I didn't hate it. It became a familiar thing to me. And now, when I'm feeling tense, I got to the range. I spend time in there blowing off steam. I feed paper to the bullets. I even use the silhouette that looks like a mugger. And when I leave?
-
-                    It feels good. Its a similar euphoria to sex. I've even worked out major proposal dilemmas while in the range. I've found solutions to many of life's little quirks amd even some of the big ones.
-
-                    The wife even says I'm more "in tune" with myself.
-
-                    Shrugs I dunno, man. If I knew you personally, I'd make the same offer my buddy made me.
-
-                    I know you won't regret it though.</td>
+                <td><?php echo $row["description"] ?></td>
             </tr>
 
             <tr>
                 <th scope="row">Erfüllungsort:</th>
-                <td> Schloßhofer Str. 16-18, 1210 Wien</td>
+                <td><?php echo $row["street"] . $row["houseNumber"] . "/" . $row["stairs"] . "/" . $row["door"] . "<br>" . $row["postCode"] . $row["city"] . "<br>" . $row["country"] ?></td>
             </tr>
 
             <tr> <!-- If Dienstleistung keine Menge einzeigen -->
                 <th scope="row">Menge:</th> <!-- If Dienstleistung keine Menge einzeigen -->
-                <td>50 Stück</td> <!-- If Dienstleistung keine Menge einzeigen -->
+                <td><?php echo $row["amount"] ?></td> <!-- If Dienstleistung keine Menge einzeigen -->
             </tr> <!-- If Dienstleistung keine Menge einzeigen -->
 
 

@@ -8,7 +8,8 @@ $navigationItems =
                 ["name" => "Ausschreibungen",
                     "links" => [
                         ["name" => "Ihre Ausschreibungen", "url" => "overview_tenders.php", "minUserLevel" => 0],
-                        ["name" => "Placeholder", "url" => "overview_tenders.php", "minUserLevel" => 0],
+                        ["name" => "Lieferant anlegen", "url" => "create_supplier.php", "minUserLevel" => 0],
+                        ["name" => "Ausschreibung erstellen", "url" => "create_tender.php", "minUserLevel" => 0],
                     ],
                     "icon" => "<i class='fas fa-file-invoice'></i>",
                     "minUserLevel" => 0
@@ -33,7 +34,7 @@ $navigationItems =
                         ["name" => "User", "url" => "user.php", "minUserLevel" => 0],
                         ["name" => "Update", "url" => "update.php", "minUserLevel" => 0],
                     ],
-                    "icon" => "<i class='fas fa-edit'></i>",
+                    "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => 0
                 ],
 
