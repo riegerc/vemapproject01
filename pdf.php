@@ -26,7 +26,7 @@ if (!$row = $stmt->fetch()) header("location:error.php?e=400");
 $bdate= date_create($row["begin"]);
 $edate= date_create($row["end"]);
 
-require('fpdf.php');
+require('classes/FPDF/fpdf.php');
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'A4');
