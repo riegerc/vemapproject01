@@ -134,7 +134,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         echo "Keine Ergebnisse gefunden. <a href='webshop_bestellen.php'>Jetzt Bestellen</a>";
                     } else {
                         echo $counter;
-                        echo " Ergebnisse!";
+                        echo " Ergebnisse";
                     }
                 } ?>
                 </table>
