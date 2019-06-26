@@ -23,38 +23,38 @@ echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
        
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             
-            Ausschreibung : <input type="text" name="tender" class="form-control" >
+            Ausschreibung : <input type="text" name="tender" class="form-control" placeholder="Titel der Ausschreibung...">
             <br>
-            Ausschreibungs type :  <br><select name="tenderType">
-            <option name="Diebstleistung" value="Diebstleistung">
-              Diebstleistung
+            Ausschreibungs type :  <br><select name="tenderType" class="form-control">
+            <option name="Dienstleistung" value="Dienstleistung">
+              Dienstleistung
             </option>
-            <option name="produkt" value="produkt">
-              produkt
+            <option name="Lieferauftrag" value="Lieferauftrag">
+              Lieferauftrag
             </option>
  
 </select>
             <br>
-            Datum : <input type="date" name="begin" class="form-control" >
+            Beginn : <input type="date" name="begin" class="form-control" >
             <br>
-            End Datum : <input type="date" name="end" class="form-control" >
+            Ende : <input type="date" name="end" class="form-control" >
             <br>
-            megen : <input type="number" name="amount" class="form-control" placeholder="0,00 €" >
+            Menge : <input type="number" name="amount" class="form-control" placeholder="Menge in Zahlen eintragen..." >
             <br>
             
            <div class="form-group">
-               <label for="description">Anmerkungen (optional) :</label>
-               <textarea  name="description" class="form-control" placeholder="Hier bei Bedarf Anmerkungen eintragen..." rows="4"  data-error="Please, leave us a message."></textarea>
+               <label for="description">Auftragsbeschreibung :</label>
+               <textarea  name="description" class="form-control" placeholder="Beschreibung des Auftrags, inklusive Gruppen, Positionen und Langtexte..." rows="4"  data-error="Please, leave us a message."></textarea>
 
            </div>
             <br>
-            <label>Wählen Sie Excel-Datei
+            <label>Upload für Ausschreibungs Excel
             </label><br> <input class="btn btn-primary" type="file" name="file"
                                 id="file" accept=".xls,.xlsx">
             <br>
             <br>
-            <button type="submit" class="btn btn-primary" name="absenden" > abschicken</button>
-            <button  type="reset" class="btn btn-danger"  >Reset</button>
+            <button type="submit" class="btn btn-primary" name="absenden">Ausschreibung erstellen</button>
+            <button  type="reset" class="btn btn-danger"  >Formular zurücksetzen</button>
             <br>
 
 
