@@ -99,21 +99,21 @@ $pdf->Cell(0, 4, 'Art des Auftrags: ', 0, 1, 'L', false);
 $pdf->SetXY(60, 100);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4,  utf8_decode($row["tenderType"]), 0, 1, 'L', false);
-/* --- Cell_text --- */
+/* --- Cell_beginDate --- */
 $pdf->SetXY(10, 114);
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(0, 4, 'Zeitfenster: ', 0, 1, 'L', false);
+$pdf->SetXY(60, 114);
+$pdf->SetFont('Courier', '', 12);
+$pdf->Cell(0, 4, date_format($bdate,'d.m.Y') ." - " .date_format($edate,'d.m.Y'), 0, 1, 'L', false);
+/* --- Cell_text --- */
+$pdf->SetXY(10, 128);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Gegenstand der Leistung:', 0, 1, 'L', false);
 /* --- MultiCell_text --- */
-$pdf->SetXY(10, 121);
+$pdf->SetXY(10, 135);
 $pdf->SetFont('Courier', '', 12);
 $pdf->MultiCell(0, 4, utf8_decode($row["description"]), 0, 'L', false);
-/* --- Cell_beginDate --- */
-$pdf->SetXY(10, 160);
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(0, 4, 'Zeitfenster: ', 0, 1, 'L', false);
-$pdf->SetXY(60, 160);
-$pdf->SetFont('Courier', '', 12);
-$pdf->Cell(0, 4, date_format($bdate,'d.m.Y') ." - " .date_format($edate,'d.m.Y'), 0, 1, 'L', false);
 
 $pdf->Output('auftrag'.$pdfID.'.pdf', 'I');
 ?>
