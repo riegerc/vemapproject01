@@ -34,7 +34,7 @@ $navigationItems =
                         ["name" => "User", "url" => "user.php", "minUserLevel" => 0],
                         ["name" => "Update", "url" => "update.php", "minUserLevel" => 0],
                     ],
-                    "icon" => "<i class='fas fa-edit'></i>",
+                    "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => 0
                 ],
 

@@ -1,5 +1,10 @@
 ﻿<?php
-require_once ("inc/include_db2.php");
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
+
+include "include/init.php"; // includes base function like session handling
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 if(isset($_GET['update'])){
             $objectID=(int)$_GET['update'];
@@ -8,29 +13,29 @@ if(isset($_GET['update'])){
 }else{
     exit("Kein object gewaehlt");
 }
-
+echo $_POST["update"];
 ?>
 
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
     <title>Kurs</title>
     <link rel="stylesheet" href="css/style_css2.css">
 </head>
 <body>
+<form action="artikel_kaufen.php" method="post">
     <?php
-
+    echo $amount;
     if(isset($_POST['update'])){
         $name=$_POST['name'];
         $price=$_POST['price'];
         $description=$_POST['description'];
     }
 
-    $sql='SELECT * FROM article WHERE objectID=:objectID';
-    $stmt=$db->prepare($sql);
-    $stmt->bindParam(':objectID',$objectID);
+    $sql="SELECT * FROM article WHERE objectID=:objectID";
+    $stmt=connectDB()->prepare($sql);
+    $stmt->bindParam(":objectID",$objectID);
     $stmt->execute();
 
     $row=$stmt->fetch();
@@ -45,7 +50,7 @@ if(isset($_GET['update'])){
 
 <?php
  $sql2='SELECT * FROM user';
-  $stmt2=$db->prepare($sql2);
+  $stmt2=connectDB()->prepare($sql2);
   $stmt2->execute();
 
   $row=$stmt2->fetch();
@@ -61,10 +66,11 @@ if(isset($_GET['update'])){
 
  <br><a href='change_address.php'>An eine andere Adresse liefern</a>
 <br>
+    <input type="hidden" name="update" value="<?php echo htmlspecialchars($_GET["update"]);?>">
 <input type='submit' name='order' value='Bestellen'>
 
-
-
-
+</form>
 </body>
 </html>
+
+<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
