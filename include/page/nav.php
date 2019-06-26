@@ -7,7 +7,8 @@ $navigationItems =
             "categories" => [
                 ["name" => "Ausschreibungen",
                     "links" => [
-                        ["name" => "Dokumente", "url" => "overview_tenders.php", "minUserLevel" => 0],
+                        ["name" => "Ihre Ausschreibungen", "url" => "overview_tenders.php", "minUserLevel" => 0],
+                        ["name" => "Placeholder", "url" => "overview_tenders.php", "minUserLevel" => 0],
                     ],
                     "icon" => "<i class='fas fa-file-invoice'></i>",
                     "minUserLevel" => 0
