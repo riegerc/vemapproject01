@@ -2,17 +2,13 @@
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once 'include/constant.php';
 $pageRestricted = true; // defines if the page is restricted to logged-in Users only
-$userLevel = PERM_EDIT_PERM; //uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
-$title = "Rolle Rechtzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
+$userLevel = PERM_EDIT_PERM; //uses a PERM_ const now and hasPermission($userLevel) now if fails  a 403 Error-Page is returned
+$title = "Recht Rollenzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
 require_once "include/init.php"; // includes base function like session handling
 require_once "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-/*
-if(!$perm->hasPermission(PERM_EDIT_PERM)){
-    echo "Keine Berechtigung!<br>";
-    die("Leider nicht.");
-}*/
 
-if(isset($_POST['saverolerights'])){
+
+if(isset($_POST['saverolerights'])){    
     unset($_POST['saverolerights']);
     
     try{
@@ -20,10 +16,11 @@ if(isset($_POST['saverolerights'])){
         $db->beginTransaction();
         $sql = "DELETE FROM rolesrights;"; #"TRUNICATE TABLE rolerights;";
         $db->query($sql);
-        foreach ($_POST as $key=>$value){
+        
+        foreach ($_POST as $key=>$value){            
             $tmpArr = explode("-", $key);
-            $rightID = (int)$tmpArr[0];
-            $roleID = (int)$tmpArr[1];
+            $rightID = (int)$tmpArr[1];
+            $roleID = (int)$tmpArr[0];
             $sql = "INSERT INTO rolesrights (rightsFID, rolesFID) VALUES(:rightsFID,:roleFID);";           
             $param = [":rightsFID"=>$rightID, ":roleFID"=>$roleID];
             $stmt = $db->prepare($sql);
@@ -48,40 +45,40 @@ if(isset($_POST['saverolerights'])){
             <table class="table table-bordered rrtable" id="rights" style="overflow: scroll;">
             <thead>
             <?php
-                $sql = "SELECT r.objectID, r.name  FROM rights AS r ORDER BY objectID ASC;";
+                $sql = "SELECT r.objectID, r.name  FROM roles AS r ORDER BY objectID ASC;";
                 $result = readDB($sql); #, NULL, PDO::FETCH_BOTH
                 $columncount = 0;
-                $tableStr = "<tr><th>&nbsp;</th>\n";
+                $tableStr = "<tr><td>&nbsp;</td>\n";
                 $columncount = count($result);
                 foreach ($result as $row) {
-                    $tableStr .= "<th>$row[name]</th>\n";                    
+                    $tableStr .= "<td>$row[name]</td>\n";                    
                 }
                 $tableStr .= "</tr>\n</thead>\n<tbody>\n";
-                $sql1 = "SELECT roles.objectID, roles.name FROM roles";
+                $sql1 = "SELECT rights.objectID, rights.name FROM rights";
                 $rolesList = readDB($sql1);
                 foreach ($rolesList as $roleRow) {
-                    $roleID = $roleRow["objectID"];
+                    $rightID = $roleRow["objectID"];
                     $sql = "SELECT 
-                            rights.objectID AS THErightsID, 
-                            rights.name AS rightsName,
-                            auswahl.rolesFID AS haspermission,
-                            auswahl.rightsFID AS rightsid
-                            FROM rights LEFT JOIN
+                            roles.objectID AS THErolesID, 
+                            roles.name AS rolesName,
+                            auswahl.rightsFID AS haspermission,
+                            auswahl.rolesFID AS rolesid
+                            FROM roles LEFT JOIN
                             (SELECT 
                             rolesrights.rolesFID AS rolesFID, 
                             rolesrights.rightsFID AS rightsFID
                             FROM rolesrights 
-                            WHERE rolesrights.rolesFID = :roleID ) 
+                            WHERE rolesrights.rightsFID = :rightID ) 
                             AS auswahl
-                            ON rights.objectID = auswahl.rightsFID
-                            ORDER BY THErightsID;"; 
-                    $param = [":roleID"=>$roleID];
+                            ON roles.objectID = auswahl.rolesFID
+                            ORDER BY THErolesID;"; 
+                    $param = [":rightID"=>$rightID];
                     $result = readDB($sql, $param);
                     $tableStr .= "<tr>\n<td>$roleRow[name]</td>\n";
                     
                     foreach ($result as $row) {
                         $checked = $row['haspermission'] != NULL ? "checked" : "";
-                        $tableStr .= "<td><input type='checkbox' name='$row[THErightsID]-$roleID' $checked></td>\n";
+                        $tableStr .= "<td><input type='checkbox' name='$row[THErolesID]-$rightID' $checked></td>\n";
                     }  
                     $tableStr .= "</tr>\n";
                 }

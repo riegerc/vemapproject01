@@ -43,3 +43,6 @@ i {
 .buttonrow{
 	text-align:center;
 }
+.rrtable th, .rrtable td {
+	padding: 0rem;
+}
