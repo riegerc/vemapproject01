@@ -52,13 +52,13 @@ foreach($db->query($sql) as $row){
     if($row['ordered']==1){
     echo "    <td><br>Bestätigt<br></td>\n";   
     }else{
-    echo "    <td> <a href='#'>Bestätigen</a><br></td>\n";
+    echo "    <td> <a href='#' name='order'>Bestätigen</a><br></td>\n";
     }
     
     echo "    </tr>";
 }
 
-if($_POST['Bestätigen']){
+if($_POST['order']){
     $sql="INSERT ordered INTO orderitems SET ordered='1'";
     $sql->execute();
 }
