@@ -52,9 +52,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <div class="row">
                 <div class="col-md-6">
                     <h4>Firma</h4>
-                    <div class="form-group">
-                        <label for="branchName">Firmenname</label>
-                        <input type="text" id="branchName" class="form-control" name="branchName">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="branchName">Firmenname</label>
+                                <input type="text" id="branchName" class="form-control" name="branchName">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sectorCode">Sector Code</label>
+                                <input type="text" class="form-control" name="sectorCode" id="sectorCode">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="street">Strasse</label>
@@ -97,12 +107,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             <div class="form-group">
                                 <label for="country">Land</label>
                                 <input type="text" class="form-control" name="country" id="country">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="sectorCode">Sector Code</label>
-                                <input type="text" class="form-control" name="sectorCode" id="sectorCode">
                             </div>
                         </div>
                     </div>
