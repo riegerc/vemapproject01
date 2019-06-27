@@ -23,20 +23,23 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
         <h2>Webdesign Büro</h2>
 
-        1.1<br>
-        <p>Desktops</p> <p>Langtext:</p> <p>Preis:</p> <input type="number">
+        1.1.:
+        10 Desktops <p>Langtext:  Prozessor: 3,4 GHz Quad-Core Intel Core i5 Prozessor
+        Arbeitsspeicher: 8 GB DDR 4 - 2400 RAM
+        Speicher: 1 TB Fusion Drive
+        Grafik: Radeon Pro 570 mit 4 GB GDDR5 Grafikspeicher </p> <p>Preis:</p> <input name="" type="number">
           <br>
-        1.2<br>
-        <p> Monitore</p> <p>Langtext:</p>
+        1.2.:
+        10  Monitore <p>Langtext: 27 Zoll (68,58 cm) Retina 5K Display mit 5.120 x 2.880 Pixeln </p> <input name="" type="number">
         <br>
-        1.3<br>
-        <p>Mäuse</p> <p>Langtext:</p>
+        1.3.:
+        10 Mäuse <p>Langtext: Logitech MX Vertical Ergonomische Maus 910-005448</p> <input name="" type="number">
         <br>
-        1.4<br>
-        <p>Tastatur</p> <p>Langtext:</p>
+        1.4.:
+        10 Tastatur <p>Langtext: Microsoft Surface Ergonomische Tastatur </p> <input name="" type="number">
         <br>
-        1.5<br>
-        <p>HDMI Kabel</p> <p>Langtext:</p>
+        1.5.:
+        10 HDMI Kabel <p>Langtext: 5m - Ultra HD 4k HDMI Kabel 2.0b 60Hz 18GBit/s </p> <input name="" type="number">
        <br>
 
     </div>
