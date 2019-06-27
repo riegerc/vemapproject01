@@ -7,9 +7,10 @@ $title = ""; // defines the name of the current page, displayed in the title and
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
+include "classes/types/fragebogen.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
 
-echo $_SESSION[USER_ID];
+$userId=$_SESSION[USER_ID];
 
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
@@ -18,9 +19,6 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
-	echo "<pre>";
-	print_r($_POST);
-	echo "</pre>";
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
@@ -29,7 +27,8 @@ if(isset($_POST["senden"])){
 		$key=Helper::getId($key,"rb");
 		$antworten[$key]=(int)Helper::sanitize($val);
 	}
-	$rep->createReview(1);
+	
+	$rep->createReview(new Fragebogen($userId, $lieferantid, $antworten));
 }
 ?>
 
