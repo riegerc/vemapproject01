@@ -1,10 +1,9 @@
 <?php
 // defines if the page is restricted to logged-in Users only
-$pageRestricted = true;
+$pageRestricted = false;
 
 // defines the minimum userRole to access the page, if the
 // userRole is lower than the level, a 403 Error-Page is returned
-$userLevel = 0;
 
 // includes base function like session handling
 include "include/init.php";
@@ -20,7 +19,6 @@ if(isset($_GET["delete"])){
     $statement->bindParam(":user", $_GET["delete"]);
     $statement->execute();
 }
-
 ?>
 
 <div class="container-fluid">
@@ -31,75 +29,75 @@ if(isset($_GET["delete"])){
             <label for="userName">Suche:
                 <input type="text" name="userName" id="userName">
             </label>
-            <br>
             <button type="submit" name="suchen">Suchen</button>
+            <br>
+            <a href="create_user.php">Neuer Benutzer</a>
         </form>
-        <a href="update.php"></a>
+
         <?php
         if( isset( $_GET["suchen"] ) ) {
             $suche="%". $_GET["userName"] ."%";
         }
-            // SQL Statement LIKE userName SELECT
-            $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS rolesName, user.objectID
-            FROM user
-            LEFT JOIN roles
-            ON user.rolesFID = roles.objectID
-            
-            WHERE firstName LIKE :suche
-            OR lastName LIKE :suche
-            OR telNr LIKE :suche
-            OR mobilNR LIKE :suche
-            ";
+        // SQL Statement LIKE userName SELECT
+        // Suchfunktion
+        $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS rolesName, user.objectID
+        FROM user
+        LEFT JOIN roles
+        ON user.rolesFID = roles.objectID
+        
+        WHERE firstName LIKE :suche
+        OR lastName LIKE :suche
+        OR telNr LIKE :suche
+        OR mobilNR LIKE :suche
+        ";
 
-            $statement=connectDB()->prepare($sql);
-            $statement->bindParam(":suche", $suche);
-            $statement->execute();
-            echo "<table>";
-                echo "<tr>";
-                    echo "<th>Vorname:</th>";
-                    echo "<th>Nachname:</th>";
-                    echo "<th>Email:</th>";
-                    echo "<th>role:</th>";
-                    echo "<th>Telefon:</th>";
-                    echo "<th>Mobil:</th>";
-                    echo "<th>Filiale:</th>";
-                    echo "<th>Straße:</th>";
-                    echo "<th>Haus Nr.:</th>";
-                    echo "<th>Stiege:</th>";
-                    echo "<th>Tür:</th>";
-                    echo "<th>PLZ:</th>";
-                    echo "<th>Stadt:</th>";
-                    echo "<th>Land:</th>";
-                    echo "<th>Sektor:</th>";
-                    echo "<th>Bearbeiten</th>";
-                    echo "<th>Löschen</th>";
-                echo "</tr>";
+        $statement=connectDB()->prepare($sql);
+        $statement->bindParam(":suche", $suche);
+        $statement->execute();
+        echo "<table>";
+            echo "<tr>";
+                echo "<th>Vorname:</th>";
+                echo "<th>Nachname:</th>";
+                echo "<th>Email:</th>";
+                echo "<th>role:</th>";
+                echo "<th>Telefon:</th>";
+                echo "<th>Mobil:</th>";
+                echo "<th>Filiale:</th>";
+                echo "<th>Straße:</th>";
+                echo "<th>Haus Nr.:</th>";
+                echo "<th>Stiege:</th>";
+                echo "<th>Tür:</th>";
+                echo "<th>PLZ:</th>";
+                echo "<th>Stadt:</th>";
+                echo "<th>Land:</th>";
+                echo "<th>Sektor:</th>";
+                echo "<th>Bearbeiten</th>";
+                echo "<th>Löschen</th>";
+            echo "</tr>";
 
-            while( $row=$statement->fetch() ) {
-                echo "<tr>";
-                echo "<td>$row[firstName]</td>";
-                echo "<td>$row[lastName]</td>";
-                echo "<td>$row[email]</td>";
-                echo "<td>$row[rolesName]</td>";
-                echo "<td>$row[telNr]</td>";
-                echo "<td>$row[mobilNr]</td>";
-                echo "<td>$row[branchName]</td>";
-                echo "<td>$row[street]</td>";
-                echo "<td>$row[houseNumber]</td>";
-                echo "<td>$row[stairs]</td>";
-                echo "<td>$row[door]</td>";
-                echo "<td>$row[postCode]</td>";
-                echo "<td>$row[city]</td>";
-                echo "<td>$row[country]</td>";
-                echo "<td>$row[sectorCode]</td>";
-                echo "<td><a href='update.php?user=$row[objectID]'>bearbeiten</a></td>";
-                echo "<td><a href='?delete=$row[objectID]'>löschen</a></td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-
+        while( $row=$statement->fetch() ) {
+            echo "<tr>";
+            echo "<td>$row[firstName]</td>";
+            echo "<td>$row[lastName]</td>";
+            echo "<td>$row[email]</td>";
+            echo "<td>$row[rolesName]</td>";
+            echo "<td>$row[telNr]</td>";
+            echo "<td>$row[mobilNr]</td>";
+            echo "<td>$row[branchName]</td>";
+            echo "<td>$row[street]</td>";
+            echo "<td>$row[houseNumber]</td>";
+            echo "<td>$row[stairs]</td>";
+            echo "<td>$row[door]</td>";
+            echo "<td>$row[postCode]</td>";
+            echo "<td>$row[city]</td>";
+            echo "<td>$row[country]</td>";
+            echo "<td>$row[sectorCode]</td>";
+            echo "<td><a href='update_user.php?user=$row[objectID]'>bearbeiten</a></td>";
+            echo "<td><a href='?delete=$row[objectID]'>löschen</a></td>";
+            echo "</tr>";
+        }
+        echo "</table>";
         ?>
-
     </div>
 </div>
 
