@@ -87,9 +87,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 <br>
             </div>
             <div class="row">
-                <div class="form-group col-sm-3">
-                    <label>Ansprechpartner: </label><br>
-                </div>
+                <fieldset class="form-group col-sm-9">
+                    <legegend>Ansprechpartner: </legegend>
+
                 <div class="form-group col-sm-3">
                     <label>Vorname: </label>
                     <input type="text" class="form-control" name="firstName"
@@ -103,12 +103,11 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <input type="email" class="form-control" name="email"
                            placeholder="E-Mail..."></div>
                 <br>
+                </fieldset>
             </div>
             <div class="row">
-                <div class="form-group col-sm-3">
-
-                    <label>Telefonnummer: </label><br>
-                    </div>
+                <fieldset class="form-group col-sm-9">
+                    <legend>Telefonnummer: </legend>
                 <div class="form-group col-sm-3">
                     <label>Festnetz: </label>
                     <input type="text" class="form-control" name="telNr"
@@ -120,6 +119,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 <div class="form-group col-sm-3">
                     <input type="submit" class="btn btn-primary" name="submit" value="Absenden"><br>
                 </div>
+                </fieldset>
             </div>
 
         </form>
