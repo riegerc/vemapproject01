@@ -24,7 +24,7 @@ class Permission {
             $ret = FALSE;
         }else{
             $_SESSION[USER_PERMISSION] = $result;
-            var_dump($result);
+            #var_dump($result);
         }
         return $ret;
     }
