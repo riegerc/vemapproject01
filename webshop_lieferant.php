@@ -43,11 +43,11 @@ echo "    </tr>";
 
 foreach($db->query($sql) as $row){
     echo "    <tr>\n";
-    echo "    <td>".$row['article_name']."<br>";
-    echo "    <td>".$row['article_price']."&euro;"."<br>";
-    echo "    <td>".$row['order_count']."<br>";
-    echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."<br>";
-    echo "    <td> <a href='#'>Bestätigen</a><br>";
+    echo "    <td>".$row['article_name']."<br></td>";
+    echo "    <td>".$row['article_price']."&euro;"."<br></td>";
+    echo "    <td>".$row['order_count']."<br></td>";
+    echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."<br></td>";
+    echo "    <td> <a href='#'>Bestätigen</a><br></td>";
     echo "    </tr>";}
 
 ?>
