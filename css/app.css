@@ -12,11 +12,11 @@
     height: auto;
 }
 
-#search-button-wrap {
+.form-button-wrap {
     display: flex;
 }
 
-#suche_senden, #verkaufen {
+.form-button {
     width: 100%;
     align-self: flex-end;
 }
