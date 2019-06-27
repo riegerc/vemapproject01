@@ -13,7 +13,7 @@ if(isset($_GET['update'])){
 }else{
     exit("Kein object gewaehlt");
 }
-echo $_POST["update"];
+
 ?>
 
 <!DOCTYPE html>
@@ -21,16 +21,12 @@ echo $_POST["update"];
 <head>
     <meta charset="utf-8">
     <title>Kurs</title>
-
-    <style>
-
-    </style>
 </head>
 <body>
 <div class="container-fluid">
 <form action="artikel_kaufen.php" method="post">
     <?php
-    echo $amount;
+
     if(isset($_POST['update'])){
         $name=$_POST['name'];
         $price=$_POST['price'];
@@ -44,34 +40,36 @@ echo $_POST["update"];
 
     $row=$stmt->fetch();
     echo "<h3>Artikel Bestellen:</h3><br>\n";
-    echo "<strong>".$row['name']."</strong>";
+    echo "Produkt: <strong>".$row['name']."</strong>";
 ?>
 
-<br><br>Stückanzahl<br>
-        <input type="number" class="form-control" value="1" name="amount"/>
+<br><br>Menge: <br>
+        <input type="number" class="form-control" value="1" min="1" name="amount"/>
 
 <br><br><strong>Adresse:</strong>
 
 <?php
- $sql2='SELECT * FROM user';
-  $stmt2=connectDB()->prepare($sql2);
-  $stmt2->execute();
+$user=1;
+ $sql="SELECT * FROM user 
+WHERE objectID = :user";
+  $stmt=connectDB()->prepare($sql);
+  $stmt->bindParam(":user", $user);
+  $stmt->execute();
 
-  $row=$stmt2->fetch();
-
-  echo "<br>".$row['branchName'];
-  echo "<br>".$row['street'];
-  echo $row['houseNumber'];
-  echo "<br>".$row['postCode']."&nbsp;";
-  echo $row['city'];
-  echo "<br>".$row['country'];
+  while( $row=$stmt->fetch() ) {
+      echo "<br>".$row['branchName'];
+      echo "<br>".$row['street'];
+      echo $row['houseNumber'];
+      echo "<br>".$row['postCode']."&nbsp;";
+      echo $row['city'];
+      echo "<br>".$row['country'];
+  }
 ?>
-
 
  <br><a href='change_address.php'>An eine andere Adresse liefern</a>
 <br>
     <input type="hidden" name="update" value="<?php echo htmlspecialchars($_GET["update"]);?>">
-<input type='submit' name='order' value='Bestellen'>
+    <input type='submit' name='order' value='Bestellen'>
 
 </form>
 </div>

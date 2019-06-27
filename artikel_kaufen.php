@@ -7,28 +7,32 @@ include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 ?>
 <?php
-$sql="SELECT name FROM article
+$sql="
+/*SELECT name FROM article
 INNER JOIN orderitems 
-ON article.objectID = orderitems.articleFID
-";
-/*SELECT *
+ON article.objectID = orderitems.articleFID*/
+
+SELECT name
 FROM article
 INNER JOIN orderitems
-ON `article`.objectID = `orderitems`.articleFID
+ON article.objectID = orderitems.articleFID
 INNER JOIN order
-ON `order`.objectID = `orderitems`.orderFID*/
+ON order.objectID = orderitems.orderFID
+";
+
 $statement=connectDB()->query($sql);
 $statement->execute();
 
 
 $sql="INSERT INTO orderitems
-   (count, articleFID)
-   VALUES
-   (:count, :articleFID)";
+    (count, articleFID)
+    VALUES
+    (:count, :articleFID)";
     $statement=connectDB()->prepare($sql);
     $statement->bindParam(":count", $_POST["amount"]);
     $statement->bindParam(":articleFID", $_POST["update"]);
     $statement->execute();
+
     $amount = $_POST["amount"];
     $article = $_POST["update"];
 

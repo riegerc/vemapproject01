@@ -101,7 +101,7 @@ if(isset($_GET["senden"])) {
                 </label><br>
 
                 <label for="email">Email : <input type="email" name="email" id="email" value="<?php echo $email;?>"></label><br>
-                <label for="budget">Budget : <input type="text" name="budget" id="budget" value="<?php echo $budget;?>"></label><br>
+                <label for="budget">Budget : <input type="number" name="budget" id="budget" value="<?php echo $budget;?>"></label><br>
                 <label for="telNr">telephone : <input type="text" name="telNr" id="telNr" value="<?php echo $tel;?>"></label><br>
                 <label for="mobilNr">mobile : <input type="text" name="mobilNr" id="mobilNr" value="<?php echo $mobil;?>"></label><br>
                 <label for="branchName">Filiale : <input type="text" name="branchName" id="branchName" value="<?php echo $branch;?>"></label><br>
