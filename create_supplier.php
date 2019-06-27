@@ -150,7 +150,7 @@ $options = [
 
 if (isset($_POST['submit'])) {
 
-    $roles = 10;
+    $userRole = 11;
     htmlspecialchars($branchName = $_POST['branchName']);
     htmlspecialchars($street = $_POST['street']);
     htmlspecialchars($houseNumber = $_POST['houseNumber']);
@@ -231,7 +231,7 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(":password", $hash);
             $stmt->bindParam(":telNr", $telNr);
             $stmt->bindParam(":mobilNr", $mobilNr);
-            $stmt->bindParam(":rolesFID", $roles);
+            $stmt->bindParam(":rolesFID", $userRole);
             $stmt->bindParam(":branchName", $branchName);
             $stmt->bindParam(":street", $street);
             $stmt->bindParam(":houseNumber", $houseNumber);
@@ -262,9 +262,5 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-
-
-</div>
-</div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>

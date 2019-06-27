@@ -40,7 +40,7 @@ if(isset($_GET["delete"])){
         }
         // SQL Statement LIKE userName SELECT
         // Suchfunktion
-        $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS rolesName, user.objectID
+        $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS rolesName, user.objectID, budget
         FROM user
         LEFT JOIN roles
         ON user.rolesFID = roles.objectID
@@ -60,6 +60,7 @@ if(isset($_GET["delete"])){
                 echo "<th>Nachname:</th>";
                 echo "<th>Email:</th>";
                 echo "<th>role:</th>";
+                echo "<th>Budget:</th>";
                 echo "<th>Telefon:</th>";
                 echo "<th>Mobil:</th>";
                 echo "<th>Filiale:</th>";
@@ -81,6 +82,7 @@ if(isset($_GET["delete"])){
             echo "<td>$row[lastName]</td>";
             echo "<td>$row[email]</td>";
             echo "<td>$row[rolesName]</td>";
+            echo "<td>$row[budget]</td>";
             echo "<td>$row[telNr]</td>";
             echo "<td>$row[mobilNr]</td>";
             echo "<td>$row[branchName]</td>";

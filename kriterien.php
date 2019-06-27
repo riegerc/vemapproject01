@@ -2,14 +2,14 @@
 // defines if the page is restricted to logged-in Users only
 $pageRestricted = false;
 
-// defindes the minimum userRole to access the page, if the
+// defines the minimum userRole to access the page, if the
 // userRole is lower than the level, a 403 Error-Page is returned
 $userLevel = 1;
 
 // includes base function like session handling
 include "include/init.php";
 
-// defindes the name of the current page, displayed in the title and as a header on the page
+// defines the name of the current page, displayed in the title and as a header on the page
 $title = "";
 include "include/page/top.php";
 
@@ -46,10 +46,10 @@ if(isset($_POST["senden"])){
 		$extKriterien[$key]=(int)Helper::sanitize($val);
 	}
 	if(isset($kid)){
-		$rep->createUnterKriterium(new Kriterium($name,$gewichtung,0,$kid));
+		if ($name != "") $rep->createUnterKriterium(new Kriterium($name,$gewichtung,0,$kid));
 		$rep->update($extKriterien, $kid);
 	}else{
-		$rep->create(new Kriterium($name,$gewichtung));
+		if ($name != "") $rep->create(new Kriterium($name,$gewichtung));
 		$rep->update($extKriterien);
 	}
 	echo '<meta http-equiv="refresh" content="0">';
@@ -85,22 +85,22 @@ foreach($kriterien as $kriterium){
 					if(count($unterkriterien)>0&&!isset($kid)){
 						$ausgabe.="<ul>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung ".
-											number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
+								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
+											", in Prozent: " . number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
 						$ausgabe.="</ul>";
 					}
 				$ausgabe.="</li>";
 				if(!isset($kid)){
-					$ausgabe.="<a href='?add=".$kriterium->getId()."'><img src='img/add-circle-green-512.png'></a>";
+					$ausgabe.="<a href='?add=".$kriterium->getId()."'><div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'></div></a>";
 				}
 			}
 			echo $ausgabe;
 		?>
 		<hr>
-		<li><label for="kriterium">neues Kriterium: </label><br><input type="text" name="kriterium" id="kriterium" placeholder="Name des neuen Kriteriums" value="<?php echo $name; ?>" required><br>
+		<li><label for="kriterium">neues Kriterium: </label><br><input type="text" name="kriterium" id="kriterium" placeholder="Name des neuen Kriteriums" value="<?php echo $name; ?>"><br>
 		<input type="text" name="gewichtung" id="gewichtung"
-				placeholder="Gewichtung" value="<?php echo $gewichtung; ?>" required></li>
+				placeholder="Gewichtung" value="<?php echo $gewichtung; ?>"></li>
 		</ul>
 		<button type="submit" name="senden">Absenden</button>
 	</form>
