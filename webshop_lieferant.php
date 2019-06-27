@@ -27,7 +27,8 @@ orderitems.objectID as order_id,
 orderitems.orderFID as orderFID, 
 orderitems.articleFID as order_articleFID, 
 orderitems.count as order_count, 
-orderitems.price as order_price 
+orderitems.price as order_price,
+orderitems.ordered as ordered 
 FROM article, orderitems
 
 WHERE article.objectID=orderitems.articleFID;";
@@ -47,10 +48,24 @@ foreach($db->query($sql) as $row){
     echo "    <td>".$row['article_price']."&euro;"."</td>\n";
     echo "    <td>".$row['order_count']."</td>\n";
     echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."</td>\n";
-    echo "    <td> <a href='www.google.com' target='_blank'>Bestätigen</a><br></td>\n";
+    
+    if($row['ordered']==1){
+    echo "    <td><br>Bestätigt<br></td>\n";   
+    }else{
+    echo "    <td> <a href='#' name='order' >Bestätigen</a><br></td>\n";
+    }
+    
     echo "    </tr>";
 }
 
+if(isset($_POST['order'])){
+    $sql="INSERT ordered INTO orderitems SET ordered='1'";
+    $sql->execute();
+}
+
+
+
+// target='_blank'
 ?>
 
 
