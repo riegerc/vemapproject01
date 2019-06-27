@@ -59,7 +59,7 @@ foreach($db->query($sql) as $row){
 }
 
 if(isset($_POST['order'])){
-    $sql="INSERT ordered INTO orderitems SET ordered='1'";
+    $sql="INSERT INTO orderitems SET ordered='1'";
     $sql->execute();
 }
 
