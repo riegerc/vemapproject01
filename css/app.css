@@ -46,3 +46,6 @@ i {
 .rrtable th, .rrtable td {
 	padding: 0rem;
 }
+#nostyle {
+    list-style: none;
+}

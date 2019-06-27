@@ -1,16 +1,14 @@
 <?php
-// defines if the page is restricted to logged-in Users only
-$pageRestricted = false;
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
 
-// defines the minimum userRole to access the page, if the
-// userRole is lower than the level, a 403 Error-Page is returned
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$title = "Benutzer"; // defines the name of the current page, displayed in the title and as a header on the page
 
-// includes base function like session handling
-include "include/init.php";
+include "include/init.php"; // includes base function like session handling
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
-// defines the name of the current page, displayed in the title and as a header on the page
-$title = "Benutzer";
-include "include/page/top.php";
 $suche="%%";
 if(isset($_GET["delete"])){
     $sql="DELETE FROM user 
@@ -40,7 +38,7 @@ if(isset($_GET["delete"])){
         }
         // SQL Statement LIKE userName SELECT
         // Suchfunktion
-        $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS rolesName, user.objectID, budget
+        $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS roleName, user.objectID, budget
         FROM user
         LEFT JOIN roles
         ON user.rolesFID = roles.objectID
@@ -81,7 +79,7 @@ if(isset($_GET["delete"])){
             echo "<td>$row[firstName]</td>";
             echo "<td>$row[lastName]</td>";
             echo "<td>$row[email]</td>";
-            echo "<td>$row[rolesName]</td>";
+            echo "<td>$row[roleName]</td>";
             echo "<td>$row[budget]</td>";
             echo "<td>$row[telNr]</td>";
             echo "<td>$row[mobilNr]</td>";

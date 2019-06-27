@@ -1,4 +1,5 @@
 <?php
+
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
 $title = ""; // defines the name of the current page, displayed in the title and as a header on the page
@@ -6,8 +7,10 @@ $title = ""; // defines the name of the current page, displayed in the title and
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
+include "classes/types/fragebogen.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
 
+$userId=$_SESSION[USER_ID];
 
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
@@ -24,6 +27,8 @@ if(isset($_POST["senden"])){
 		$key=Helper::getId($key,"rb");
 		$antworten[$key]=(int)Helper::sanitize($val);
 	}
+	
+	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
 }
 ?>
 

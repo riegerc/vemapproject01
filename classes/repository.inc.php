@@ -81,18 +81,36 @@ class Repository{
 				}
 		}
 	}
-	public function deleteKriterium(int $kid, bool $is_subcriteria=false){
+public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		if($is_subcriteria){
 			$sql = "UPDATE subcriteria SET deleted=1 WHERE objectID=:objectID";
-		}else{
-			$sql = "UPDATE criteria SET deleted=1 WHERE objectID=:objectID";
-		}
 			$stmt=$this->db->prepare($sql);
 			$stmt->bindParam(":objectID",$kid);
-		try{
-			$stmt->execute();
-		}catch(Exception $e){
-			throw new PDOException($e);
+			try{
+				$stmt->execute();
+			}catch(Exception $e){
+				throw new PDOException($e);
+			}
+
+		}else{
+			$sql = "UPDATE criteria SET deleted=1 WHERE objectID=:objectID";
+			$stmt=$this->db->prepare($sql);
+			$stmt->bindParam(":objectID",$kid);
+			try{
+				$stmt->execute();
+			}catch(Exception $e){
+				throw new PDOException($e);
+			}
+
+			$sql = "UPDATE subcriteria SET deleted=1 WHERE criteriaFID=:criteriaFID";
+			$stmt=$this->db->prepare($sql);
+			$stmt->bindParam(":criteriaFID",$kid);
+			try{
+				$stmt->execute();
+			}catch(Exception $e){
+				throw new PDOException($e);
+			}
+
 		}
 	}
 	public function readFragebogen():array{
@@ -104,5 +122,30 @@ class Repository{
 			array_push($fragen, new Frage($kriterium->getId(), $kriterium->getGewichtung(), $kriterium->getName(), $unterkriterien));
 		}
 		return $fragen;
+	}
+	public function createReview(int $userid):int{
+		$reviewId=0;
+		$sql="INSERT INTO reviews(userFID) VALUES(:userFid)";
+		$stmt=$this->db->prepare($sql);
+		$stmt->bindParam(":userFid",$userid);
+		try{
+			$stmt->execute();
+			$reviewId=$this->db->lastInsertId('reviews');
+		}catch(Exception $e){
+			throw new PDOException($e);
+		}
+		return $reviewId;
+	}
+	public function createAnswers(Fragebogen $fb):void{
+		$userFid=$fb->getUserId();
+		$reviewId=$this->createReview($userFid);
+		$kriterien=$fb->getFragen();
+		$sql="INSERT INTO rewiesmark(rewiesFID,criteriaFID,undercriteriaFID,supplierUserFID,mark) VALUES";
+		echo "<pre>";
+		print_r($kriterien);
+		echo "</pre>";
+		foreach($kriterien as $kriterium){
+			$sql.="()";
+		}
 	}
 }
