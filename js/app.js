@@ -1,3 +1,3 @@
 let app = new Vue({
-   el: "root"
+   el: ".container-fluid"
 });
