@@ -18,8 +18,6 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
-<script src="vendor/vue/vue.js"></script>
-<script src="js/app.js"></script>
 <script>
     $(document).ready(function() {
         $('#dataTable').DataTable({
