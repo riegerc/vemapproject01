@@ -1,17 +1,13 @@
 <?php
-// defines if the page is restricted to logged-in Users only
-$pageRestricted = false;
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
 
-// defines the minimum userRole to access the page, if the
-// userRole is lower than the level, a 403 Error-Page is returned
-$userLevel = 1;
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$title = "Willkommen am Beschaffungsportal vom AMS Wien"; // defines the name of the current page, displayed in the title and as a header on the page
 
-// includes base function like session handling
-include "include/init.php";
-
-// defines the name of the current page, displayed in the title and as a header on the page
-$title = "";
-include "include/page/top.php";
+include "include/init.php"; // includes base function like session handling
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 require_once("classes/types/kriterium.inc.php");
 require_once("classes/repository.inc.php");
@@ -42,7 +38,7 @@ if(isset($_POST["senden"])){
 	$extKriterien=array();
 
 	foreach($_POST as $key=>$val){
-		$key=Helper::getId($key);
+		$key=Helper::getId($key,"inp");
 		$extKriterien[$key]=(int)Helper::sanitize($val);
 	}
 	if(isset($kid)){
@@ -79,21 +75,22 @@ foreach($kriterien as $kriterium){
 					$summeunterkriterien+=$unterkriterium->getGewichtung();
 				}
 								
-				$ausgabe.="<li><span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
+				$ausgabe.="<li><div class='fas fa-minus-circle' title='Kategorie löschen' style='color:red'></div> <span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
 							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
 							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ")</label> ";
 					if(count($unterkriterien)>0&&!isset($kid)){
 						$ausgabe.="<ul>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
+								$ausgabe.="<div class='fas fa-minus-circle' id='inline' title='Kategorie löschen' style='color:red'></div> 
+											<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
 											", in Prozent: " . number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
+						if(!isset($kid)){
+							$ausgabe.="<li><a href='?add=".$kriterium->getId()."'><div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'></div></a></li>";
+						}
 						$ausgabe.="</ul>";
 					}
 				$ausgabe.="</li>";
-				if(!isset($kid)){
-					$ausgabe.="<a href='?add=".$kriterium->getId()."'><div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'></div></a>";
-				}
 			}
 			echo $ausgabe;
 		?>
