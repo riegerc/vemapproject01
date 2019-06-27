@@ -50,7 +50,7 @@ foreach($db->query($sql) as $row){
     echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."</td>\n";
     
     if($row['ordered']==1){
-    echo "    <td><<br>Bestätigt<br></td>\n";   
+    echo "    <td><br>Bestätigt<br></td>\n";   
     }else{
     echo "    <td> <a href='#'>Bestätigen</a><br></td>\n";
     }
