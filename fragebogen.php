@@ -21,12 +21,9 @@ if(isset($_POST["senden"])){
 	unset($_POST["senden"]);
 	$antworten=array();
 	foreach($_POST as $key=>$val){
-		$key=Helper::getId($key);
+		$key=Helper::getId($key,"rb");
 		$antworten[$key]=(int)Helper::sanitize($val);
 	}
-	echo "<pre>";
-	print_r($antworten);
-	echo "</pre>";
 }
 ?>
 

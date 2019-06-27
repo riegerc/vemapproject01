@@ -65,8 +65,7 @@ if(isset($_GET['order'])){
     $stmt=$db->prepare($sql);
     $stmt->bindParam(":objectID",$order_id);
     $stmt->execute();  
-
-    echo "<script>location.reload();</script>";
+    echo '<meta http-equiv="refresh" content= "0;URL=?mc=mobile" />';
 }
 
 
