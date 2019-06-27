@@ -79,14 +79,14 @@ class Repository{
 				}
 		}
 	}
-	public function deleteKriterium(int $kid, boolean $is_subcriteria=false){
+	public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		if($is_subcriteria){
 			$sql = "UPDATE subcriteria SET deleted=1 WHERE objectID=:objectID";
 		}else{
 			$sql = "UPDATE criteria SET deleted=1 WHERE objectID=:objectID";
 		}
 			$stmt=$this->db->prepare($sql);
-			$smt->bindParam(":objectID",$kid);
+			$stmt->bindParam(":objectID",$kid);
 		try{
 			$stmt->execute();
 		}catch(Exception $e){
