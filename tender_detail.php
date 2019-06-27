@@ -1,18 +1,13 @@
 <?php
-// defines if the page is restricted to logged-in Users only
-$pageRestricted = false;
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
 
-// defines the minimum userRole to access the page, if the
-// userRole is lower than the level, a 403 Error-Page is returned
-$userLevel = 1;
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
-// includes base function like session handling
-include "include/init.php";
-
-// defines the name of the current page, displayed in the title and as a header on the page
-$title = "";
-include "include/page/top.php";
-include_once "include/database.php";
+include "include/init.php"; // includes base function like session handling
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 $tenderGetID=(int)$_GET["tenderID"];
 
@@ -98,9 +93,11 @@ $dateEnd=date_create($row["end"]);
             </tr> <!-- If Dienstleistung keine Menge einzeigen -->
 
 
-
             </thead>
+
         </table>
+
+        <a href="tender_response.php"><button class="btn btn-outline-success">Angebot abgeben</button></a>
 
     </div>
 </div>
