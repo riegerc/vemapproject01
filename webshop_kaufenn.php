@@ -1,7 +1,7 @@
 ﻿<?php
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
-$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Webshop kaufen"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
@@ -21,9 +21,13 @@ echo $_POST["update"];
 <head>
     <meta charset="utf-8">
     <title>Kurs</title>
-    <link rel="stylesheet" href="css/style_css2.css">
+
+    <style>
+
+    </style>
 </head>
 <body>
+<div class="container-fluid">
 <form action="artikel_kaufen.php" method="post">
     <?php
     echo $amount;
@@ -70,6 +74,7 @@ echo $_POST["update"];
 <input type='submit' name='order' value='Bestellen'>
 
 </form>
+</div>
 </body>
 </html>
 

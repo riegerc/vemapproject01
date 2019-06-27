@@ -33,7 +33,7 @@ function connectDB(): PDO
  *                                                                    row[columname1,columnname2,columnname3],
  *                                                                    row[columname1,columnname2,columnname3]]]
  */
-function readDB(string $sql, array $params = NULL)
+function readDB(string $sql, array $params = NULL, $fetchMode = PDO::FETCH_ASSOC)
 {
     $result = [];
 
@@ -46,7 +46,7 @@ function readDB(string $sql, array $params = NULL)
     try {
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll($fetchMode);
     } catch (Exception $ex) {
         die("DB - Error SELECT");
     }

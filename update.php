@@ -1,7 +1,7 @@
 <?php
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
-$title = "User Update Update"; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "User Update"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php";
@@ -10,45 +10,67 @@ if(isset($_GET["user"])){
 }
 if(isset($_GET["senden"])) {
     foreach($_GET as $key=>$value) {
-        if($key=="user"){}
-        else {$sql="UPDATE user SET $key=:param
-        WHERE objectID=$user";
-        $statement=connectDB()->prepare($sql);
-        $statement->bindParam(":param", $value);
-        $statement->execute();
+        if($key=="user") {
+            echo $key;
+        }elseif($key=="senden") {
+
+        }elseif($value==""){
+
+        }
+        elseif($key=="rolesFID") {
+            $key=0;
+        }
+        else {
+            $sql="UPDATE user
+            SET $key=:param
+            WHERE objectID=$user";
+
+            $statement=connectDB()->prepare($sql);
+            $statement->bindParam(":param", $value);
+            $statement->execute();
+
             echo "$key : $value";
         }
 
     }
 }
-
 ?>
-
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
-
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get"><br>
             <?php
             if(isset($_GET["user"])) {
                 $sql = "SELECT * FROM user
-            WHERE objectID = :user";
-                /*$param = array(":user"=>$_GET["user"]);
-                $row=readDB($sql, $param);*/
-
+                WHERE objectID = :user";
                 $statement = connectDB()->prepare($sql);
                 $statement->bindParam(":user", $_GET["user"]);
                 $statement->execute();
-
                 if (isset($_GET["senden"])) {
 
                 }
-
                 ?>
                 <label for="firstName">Vorname : <input type="text" name="firstName" id="firstName"></label><br>
                 <label for="lastName">Nachname : <input type="text" name="lastName" id="lastName"></label><br>
-                <label for="rolesFID">Rolle : <input type="text" name="rolesFID" id="rolesFID"></label><br>
+
+                <label for="rolesFID">Rolle : <select name="rolesFID">
+                        <?php
+                        $sql="SELECT DISTINCT * FROM roles";
+                        $statement=connectDB()->prepare($sql);
+                        $statement->execute();
+                        while($row=$statement->fetch()){
+
+                                echo "<option value='$i'>$row[name]</option>";
+
+                        }
+
+
+                        ?>
+
+
+                    </select></label><br>
+
                 <label for="email">Email : <input type="text" name="email" id="email"></label><br>
                 <label for="telNr">telephone : <input type="text" name="telNr" id="telNr"></label><br>
                 <label for="mobilNr">mobile : <input type="text" name="mobilNr" id="mobilNr"></label><br>
@@ -61,6 +83,7 @@ if(isset($_GET["senden"])) {
                 <label for="city">Stadt : <input type="text" name="city" id="city"></label><br>
                 <label for="country">Land : <input type="text" name="country" id="country"></label><br>
                 <label for="sectorCode">Sektor : <input type="text" name="sectorCode" id="sectorCode"></label><br>
+
                 <button type="submit" name="senden">Senden</button>
                 <?php
                 while ($row = $statement->fetch()) {
@@ -84,14 +107,10 @@ if(isset($_GET["senden"])) {
                     echo "<br>";
                 }
             }
-
-
-
             ?>
             <input type="hidden" name="user" value="<?php echo htmlspecialchars($_GET['user']);?>">
         </form>
         <a href="user.php"></a>
     </div>
 </div>
-
 <?php include "include/page/bottom.php"; ?>

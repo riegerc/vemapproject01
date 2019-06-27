@@ -24,6 +24,7 @@ class Permission {
             $ret = FALSE;
         }else{
             $_SESSION[USER_PERMISSION] = $result;
+            #var_dump($result);
         }
         return $ret;
     }
@@ -34,8 +35,8 @@ class Permission {
         }
         $ret = FALSE;
         $perms = $_SESSION[USER_PERMISSION];
-        foreach ($perms as $item) {
-            if(isset($item[$permission])){
+        foreach ($perms as $key=>$item) {
+            if($item['name'] == $permission){
                 $ret = TRUE;
                 break;
             }
