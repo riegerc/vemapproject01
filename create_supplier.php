@@ -161,7 +161,7 @@ $options = [
 
 if (isset($_POST['submit'])) {
 
-    $userRole = 11;
+    $userRole = 10;
     htmlspecialchars($branchName = $_POST['branchName']);
     htmlspecialchars($street = $_POST['street']);
     htmlspecialchars($houseNumber = $_POST['houseNumber']);
