@@ -27,7 +27,7 @@ const PWD_REQ_SPECIAL_CHAR = 0;
 
 #permissions example
 const PERM_CED_USER = "cedUser"; # NOT including SELF!
-const PERM_EDIT_SELF = "editSelf"; #useless, because everyone can edit him/herself, but noone can delete him/herself
+const PERM_EDIT_SELF = "editUser"; #everyone can edit him/herself, but noone can delete him/herself
 const PERM_VIEW_USER = "viewUser"; # NOT including SELF!
 const PERM_EDIT_BUDGED = "editBudtget"; # can not apply to SELF
 const PERM_CED_OFFER = "cedOffer";
