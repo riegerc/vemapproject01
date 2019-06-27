@@ -1,6 +1,9 @@
 <?php
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
+
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = PERM_EDIT_SELF; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
