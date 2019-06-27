@@ -93,9 +93,11 @@ $dateEnd=date_create($row["end"]);
             </tr> <!-- If Dienstleistung keine Menge einzeigen -->
 
 
-
             </thead>
+
         </table>
+
+        <a href="tender_response.php"><button class="btn btn-outline-success">Angebot abgeben</button></a>
 
     </div>
 </div>
