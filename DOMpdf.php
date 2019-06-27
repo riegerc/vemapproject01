@@ -135,7 +135,7 @@ $orderNr = 1; # zum TESTEN!
     </table>
 </header>
 
-<h1>Bestellung Nr.<?php echo "\$orderNr"; ?></h1>
+<h1>Bestellung Nr.<?php echo "$orderNr"; ?></h1>
 
 
 <?php //$nurdatum= Tabelle order Spalte dateTime?>
@@ -147,6 +147,21 @@ $orderNr = 1; # zum TESTEN!
     <table class="order_table">
       <?php
       $db = connectDB();
+
+
+      //Lieferantennamen auslesen
+      $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
+      $statement = $db->prepare($sql);
+      $statement->bindParam(":orderNr", $orderNr);
+      $statement->execute();
+      
+      $row = $statement->fetch();
+          
+          $lieferant = $row['branchName'];
+          
+      
+      
+      
       //tabelle orderitems spalten atrticleFID count price
       //tabelle order spalten supplierUserFID
       //tabelle article spalten name price=je
@@ -184,12 +199,11 @@ $orderNr = 1; # zum TESTEN!
                   <td>{$row['Menge']}</td>
                   <td>{$row['je']}</td>
                   <td>{$row['EUR']}</td>
-                  <td>Lieferant</td>
+                  <td>$lieferant</td>
               </tr>";
       }  // while ENDE
       
-      //Lieferantennamen auslesen
-      $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
+      
       
       ?>
 
