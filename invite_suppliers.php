@@ -12,33 +12,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
-    < class="content">
-
-
-        <?php //while ($row=$stmt->fetch()) {
-
-
-
-        //}; ?>
-
-        <h2>Webdesign Büro</h2>
-
-        1.1<br>
-        <p>Desktops</p> <p>Langtext:</p> <p>Preis:</p> <input type="number">
-          <br>
-        1.2<br>
-        <p> Monitore</p> <p>Langtext:</p>
-        <br>
-        1.3<br>
-        <p>Mäuse</p> <p>Langtext:</p>
-        <br>
-        1.4<br>
-        <p>Tastatur</p> <p>Langtext:</p>
-        <br>
-        1.5<br>
-        <p>HDMI Kabel</p> <p>Langtext:</p>
-       <br>
-
+    <div class="content">
+        <!-- Content -->
     </div>
 </div>
 
