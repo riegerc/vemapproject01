@@ -15,7 +15,7 @@ $sql="
 INNER JOIN orderitems 
 ON article.objectID = orderitems.articleFID*/
 
-SELECT name
+SELECT name, price
 FROM article
 INNER JOIN orderitems
 ON article.objectID = orderitems.articleFID
@@ -25,19 +25,25 @@ ON order.objectID = orderitems.orderFID
 
 $statement=connectDB()->query($sql);
 $statement->execute();
+while($row=$statement->fetch()){
+    echo $row["price"];
+    $articlePrice=$row["price"];
+}
 
-
+$amount = $_POST["amount"];
+$article = $_POST["update"];
+$price=$amount*$articlePrice;
 $sql="INSERT INTO orderitems
-    (count, articleFID)
+    (count, articleFID, price)
     VALUES
-    (:count, :articleFID)";
+    (:count, :articleFID, :price)";
     $statement=connectDB()->prepare($sql);
     $statement->bindParam(":count", $_POST["amount"]);
     $statement->bindParam(":articleFID", $_POST["update"]);
+
     $statement->execute();
 
-    $amount = $_POST["amount"];
-    $article = $_POST["update"];
+
 
 ?>
 <div class="container-fluid">
