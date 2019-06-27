@@ -12,7 +12,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 $pdfID = (int)$_GET["id"];
 
 if ($pdfID < 1) header("location:error.php?e=400");
-include("include/init.php");
 $db = connectDB();
 
 $sql = "SELECT *,tenders.objectID AS DocNr
@@ -87,7 +86,7 @@ $pdf->Cell(0, 4, utf8_decode($row["country"]) . " " . utf8_decode($row["sectorCo
 $pdf->SetXY(75, 59);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Ansprechpartner: ', 0, 1, 'L', false);
-$pdf->SetXY(125,59);
+$pdf->SetXY(125, 59);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["firstName"]) . " " . utf8_decode($row["lastName"]), 0, 1, 'L', false);
 /* --- Cell_amsPhone --- */
@@ -103,7 +102,7 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'E-Mail: ', 0, 1, 'L', false);
 $pdf->SetXY(125, 73);
 $pdf->SetFont('Courier', '', 12);
-$pdf->Cell(0, 4,  utf8_decode($row["email"]), 0, 1, 'L', false);
+$pdf->Cell(0, 4, utf8_decode($row["email"]), 0, 1, 'L', false);
 /* --- Cell_assignment --- */
 $pdf->SetXY(10, 93);
 $pdf->SetFont('Arial', 'B', 12);
