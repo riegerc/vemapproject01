@@ -32,7 +32,7 @@ FROM article, orderitems
 
 WHERE article.objectID=orderitems.articleFID;";
 
-echo "    <table>\n";
+echo "<table class='table table-bordered' id='search_results'>";
 echo "    <tr>\n";
 echo "    <th>Artikel Name</th>\n";
 echo "    <th>Preis Je</th>\n";
@@ -43,12 +43,13 @@ echo "    </tr>";
 
 foreach($db->query($sql) as $row){
     echo "    <tr>\n";
-    echo "    <td>".$row['article_name']."</td>";
-    echo "    <td>".$row['article_price']."&euro;"."</td>";
-    echo "    <td>".$row['order_count']."</td>";
-    echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."</td>";
-    echo "    <td> <a href='#'>Bestätigen</a><br></td>";
-    echo "    </tr>";}
+    echo "    <td>".$row['article_name']."</td>\n";
+    echo "    <td>".$row['article_price']."&euro;"."</td>\n";
+    echo "    <td>".$row['order_count']."</td>\n";
+    echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."</td>\n";
+    echo "    <td> <a href='#'>Bestätigen</a><br></td>\n";
+    echo "    </tr>";
+}
 
 ?>
 
