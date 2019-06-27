@@ -26,9 +26,20 @@ $gewichtung="";
 if(isset($_GET["add"])){
 	$kid=(int)Helper::sanitize($_GET["add"]);
 	$kriterien=$rep->readUnterKriterien($kid);
-}else{
+} elseif (isset($_GET["delete"])) {
+	$kid=(int)Helper::sanitize($_GET["delete"]);
+	$rep->deleteKriterium($kid, false);
+	unset($kid);
+	$kriterien=$rep->readKriterien();
+} elseif (isset($_GET["deletesub"])) {
+	$kid=(int)Helper::sanitize($_GET["deletesub"]);
+	$rep->deleteKriterium($kid, true);
+	unset($kid);
+	$kriterien=$rep->readKriterien();
+} else {
 	$kriterien=$rep->readKriterien();
 }
+
 if(isset($_POST["senden"])){
 	$name=Helper::sanitize($_POST["kriterium"]);
 	$gewichtung=(int)Helper::sanitize($_POST["gewichtung"]);
@@ -66,7 +77,7 @@ foreach($kriterien as $kriterium){
     <div class="content">
 	<div class="meldung"><?php echo (strlen($meldung)>0)?$meldung:'' ?></div>
 	<form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
-		<ul class="cr-list">
+		<ul>
         <?php
 		$ausgabe="";
 		if(isset($kid)){
@@ -79,14 +90,14 @@ foreach($kriterien as $kriterium){
 					$summeunterkriterien+=$unterkriterium->getGewichtung();
 				}
 								
-				$ausgabe.="<li><div class='fas fa-minus-circle' title='Kategorie löschen' style='color:red'></div> <span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
+				$ausgabe.="<li><a href='?delete=" . $kriterium->getId() . "'><div class='fas fa-minus-circle' title='Kategorie löschen' style='color:red'></div></a> <span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
 							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
 							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ")</label> ";
 					if(count($unterkriterien)>0&&!isset($kid)){
-						$ausgabe.="<ul>";
+						$ausgabe.="<ul id='nostyle'>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<div class='fas fa-minus-circle' id='inline' title='Kategorie löschen' style='color:red'></div> 
-											<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
+								$ausgabe.="<li><a href='?deletesub=". $unterkriterium->getID() . "'><div class='fas fa-minus-circle' title='Unterkategorie löschen' style='color:red'></div></a>
+											<span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
 											", in Prozent: " . number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
 						if(!isset($kid)){
