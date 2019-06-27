@@ -84,9 +84,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                     <option id="" disabled selected>Bitte Auswählen...</option>
                                     <?php
                                     $sql = "SELECT roles.objectID AS userRoleID, roles.name 
-                            FROM roles 
-                            WHERE roles.objectID BETWEEN 2 AND 5 OR objectID=12 
-                            ORDER BY userRoleID = 12 DESC, userRoleID";
+                                            FROM roles 
+                                            WHERE roles.objectID BETWEEN 2 AND 5 OR objectID=12 
+                                            ORDER BY userRoleID = 12 DESC, userRoleID";
                                     $stmt = connectDB()->query($sql);
                                     while ($row = $stmt->fetch()) {
                                         echo "<option value='$row[userRoleID]'>$row[name]</option>";
@@ -175,57 +175,55 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 </div>
             </div>
         </form>
-    </div>
-</div>
-<?php
+        <?php
 
 
-$password = generateStrongPassword();
+        $password = generateStrongPassword();
 
-$options = [
-    'cost' => 12,
-];
+        $options = [
+            'cost' => 12,
+        ];
 
-if (isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
 
-    htmlspecialchars($userRole = $_POST["userRole"]);
-    htmlspecialchars($branchName = $_POST['branchName']);
-    htmlspecialchars($street = $_POST['street']);
-    htmlspecialchars($houseNumber = $_POST['houseNumber']);
-    htmlspecialchars($stairs = $_POST['stairs']);
-    htmlspecialchars($door = $_POST['door']);
-    htmlspecialchars($postCode = $_POST['postCode']);
-    htmlspecialchars($city = $_POST['city']);
-    htmlspecialchars($country = $_POST['country']);
-    htmlspecialchars($firstName = $_POST['firstName']);
-    htmlspecialchars($lastName = $_POST['lastName']);
-    htmlspecialchars($email = $_POST['email']);
-    htmlspecialchars($telNr = $_POST['telNr']);
-    htmlspecialchars($mobilNr = $_POST['mobilNr']);
+            htmlspecialchars($userRole = $_POST["userRole"]);
+            htmlspecialchars($branchName = $_POST['branchName']);
+            htmlspecialchars($street = $_POST['street']);
+            htmlspecialchars($houseNumber = $_POST['houseNumber']);
+            htmlspecialchars($stairs = $_POST['stairs']);
+            htmlspecialchars($door = $_POST['door']);
+            htmlspecialchars($postCode = $_POST['postCode']);
+            htmlspecialchars($city = $_POST['city']);
+            htmlspecialchars($country = $_POST['country']);
+            htmlspecialchars($firstName = $_POST['firstName']);
+            htmlspecialchars($lastName = $_POST['lastName']);
+            htmlspecialchars($email = $_POST['email']);
+            htmlspecialchars($telNr = $_POST['telNr']);
+            htmlspecialchars($mobilNr = $_POST['mobilNr']);
 
-    //generate Password
-
-
-    $hash = password_hash($password, PASSWORD_BCRYPT, $options);
-    $ok = true;
-
-    $sql = "SELECT * FROM user WHERE email=:email";
-    $stmt = connectDB()->prepare($sql);
-    $stmt->bindParam(":email", $email);
-    $stmt->execute();
-    $row = $stmt->fetch();
-    //Wenn etwas gefunden wurde
+            //generate Password
 
 
-    if ($row !== false) {
+            $hash = password_hash($password, PASSWORD_BCRYPT, $options);
+            $ok = true;
 
-        $ok = false;
-        $bericht = "Email existiert bereits!<br>";
+            $sql = "SELECT * FROM user WHERE email=:email";
+            $stmt = connectDB()->prepare($sql);
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            //Wenn etwas gefunden wurde
 
-    } else {
-        if ($ok == true) {
 
-            $sql = "INSERT INTO user (
+            if ($row !== false) {
+
+                $ok = false;
+                $bericht = "Email existiert bereits!<br>";
+
+            } else {
+                if ($ok == true) {
+
+                    $sql = "INSERT INTO user (
                   firstName,
                   lastName,
                   email,
@@ -261,28 +259,28 @@ if (isset($_POST['submit'])) {
                           :sectorCode)";
 
 
-            $stmt = connectDB()->prepare($sql);
+                    $stmt = connectDB()->prepare($sql);
 
-            $stmt->bindParam(":firstName", $firstName);
-            $stmt->bindParam(":lastName", $lastName);
-            $stmt->bindParam(":email", $email);
-            $stmt->bindParam(":password", $hash);
-            $stmt->bindParam(":telNr", $telNr);
-            $stmt->bindParam(":mobilNr", $mobilNr);
-            $stmt->bindParam(":rolesFID", $userRole);
-            $stmt->bindParam(":branchName", $branchName);
-            $stmt->bindParam(":street", $street);
-            $stmt->bindParam(":houseNumber", $houseNumber);
-            $stmt->bindParam(":stairs", $stairs);
-            $stmt->bindParam(":door", $door);
-            $stmt->bindParam(":postCode", $postCode);
-            $stmt->bindParam(":city", $city);
-            $stmt->bindParam(":country", $country);
-            $stmt->bindParam(":sectorCode", $country);
+                    $stmt->bindParam(":firstName", $firstName);
+                    $stmt->bindParam(":lastName", $lastName);
+                    $stmt->bindParam(":email", $email);
+                    $stmt->bindParam(":password", $hash);
+                    $stmt->bindParam(":telNr", $telNr);
+                    $stmt->bindParam(":mobilNr", $mobilNr);
+                    $stmt->bindParam(":rolesFID", $userRole);
+                    $stmt->bindParam(":branchName", $branchName);
+                    $stmt->bindParam(":street", $street);
+                    $stmt->bindParam(":houseNumber", $houseNumber);
+                    $stmt->bindParam(":stairs", $stairs);
+                    $stmt->bindParam(":door", $door);
+                    $stmt->bindParam(":postCode", $postCode);
+                    $stmt->bindParam(":city", $city);
+                    $stmt->bindParam(":country", $country);
+                    $stmt->bindParam(":sectorCode", $country);
 
-            $stmt->execute();
-            echo "<div class='alert alert-info'>$password</div>";
-            echo "IN DATENBANK GESPEICHERT!";
+                    $stmt->execute();
+                    echo "<div class='alert alert-info'>$password</div>";
+                    echo "IN DATENBANK GESPEICHERT!";
 //
 //
 //
@@ -295,14 +293,14 @@ if (isset($_POST['submit'])) {
 //                    mail($email,
 //                        "Ihre Zugangsdaten zu unserem Portal",
 //                        $msg);
+                }
+
+            }
         }
-
-    }
-}
-?>
+        ?>
 
 
-</div>
+    </div>
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
