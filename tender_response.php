@@ -27,19 +27,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         10 Desktops <p>Langtext:  Prozessor: 3,4 GHz Quad-Core Intel Core i5 Prozessor
         Arbeitsspeicher: 8 GB DDR 4 - 2400 RAM
         Speicher: 1 TB Fusion Drive
-        Grafik: Radeon Pro 570 mit 4 GB GDDR5 Grafikspeicher </p> <p>Preis:</p> <input name="" type="number">
+        Grafik: Radeon Pro 570 mit 4 GB GDDR5 Grafikspeicher </p> Preis: <input name="" type="number">
           <br>
         1.2.:
-        10  Monitore <p>Langtext: 27 Zoll (68,58 cm) Retina 5K Display mit 5.120 x 2.880 Pixeln </p> <input name="" type="number">
+        10  Monitore <p>Langtext: 27 Zoll (68,58 cm) Retina 5K Display mit 5.120 x 2.880 Pixeln </p> Preis: <input name="" type="number">
         <br>
         1.3.:
-        10 Mäuse <p>Langtext: Logitech MX Vertical Ergonomische Maus 910-005448</p> <input name="" type="number">
+        10 Mäuse <p>Langtext: Logitech MX Vertical Ergonomische Maus 910-005448</p> Preis: <input name="" type="number">
         <br>
         1.4.:
-        10 Tastatur <p>Langtext: Microsoft Surface Ergonomische Tastatur </p> <input name="" type="number">
+        10 Tastatur <p>Langtext: Microsoft Surface Ergonomische Tastatur </p> Preis: <input name="" type="number">
         <br>
         1.5.:
-        10 HDMI Kabel <p>Langtext: 5m - Ultra HD 4k HDMI Kabel 2.0b 60Hz 18GBit/s </p> <input name="" type="number">
+        10 HDMI Kabel <p>Langtext: 5m - Ultra HD 4k HDMI Kabel 2.0b 60Hz 18GBit/s </p> Preis: <input name="" type="number">
        <br>
 
     </div>
