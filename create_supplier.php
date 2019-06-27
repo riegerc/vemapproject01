@@ -108,6 +108,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <div class="row">
                 <fieldset class="form-group col-sm-9">
                     <legend>Telefonnummer: </legend>
+
                 <div class="form-group col-sm-3">
                     <label>Festnetz: </label>
                     <input type="text" class="form-control" name="telNr"
