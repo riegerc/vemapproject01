@@ -20,7 +20,21 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            "search": false,
+            "language": {
+                "lengthMenu": "_MENU_ Einträge pro Seite",
+                "zeroRecords": "Keine Einträge gefunden",
+                "info": "Seite _PAGE_ von _PAGES_",
+                "infoEmpty": "Keine Einträge verfügbar",
+                "infoFiltered": "(von _MAX_ Einträgen)",
+                "search": "Detailsuche",
+                "paginate": {
+                    "previous": "Vorherige",
+                    "next": "Nächste"
+                }
+            }
+        });
     });
 </script>
 </body>

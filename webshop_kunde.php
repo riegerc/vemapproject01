@@ -24,12 +24,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="form-group">
                         <label for="product_type">Produkt-Typ</label>
                         <select name='product_type' id='product_type' class="form-control">
-                            <optgroup label="Material:">
+                            <optgroup label="Material">
                                 <option>Büroartikel</option>
                                 <option>Reinigungsmittel</option>
                                 <option>Computer&Zubehör</option>
                             </optgroup>
-                            <optgroup label="Dienstleistung:">
+                            <optgroup label="Dienstleistung">
                                 <option>Kurse</option>
                                 <option>Trainer</option>
                             </optgroup>
@@ -44,18 +44,17 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <label for="bisPreis">Preis bis</label>
                     <input type="number" name='bisPreis' id='bisPreis' class="form-control">
                 </div>
-                <div class="form-group col-md-2" id="search-button-wrap">
-                    <input type="submit" class="btn btn-primary" name="suche_senden" id="suche_senden" value='Suchen'/><br>
+                <div class="form-group col-md-2 form-button-wrap" >
+                    <input type="submit" class="btn btn-primary form-button" name="suche_senden" id="suche_senden" value='Suchen'/><br>
                 </div>
             </div>
         </form>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered" id="search_results">
+                <table class="table table-bordered" id="dataTable">
                 <?php
                 //this variable is for the amount of results here. it scales with foreach loop below
                 $counter = 0;
-                $db = connectDB();
 
                 if (isset ($_POST['suche_senden'])) {
                     $vonPreis = $_POST['vonPreis'];
@@ -66,12 +65,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     $suche = "%" . $_POST['suche'] . "%";
 
                     //if search clicked ONLY THEN you get the table
-                    echo "    <tr>\n";
+                    echo "    <thead><tr>\n";
                     echo "    <th>Artikel Name</th>\n";
                     echo "    <th>Artikel Preis</th>\n";
                     echo "    <th>Artikel Gruppe</th>\n";
                     echo "    <th>Kaufen</th>\n";
-                    echo "    </tr>";
+                    echo "    </tr></thead>";
                 }
 
                 //sql statement for article
@@ -142,8 +141,4 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         </div>
     </div>
 </div>
-
-<script>
-    $('#search-results').DataTable();
-</script>
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
