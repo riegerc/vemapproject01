@@ -81,7 +81,7 @@ class Repository{
 				}
 		}
 	}
-	public function deleteKriterium(int $kid, bool $is_subcriteria=false){
+public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		if($is_subcriteria){
 			$sql = "UPDATE subcriteria SET deleted=1 WHERE objectID=:objectID";
 			$stmt=$this->db->prepare($sql);
@@ -139,5 +139,6 @@ class Repository{
 	}
 	public function createAnswers(Fragebogen $fb):void{
 		$reviewId=createReview($userFid);
+		$sql="INSERT INTO rewiesmark(rewiesFID,criteriaFID,undercriteriaFID,supplierUserFID,mark)";
 	}
 }
