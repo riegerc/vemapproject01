@@ -51,6 +51,7 @@ $statement->bindParam(":articleFID", $_POST["update"]);
 $statement->execute();
 
 $amount = $_POST["amount"];
+echo "hallo";
 
 $article = $_POST["update"];?>
 
