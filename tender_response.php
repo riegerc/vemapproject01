@@ -12,7 +12,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
-    < class="content">
+
 
 
         <?php //while ($row=$stmt->fetch()) {
@@ -20,7 +20,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
 
         //}; ?>
-
+    <a href="tender_detail.php?= <!-- hier ID der Ausschreibungfetchen -->" >&#8636 Zurück zur Ausschreibung</a>
         <h2>Webdesign Büro</h2>
 
         1.1.:
@@ -41,6 +41,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         1.5.:
         10 HDMI Kabel <p>Langtext: 5m - Ultra HD 4k HDMI Kabel 2.0b 60Hz 18GBit/s </p> Preis: <input name="" type="number">
        <br>
+<br>
+    <button class="btn btn-success">Angebot verpflichtend abgeben</button>
 
     </div>
 </div>
