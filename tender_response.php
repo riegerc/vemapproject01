@@ -23,6 +23,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <a href="tender_detail.php?= <!-- hier ID der Ausschreibungfetchen -->" >&#8636 Zurück zur Ausschreibung</a>
         <h2>Webdesign Büro</h2>
 
+    <!-- alle options etc. aus der Datenbank holen und daraus automatisch unterpunkte (1.1, 1.2, 1.3...) erstellen-->
+
         1.1.:
         10 Desktops <p>Langtext:  Prozessor: 3,4 GHz Quad-Core Intel Core i5 Prozessor
         Arbeitsspeicher: 8 GB DDR 4 - 2400 RAM
@@ -42,7 +44,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         10 HDMI Kabel <p>Langtext: 5m - Ultra HD 4k HDMI Kabel 2.0b 60Hz 18GBit/s </p> Preis: <input name="" type="number">
        <br>
 <br>
-    <button class="btn btn-success">Angebot verpflichtend abgeben</button>
+    <button class="btn btn-success">Angebot verpflichtend abgeben</button> <!-- mit submit button austauschen -->
 
     </div>
 </div>
