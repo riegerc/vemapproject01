@@ -10,6 +10,7 @@
     <link href="css/sb-admin-2.css" rel="stylesheet">
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title><?php echo "$title | " . PAGE_NAME ?></title>
 </head>
 <body id="page-top">

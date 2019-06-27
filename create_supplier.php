@@ -52,9 +52,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <div class="row">
                 <div class="col-md-6">
                     <h4>Firma</h4>
-                    <div class="form-group">
-                        <label for="branchName">Firmenname</label>
-                        <input type="text" id="branchName" class="form-control" name="branchName">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="branchName">Firmenname</label>
+                                <input type="text" id="branchName" class="form-control" name="branchName">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sectorCode">Sector Code</label>
+                                <input type="text" class="form-control" name="sectorCode" id="sectorCode">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="street">Strasse</label>
@@ -100,6 +110,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-md-6">
                     <h4>Ansprechpartner</h4>
@@ -150,7 +161,7 @@ $options = [
 
 if (isset($_POST['submit'])) {
 
-    $userRole = 11;
+    $userRole = 10;
     htmlspecialchars($branchName = $_POST['branchName']);
     htmlspecialchars($street = $_POST['street']);
     htmlspecialchars($houseNumber = $_POST['houseNumber']);
@@ -164,6 +175,7 @@ if (isset($_POST['submit'])) {
     htmlspecialchars($email = $_POST['email']);
     htmlspecialchars($telNr = $_POST['telNr']);
     htmlspecialchars($mobilNr = $_POST['mobilNr']);
+    htmlspecialchars($sectorCode = $_POST['sectorCode']);
 
     //generate Password
 
@@ -240,7 +252,7 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(":postCode", $postCode);
             $stmt->bindParam(":city", $city);
             $stmt->bindParam(":country", $country);
-            $stmt->bindParam(":sectorCode", $country);
+            $stmt->bindParam(":sectorCode", $sectorCode);
 
             $stmt->execute();
             echo $password;
