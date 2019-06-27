@@ -42,7 +42,7 @@ if(isset($_POST["senden"])){
 	$extKriterien=array();
 
 	foreach($_POST as $key=>$val){
-		$key=Helper::getId($key);
+		$key=Helper::getId($key,"inp");
 		$extKriterien[$key]=(int)Helper::sanitize($val);
 	}
 	if(isset($kid)){

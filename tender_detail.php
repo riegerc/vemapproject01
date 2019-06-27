@@ -84,7 +84,12 @@ $dateEnd=date_create($row["end"]);
 
             <tr>
                 <th scope="row">Erfüllungsort:</th>
-                <td><?php echo $row["street"] . $row["houseNumber"] . "/" . $row["stairs"] . "/" . $row["door"] . "<br>" . $row["postCode"] . $row["city"] . "<br>" . $row["country"] ?></td>
+                <td><?php
+                    echo $row["street"] . " " . $row["houseNumber"] ;
+
+                    if ($row["stairs"] | "" ) {echo "/" . $row["stairs"]; } ;
+
+                    echo "/" . $row["door"] . "<br>" . $row["postCode"] . " " . $row["city"] . "<br>" . $row["country"] ?></td>
             </tr>
 
             <tr> <!-- If Dienstleistung keine Menge einzeigen -->

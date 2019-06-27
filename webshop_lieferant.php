@@ -12,7 +12,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
       
-<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
+<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="POST">
 <h3>Lieferant Ansicht | Kontostand:53,941&euro;</h3> 
 
 <?php
@@ -64,7 +64,8 @@ if(isset($_GET['order'])){
 
     $stmt=$db->prepare($sql);
     $stmt->bindParam(":objectID",$order_id);
-    $stmt->execute();
+    $stmt->execute();  
+    echo '<meta http-equiv="refresh" content= "0;URL=?mc=mobile" />';
 }
 
 
