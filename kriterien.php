@@ -73,7 +73,7 @@ foreach($kriterien as $kriterium){
     <div class="content">
 	<div class="meldung"><?php echo (strlen($meldung)>0)?$meldung:'' ?></div>
 	<form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
-		<ul>
+		<ul id="nostyle">
         <?php
 		$ausgabe="";
 		if(isset($kid)){
