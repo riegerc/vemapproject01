@@ -16,9 +16,16 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
-	echo "<h1>adsfasdf</h1>";
+	$lieferantid=$_POST["lieferantid"];
+	unset($_POST["lieferantid"]);
+	unset($_POST["senden"]);
+	$antworten=array();
+	foreach($_POST as $key=>$val){
+		$key=Helper::getId($key);
+		$antworten[$key]=(int)Helper::sanitize($val);
+	}
 	echo "<pre>";
-	var_dump($_POST);
+	print_r($antworten);
 	echo "</pre>";
 }
 ?>
@@ -28,7 +35,7 @@ if(isset($_POST["senden"])){
     <div class="content">
         <h1></h1>
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-		<input type="hidden" value="<?php echo $lieferantid; ?>">
+		<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 		<?php
 			foreach($fragen as $frage){
 				 echo "<h2>".$frage->getName()."</h2>";
@@ -39,7 +46,7 @@ if(isset($_POST["senden"])){
 				 echo "</ul>";
 			}
 		?>
-		<button type="submit" value="senden">Senden</button>
+		<button type="submit" name="senden">Senden</button>
 		</form>
     </div>
 </div>

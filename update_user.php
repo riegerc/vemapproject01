@@ -20,6 +20,10 @@ if(isset($_GET["senden"])) {
             }elseif($key=="senden") {
 
             }
+            //Budget ist integer also kein Leerstring erlaubt
+            elseif($key=="budget" AND $value=="") {
+
+            }
             elseif($key=="rolesFID") {
                 $key=0;
             }
@@ -51,12 +55,33 @@ if(isset($_GET["senden"])) {
                 $statement = connectDB()->prepare($sql);
                 $statement->bindParam(":user", $_GET["user"]);
                 $statement->execute();
+                while( $row=$statement->fetch() ) {
+                    $fname=$row["firstName"];
+                    $lname=$row["lastName"];
+
+                    $role=$row["rolesFID"];
+
+                    $email=$row["email"];
+                    $budget=$row["budget"];
+                    $tel=$row["telNr"];
+                    $mobil=$row["mobilNr"];
+                    $branch=$row["branchName"];
+                    $street=$row["street"];
+                    $house=$row["houseNumber"];
+                    $stairs=$row["stairs"];
+                    $door=$row["door"];
+                    $post=$row["postCode"];
+                    $city=$row["city"];
+                    $country=$row["country"];
+                    $sector=$row["sectorCode"];
+                }
+
                 if (isset($_GET["senden"])) {
 
                 }
                 ?>
-                <label for="firstName">Vorname : <input type="text" name="firstName" id="firstName"></label><br>
-                <label for="lastName">Nachname : <input type="text" name="lastName" id="lastName"></label><br>
+                <label for="firstName">Vorname : <input type="text" name="firstName" id="firstName" value="<?php echo $fname;?>"></label><br>
+                <label for="lastName">Nachname : <input type="text" name="lastName" id="lastName" value="<?php echo $lname;?>"></label><br>
 
                 <label for="rolesFID">Rolle :
                     <select name="rolesFID">
@@ -65,25 +90,29 @@ if(isset($_GET["senden"])) {
                         $statement=connectDB()->prepare($sql);
                         $statement->execute();
                         while($row=$statement->fetch()){
-                                echo "<option value='$row[objectID]'>$row[name]</option>";
+                            $selected="";
+                            if($row["objectID"]==$role){
+                                $selected="selected";
+                            }
+                            echo "<option value='$row[objectID]' $selected>$row[name]</option>";
                         }
                         ?>
                     </select>
                 </label><br>
 
-                <label for="email">Email : <input type="email" name="email" id="email"></label><br>
-                <label for="budget">Budget : <input type="text" name="budget" id="budget"></label><br>
-                <label for="telNr">telephone : <input type="text" name="telNr" id="telNr"></label><br>
-                <label for="mobilNr">mobile : <input type="text" name="mobilNr" id="mobilNr"></label><br>
-                <label for="branchName">Filiale : <input type="text" name="branchName" id="branchName"></label><br>
-                <label for="street">Straße : <input type="text" name="street" id="street"></label><br>
-                <label for="houseNumber">Haus nr. : <input type="text" name="houseNumber" id="houseNumber"></label><br>
-                <label for="stairs">Stiege : <input type="text" name="stairs" id="stairs"></label><br>
-                <label for="door">Tür : <input type="text" name="door" id="door"></label><br>
-                <label for="postCode">PLZ : <input type="text" name="postCode" id="postCode"></label><br>
-                <label for="city">Stadt : <input type="text" name="city" id="city"></label><br>
-                <label for="country">Land : <input type="text" name="country" id="country"></label><br>
-                <label for="sectorCode">Sektor : <input type="text" name="sectorCode" id="sectorCode"></label><br>
+                <label for="email">Email : <input type="email" name="email" id="email" value="<?php echo $email;?>"></label><br>
+                <label for="budget">Budget : <input type="text" name="budget" id="budget" value="<?php echo $budget;?>"></label><br>
+                <label for="telNr">telephone : <input type="text" name="telNr" id="telNr" value="<?php echo $tel;?>"></label><br>
+                <label for="mobilNr">mobile : <input type="text" name="mobilNr" id="mobilNr" value="<?php echo $mobil;?>"></label><br>
+                <label for="branchName">Filiale : <input type="text" name="branchName" id="branchName" value="<?php echo $branch;?>"></label><br>
+                <label for="street">Straße : <input type="text" name="street" id="street" value="<?php echo $street;?>"></label><br>
+                <label for="houseNumber">Haus nr. : <input type="text" name="houseNumber" id="houseNumber" value="<?php echo $house;?>"></label><br>
+                <label for="stairs">Stiege : <input type="text" name="stairs" id="stairs" value="<?php echo $stairs;?>"></label><br>
+                <label for="door">Tür : <input type="text" name="door" id="door" value="<?php echo $door;?>"></label><br>
+                <label for="postCode">PLZ : <input type="text" name="postCode" id="postCode" value="<?php echo $post;?>"></label><br>
+                <label for="city">Stadt : <input type="text" name="city" id="city" value="<?php echo $city;?>"></label><br>
+                <label for="country">Land : <input type="text" name="country" id="country" value="<?php echo $country;?>"></label><br>
+                <label for="sectorCode">Sektor : <input type="text" name="sectorCode" id="sectorCode" value="<?php echo $sector;?>"></label><br>
 
                 <button type="submit" name="senden">Senden</button>
                 <?php
