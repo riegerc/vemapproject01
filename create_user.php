@@ -13,20 +13,20 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
         <?php
 
-        $branchName=[
-                "AMS Wien Dresdner Straße",
-                "AMS Wien Esteplatz",
-                "AMS Wien Hauffgasse",
-                "AMS Wien Hietzinger Kai",
-                "AMS Wien Huttengasse",
-                "AMS Wien Johnstraße",
-                "AMS Wien Jägerstraße",
-                "AMS Wien Laxenburger Straße",
-                "AMS Wien Redergasse",
-                "AMS Wien Schloßhofer Straße",
-                "AMS Wien Schönbrunner Straße",
-                "AMS Wien Wagramer Straße",
-                "AMS Wien Währinger Gürtel"];
+        $branchName = [
+            "AMS Wien Dresdner Straße",
+            "AMS Wien Esteplatz",
+            "AMS Wien Hauffgasse",
+            "AMS Wien Hietzinger Kai",
+            "AMS Wien Huttengasse",
+            "AMS Wien Johnstraße",
+            "AMS Wien Jägerstraße",
+            "AMS Wien Laxenburger Straße",
+            "AMS Wien Redergasse",
+            "AMS Wien Schloßhofer Straße",
+            "AMS Wien Schönbrunner Straße",
+            "AMS Wien Wagramer Straße",
+            "AMS Wien Währinger Gürtel"];
 
         //                           password length|adds underscores |    chose sets (l = lowercase, u = uppercase, n = numbers, s = special characters
         function generateStrongPassword($length = 10, $add_dashes = false, $available_sets = 'luns')
@@ -63,169 +63,167 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         }
 
         ?>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Geschäftsstelle</h4>
-            <div class="form-group">
-                <label for="branchName">Wählen Sie die Geschäftsstelle</label>
-                <select type="text" id="branchName" class="form-control" name="branchName">
-                    <option selected disabled>Bitte Auswählen...</option>
-                    <?php foreach ($branchName as $value){
-
-                        echo "<option value='$value'>$value</option>";
-
-                    } ?>
-
-
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="branchName">Benutzer Rolle</label>
-            <select class="form-control" name='userRole' id='userRole' required><br>
-                <option id="" disabled selected>Bitte Auswählen...</option>
-                <?php
-                $sql = "SELECT roles.objectID AS userRoleID, roles.name 
-                            FROM roles 
-                            WHERE roles.objectID BETWEEN 2 AND 5 OR objectID=12 
-                            ORDER BY userRoleID = 12 DESC, userRoleID";
-                $stmt = connectDB()->query($sql);
-                while ($row = $stmt->fetch()) {
-                    echo "<option value='$row[userRoleID]'>$row[name]</option>";
-                }
-                ?>
-            </select>
-        </div>
-            <div class="form-group">
-                <label for="street">Strasse</label>
-                <input type="text" class="form-control" name="street" id="street">
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="houseNumber">Hausnummer</label>
-                        <input type="text" class="form-control" name="houseNumber" id="houseNumber">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="stairs">Stiege</label>
-                        <input type="text" class="form-control" name="stairs" id="stairs">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="door">Türnummer</label>
-                        <input type="text" class="form-control" name="door" id="door">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="postCode">Postleitzahl</label>
-                        <input type="text" class="form-control" name="postCode" id="postCode">
-                    </div>
-                </div>
-            </div>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="row">
                 <div class="col-md-6">
+                    <h4>Geschäftsstelle</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="branchName">Wählen Sie die Geschäftsstelle</label>
+                            <select type="text" id="branchName" class="form-control" name="branchName">
+                                <option selected disabled>Bitte Auswählen...</option>
+                                <?php foreach ($branchName as $value) {
+                                    echo "<option value='$value'>$value</option>";
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="branchName">Benutzer Rolle</label>
+                                <select class="form-control" name='userRole' id='userRole' required><br>
+                                    <option id="" disabled selected>Bitte Auswählen...</option>
+                                    <?php
+                                    $sql = "SELECT roles.objectID AS userRoleID, roles.name 
+                                            FROM roles 
+                                            WHERE roles.objectID BETWEEN 2 AND 5 OR objectID=12 
+                                            ORDER BY userRoleID = 12 DESC, userRoleID";
+                                    $stmt = connectDB()->query($sql);
+                                    while ($row = $stmt->fetch()) {
+                                        echo "<option value='$row[userRoleID]'>$row[name]</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="city">Stadt</label>
-                        <input type="text" class="form-control" name="city" id="city">
+                        <label for="street">Strasse</label>
+                        <input type="text" class="form-control" name="street" id="street">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="houseNumber">Hausnummer</label>
+                                <input type="text" class="form-control" name="houseNumber" id="houseNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="stairs">Stiege</label>
+                                <input type="text" class="form-control" name="stairs" id="stairs">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="door">Türnummer</label>
+                                <input type="text" class="form-control" name="door" id="door">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="postCode">Postleitzahl</label>
+                                <input type="text" class="form-control" name="postCode" id="postCode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="city">Stadt</label>
+                                <input type="text" class="form-control" name="city" id="city">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country">Land</label>
+                                <input type="text" class="form-control" name="country" id="country">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <h4>Ansprechpartner</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstName">Vorname</label>
+                                <input type="text" class="form-control" name="firstName" id="firstName">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastName">Nachname</label>
+                                <input type="text" class="form-control" name="lastName" id="lastName">
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="country">Land</label>
-                        <input type="text" class="form-control" name="country" id="country">
+                        <label for="email">E-Mail</label>
+                        <input type="email" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="telNr">Festnetz</label>
+                        <input type="text" class="form-control" name="telNr" id="telNr">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobilNr">Mobil</label>
+                        <input type="text" class="form-control" name="mobilNr" id="mobilNr">
+                    </div>
+                    <div class="form-group form-button-wrap">
+                        <input type="submit" class="form-button btn btn-primary " name="submit" value="Absenden">
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <h4>Ansprechpartner</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="firstName">Vorname</label>
-                        <input type="text" class="form-control" name="firstName" id="firstName">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="lastName">Nachname</label>
-                        <input type="text" class="form-control" name="lastName" id="lastName">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input type="email" class="form-control" name="email" id="email">
-            </div>
-            <div class="form-group">
-                <label for="telNr">Festnetz</label>
-                <input type="text" class="form-control" name="telNr" id="telNr">
-            </div>
-            <div class="form-group">
-                <label for="mobilNr">Mobil</label>
-                <input type="text" class="form-control" name="mobilNr" id="mobilNr">
-            </div>
-            <div class="form-group form-button-wrap">
-                <input type="submit" class="form-button btn btn-primary " name="submit" value="Absenden">
-            </div>
-        </div>
-    </div>
-</form>
-</div>
-</div>
-<?php
+        </form>
+        <?php
 
 
-$password = generateStrongPassword();
+        $password = generateStrongPassword();
 
-$options = [
-    'cost' => 12,
-];
+        $options = [
+            'cost' => 12,
+        ];
 
-if (isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
 
-    htmlspecialchars($userRole = $_POST["userRole"]);
-    htmlspecialchars($branchName = $_POST['branchName']);
-    htmlspecialchars($street = $_POST['street']);
-    htmlspecialchars($houseNumber = $_POST['houseNumber']);
-    htmlspecialchars($stairs = $_POST['stairs']);
-    htmlspecialchars($door = $_POST['door']);
-    htmlspecialchars($postCode = $_POST['postCode']);
-    htmlspecialchars($city = $_POST['city']);
-    htmlspecialchars($country = $_POST['country']);
-    htmlspecialchars($firstName = $_POST['firstName']);
-    htmlspecialchars($lastName = $_POST['lastName']);
-    htmlspecialchars($email = $_POST['email']);
-    htmlspecialchars($telNr = $_POST['telNr']);
-    htmlspecialchars($mobilNr = $_POST['mobilNr']);
+            htmlspecialchars($userRole = $_POST["userRole"]);
+            htmlspecialchars($branchName = $_POST['branchName']);
+            htmlspecialchars($street = $_POST['street']);
+            htmlspecialchars($houseNumber = $_POST['houseNumber']);
+            htmlspecialchars($stairs = $_POST['stairs']);
+            htmlspecialchars($door = $_POST['door']);
+            htmlspecialchars($postCode = $_POST['postCode']);
+            htmlspecialchars($city = $_POST['city']);
+            htmlspecialchars($country = $_POST['country']);
+            htmlspecialchars($firstName = $_POST['firstName']);
+            htmlspecialchars($lastName = $_POST['lastName']);
+            htmlspecialchars($email = $_POST['email']);
+            htmlspecialchars($telNr = $_POST['telNr']);
+            htmlspecialchars($mobilNr = $_POST['mobilNr']);
 
-    //generate Password
-
-
-    $hash = password_hash($password, PASSWORD_BCRYPT, $options);
-    $ok = true;
-
-    $sql = "SELECT * FROM user WHERE email=:email";
-    $stmt = connectDB()->prepare($sql);
-    $stmt->bindParam(":email", $email);
-    $stmt->execute();
-    $row = $stmt->fetch();
-    //Wenn etwas gefunden wurde
+            //generate Password
 
 
-    if ($row !== false) {
+            $hash = password_hash($password, PASSWORD_BCRYPT, $options);
+            $ok = true;
 
-        $ok = false;
-        $bericht = "Email existiert bereits!<br>";
+            $sql = "SELECT * FROM user WHERE email=:email";
+            $stmt = connectDB()->prepare($sql);
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            //Wenn etwas gefunden wurde
 
-    } else {
-        if ($ok == true) {
 
-            $sql = "INSERT INTO user (
+            if ($row !== false) {
+
+                $ok = false;
+                $bericht = "Email existiert bereits!<br>";
+
+            } else {
+                if ($ok == true) {
+
+                    $sql = "INSERT INTO user (
                   firstName,
                   lastName,
                   email,
@@ -261,28 +259,28 @@ if (isset($_POST['submit'])) {
                           :sectorCode)";
 
 
-            $stmt = connectDB()->prepare($sql);
+                    $stmt = connectDB()->prepare($sql);
 
-            $stmt->bindParam(":firstName", $firstName);
-            $stmt->bindParam(":lastName", $lastName);
-            $stmt->bindParam(":email", $email);
-            $stmt->bindParam(":password", $hash);
-            $stmt->bindParam(":telNr", $telNr);
-            $stmt->bindParam(":mobilNr", $mobilNr);
-            $stmt->bindParam(":rolesFID", $userRole);
-            $stmt->bindParam(":branchName", $branchName);
-            $stmt->bindParam(":street", $street);
-            $stmt->bindParam(":houseNumber", $houseNumber);
-            $stmt->bindParam(":stairs", $stairs);
-            $stmt->bindParam(":door", $door);
-            $stmt->bindParam(":postCode", $postCode);
-            $stmt->bindParam(":city", $city);
-            $stmt->bindParam(":country", $country);
-            $stmt->bindParam(":sectorCode", $country);
+                    $stmt->bindParam(":firstName", $firstName);
+                    $stmt->bindParam(":lastName", $lastName);
+                    $stmt->bindParam(":email", $email);
+                    $stmt->bindParam(":password", $hash);
+                    $stmt->bindParam(":telNr", $telNr);
+                    $stmt->bindParam(":mobilNr", $mobilNr);
+                    $stmt->bindParam(":rolesFID", $userRole);
+                    $stmt->bindParam(":branchName", $branchName);
+                    $stmt->bindParam(":street", $street);
+                    $stmt->bindParam(":houseNumber", $houseNumber);
+                    $stmt->bindParam(":stairs", $stairs);
+                    $stmt->bindParam(":door", $door);
+                    $stmt->bindParam(":postCode", $postCode);
+                    $stmt->bindParam(":city", $city);
+                    $stmt->bindParam(":country", $country);
+                    $stmt->bindParam(":sectorCode", $country);
 
-            $stmt->execute();
-            echo "<div class='alert alert-info'>$password</div>";
-            echo "IN DATENBANK GESPEICHERT!";
+                    $stmt->execute();
+                    echo "<div class='alert alert-info'>$password</div>";
+                    echo "IN DATENBANK GESPEICHERT!";
 //
 //
 //
@@ -295,14 +293,14 @@ if (isset($_POST['submit'])) {
 //                    mail($email,
 //                        "Ihre Zugangsdaten zu unserem Portal",
 //                        $msg);
+                }
+
+            }
         }
-
-    }
-}
-?>
+        ?>
 
 
-</div>
+    </div>
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>

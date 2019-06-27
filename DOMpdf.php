@@ -27,6 +27,7 @@ ob_start();
 $timestamp = time();
 $datum = date("d-m-Y - H:i", $timestamp);
 $nur_datum = date("d-m-Y");
+$orderNr=1;
 
 # übernimmt die userID von $_GET
 $userID = (int)$_GET["objectID"];
@@ -106,7 +107,9 @@ $userID = (int)$_GET["objectID"];
               <td class="header_left">
                   <p>Bestellung für: </p>
                   <p>Kundenname <?php echo $_SESSION['userName']; ?></p>
+                  <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
                   <p>KundenAdresse</p>
+                  
                   <p>Ort PLZ</p>
                   <br>
                   <p>Tel: +43 2595474</p>
@@ -129,22 +132,20 @@ $userID = (int)$_GET["objectID"];
       </table>  
     </header>
     
-    <h1>Bestellung Nr.<?php echo "\$Variable_Bestell_Nummer"; ?></h1>
+    <h1>Bestellung Nr.<?php echo "\$orderNr"; ?></h1>
     
     <table class="mid_table">
         <tbody>
         <tr>
             <td class="mid_table_left">
+                <?php //$nurdatum= Tabelle order Spalte dateTime?>
                 <p><strong>Bestelldatum: <?php echo $nur_datum ?></strong></p>
-                <p><strong>Platzhalter</strong></p>
-                <p>Platzhalter</p>
-                <p>Platzhalter</p>
-                <br>
-                <br>
-                <br>
             </td>
 
             <td class="mid_table_right">
+                <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email 
+                
+                ?>
                 <p><strong>Lieferanschrift:</strong> </p>
                 <p>Lieferant</p>
                 <p>LieferantAdresse</p>
@@ -161,12 +162,30 @@ $userID = (int)$_GET["objectID"];
   
 <!--      !!!!!!!!!!!!!!!!!!!!!!!!!! ab hier  GEHÖRT GEÄNDERT                    -->
           <table class="order_table">
+              <?php //tabelle orderitems spalten atrticleFID count price
+                    //tabelle order spalten supplierUserFID
+                    //tabelle article spalten name price=je
+                    //tabelle user spalte branchName
+                    //sql abfrage 
+                    $sql = "SELECT orderitems.articleFID,
+                        orderitems.count,
+                        orderitems.price,
+                        article.name,
+                        article.price
+                        FROM orderitems 
+                        LEFT JOIN article ON  article.objectID=orderitems.articleFID
+                        WHERE orderitems.orderFID=:orderNr";
+                    //Lieferantennamen auslesen
+                    $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
+
+              ?>
               <tr>
                   <th>ArtikelNr/ID</th>
                   <th>ArtikelBezeichnung</th>
                   <th>Menge</th>
                   <th>Je</th>
                   <th>Preis EURO</th>
+                  <th>LieferantName</th>
               </tr>
               
 <!--              NUR UM die TABELLE zu FÜHLEN-->
