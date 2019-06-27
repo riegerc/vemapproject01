@@ -40,12 +40,12 @@ i {
     font-style: italic;
     font-size: 1.2em;
 }
-#inline {
-    display: inline;
-}
 .buttonrow{
 	text-align:center;
 }
 .rrtable th, .rrtable td {
 	padding: 0rem;
+}
+#nostyle {
+    list-style: none;
 }

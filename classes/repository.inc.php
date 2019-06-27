@@ -123,12 +123,11 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $fragen;
 	}
-	public function createReview(Fragebogen $fb):int{
+	public function createReview(int $userid):int{
 		$reviewId=0;
 		$sql="INSERT INTO reviews(userFID) VALUES(:userFid)";
 		$stmt=$this->db->prepare($sql);
-		$userId=$fb->getUserId();
-		$stmt->bindParam(":userFid",$userId);
+		$stmt->bindParam(":userFid",$userid);
 		try{
 			$stmt->execute();
 			$reviewId=$this->db->lastInsertId('reviews');
@@ -138,7 +137,15 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		return $reviewId;
 	}
 	public function createAnswers(Fragebogen $fb):void{
-		$reviewId=createReview($userFid);
-		$sql="INSERT INTO rewiesmark(rewiesFID,criteriaFID,undercriteriaFID,supplierUserFID,mark)";
+		$userFid=$fb->getUserId();
+		$reviewId=$this->createReview($userFid);
+		$kriterien=$fb->getFragen();
+		$sql="INSERT INTO rewiesmark(rewiesFID,criteriaFID,undercriteriaFID,supplierUserFID,mark) VALUES";
+		echo "<pre>";
+		print_r($kriterien);
+		echo "</pre>";
+		foreach($kriterien as $kriterium){
+			$sql.="()";
+		}
 	}
 }

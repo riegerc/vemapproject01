@@ -9,51 +9,85 @@ $title = "Artikel kaufen"; // defines the name of the current page, displayed in
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 ?>
-<?php
-$sql="
-/*SELECT name FROM article
-INNER JOIN orderitems 
-ON article.objectID = orderitems.articleFID*/
 
-SELECT name, price
-FROM article
+<?php
+$amount = $_POST["amount"];
+$update = $_POST["update"];
+$userFID= $_SESSION[USER_ID];
+
+/*$sql="SELECT * FROM user
+WHERE objectID = :userFID";
+
+$statement=connectDB()->prepare($sql);
+$statement->bindParam(":userFID", $userFID);
+$statement->execute();
+
+while($row=$statement->fetch()) {
+    $employee = $row["objectID"];
+}
+
+$employee=99;
+$sql="INSERT INTO order
+(employeeUserFID)
+VALUE
+($employee)
+WHERE order.objectID=2";
+$statement=connectDB()->query($sql);
+//$statement->bindParam(":employee", $employee);
+$statement->execute();*/
+
+$sql="SELECT name,article.price FROM article
+
 INNER JOIN orderitems
+
 ON article.objectID = orderitems.articleFID
-INNER JOIN order
-ON order.objectID = orderitems.orderFID
+WHERE article.objectID=$update
 ";
 
 $statement=connectDB()->query($sql);
 $statement->execute();
+
 while($row=$statement->fetch()){
-    echo $row["price"];
-    $articlePrice=$row["price"];
+    $articleName=$row["name"];
+    $price=$row["price"];
 }
-
-$amount = $_POST["amount"];
-$article = $_POST["update"];
-$price=$amount*$articlePrice;
+$wholeAmount=$price*$amount;
 $sql="INSERT INTO orderitems
-    (count, articleFID, price)
-    VALUES
-    (:count, :articleFID, :price)";
-    $statement=connectDB()->prepare($sql);
-    $statement->bindParam(":count", $_POST["amount"]);
-    $statement->bindParam(":articleFID", $_POST["update"]);
 
-    $statement->execute();
+  (count, articleFID, price, orderFID)
 
+  VALUES
 
+  (:count, :articleFID, :price, :order)";
 
-?>
+$statement=connectDB()->prepare($sql);
+
+$statement->bindParam(":count", $_POST["amount"]);
+$statement->bindParam(":articleFID", $_POST["update"]);
+$statement->bindParam(":price", $wholeAmount);
+$statement->bindParam(":order", $orderID);
+
+$statement->execute();
+
+$article = $_POST["update"];?>
+
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
-    <div class="content">
-        <!-- Content -->
-        <?php
-        echo "Sie haben $amount Stück von Artikel $article bestellt";
-        ?>
-    </div>
-</div>
 
-<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
+    <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
+
+    <div class="content">
+
+        <!-- Content -->
+
+        <?php
+
+//        echo "Sie haben $amount Stück von Artikel $article bestellt";
+        echo "Stück: $amount";
+        echo "Artikel: $articleName";
+        echo "Preis: $wholeAmount";
+
+        ?>
+
+    </div>
+
+</div><?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
