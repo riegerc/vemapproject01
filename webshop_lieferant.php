@@ -3,7 +3,7 @@ $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = PERM_CED_SUPPLIER; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
-$title = "Lieferant Ansicht"; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Bestellungen"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
@@ -36,16 +36,17 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             
                             WHERE article.objectID=orderitems.articleFID;";
 
-                            echo "<thead>\n";
-                            echo "    <tr>\n";
-                            echo "        <th>Artikel Name</th>\n";
-                            echo "        <th>Preis Je</th>\n";
-                            echo "        <th>Stück</th>\n";
-                            echo "        <th>Gesamt Preis</th>\n";
-                            echo "        <th>Lieferung</th>\n";
+                            echo "<thead>";
+                            echo "    <tr>";
+                            echo "        <th>Artikel Name</th>";
+                            echo "        <th>Preis Je</th>";
+                            echo "        <th>Stück</th>";
+                            echo "        <th>Gesamt Preis</th>";
+                            echo "        <th>Lieferung</th>";
                             echo "    </tr>";
                             echo "</thead>";
 
+                            echo "<tbody>";
                             foreach ($db->query($sql) as $row) {
                                 echo "    <tr>\n";
                                 echo "    <td>" . $row['article_name'] . "</td>\n";
@@ -60,6 +61,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 }
                                 echo "    </tr>";
                             }
+                            echo "</tbody>";
 
                             if (isset($_GET['order'])) {
                                 $order_id = (int)$_GET['order'];
@@ -68,13 +70,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 $stmt = $db->prepare($sql);
                                 $stmt->bindParam(":objectID", $order_id);
                                 $stmt->execute();
-                                echo '<meta http-equiv="refresh" content= "0;URL=?mc=mobile" />';
                             }
                             ?>
+                        </table>
                     </div>
+                </form>
             </div>
         </div>
-        </form>
     </div>
 </div>
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
