@@ -55,76 +55,83 @@ $pdf->Image('img/amsPDFlogo.png', 10, 11, 63, 37);
 $pdf->SetXY(75, 11);
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(0, 4, 'Dokumentennummer: ', 0, 1, 'L', false);
-$pdf->SetXY(130, 11);
+$pdf->SetXY(125, 11);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["DocNr"]), 0, 1, 'L', false);
 /* --- Cell_CPV --- */
 $pdf->SetXY(75, 18);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'CPV: ', 0, 1, 'L', false);
-$pdf->SetXY(130, 18);
+$pdf->SetXY(125, 18);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["cpvCode"]), 0, 1, 'L', false);
 /* --- Cell_amsAddress --- */
 $pdf->SetXY(75, 25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Auftraggeber: ', 0, 1, 'L', false);
-$pdf->SetXY(130, 25);
+$pdf->SetXY(125, 25);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["branchName"]), 0, 1, 'L', false);
 /* --- Cell_address --- */
-$pdf->SetXY(130, 32);
+$pdf->SetXY(125, 32);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["street"]) . " " . utf8_decode($row["houseNumber"]) . "/" . $adr, 0, 1, 'L', false);
+$pdf->SetXY(125, 39);
+$pdf->SetFont('Courier', '', 12);
+$pdf->Cell(0, 4, utf8_decode($row["postCode"]) . " " . utf8_decode($row["city"]), 0, 1, 'L', false);
+$pdf->SetXY(125, 45);
+$pdf->SetFont('Courier', '', 12);
+$pdf->Cell(0, 4, utf8_decode($row["country"]) . " " . utf8_decode($row["sectorCode"]), 0, 1, 'L', false);
+
 /* --- Cell_ams_firs&lastName --- */
-$pdf->SetXY(75, 45);
+$pdf->SetXY(75, 59);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Ansprechpartner: ', 0, 1, 'L', false);
-$pdf->SetXY(130, 45);
+$pdf->SetXY(125,59);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["firstName"]) . " " . utf8_decode($row["lastName"]), 0, 1, 'L', false);
 /* --- Cell_amsPhone --- */
-$pdf->SetXY(75, 52);
+$pdf->SetXY(75, 66);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Telefon: ', 0, 1, 'L', false);
-$pdf->SetXY(130, 52);
+$pdf->SetXY(125, 66);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["telNr"]), 0, 1, 'L', false);
 /* --- Cell_amsEmail --- */
-$pdf->SetXY(75, 59);
+$pdf->SetXY(75, 73);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'E-Mail: ', 0, 1, 'L', false);
-$pdf->SetXY(130, 59);
+$pdf->SetXY(125, 73);
 $pdf->SetFont('Courier', '', 12);
-$pdf->Cell(0, 4, 'E-Mail: ' . utf8_decode($row["email"]), 0, 1, 'L', false);
+$pdf->Cell(0, 4,  utf8_decode($row["email"]), 0, 1, 'L', false);
 /* --- Cell_assignment --- */
-$pdf->SetXY(10, 72);
+$pdf->SetXY(10, 93);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Bezeichnung des Auftrags: ', 0, 1, 'L', false);
 /* --- MultiCell --- */
-$pdf->SetXY(10, 79);
+$pdf->SetXY(10, 100);
 $pdf->SetFont('Courier', '', 12);
 $pdf->MultiCell(0, 4, utf8_decode($row["tender"]), 0, 'L', false);
 /* --- Cell_assignmentType --- */
-$pdf->SetXY(10, 100);
+$pdf->SetXY(10, 114);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Art des Auftrags: ', 0, 1, 'L', false);
-$pdf->SetXY(60, 100);
+$pdf->SetXY(60, 114);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, utf8_decode($row["tenderType"]), 0, 1, 'L', false);
 /* --- Cell_beginDate --- */
-$pdf->SetXY(10, 114);
+$pdf->SetXY(10, 128);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Zeitfenster: ', 0, 1, 'L', false);
-$pdf->SetXY(60, 114);
+$pdf->SetXY(60, 128);
 $pdf->SetFont('Courier', '', 12);
 $pdf->Cell(0, 4, date_format($bdate, 'd.m.Y') . " - " . date_format($edate, 'd.m.Y'), 0, 1, 'L', false);
 /* --- Cell_text --- */
-$pdf->SetXY(10, 128);
+$pdf->SetXY(10, 142);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 4, 'Gegenstand der Leistung:', 0, 1, 'L', false);
 /* --- MultiCell_text --- */
-$pdf->SetXY(10, 135);
+$pdf->SetXY(10, 149);
 $pdf->SetFont('Courier', '', 12);
 $pdf->MultiCell(0, 4, utf8_decode($row["description"]), 0, 'L', false);
 
