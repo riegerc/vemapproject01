@@ -32,7 +32,7 @@ FROM article, orderitems
 
 WHERE article.objectID=orderitems.articleFID;";
 
-echo "    <table>\n";
+echo "<table class='table table-bordered' id='search_results'>";
 echo "    <tr>\n";
 echo "    <th>Artikel Name</th>\n";
 echo "    <th>Preis Je</th>\n";
