@@ -1,4 +1,5 @@
 <?php
+
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
 $title = ""; // defines the name of the current page, displayed in the title and as a header on the page
@@ -8,6 +9,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
 
+echo $_SESSION[USER_ID];
 
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
@@ -16,17 +18,18 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
 	$antworten=array();
 	foreach($_POST as $key=>$val){
-		$key=Helper::getId($key);
+		$key=Helper::getId($key,"rb");
 		$antworten[$key]=(int)Helper::sanitize($val);
 	}
-	echo "<pre>";
-	print_r($antworten);
-	echo "</pre>";
+	$rep->createReview(1);
 }
 ?>
 
