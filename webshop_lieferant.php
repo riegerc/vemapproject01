@@ -52,14 +52,14 @@ foreach($db->query($sql) as $row){
     if($row['ordered']==1){
     echo "    <td><br>Bestätigt<br></td>\n";   
     }else{
-    echo "    <td> <a href='#' name='order' >Bestätigen</a><br></td>\n";
+    echo "    <td> <a href='#?order' value='".$row['article_id']."'>Bestätigen</a><br></td>\n";
     }
     
     echo "    </tr>";
 }
 
-if(isset($_POST['order'])){
-    $sql="INSERT INTO orderitems SET ordered='1'";
+if(isset($_GET['order'])){
+    $sql="UPDATE orderitems SET ordered='1' WHERE article.objectID=article_id";
     $sql->execute();
 }
 
