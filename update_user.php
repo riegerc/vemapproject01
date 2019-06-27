@@ -72,6 +72,7 @@ if(isset($_GET["senden"])) {
                 </label><br>
 
                 <label for="email">Email : <input type="email" name="email" id="email"></label><br>
+                <label for="budget">Budget : <input type="text" name="budget" id="budget"></label><br>
                 <label for="telNr">telephone : <input type="text" name="telNr" id="telNr"></label><br>
                 <label for="mobilNr">mobile : <input type="text" name="mobilNr" id="mobilNr"></label><br>
                 <label for="branchName">Filiale : <input type="text" name="branchName" id="branchName"></label><br>
