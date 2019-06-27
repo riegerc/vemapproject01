@@ -140,6 +140,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
 
 <?php
+
+
 $password = generateStrongPassword();
 
 $options = [
@@ -260,4 +262,9 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+
+
+</div>
+</div>
+
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
