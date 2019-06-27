@@ -101,7 +101,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['name'] . "</td>\n";
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
-                            echo "    <td> <a href='webshop_kaufenn.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
+                            echo "    <td> <a href='webshop_kaufen.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;
@@ -122,7 +122,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['name'] . "</td>\n";
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
-                            echo "    <td> <a href='webshop_kaufenn.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
+                            echo "    <td> <a href='webshop_kaufen.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;
