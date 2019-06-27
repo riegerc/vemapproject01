@@ -84,15 +84,33 @@ class Repository{
 	public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		if($is_subcriteria){
 			$sql = "UPDATE subcriteria SET deleted=1 WHERE objectID=:objectID";
-		}else{
-			$sql = "UPDATE criteria SET deleted=1 WHERE objectID=:objectID";
-		}
 			$stmt=$this->db->prepare($sql);
 			$stmt->bindParam(":objectID",$kid);
-		try{
-			$stmt->execute();
-		}catch(Exception $e){
-			throw new PDOException($e);
+			try{
+				$stmt->execute();
+			}catch(Exception $e){
+				throw new PDOException($e);
+			}
+
+		}else{
+			$sql = "UPDATE criteria SET deleted=1 WHERE objectID=:objectID";
+			$stmt=$this->db->prepare($sql);
+			$stmt->bindParam(":objectID",$kid);
+			try{
+				$stmt->execute();
+			}catch(Exception $e){
+				throw new PDOException($e);
+			}
+
+			$sql = "UPDATE subcriteria SET deleted=1 WHERE criteriaFID=:criteriaFID";
+			$stmt=$this->db->prepare($sql);
+			$stmt->bindParam(":criteriaFID",$kid);
+			try{
+				$stmt->execute();
+			}catch(Exception $e){
+				throw new PDOException($e);
+			}
+
 		}
 	}
 	public function readFragebogen():array{
