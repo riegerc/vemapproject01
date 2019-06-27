@@ -24,8 +24,10 @@ $navigationItems =
                 ],
                 ["name" => "Bewertungen",
                     "links" => [
-                        ["name" => "Einkauf", "url" => "#", "minUserLevel" => 0],
-                        ["name" => "Lieferant", "url" => "#", "minUserLevel" => 0],
+                        ["name" => "Einkauf", "url" => "", "minUserLevel" => 0],
+                        ["name" => "Lieferant", "url" => "", "minUserLevel" => 0],
+                        ["name" => "", "url" => "kriterien.php", "minUserLevel" => 0],
+                        ["name" => "", "url" => "fragebogen.php", "minUserLevel" => 0],
                     ],
                     "icon" => "<i class='fas fa-edit'></i>",
                     "minUserLevel" => 0
@@ -104,7 +106,9 @@ $navigationItems =
                         foreach ($category["links"] as $linkKey => $link) {
                             // Check user-permission
                             if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
-                                echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
+                                echo "<a class='collapse-item' href='$link[url]'>";
+                                echo $link["name"] == "" ? $link["url"] : $link["name"];
+                                echo "</a>";
                             }
                         }
                         echo "</div>
