@@ -2,13 +2,11 @@
 class Fragebogen{
 	private $fragen;
 	private $userId;
-	private $reviewId;
 	private $lieferantId;
 	
-	public function __construct(array $fragen, int $userId, int $reviewId, int $lieferantId){
+	public function __construct(int $userId, int $lieferantId, array $fragen){
 		$this->fragen=$fragen;
 		$this->userId=$userId;
-		$this->reviewId=$reviewId;
 		$this->lieferantId=$lieferantId;
 	}
 	
@@ -17,9 +15,6 @@ class Fragebogen{
 	}
 	public function getUserId(){
 		return $this->userId;
-	}
-	public function getReviewId(){
-		return $this->reviewId;
 	}
 	public function getLieferantId(){
 		return $this->lieferantId;

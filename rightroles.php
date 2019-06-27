@@ -6,7 +6,20 @@ $userLevel = PERM_EDIT_PERM; //uses a PERM_ const now and hasPermission($userLev
 $title = "Recht Rollenzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
 require_once "include/init.php"; // includes base function like session handling
 require_once "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-
+$selRoleId  = -1;
+$selRoleSel = 0;
+$selRightId = -1;
+$selRightSel = 0;
+if(isset($_GET['selRoleId']) && isset($_GET['selRoleSel'])){
+    $selRoleId = (int)$_GET['selRoleId'];
+    $selRoleSel = (int)$_GET['selRoleSel'];
+    $selRoleSel = $selRoleSel > 0 ? 0 : 1;
+}
+if(isset($_GET['selRightId']) && isset($_GET['selRightSel'])){
+    $selRightId = (int)$_GET['selRightId'];
+    $selRightSel = (int)$_GET['selRightSel'];
+    $selRightSel = $selRightSel > 0 ? 0 : 1;
+}
 
 if(isset($_POST['saverolerights'])){    
     unset($_POST['saverolerights']);
@@ -51,7 +64,7 @@ if(isset($_POST['saverolerights'])){
                 $tableStr = "<tr><td>&nbsp;</td>\n";
                 $columncount = count($result);
                 foreach ($result as $row) {
-                    $tableStr .= "<td>$row[name]</td>\n";                    
+                    $tableStr .= "<td><a href='?selRoleId=$row[objectID]&selRoleSel=$selRoleSel'>$row[name]</a></td>\n";                    
                 }
                 $tableStr .= "</tr>\n</thead>\n<tbody>\n";
                 $sql1 = "SELECT rights.objectID, rights.name FROM rights";
@@ -74,10 +87,26 @@ if(isset($_POST['saverolerights'])){
                             ORDER BY THErolesID;"; 
                     $param = [":rightID"=>$rightID];
                     $result = readDB($sql, $param);
-                    $tableStr .= "<tr>\n<td>$roleRow[name]</td>\n";
+                    $tableStr .= "<tr>\n<td><a href='?selRightId=$rightID&selRightSel=$selRightSel' >$roleRow[name]</a></td>\n";
                     
                     foreach ($result as $row) {
                         $checked = $row['haspermission'] != NULL ? "checked" : "";
+                        if($selRoleId > 0 ){
+                            if($selRoleId == $row['THErolesID'] ){
+                                if($selRoleSel > 0)
+                                    $checked = "checked";
+                                else
+                                    $checked = "";
+                            }
+                        }
+                        if($selRightId > 0 ){
+                            if($selRightId == $rightID ){
+                                if($selRightSel > 0)
+                                    $checked = "checked";
+                                else
+                                    $checked = "";
+                            }
+                        }
                         $tableStr .= "<td><input type='checkbox' name='$row[THErolesID]-$rightID' $checked></td>\n";
                     }  
                     $tableStr .= "</tr>\n";
