@@ -17,8 +17,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <div class="col-md-12">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="table-responsive-lg">
-                        <table class='table table-bordered' id='dataTable'>
                             <?php
+                            echo "<table class='table table-bordered' id='dataTable'>";
                             $db = connectDB();
                             $sql = "SELECT 
                             article.objectID as article_id, 
@@ -71,8 +71,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 $stmt->bindParam(":objectID", $order_id);
                                 $stmt->execute();
                             }
+                            echo "</table>";
                             ?>
-                        </table>
                     </div>
                 </form>
             </div>
