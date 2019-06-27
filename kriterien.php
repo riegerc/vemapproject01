@@ -42,7 +42,7 @@ if(isset($_POST["senden"])){
 	$extKriterien=array();
 
 	foreach($_POST as $key=>$val){
-		$key=Helper::getId($key);
+		$key=Helper::getId($key,"inp");
 		$extKriterien[$key]=(int)Helper::sanitize($val);
 	}
 	if(isset($kid)){
@@ -79,21 +79,22 @@ foreach($kriterien as $kriterium){
 					$summeunterkriterien+=$unterkriterium->getGewichtung();
 				}
 								
-				$ausgabe.="<li><span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
+				$ausgabe.="<li><div class='fas fa-minus-circle' title='Kategorie löschen' style='color:red'></div> <span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
 							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
 							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ")</label> ";
 					if(count($unterkriterien)>0&&!isset($kid)){
 						$ausgabe.="<ul>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
+								$ausgabe.="<div class='fas fa-minus-circle' id='inline' title='Kategorie löschen' style='color:red'></div> 
+											<li><span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
 											", in Prozent: " . number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
+						if(!isset($kid)){
+							$ausgabe.="<li><a href='?add=".$kriterium->getId()."'><div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'></div></a></li>";
+						}
 						$ausgabe.="</ul>";
 					}
 				$ausgabe.="</li>";
-				if(!isset($kid)){
-					$ausgabe.="<a href='?add=".$kriterium->getId()."'><div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'></div></a>";
-				}
 			}
 			echo $ausgabe;
 		?>
