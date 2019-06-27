@@ -105,4 +105,21 @@ class Repository{
 		}
 		return $fragen;
 	}
+	public function createReview(Fragebogen $fb):int{
+		$reviewId=0;
+		$sql="INSERT INTO reviews(userFID) VALUES(:userFid)";
+		$stmt=$this->db->prepare($sql);
+		$userId=$fb->getUserId();
+		$stmt->bindParam(":userFid",$userId);
+		try{
+			$stmt->execute();
+			$reviewId=$this->db->lastInsertId('reviews');
+		}catch(Exception $e){
+			throw new PDOException($e);
+		}
+		return $reviewId;
+	}
+	public function createAnswers(Fragebogen $fb):void{
+		$reviewId=createReview($userFid);
+	}
 }
