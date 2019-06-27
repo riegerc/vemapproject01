@@ -45,12 +45,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 id="file" accept=".xls,.xlsx">
             <br>
             <br>
-            <button type="submit" class="btn btn-primary" name="absenden">Ausschreibung erstellen</button>
-            <button  type="reset" class="btn btn-danger"  >Formular zurücksetzen</button>
-            <br>
 
-
-        </form>
    </div>
 </div>
 
@@ -102,9 +97,11 @@ $lastPage = ceil($totalEmployee/$showRecordPerPage);
 $firstPage = 1;
 $nextPage = $currentPage + 1;
 $previousPage = $currentPage - 1;
- #"SELECT user.objectID, user.firstName, user.lastName FROM user LIMIT $startFrom, $showRecordPerPage";
+#"SELECT user.objectID, user.firstName, user.lastName FROM user LIMIT $startFrom, $showRecordPerPage";
 $empSQL = "SELECT objectID, firstName, lastName , branchName , rolesFID 
-FROM `user` LIMIT $startFrom, $showRecordPerPage";
+FROM `user`
+WHERE rolesFID=10
+ LIMIT $startFrom, $showRecordPerPage";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 ?>
@@ -120,12 +117,15 @@ $stmt = $conn->query($empSQL);
     </thead>
     <tbody>
     <?php
-   # var_dump($allEmpResult);
+    # var_dump($allEmpResult);
     while($emp = $stmt->fetch()){
         ?>
         <tr>
             <th scope="row"><?php echo $emp['objectID']; ?></th>
-           <th> <input type="checkbox" name="AGB" value="Ja"></th>
+            <?php
+            echo "<th> <input type='checkbox' name='role' value='$emp[rolesFID]'></th>";
+            ?>
+
             <td><?php echo $emp['branchName']; ?></td>
             <td><?php echo $emp['firstName']; ?></td>
             <td><?php echo $emp['lastName']; ?></td>
@@ -156,7 +156,13 @@ $stmt = $conn->query($empSQL);
         <?php } ?>
     </ul>
 </nav>
+<br>
+<button type="submit" class="btn btn-primary" name="absenden">Ausschreibung erstellen</button>
+<button  type="reset" class="btn btn-danger"  >Formular zurücksetzen</button>
+<br>
 
+
+</form>
 
 
 <?php include "include/page/bottom.php";
