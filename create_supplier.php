@@ -99,7 +99,14 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 <input type="text" class="form-control" name="country" id="country">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sectorCode">Sector Code</label>
+                                <input type="text" class="form-control" name="sectorCode" id="sectorCode">
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div class="col-md-6">
                     <h4>Ansprechpartner</h4>
@@ -164,6 +171,7 @@ if (isset($_POST['submit'])) {
     htmlspecialchars($email = $_POST['email']);
     htmlspecialchars($telNr = $_POST['telNr']);
     htmlspecialchars($mobilNr = $_POST['mobilNr']);
+    htmlspecialchars($sectorCode = $_POST['sectorCode']);
 
     //generate Password
 
@@ -240,7 +248,7 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(":postCode", $postCode);
             $stmt->bindParam(":city", $city);
             $stmt->bindParam(":country", $country);
-            $stmt->bindParam(":sectorCode", $country);
+            $stmt->bindParam(":sectorCode", $sectorCode);
 
             $stmt->execute();
             echo $password;
