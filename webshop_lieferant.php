@@ -32,16 +32,16 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             orderitems.count as order_count, 
                             orderitems.price as order_price,
                             orderitems.ordered as ordered 
-                            FROM article, orderitems
+                            FROM article, orderitems, user
                             
-                            WHERE article.objectID=orderitems.articleFID;";
+                            WHERE article.objectID=orderitems.articleFID AND user.objectID=article.supplierUserFID;";
 
                             echo "<thead>";
                             echo "    <tr>";
                             echo "        <th>Artikel Name</th>";
-                            echo "        <th>Preis Je</th>";
-                            echo "        <th>Stück</th>";
-                            echo "        <th>Gesamt Preis</th>";
+                            echo "        <th>Preis pro Stück</th>";
+                            echo "        <th>Stückanzahl</th>";
+                            echo "        <th>Gesamtpreis</th>";
                             echo "        <th>Lieferung</th>";
                             echo "    </tr>";
                             echo "</thead>";
