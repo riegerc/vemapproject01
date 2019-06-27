@@ -58,6 +58,11 @@ foreach($db->query($sql) as $row){
     echo "    </tr>";
 }
 
+if($_POST['Bestätigen']){
+    $sql="INSERT ordered INTO orderitems SET ordered='1'";
+    $sql->execute();
+}
+
 
 
 // target='_blank'
