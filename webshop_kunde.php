@@ -54,12 +54,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         </form>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered" id="dataTable">
                 <?php
                 //this variable is for the amount of results here. it scales with foreach loop below
                 $counter = 0;
 
                 if (isset ($_POST['suche_senden'])) {
+                    echo "<table class='table table-bordered' id='dataTable'>";
                     $vonPreis = $_POST['vonPreis'];
                     $bisPreis = $_POST['bisPreis'];
                     $product_type = $_POST['product_type'];
@@ -128,17 +128,16 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             $counter++;
                         }
                     }
+                    echo "</table>";
                 }
 
                 if (isset($_POST['suche_senden'])) {
                     if ($counter == 0) {
                         echo "Keine Ergebnisse gefunden. <a href='webshop_bestellen.php'>Jetzt Bestellen</a>";
                     } else {
-                        echo $counter;
-                        echo " Ergebnisse";
+                        echo "$counter Ergebnisse";
                     }
                 } ?>
-                </table>
             </div>
         </div>
     </div>
