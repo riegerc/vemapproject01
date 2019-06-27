@@ -105,15 +105,10 @@ $navigationItems =
                         // Output Category-Links
                         foreach ($category["links"] as $linkKey => $link) {
                             // Check user-permission
-<<<<<<< HEAD
                             if ($perm->hasPermission($link["minUserLevel"])) {
-                                echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
-=======
-                            if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
                                 echo "<a class='collapse-item' href='$link[url]'>";
                                 echo $link["name"] == "" ? $link["url"] : $link["name"];
                                 echo "</a>";
->>>>>>> 986ab7de18fc8982dcb879302a0bff5c548eea47
                             }
                         }
                         echo "</div>
