@@ -1,12 +1,12 @@
 <?php
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
-include "constant.php";
+require_once "constant.php";
 require_once "include/database.php";
 require_once "include/permission.php";
 session_start();
 session_regenerate_id(true);
 $loggedIn = false;
-
+$perm = new Permission();
 function setTitle($title)
 {
     echo "<title>$title | Top News</title>";
@@ -15,16 +15,6 @@ function setTitle($title)
 function setMeta($name, $content)
 {
     echo "<meta name='$name' content='$content'/>";
-}
-
-if ($pageRestricted === true) {
-    if (empty($_SESSION)) {
-        header("location:logout.php");
-    }
-
-    if ($userLevel > $_SESSION[USER_ROLE]) {
-        header("location:error.php?e=403");
-    }
 }
 
 if (isset($_POST["login"])) {
@@ -43,7 +33,7 @@ if (isset($_POST["login"])) {
                 $_SESSION[USER_ID] = $row["objectID"];
                 $_SESSION[USER_NAME] = $row["email"];
                 $_SESSION[USER_ROLE] = $row["rolesFID"];
-                $perm = new Permission();
+                #$perm = new Permission();
                 if(!$perm->loadPermissions($_SESSION[USER_ID])){
                     $error = "Laden der Berechtigungen fehlgeschlagen.";
                 }else{
@@ -55,6 +45,16 @@ if (isset($_POST["login"])) {
         }
     } else {
         $error = "Die Email/Passwort Kombination stimmt nicht.";
+    }
+}
+
+if ($pageRestricted === true) {
+    if (empty($_SESSION)) {
+        header("location:logout.php");
+    }
+    
+    if (!$perm->hasPermission($userLevel)) {
+       header("location:error.php?e=403");
     }
 }
 

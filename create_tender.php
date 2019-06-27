@@ -2,19 +2,19 @@
 // defines if the page is restricted to logged-in Users only
 $pageRestricted = false;
 
-// defindes the minimum userRole to access the page, if the
+// defines the minimum userRole to access the page, if the
 // userRole is lower than the level, a 403 Error-Page is returned
 $userLevel = 1;
 
 // includes base function like session handling
 include "include/init.php";
 
-// defindes the name of the current page, displayed in the title and as a header on the page
+// defines the name of the current page, displayed in the title and as a header on the page
 $title = "";
 
 include "include/page/top.php";
-echo "<h6>". "Ams ID : " . $_SESSION["amsFID"] . "<h6>". "<br>";
-echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
+//echo "<h6>". "Ams ID : " . $_SESSION["amsFID"] . "<h6>". "<br>";
+//echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
 ?>
 
 <div class="container-fluid">

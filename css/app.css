@@ -12,11 +12,11 @@
     height: auto;
 }
 
-#search-button-wrap {
+.form-button-wrap {
     display: flex;
 }
 
-#suche_senden, #verkaufen {
+.form-button {
     width: 100%;
     align-self: flex-end;
 }
@@ -39,4 +39,10 @@ i {
 .subcriterion {
     font-style: italic;
     font-size: 1.2em;
+}
+.buttonrow{
+	text-align:center;
+}
+.rrtable th, .rrtable td {
+	padding: 0rem;
 }

@@ -4498,7 +4498,7 @@ core_defaults._set('doughnut', {
 				}
 			}
 
-			chart.update();
+			chart.update_user();
 		}
 	},
 
@@ -5318,7 +5318,7 @@ core_defaults._set('polarArea', {
 				meta.data[index].hidden = !meta.data[index].hidden;
 			}
 
-			chart.update();
+			chart.update_user();
 		}
 	},
 
@@ -6363,10 +6363,10 @@ var core_layouts = {
 			var isHorizontal = box.isHorizontal();
 
 			if (isHorizontal) {
-				minSize = box.update(box.fullWidth ? chartWidth : maxChartAreaWidth, chartHeight / 2);
+				minSize = box.update_user(box.fullWidth ? chartWidth : maxChartAreaWidth, chartHeight / 2);
 				maxChartAreaHeight -= minSize.height;
 			} else {
-				minSize = box.update(verticalBoxWidth, maxChartAreaHeight);
+				minSize = box.update_user(verticalBoxWidth, maxChartAreaHeight);
 				maxChartAreaWidth -= minSize.width;
 			}
 
@@ -6403,9 +6403,9 @@ var core_layouts = {
 
 					// Don't use min size here because of label rotation. When the labels are rotated, their rotation highly depends
 					// on the margin. Sometimes they need to increase in size slightly
-					box.update(box.fullWidth ? chartWidth : maxChartAreaWidth, chartHeight / 2, scaleMargin);
+					box.update_user(box.fullWidth ? chartWidth : maxChartAreaWidth, chartHeight / 2, scaleMargin);
 				} else {
-					box.update(minBoxSize.width, maxChartAreaHeight);
+					box.update_user(minBoxSize.width, maxChartAreaHeight);
 				}
 			}
 		}
@@ -6431,7 +6431,7 @@ var core_layouts = {
 			};
 
 			if (minBoxSize) {
-				box.update(minBoxSize.width, maxChartAreaHeight, scaleMargin);
+				box.update_user(minBoxSize.width, maxChartAreaHeight, scaleMargin);
 			}
 		}
 
@@ -6522,7 +6522,7 @@ var core_layouts = {
 			box.right = chart.chartArea.right;
 			box.bottom = chart.chartArea.bottom;
 
-			box.update(maxChartAreaWidth, maxChartAreaHeight);
+			box.update_user(maxChartAreaWidth, maxChartAreaHeight);
 		});
 	}
 };
@@ -18319,7 +18319,7 @@ core_defaults._set('global', {
 			meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
 
 			// We hid a dataset ... rerender the chart
-			ci.update();
+			ci.update_user();
 		},
 
 		onHover: null,

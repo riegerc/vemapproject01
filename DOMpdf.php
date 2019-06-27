@@ -29,7 +29,7 @@ $datum = date("d-m-Y - H:i", $timestamp);
 $nur_datum = date("d-m-Y");
 
 # übernimmt die userID von $_GET
-$userID = (int)$_GET["userID"];
+$userID = (int)$_GET["objectID"];
 #
 
 ?>
@@ -40,9 +40,11 @@ $userID = (int)$_GET["userID"];
         padding: 0;
         box-sizing: border-box;
         font-family: 'Helvetica', sans-serif ;
+        /*font-family: 'monospace', sans-serif;*/
     }
     body {
         padding: 70px;
+        font-size: 14px;
     }
     header table {
         width: 100%;
@@ -50,7 +52,6 @@ $userID = (int)$_GET["userID"];
     .header_left {
         padding: 10px;
         width: 50%;
-        /*text-indent: 50px;*/
     }
     .header_right {
         width: 30%;
@@ -73,7 +74,6 @@ $userID = (int)$_GET["userID"];
     .mid_table_right {
         width: 30%;
     }
-    
     main .order_table {
         border-collapse: collapse;
         margin: 20px auto;
@@ -182,7 +182,8 @@ $userID = (int)$_GET["userID"];
                         </tr>";
               } // TABELLE ENDE
               ?>
-              
+          
+<!--              Datenbankabfrage zum Ausbessern sobald DB bereit ist      -->
           <?php
           
           // Datenbankabfrage modifizieren
@@ -227,6 +228,9 @@ $userID = (int)$_GET["userID"];
            <p></p>
       
   </main>
+<footer>
+    
+</footer>
 </body>
 
 

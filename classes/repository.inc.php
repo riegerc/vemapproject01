@@ -9,7 +9,7 @@ class Repository{
 	
 	public function readKriterien():array{
 		$kriterien=array();
-		$sql="SELECT objectID,name,weighting FROM criteria";
+		$sql="SELECT objectID,name,weighting FROM criteria WHERE deleted=0";
 		$stmt=$this->db->prepare($sql);
 		try{
 			$stmt->execute();
@@ -23,7 +23,7 @@ class Repository{
 	}
 	public function readUnterKriterien(int $id):array{
 		$kriterien=array();
-		$sql="SELECT objectID,name,weighting FROM subcriteria WHERE criteriaFID=:id";
+		$sql="SELECT objectID,name,weighting FROM subcriteria WHERE criteriaFID=:id AND deleted=0";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":id",$id);
 		try{
@@ -77,6 +77,20 @@ class Repository{
 				}catch(Exception $e){
 					throw new PDOException($e);
 				}
+		}
+	}
+	public function deleteKriterium(int $kid, boolean $is_subcriteria=false){
+		if($is_subcriteria){
+			$sql = "UPDATE subcriteria SET deleted=1 WHERE objectID=:objectID";
+		}else{
+			$sql = "UPDATE criteria SET deleted=1 WHERE objectID=:objectID";
+		}
+			$stmt=$this->db->prepare($sql);
+			$smt->bindParam(":objectID",$kid);
+		try{
+			$stmt->execute();
+		}catch(Exception $e){
+			throw new PDOException($e);
 		}
 	}
 }

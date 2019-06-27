@@ -27,12 +27,13 @@ orderitems.objectID as order_id,
 orderitems.orderFID as orderFID, 
 orderitems.articleFID as order_articleFID, 
 orderitems.count as order_count, 
-orderitems.price as order_price 
+orderitems.price as order_price,
+orderitems.ordered as ordered 
 FROM article, orderitems
 
 WHERE article.objectID=orderitems.articleFID;";
 
-echo "    <table>\n";
+echo "<table class='table table-bordered' id='search_results'>";
 echo "    <tr>\n";
 echo "    <th>Artikel Name</th>\n";
 echo "    <th>Preis Je</th>\n";
@@ -43,13 +44,28 @@ echo "    </tr>";
 
 foreach($db->query($sql) as $row){
     echo "    <tr>\n";
-    echo "    <td>".$row['article_name']."<br>";
-    echo "    <td>".$row['article_price']."&euro;"."<br>";
-    echo "    <td>".$row['order_count']."<br>";
-    echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."<br>";
-    echo "    <td> <a href='#'>Bestätigen</a><br>";
-    echo "    </tr>";}
+    echo "    <td>".$row['article_name']."</td>\n";
+    echo "    <td>".$row['article_price']."&euro;"."</td>\n";
+    echo "    <td>".$row['order_count']."</td>\n";
+    echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."</td>\n";
+    
+    if($row['ordered']==1){
+    echo "    <td><br>Bestätigt<br></td>\n";   
+    }else{
+    echo "    <td> <a href='#' name='order' >Bestätigen</a><br></td>\n";
+    }
+    
+    echo "    </tr>";
+}
 
+if(isset($_POST['order'])){
+    $sql="INSERT ordered INTO orderitems SET ordered='1'";
+    $sql->execute();
+}
+
+
+
+// target='_blank'
 ?>
 
 
