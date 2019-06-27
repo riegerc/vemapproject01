@@ -26,6 +26,8 @@ $navigationItems =
                     "links" => [
                         ["name" => "Einkauf", "url" => "#", "minUserLevel" => PERM_MAKE_REVIEW],
                         ["name" => "Lieferant", "url" => "#", "minUserLevel" => PERM_VIEW_REVIEW],
+                        ["name" => "", "url" => "kriterien.php", "minUserLevel" => PERM_CED_REVIEW],
+                        ["name" => "", "url" => "fragebogen.php", "minUserLevel" => PERM_MAKE_REVIEW]
                     ],
                     "icon" => "<i class='fas fa-edit'></i>",
                     "minUserLevel" => PERM_VIEW_RATING_MENU
@@ -103,8 +105,15 @@ $navigationItems =
                         // Output Category-Links
                         foreach ($category["links"] as $linkKey => $link) {
                             // Check user-permission
+<<<<<<< HEAD
                             if ($perm->hasPermission($link["minUserLevel"])) {
                                 echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
+=======
+                            if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
+                                echo "<a class='collapse-item' href='$link[url]'>";
+                                echo $link["name"] == "" ? $link["url"] : $link["name"];
+                                echo "</a>";
+>>>>>>> 986ab7de18fc8982dcb879302a0bff5c548eea47
                             }
                         }
                         echo "</div>
