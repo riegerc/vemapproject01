@@ -23,4 +23,11 @@ class Kriterium{
 	public function getFkKriterium(){
 		return $this->fkKriterium;
 	}
+	public function __toString(){
+		$res="<li>$this->name</li>";
+		for($i=0;$i<=10;$i++){
+			$res.="<input type='radio' name='rb$this->id' value='$i'> $i";
+		}
+		return $res;
+	}
 }

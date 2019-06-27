@@ -7,40 +7,42 @@ $navigationItems =
             "categories" => [
                 ["name" => "Ausschreibungen",
                     "links" => [
-                        ["name" => "Ihre Ausschreibungen", "url" => "overview_tenders.php", "minUserLevel" => 0],
-                        ["name" => "Lieferant anlegen", "url" => "create_supplier.php", "minUserLevel" => 0],
-                        ["name" => "Ausschreibung erstellen", "url" => "create_tender.php", "minUserLevel" => 0],
+                        ["name" => "Ihre Ausschreibungen", "url" => "overview_tenders.php", "minUserLevel" => PERM_VIEW_OFFER],
+                        ["name" => "Lieferant anlegen", "url" => "create_supplier.php", "minUserLevel" => PERM_CED_SUPPLIER],
+                        ["name" => "Ausschreibung erstellen", "url" => "create_tender.php", "minUserLevel" => PERM_CED_SUPPLIER],
                     ],
                     "icon" => "<i class='fas fa-file-invoice'></i>",
-                    "minUserLevel" => 0
+                    "minUserLevel" => PERM_VIEW_OFFER_MENU
                 ],
                 ["name" => "Webshop",
                     "links" => [
-                        ["name" => "Kunde", "url" => "webshop_kunde.php", "minUserLevel" => 0],
-                        ["name" => "Lieferant", "url" => "webshop_lieferant.php", "minUserLevel" => 0],
+                        ["name" => "Kunde", "url" => "webshop_kunde.php", "minUserLevel" => PERM_ORDER_FROM_CATALOGUE],
+                        ["name" => "Lieferant", "url" => "webshop_lieferant.php", "minUserLevel" => PERM_INSERT_INTO_CATALOGUE],
                     ],
                     "icon" => "<i class='fas fa-store-alt'></i>",
-                    "minUserLevel" => 0
+                    "minUserLevel" => PERM_VIEW_WEBSHOP_MENU
                 ],
                 ["name" => "Bewertungen",
                     "links" => [
-                        ["name" => "Einkauf", "url" => "#", "minUserLevel" => 0],
-                        ["name" => "Lieferant", "url" => "#", "minUserLevel" => 0],
+                        ["name" => "Einkauf", "url" => "#", "minUserLevel" => PERM_MAKE_REVIEW],
+                        ["name" => "Lieferant", "url" => "#", "minUserLevel" => PERM_VIEW_REVIEW],
+                        ["name" => "", "url" => "kriterien.php", "minUserLevel" => PERM_CED_REVIEW],
+                        ["name" => "", "url" => "fragebogen.php", "minUserLevel" => PERM_MAKE_REVIEW]
                     ],
                     "icon" => "<i class='fas fa-edit'></i>",
-                    "minUserLevel" => 0
+                    "minUserLevel" => PERM_VIEW_RATING_MENU
                 ],["name" => "User",
-                    "links" => [
-                        ["name" => "Übersicht", "url" => "user.php", "minUserLevel" => 0],
-                        ["name" => "Erstellen", "url" => "create_user.php", "minUserLevel" => 0],
-                        ["name" => "Verwalten", "url" => "update_user.php", "minUserLevel" => 0],
+                    "links" => [                        
+                        ["name" => "Übersicht", "url" => "user.php", "minUserLevel" => PERM_CED_USER],
+                        ["name" => "Erstellen", "url" => "create_user.php", "minUserLevel" => PERM_CED_USER],
+                        ["name" => "Update", "url" => "update_user.php", "minUserLevel" => PERM_EDIT_SELF],
                     ],
                     "icon" => "<i class='fas fa-users'></i>",
-                    "minUserLevel" => 0
+                    "minUserLevel" => PERM_VIEW_CLIENT_MENU
                 ],
 
             ],
-            "minUserLevel" => 0
+            "minUserLevel" => PERM_EDIT_SELF
         ],
     ];
 
@@ -85,13 +87,13 @@ $navigationItems =
         // Output Navigation-Sections
         foreach ($navigationItems as $sectionKey => $section) {
             // Check user-permission
-            if ($section["minUserLevel"] <= $_SESSION["userRole"]) {
+            if ($perm->hasPermission($section["minUserLevel"])) {
                 echo "<div class='sidebar-heading'>$section[section]</div>";
 
                 // Output Navigation-Categories
                 foreach ($section["categories"] as $categoryKey => $category) {
                     // Check user-permission
-                    if ($category["minUserLevel"] <= $_SESSION["userRole"]) {
+                    if ($perm->hasPermission($category["minUserLevel"])) {
                         echo "<li class='nav-item'>
                             <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapse$sectionKey$categoryKey'
                                aria-expanded='true' aria-controls='collapse$sectionKey$categoryKey'>
@@ -103,8 +105,10 @@ $navigationItems =
                         // Output Category-Links
                         foreach ($category["links"] as $linkKey => $link) {
                             // Check user-permission
-                            if ($link["minUserLevel"] <= $_SESSION["userRole"]) {
-                                echo "<a class='collapse-item' href='$link[url]'>$link[name]</a>";
+                            if ($perm->hasPermission($link["minUserLevel"])) {
+                                echo "<a class='collapse-item' href='$link[url]'>";
+                                echo $link["name"] == "" ? $link["url"] : $link["name"];
+                                echo "</a>";
                             }
                         }
                         echo "</div>
@@ -112,6 +116,8 @@ $navigationItems =
                 </li>";
                     }
                 }
+            }else{
+                echo $section["minUserLevel"]."<br>";
             }
         }
     }

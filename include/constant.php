@@ -27,19 +27,19 @@ const PWD_REQ_SPECIAL_CHAR = 0;
 
 #permissions example
 const PERM_CED_USER = "cedUser"; # NOT including SELF!
-const PERM_EDIT_SELF = "editSelf"; #useless, because everyone can edit him/herself, but noone can delete him/herself
+const PERM_EDIT_SELF = "editUser"; #everyone can edit him/herself, but noone can delete him/herself
 const PERM_VIEW_USER = "viewUser"; # NOT including SELF!
 const PERM_EDIT_BUDGED = "editBudtget"; # can not apply to SELF
 const PERM_CED_OFFER = "cedOffer";
 const PERM_VIEW_OFFER = "viewOffer";
 const PERM_CED_CATALOGUE = "cedCatalogue";
 const PERM_VIEW_CATALOGUE = "viewCatalogue";
-const PERM_ORDER_FROM_CATALOGUE = "orderFromCatalogue";
-const PERM_INSERT_INTO_CATALOGUE = "insertIntoCatalogue";
+const PERM_ORDER_FROM_CATALOGUE = "orderFromCataloge";
+const PERM_INSERT_INTO_CATALOGUE = "insertIntoCataloge";
 const PERM_SHOP_CATALOGUE = "shopCatalogue";
 const PERM_SHOP_ARTICLE = "shopArticle";
 const PERM_VIEW_CLIENT_MENU = "viewClientMenu";
-const PERM_VIEW_SUPPLIER_MENU  = "viewSupplierMenu";
+const PERM_VIEW_WEBSHOP_MENU  = "viewWebShopMenu";
 const PERM_EDIT_CLIENT_ADDRESS = "editClientAddress";
 const PERM_RELEASE_CATALOG_ITEM = "releaseCalalogItem";
 const PERM_CED_REVIEW = "cedReview";
@@ -49,6 +49,9 @@ const PERM_REVIEW_SUPPLIER = "reviewSupplier";
 const PERM_REVIEW_ARTICLE = "reviewArticle";
 const PERM_SUBMIT_OFFER = "submitOffer";
 const PERM_EDIT_PERM = "editPermission";
+const PERM_CED_SUPPLIER = "cedSupplier";
+const PERM_VIEW_OFFER_MENU = "viewOfferMenu";
+const PERM_VIEW_RATING_MENU = "viewRatinMenu";
 
 #db data
 //const DB_HOST = "192.168.1.84";
