@@ -50,79 +50,90 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="row">
-                <div class="form-group col-sm-3">
-                    <label>Firma: </label>
-                    <input type="text" class="form-control" name="branchName"
-                           placeholder="Firmenname..."></div>
-
-                <div class="form-group col-sm-3">
-                    <label>Adressedaten: </label>
-                    <label>Strasse: </label>
-                    <input type="text" class="form-control" name="street"
-                           placeholder="Straße..."></div>
-                <div class="form-group col-sm-3">
-                    <label>Hausnummer: </label>
-                    <input type="text" class="form-control" name="houseNumber"
-                           placeholder="Hausnummer..."></div>
-                <div class="form-group col-sm-3">
-                    <label>Stiege: </label>
-                    <input type="text" class="form-control" name="stairs"
-                           placeholder="Stiege..."></div>
-                <div class="form-group col-sm-3">
-                    <label>Tür: </label>
-                    <input type="text" class="form-control" name="door"
-                           placeholder="Tür..."></div>
-                <div class="form-group col-sm-3">
-                    <label>PLZ: </label>
-                    <input type="text" class="form-control" name="postCode"
-                           placeholder="PLZ..."></div>
-                <div class="form-group col-sm-3">
-                    <label>Stadt: </label>
-                    <input type="text" class="form-control" name="city"
-                           placeholder="Stadt.."></div>
-                <div class="form-group col-sm-3">
-                    <label>Land: </label>
-                    <input type="text" class="form-control" name="country"
-                           placeholder="Land..."></div>
-                <br>
-            </div>
-            <div class="row">
-                <fieldset class="form-group col-sm-9">
-                    <legegend>Ansprechpartner: </legegend>
-
-                <div class="form-group col-sm-3">
-                    <label>Vorname: </label>
-                    <input type="text" class="form-control" name="firstName"
-                           placeholder="Vorname..."></div>
-                <div class="form-group col-sm-3">
-                    <label>Nachname: </label>
-                    <input type="text" class="form-control" name="lastName"
-                           placeholder="Nachname..."></div>
-                <div class="form-group col-sm-3">
-                    <label>E-Mail: </label>
-                    <input type="email" class="form-control" name="email"
-                           placeholder="E-Mail..."></div>
-                <br>
-                </fieldset>
-            </div>
-            <div class="row">
-                <fieldset class="form-group col-sm-9">
-                    <legend>Telefonnummer: </legend>
-
-                <div class="form-group col-sm-3">
-                    <label>Festnetz: </label>
-                    <input type="text" class="form-control" name="telNr"
-                           placeholder="Festnetz..."></div>
-                <div class="form-group col-sm-3">
-                    <label>Mobil: </label>
-                    <input type="text" class="form-control" name="mobilNr"
-                           placeholder="Mobil..."></div>
-                <div class="form-group col-sm-3">
-                    <input type="submit" class="btn btn-primary" name="submit" value="Absenden"><br>
+                <div class="col-md-6">
+                    <h4>Firma</h4>
+                    <div class="form-group">
+                        <label for="branchName">Firmenname</label>
+                        <input type="text" id="branchName" class="form-control" name="branchName">
+                    </div>
+                    <div class="form-group">
+                        <label for="street">Strasse</label>
+                        <input type="text" class="form-control" name="street" id="street">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="houseNumber">Hausnummer</label>
+                                <input type="text" class="form-control" name="houseNumber" id="houseNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="stairs">Stiege</label>
+                                <input type="text" class="form-control" name="stairs" id="stairs">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="door">Türnummer</label>
+                                <input type="text" class="form-control" name="door" id="door">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="postCode">Postleitzahl</label>
+                                <input type="text" class="form-control" name="postCode" id="postCode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="city">Stadt</label>
+                                <input type="text" class="form-control" name="city" id="city">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country">Land</label>
+                                <input type="text" class="form-control" name="country" id="country">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                </fieldset>
+                <div class="col-md-6">
+                    <h4>Ansprechpartner</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstName">Vorname</label>
+                                <input type="text" class="form-control" name="firstName" id="firstName">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastName">Nachname</label>
+                                <input type="text" class="form-control" name="lastName" id="lastName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="telNr">Festnetz</label>
+                        <input type="text" class="form-control" name="telNr" id="telNr">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobilNr">Mobil</label>
+                        <input type="text" class="form-control" name="mobilNr" id="mobilNr">
+                    </div>
+                    <div class="form-group form-button-wrap">
+                        <input type="submit" class="form-button btn btn-primary " name="submit" value="Absenden">
+                    </div>
+                </div>
             </div>
-
         </form>
     </div>
 </div>

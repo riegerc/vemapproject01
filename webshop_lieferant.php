@@ -47,7 +47,7 @@ foreach($db->query($sql) as $row){
     echo "    <td>".$row['article_price']."&euro;"."</td>\n";
     echo "    <td>".$row['order_count']."</td>\n";
     echo "    <td>".$row['article_price']*$row['order_count']."&euro;"."</td>\n";
-    echo "    <td> <a href='#'>Bestätigen</a><br></td>\n";
+    echo "    <td> <a href='www.google.com' target='_blank'>Bestätigen</a><br></td>\n";
     echo "    </tr>";
 }
 

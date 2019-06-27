@@ -13,8 +13,8 @@ include "include/init.php";
 $title = "";
 
 include "include/page/top.php";
-echo "<h6>". "Ams ID : " . $_SESSION["amsFID"] . "<h6>". "<br>";
-echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
+//echo "<h6>". "Ams ID : " . $_SESSION["amsFID"] . "<h6>". "<br>";
+//echo "<h6>". " Supplier :  " . $_SESSION["supplierFID"] . "<h6>". "<br>";
 ?>
 
 <div class="container-fluid">
