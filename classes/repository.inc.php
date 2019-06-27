@@ -1,5 +1,7 @@
 <?php
 require_once("include/database.php");
+require_once("classes/types/kriterium.inc.php");
+require_once("classes/types/frage.inc.php");
 class Repository{
 	private $db;
 	
@@ -92,5 +94,15 @@ class Repository{
 		}catch(Exception $e){
 			throw new PDOException($e);
 		}
+	}
+	public function readFragebogen():array{
+		$fragen=array();
+		$unterkriterien=array();
+		$kriterien=$this->readKriterien();
+		foreach($kriterien as $kriterium){
+			$unterkriterien=$this->readUnterKriterien($kriterium->getId());
+			array_push($fragen, new Frage($kriterium->getId(), $kriterium->getGewichtung(), $kriterium->getName(), $unterkriterien));
+		}
+		return $fragen;
 	}
 }

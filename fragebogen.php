@@ -8,11 +8,18 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
 
+
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
-
+$lieferantid=0;
 if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
+}
+if(isset($_POST["senden"])){
+	echo "<h1>adsfasdf</h1>";
+	echo "<pre>";
+	var_dump($_POST);
+	echo "</pre>";
 }
 ?>
 
@@ -21,6 +28,7 @@ if(isset($_GET["lieferantid"])){
     <div class="content">
         <h1></h1>
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+		<input type="hidden" value="<?php echo $lieferantid; ?>">
 		<?php
 			foreach($fragen as $frage){
 				 echo "<h2>".$frage->getName()."</h2>";
@@ -31,6 +39,7 @@ if(isset($_GET["lieferantid"])){
 				 echo "</ul>";
 			}
 		?>
+		<button type="submit" value="senden">Senden</button>
 		</form>
     </div>
 </div>
