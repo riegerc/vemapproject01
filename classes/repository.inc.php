@@ -140,12 +140,17 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		$userFid=$fb->getUserId();
 		$reviewId=$this->createReview($userFid);
 		$kriterien=$fb->getFragen();
-		$sql="INSERT INTO rewiesmark(rewiesFID,criteriaFID,undercriteriaFID,supplierUserFID,mark) VALUES";
-		echo "<pre>";
-		print_r($kriterien);
-		echo "</pre>";
-		foreach($kriterien as $kriterium){
-			$sql.="()";
+		$sql="INSERT INTO rewiesmark(rewiesFID,undercriteriaFID,supplierUserFID,mark) VALUES";
+	
+		foreach($kriterien as $key=>$val){
+			$sql.="($reviewId,$key,".$fb->getLieferantId().",$val),";
+		}
+		$sql=rtrim($sql, ",");
+		$stmt=$this->db->prepare($sql);
+		try{
+			$stmt->execute();
+		}catch(Exception $e){
+			throw new PDOException($e);
 		}
 	}
 }

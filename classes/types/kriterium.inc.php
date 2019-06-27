@@ -26,7 +26,7 @@ class Kriterium{
 	public function __toString(){
 		$res="<li>$this->name</li>";
 		for($i=1;$i<=10;$i++){
-			$res.="<input type='radio' name='rb$this->id' value='$i'> $i";
+			$res.="<span class='cr-rb-label'>$i</span><input type='radio' name='rb$this->id' value='$i'>";
 		}
 		return $res;
 	}
