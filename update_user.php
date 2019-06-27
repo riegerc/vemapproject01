@@ -1,10 +1,14 @@
 <?php
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
+
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Benutzerdaten ändern"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
-include "include/page/top.php";
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+
 if(isset($_GET["user"])){
     $user=$_GET["user"];
 }else {
