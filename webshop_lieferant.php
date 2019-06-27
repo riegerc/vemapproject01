@@ -58,7 +58,7 @@ foreach($db->query($sql) as $row){
     echo "    </tr>";
 }
 
-if(isset($_POST['order'])){
+if(isset($_GET['order'])){
     $sql="UPDATE orderitems SET ordered='1' WHERE article.objectID=article_id";
     $sql->execute();
 }
