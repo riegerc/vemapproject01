@@ -7,7 +7,6 @@ $userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if 
 $title = "Ausschreibungen PDF"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
-include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 $pdfID = (int)$_GET["id"];
 
