@@ -30,6 +30,8 @@ $db=connectDB();
 
 
        <?php
+
+                $objectID=$_SESSION[USER_ID];
             if(isset($_POST['change_address'])){
              $street=htmlspecialchars(trim($_POST['street']));
              $houseNumber=htmlspecialchars(trim($_POST['houseNumber']));
@@ -47,10 +49,9 @@ $db=connectDB();
              postCode=:postCode,
              city=:city,
              country=:country
-             WHERE objectID=:objectID;";
+             WHERE objectID=$objectID";
          
           $stmt = $db->prepare($sql);
-             $stmt->bindParam(":objectID",$objectID);
              $stmt->bindParam(":street",$street);
              $stmt->bindParam(":houseNumber",$houseNumber);
              $stmt->bindParam(":stairs",$stairs);
@@ -62,25 +63,30 @@ $db=connectDB();
              $stmt->execute();}
         ?>
 
-
+            <?php
+                 $sql="SELECT * FROM user WHERE objectID=$objectID";
+                 $stmt=$db->prepare($sql);
+                 $stmt->execute();
+                 $row=$stmt->fetch();   
+            ?>
 
     <div class="row">
          <form class="form-horizontal">
             <fieldset>
             <label>Straße</label><br>
-            <input name="street" type="text"><br>
+            <input name="street" type="text" value='<?php echo $row['street']?>'><br>
             <label>Hausnummer</label><br>
-            <input name="houseNumber" type="number"><br>
+            <input name="houseNumber" type="number" value='<?php echo $row['houseNumber']?>'><br>
             <label>Stiege</label><br>
-            <input name="stairs" type="number"><br>
+            <input name="stairs" type="number" value='<?php echo $row['stairs']?>'><br>
             <label>Türnummer</label><br>
-            <input name="door" type="number"><br>
+            <input name="door" type="number" value='<?php echo $row['door']?>'><br>
             <label>Postleitzahl</label><br>
-            <input name="postCode" type="number"><br>
+            <input name="postCode" type="number" value='<?php echo $row['postCode']?>'><br>
             <label>Stadt</label><br>
-            <input name="city" type="text"><br>
+            <input name="city" type="text" value='<?php echo $row['city']?>'><br>
             <label>Land</label><br>
-            <input name="country" type="text>"><br><br>
+            <input name="country" type="text>" value='<?php echo $row['country']?>'><br><br>
 
             <input type='submit' name='change_address' value='Adresse ändern'>
             </fieldset>
