@@ -104,7 +104,10 @@ while($row=$statement->fetch()) {
     echo "Adresse: $street $house / $stairs / $door, $PLZ $city $country";
 
     ?>
-
+    <form action="dompdf.php" method="POST">
+        <input type="hidden" name="orderID" value="$orderID">
+        <button name="pdf">PDF</button>
+    </form>
 </div>
 
 </div><?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
