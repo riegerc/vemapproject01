@@ -142,7 +142,7 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		$userFid=$fb->getUserId();
 		$reviewId=$this->createReview($userFid);
 		$kriterien=$fb->getFragen();
-		$sql="INSERT INTO rewiesmark(rewiesFID,undercriteriaFID,supplierUserFID,mark) VALUES";
+		$sql="INSERT INTO reviewesmark(reviewFID,undercriteriaFID,supplierUserFID,mark) VALUES";
 	
 		foreach($kriterien as $key=>$val){
 			$sql.="($reviewId,$key,".$fb->getLieferantId().",$val),";

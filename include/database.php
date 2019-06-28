@@ -32,6 +32,7 @@ function connectDB(): PDO
  * @return array|string if returns array, it looks like: array[ array[row[columname1,columnname2,columnname3],
  *                                                                    row[columname1,columnname2,columnname3],
  *                                                                    row[columname1,columnname2,columnname3]]]
+ * @author ch. rieger
  */
 function readDB(string $sql, array $params = NULL, $fetchMode = PDO::FETCH_ASSOC)
 {
@@ -62,6 +63,7 @@ function readDB(string $sql, array $params = NULL, $fetchMode = PDO::FETCH_ASSOC
  * @param string $sql
  * @param array $params
  * @return int index (objectID) of last inserted row
+ * @author ch. rieger
  */
 function insertDB(string $sql, array $params): int
 {
@@ -91,6 +93,7 @@ function insertDB(string $sql, array $params): int
  * @param string $sql
  * @param array $params
  * @return bool
+ * @author ch. rieger
  */
 function updateDB(string $sql, array $params): bool
 {
