@@ -25,7 +25,7 @@ $stmt->execute();
 if (!$row = $stmt->fetch()) header("location:error.php?e=400");
 
 
-//if ($row["objectID"] != $_SESSION["id"]) header("location:error.php?e=400");
+//if ($_SESSION[USER_ROLE] > 4 ) header("location:error.php?e=400");
 
 
 $bdate = date_create($row["begin"]);
@@ -55,7 +55,7 @@ $pdf->SetFont('', 'B', 12);
 $pdf->Cell(0, 4, 'Dokumentennummer: ', 0, 1, 'L', false);
 $pdf->SetXY(125, 11);
 $pdf->SetFont('Courier', '', 12);
-$pdf->Cell(0, 4, utf8_decode($row["DocNr"]), 0, 1, 'L', false);
+$pdf->Cell(0, 4, utf8_decode("688480".$row["DocNr"]."-00"), 0, 1, 'L', false);
 /* --- Cell_CPV --- */
 $pdf->SetXY(75, 18);
 $pdf->SetFont('Arial', 'B', 12);
