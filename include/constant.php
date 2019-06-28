@@ -29,7 +29,7 @@ const PWD_REQ_SPECIAL_CHAR = 0;
 #permissions in use ------------------------------------------
 const PERM_EDIT_PERM = "editPermission";
 const PERM_VIEW_OFFER_MENU = "viewOfferMenu";
-const PERM_VIEW_RATING_MENU = "viewRatinMenu";
+const PERM_VIEW_RATING_MENU = "viewRatingMenu";
 const PERM_VIEW_WEBSHOP_MENU  = "viewWebShopMenu";
 const PERM_VIEW_CLIENT_MENU = "viewClientMenu";
 const PERM_CED_SUPPLIER = "cedSupplier";
