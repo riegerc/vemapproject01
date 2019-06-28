@@ -83,6 +83,9 @@ $stmt = $conn->query($empSQL);
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
+        <?php
+        echo "<span style='display: none;' id='transferToJavaScript'>" . json_encode($stmt->fetchAll()) . "</span>";
+        ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <?php echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
             <div class="row">
@@ -120,7 +123,8 @@ $stmt = $conn->query($empSQL);
                     </div>
                     <div class="form-group">
                         <label>Ergänzende Dokumente hinzufügen (max. 25mb):
-                            <input name="datei[]" type="file" multiple size="25"> <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
+                            <input name="datei[]" type="file" multiple size="25">
+                            <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                         </label>
                         <button>hochladen</button>
                     </div>
@@ -128,11 +132,11 @@ $stmt = $conn->query($empSQL);
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Upload für Ausschreibungs Excel</label>
-                        <input class="form-control-file"  type="file" name="file" id="file" accept=".xls,.xlsx">
+                        <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
                     </div>
 
                     <div class="table-responsive-lg">
-                        <table class="table table-bordered table-striped table-hover" id="shortTable">
+                        <table class="table table-bordered table-striped table-hover" :id="tableName">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -143,26 +147,34 @@ $stmt = $conn->query($empSQL);
                             </tr>
                             </thead>
                             <tbody>
-
-                            <?php
-
-                            # var_dump($allEmpResult);
-                            while ($emp = $stmt->fetch()) {
-                                ?>
-                                <tr>
-                                    <th scope="row"><?php echo $emp['objectID']; ?></th>
-                                    <?php
-                                    echo "<th> <input type='checkbox' name='$emp[objectID]chkRole' value='$emp[rolesFID]-$emp[objectID]'></th>";
-                                    #echo "<input type='hidden' name='objectID[]' value='$emp[objectID]'>\n";
-                                    ?>
-
-                                    <td><?php echo $emp['branchName']; ?></td>
-                                    <td><?php echo $emp['firstName']; ?></td>
-                                    <td><?php echo $emp['lastName']; ?></td>
-                                </tr>
-                            <?php } ?>
-
+                            <tr v-for="branch in branches">
+                                <td v-text="branch.objectID"></td>
+                                <th>
+                                    <input type='checkbox'
+                                           v-model='branchCheckboxes[branch.objectID]'
+                                           :name='branchCheckboxes[branch.objectID] + "chkRole"'
+                                           :value='branch.rolesFID +  "-" + branch.objectID'>
+                                </th>
+                                <td v-text="branch.branchName"></td>
+                                <td v-text="branch.firstName"></td>
+                                <td v-text="branch.lastName"></td>
+                            </tr>
                             </tbody>
+                        </table>
+                        <!-- TODO: Make second invisible table that is send with the form because dataTables is stupid -->
+                        <table style="display: none;">
+                            <tr v-for="branch in branches">
+                                <td v-text="branch.objectID"></td>
+                                <th>
+                                    <input type='checkbox'
+                                           v-model='branchCheckboxes[branch.objectID]'
+                                           :name='branchCheckboxes[branch.objectID] + "chkRole"'
+                                           :value='branch.rolesFID +  "-" + branch.objectID'>
+                                </th>
+                                <td v-text="branch.branchName"></td>
+                                <td v-text="branch.firstName"></td>
+                                <td v-text="branch.lastName"></td>
+                            </tr>
                         </table>
                     </div>
                     <br>
