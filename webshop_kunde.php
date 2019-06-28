@@ -72,6 +72,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     echo "    <th>Artikel Name</th>\n";
                     echo "    <th>Artikel Preis</th>\n";
                     echo "    <th>Artikel Gruppe</th>\n";
+                    echo "    <th>Lieferant</th>\n";
                     echo "    <th>Kaufen</th>\n";
                     echo "    </tr></thead>";
                 }
@@ -82,7 +83,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         if (empty($_POST['bisPreis'])) {
                             $bisPreis = 1000000;
                         }
-                        $sql = "SELECT * FROM `article`
+                        $sql = "SELECT article.objectID as articleID, article.name, article.price, article.description, user.branchName as branch FROM `article`
+                                LEFT JOIN user ON article.supplierUserFID=user.objectID
                                 WHERE (description=:product_type) 
                                 AND (name LIKE :suche) 
                                 AND (price BETWEEN :vonPreis AND :bisPreis)";
@@ -92,7 +94,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         $stmt->bindParam(':bisPreis', $bisPreis);
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
-
+                        
                         //this is the counter for the amount of results you get
 
                         //foreach loop for the table rows
@@ -101,13 +103,18 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['name'] . "</td>\n";
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
+                            echo "    <td>".$row['branch']."</td>\n";
                             echo "    <td> <a href='webshop_kaufen.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
+                            
+                            
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;
                         }
                     } else {
-                        $sql = "SELECT * FROM article
+                        $sql = "SELECT article.objectID, article.name as name, article.price as price, article.description as description, user.branchName as branch 
+                        FROM `article`
+                        LEFT JOIN user ON article.supplierUserFID=user.objectID
                         WHERE (description=:product_type) AND (name LIKE :suche)";
 
                         $stmt = connectDB()->prepare($sql);
@@ -122,6 +129,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['name'] . "</td>\n";
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
+                            echo "    <td>".$row['branch']."</td>\n";
                             echo "    <td> <a href='webshop_kaufen.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
