@@ -42,8 +42,8 @@ const PERM_CED_USER = "cedUser"; # NOT including SELF!
 const PERM_EDIT_SELF = "editUser"; #everyone can edit him/herself, but noone can delete him/herself
 
 #permissions not in use now----------------------------------
-const PERM_VIEW_USER = "viewUser"; # NOT including SELF!
-const PERM_EDIT_BUDGED = "editBudtget"; # can not apply to SELF
+const PERM_VIEW_USER = "viewUser";
+const PERM_EDIT_BUDGED = "editBudtget"; 
 const PERM_CED_OFFER = "cedOffer";
 const PERM_CED_CATALOGUE = "cedCatalogue";
 const PERM_VIEW_CATALOGUE = "viewCatalogue";
