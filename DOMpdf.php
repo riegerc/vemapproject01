@@ -1,18 +1,20 @@
 <?php
-session_start();
-session_regenerate_id(true);
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once( "include/constant.php" );
+$pageRestricted = false; // defines if the page is restricted to logged-in Users only
+$userLevel = PERM_EDIT_SELF; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
-if ( empty($_SESSION["userID"]) ) {           # wenn Session leer ist d.h. niemand angemeldet
-  header("location:error.php?e=400");   # Weiterleitung  zu Logout und weiter zum Login
-}
 
 # Verbindung zur Datenbank herstellen
-require_once( "include/database.php" );
+#require_once( "include/database.php" );
 
-
+include( "include/init.php" );
+if ( empty($_SESSION[USER_ID]) ) {           # wenn Session leer ist d.h. niemand angemeldet
+  header("location:error.php?e=400");   # Weiterleitung  zu Logout und weiter zum Login
+}
 // include autoloader
-require_once 'classes/DomPDF/dompdf/autoload.inc.php';
-
+require_once( "classes/DomPDF/dompdf/autoload.inc.php" );
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -27,10 +29,10 @@ ob_start();
 $timestamp = time();
 $datum = date("d-m-Y - H:i", $timestamp);
 $nur_datum = date("d-m-Y");
-$orderNr=1;
+$orderNr = 1; # zum TESTEN!
 
 # übernimmt die userID von $_GET
-$userID = (int)$_GET["objectID"];
+//$userID = (int)$_GET["objectID"];
 #
 
 ?>
@@ -40,23 +42,28 @@ $userID = (int)$_GET["objectID"];
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Helvetica', sans-serif ;
+        font-family: 'Helvetica', sans-serif;
         /*font-family: 'monospace', sans-serif;*/
     }
+
     body {
         padding: 70px;
         font-size: 14px;
     }
+
     header table {
         width: 100%;
     }
+
     .header_left {
         padding: 10px;
         width: 50%;
     }
+
     .header_right {
         width: 30%;
     }
+
     h1 {
         background-color: #dde2f1;
         color: #000;
@@ -66,15 +73,7 @@ $userID = (int)$_GET["objectID"];
         border: 2px solid #555;
         margin: 10px 0;
     }
-    .mid_table {
-        width: 100%;
-    }
-    .mid_table_left {
-        width: 50%;
-    }
-    .mid_table_right {
-        width: 30%;
-    }
+
     main .order_table {
         border-collapse: collapse;
         margin: 20px auto;
@@ -82,15 +81,18 @@ $userID = (int)$_GET["objectID"];
         text-align: center;
         border: 1px solid #000;
     }
+
     main .order_table tr:nth-child(2n) {
         background-color: #aaaaaa;
     }
+
     main .order_table th {
         padding: 5px;
         background-color: #006cad;
         color: #fff;
         border: 1px solid #000;
     }
+
     main .order_table td {
         padding: 5px;
     }
@@ -100,158 +102,120 @@ $userID = (int)$_GET["objectID"];
 
 <!-- HERE STARTS THE HTML CONTENT -->
 <body>
-    <header>
-      <table>
-          <tbody>
-          <tr>
-              <td class="header_left">
-                  <p>Bestellung für: </p>
-                  <p>Kundenname <?php echo $_SESSION['userName']; ?></p>
-                  <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
-                  <p>KundenAdresse</p>
-                  
-                  <p>Ort PLZ</p>
-                  <br>
-                  <p>Tel: +43 2595474</p>
-                  <p>Fax: +43 2595474 457</p>
-                  <p>Email: kunde@mail.com</p>
-              </td>
-            
-              <td class="header_right">
-                  <p>Bestellung bei: </p>
-                  <p>Lieferant</p>
-                  <p>LieferantAdresse</p>
-                  <p>Ort PLZ</p>
-                  <br>
-                  <p>Tel: +43 0841484</p>
-                  <p>Fax: +43 0841484 555</p>
-                  <p>Email: lieferant@mail.com</p>
-              </td>
-          </tr>
-          </tbody>
-      </table>  
-    </header>
-    
-    <h1>Bestellung Nr.<?php echo "\$orderNr"; ?></h1>
-    
-    <table class="mid_table">
+<header>
+    <table>
         <tbody>
         <tr>
-            <td class="mid_table_left">
-                <?php //$nurdatum= Tabelle order Spalte dateTime?>
-                <p><strong>Bestelldatum: <?php echo $nur_datum ?></strong></p>
+            <td class="header_left">
+                <p>Bestellung für: </p>
+                <p>Kundenname <?php echo $_SESSION[USER_NAME]; ?></p>
+              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
+                <p>KundenAdresse</p>
+
+                <p>Ort PLZ</p>
+                <br>
+                <p>Tel: +43 2595474</p>
+                <p>Fax: +43 2595474 457</p>
+                <p>Email: kunde@mail.com</p>
             </td>
 
-            <td class="mid_table_right">
-                <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email 
-                
-                ?>
-                <p><strong>Lieferanschrift:</strong> </p>
-                <p>Lieferant</p>
-                <p>LieferantAdresse</p>
+            <td class="header_right">
+              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
+                <p>Lieferziel: </p>
+                <p>Name</p>
+                <p>Lieferadresse</p>
                 <p>Ort PLZ</p>
                 <br>
                 <p>Tel: +43 0841484</p>
-                <p>Email: lieferant@mail.com</p>
+                <p>Fax: +43 0841484 555</p>
+                <p>Email: lieferziel@mail.com</p>
             </td>
         </tr>
         </tbody>
     </table>
-<!--    <span>--><?php //echo "Die Bestellung wurde erfolgreich durchgeführt am $datum!"; ?><!--</span>-->
-  <main>
-  
-<!--      !!!!!!!!!!!!!!!!!!!!!!!!!! ab hier  GEHÖRT GEÄNDERT                    -->
-          <table class="order_table">
-              <?php //tabelle orderitems spalten atrticleFID count price
-                    //tabelle order spalten supplierUserFID
-                    //tabelle article spalten name price=je
-                    //tabelle user spalte branchName
-                    //sql abfrage 
-                    $sql = "SELECT orderitems.articleFID,
-                        orderitems.count,
-                        orderitems.price,
-                        article.name,
-                        article.price
+</header>
+
+<h1>Bestellung Nr.<?php echo "$orderNr"; ?></h1>
+
+
+<?php //$nurdatum= Tabelle order Spalte dateTime?>
+<p><strong>Bestelldatum: <?php echo $nur_datum ?></strong></p>
+
+<main>
+
+    <!--       TABELLE für die Artikelbestellungen                    -->
+    <table class="order_table">
+      <?php
+      $db = connectDB();
+
+
+      //Lieferantennamen auslesen
+      $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
+      $statement = $db->prepare($sql);
+      $statement->bindParam(":orderNr", $orderNr);
+      $statement->execute();
+      
+      $row = $statement->fetch();
+          
+          $lieferant = $row['branchName'];
+          
+      
+      
+      
+      //tabelle orderitems spalten atrticleFID count price
+      //tabelle order spalten supplierUserFID
+      //tabelle article spalten name price=je
+      //tabelle user spalte branchName
+      //sql abfrage
+      $sql = "SELECT orderitems.articleFID AS 'Artikel-Nr',
+                        orderitems.count AS Menge,
+                        orderitems.price AS EUR,
+                        article.name AS Artikel,
+                        article.price AS je
                         FROM orderitems 
                         LEFT JOIN article ON  article.objectID=orderitems.articleFID
                         WHERE orderitems.orderFID=:orderNr";
-                    //Lieferantennamen auslesen
-                    $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
-
-              ?>
-              <tr>
-                  <th>ArtikelNr/ID</th>
-                  <th>ArtikelBezeichnung</th>
-                  <th>Menge</th>
-                  <th>Je</th>
-                  <th>Preis EURO</th>
-                  <th>LieferantName</th>
-              </tr>
-              
-<!--              NUR UM die TABELLE zu FÜHLEN-->
-              <?php
-              for ($i = 1; $i < 10; $i++) {
-                  
-                  echo  "<tr>
-                        <td>$i</td>
-                        <td>Artikel Information/Bezeichnung</td>
-                        <td>Menge</td>
-                        <td>0,00 €</td>
-                        <td>0,00 €</td>
-                        </tr>";
-              } // TABELLE ENDE
-              ?>
-          
-<!--              Datenbankabfrage zum Ausbessern sobald DB bereit ist      -->
-          <?php
-          
-          // Datenbankabfrage modifizieren
-          
-/*            $sql = "SELECT *
-                FROM pizzabestellung
-                INNER JOIN pizza
-                ON pizzaID = pbPizzaFID
-                WHERE pbUserFID = $userID";
-  
-  
-            $statement = $db->prepare($sql);
-            $statement->execute();*/
-             
-  
-/*              $ausgabe = "";
-  
-            while ( $row = $statement->fetch()) {
-    
-              $pizzaName = $row["pizzaName"];
-              $pizzaPreis = $row["pbPreis"];
-              $extra = $row["pbExtra"];
-              $adresse = $row["pbAdresse"];
-              $uhrzeit = $row["pbUhrzeit"];
-  
-              
-              
-              $ausgabe.= "<tr><td>$pizzaName</td><td>$extra</td><td>$adresse</td><td>$pizzaPreis €</td></tr>";*/
-              
-//              $ausgabe.= "<p> Die Kosten dafür betragen: ".number_format($pizzaPreis, 2, "," , ".")."EURO. </p></article>";
-  
-              
-              
-          /*    echo $ausgabe;
-            }*/
-          //  !!!  DATENBANKABFRAGE MODIFIKATION ENDE  !!!
-            ?>
-            
-          </table> <!--  ORDER TABELLE ENDE     -->
-
-           <p>Vielen Dank für Ihre Bestellung!</p>
-           <p></p>
       
-  </main>
+      $statement = $db->prepare($sql);
+      $statement->bindParam(":orderNr", $orderNr);
+      $statement->execute();
+      
+      
+      echo   "<tr>
+                  <th>Artikel-Nr</th>
+                  <th>Artikel</th>
+                  <th>Menge</th>
+                  <th>je</th>
+                  <th>EUR</th>
+                  <th>Lieferant</th>
+             </tr>";
+      
+      // Befüllung der Tabelle Bestellungen
+      while ( $row = $statement->fetch() ) {
+        
+        echo "<tr>
+                  <td>{$row['Artikel-Nr']}</td>
+                  <td>{$row['Artikel']}</td>
+                  <td>{$row['Menge']}</td>
+                  <td>{$row['je']}</td>
+                  <td>{$row['EUR']}</td>
+                  <td>$lieferant</td>
+              </tr>";
+      }  // while ENDE
+      
+      
+      
+      ?>
+
+    </table> <!--  ORDER TABELLE ENDE     -->
+
+    <p>Vielen Dank für Ihre Bestellung!</p>
+
+</main>
 <footer>
-    
+
 </footer>
 </body>
-
 
 
 <!-- END OF THE HTML CONTENT -->
@@ -268,5 +232,5 @@ $pdf->setPaper('A4', '');
 $pdf->render();
 
 // Output the generated PDF to Browser
-$pdf->stream('PDF_Document.pdf', Array('Attachment'=>0));
+$pdf->stream('PDF_Document.pdf', Array( 'Attachment' => 0 ));
 ?>

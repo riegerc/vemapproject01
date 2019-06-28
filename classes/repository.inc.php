@@ -21,6 +21,7 @@ class Repository{
 		while($row=$stmt->fetch()){
 			array_push($kriterien, new Kriterium($row["name"],$row["weighting"],$row["objectID"]));
 		}
+		$this->przt($kriterien);
 		return $kriterien;
 	}
 	public function readUnterKriterien(int $id):array{
@@ -36,6 +37,7 @@ class Repository{
 		while($row=$stmt->fetch()){
 			array_push($kriterien, new Kriterium($row["name"],$row["weighting"],$row["objectID"]));
 		}
+		$this->przt($kriterien);
 		return $kriterien;
 	}
 	public function create(Kriterium $k):void{
@@ -123,12 +125,11 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $fragen;
 	}
-	public function createReview(Fragebogen $fb):int{
+	public function createReview(int $userid):int{
 		$reviewId=0;
 		$sql="INSERT INTO reviews(userFID) VALUES(:userFid)";
 		$stmt=$this->db->prepare($sql);
-		$userId=$fb->getUserId();
-		$stmt->bindParam(":userFid",$userId);
+		$stmt->bindParam(":userFid",$userid);
 		try{
 			$stmt->execute();
 			$reviewId=$this->db->lastInsertId('reviews');
@@ -138,7 +139,32 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		return $reviewId;
 	}
 	public function createAnswers(Fragebogen $fb):void{
-		$reviewId=createReview($userFid);
-		$sql="INSERT INTO rewiesmark(rewiesFID,criteriaFID,undercriteriaFID,supplierUserFID,mark)";
+		$userFid=$fb->getUserId();
+		$reviewId=$this->createReview($userFid);
+		$kriterien=$fb->getFragen();
+		$sql="INSERT INTO rewiesmark(rewiesFID,undercriteriaFID,supplierUserFID,mark) VALUES";
+	
+		foreach($kriterien as $key=>$val){
+			$sql.="($reviewId,$key,".$fb->getLieferantId().",$val),";
+		}
+		$sql=rtrim($sql, ",");
+		$stmt=$this->db->prepare($sql);
+		try{
+			$stmt->execute();
+		}catch(Exception $e){
+			throw new PDOException($e);
+		}
+	}
+	private function przt(array $kriterien):array{
+		$sum=0;
+		foreach($kriterien as $kriterium){
+			$sum+=$kriterium->getGewichtung();
+		}
+		foreach($kriterien as $kriterium){
+			$faktor=(100/$sum);
+			$przt=$faktor*$kriterium->getGewichtung();
+			$kriterium->setPrzt($przt);
+		}
+		return $kriterien;
 	}
 }

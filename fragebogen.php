@@ -27,8 +27,7 @@ if(isset($_POST["senden"])){
 		$key=Helper::getId($key,"rb");
 		$antworten[$key]=(int)Helper::sanitize($val);
 	}
-	
-	$rep->createReview(new Fragebogen($userId, $lieferantid, $antworten));
+	//$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
 }
 ?>
 
