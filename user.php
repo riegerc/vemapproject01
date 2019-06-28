@@ -18,52 +18,18 @@ if(isset($_GET["delete"])){
     $statement->execute();
 }
 ?>
-<head>
-    <style>
-        input[type=text] {
-            width: 100%;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            background-color: white;
-            background-image: url('img/searchicon32x32.png');
-            background-position: 5px 7px;
-            background-repeat: no-repeat;
-            padding: 12px 20px 12px 40px;
-        }
-        .btn-ams{background-color: #093C7D; color: #FFFFFF}
-    </style>
-</head>
+
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
-            <label for="userName">Suche:
-                <input type="text" name="userName" id="userName" placeholder="Suchen...">
-            </label>
-            <button class="btn btn-ams" type="submit" name="suchen">Suchen</button>
-            <br>
-            <a href="create_user.php">Neuer Benutzer</a>
-        </form>
-
         <?php
-        if( isset( $_GET["suchen"] ) ) {
-            $suche="%". $_GET["userName"] ."%";
-        }
         // SQL Statement LIKE userName SELECT
         // Suchfunktion
         $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS roleName, user.objectID, budget
-        FROM user
-        LEFT JOIN roles
-        ON user.rolesFID = roles.objectID
-        
-        WHERE firstName LIKE :suche
-        OR lastName LIKE :suche
-        OR telNr LIKE :suche
-        OR mobilNR LIKE :suche
-        ";
+              FROM user
+              LEFT JOIN roles
+              ON user.rolesFID = roles.objectID";
 
         $statement=connectDB()->prepare($sql);
         $statement->bindParam(":suche", $suche);

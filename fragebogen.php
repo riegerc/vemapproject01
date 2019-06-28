@@ -59,7 +59,7 @@ if(isset($_POST["senden"])){
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
 <script>
-		jQuery(document).on('change', '#sld1', function() {
+		jQuery(document).on('change', '#sld9', function() {
 			alert($(this).val());
 		});
 

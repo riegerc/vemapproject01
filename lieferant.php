@@ -13,7 +13,21 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <a href='lieferant.php?lieferantid=25'>Demo Gmbh<a>
+        <!-- Content -->
+        <?php
+        $db=connectDB();
+        $rolesFID=4;
+        $sql="SELECT objectID, branchName
+        FROM user
+        WHERE rolesFID=:rolesFID";
+        $stmt=$db->prepare($sql);
+        $stmt->bindParam(":rolesFID",$rolesFID);
+        $stmt->execute();
+        while ( $row=$stmt->fetch()){
+
+                echo "<a href='fragebogen.php?lieferantid=$row[objectID]'>Bewertung von $row[branchName]</a><br>";
+        }
+        ?>
     </div>
 </div>
 

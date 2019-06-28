@@ -124,6 +124,7 @@ $stmt = $conn->query($empSQL);
                         <label>Upload für Ausschreibungs Excel</label>
                         <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
                     </div>
+                    <!-- TODO: Upload für 3 zusätzliche Dokumente max. 25 mb -->
                     <div class="table-responsive-lg">
                         <table class="table table-bordered table-striped table-hover" id="shortTable">
                             <thead>
