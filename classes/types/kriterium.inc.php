@@ -32,9 +32,9 @@ class Kriterium{
 	}
 	public function __toString(){
 			$res="<li>$this->name</li>\n";
-			$res.="<div>\n";
-			$res.="\t<input type='range' class='slider' name='sld$this->id' id='sld$this->id' min='0' max='10' value='0'>\n";
-			$res.="\t<label for='sld$this->id'>0</label>\n";
+			$res.="<div class='form-group'>\n";
+			$res.="\t<input type='range' class='form-control-range slider' name='sld$this->id' id='sld$this->id' min='0' max='10' value='0'>\n";
+			$res.="\t<label class='slider_label' for='sld$this->id'>0</label>\n";
 			$res.="</div>\n";
 			return $res;
 		}
