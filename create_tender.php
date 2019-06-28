@@ -4,7 +4,7 @@ require_once "include/constant.php";
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
-$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Ausschreibung erstellen"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
