@@ -1,15 +1,13 @@
 <?php
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
+
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = 0; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Ausschreibung erstellen"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
-include "include/page/top.php";
-
-
-
-
-
+include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 ?>
 <div class="container-fluid">
    <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
@@ -47,12 +45,6 @@ include "include/page/top.php";
                                 id="file" accept=".xls,.xlsx">
             <br>
             <br>
-            <button type="submit" class="btn btn-primary" name="absenden">Ausschreibung erstellen</button>
-            <button  type="reset" class="btn btn-danger"  >Formular zurücksetzen</button>
-            <br>
-
-
-        </form>
 
    </div>
 </div>
@@ -73,32 +65,6 @@ if( isset($_POST["absenden"]) ){
                 (?,?,?,?,?,?,?,?)";
              $stmt=connectDB()->prepare($sql);
              $stmt->execute(array($tender,$tenderType, "30000000-9" ,$begin,$end,$description,$userFID, $amount));
-             #$id = stmt->lastInsertId();
-             #-------------------------------------------------------
-
-
-
-                $sql="SELECT * FROM tenders
-                WHERE objectID = (
-                SELECT MAX(objectID) FROM tenders)";
-                $stmt=connectDB()->query($sql);
-                $currentID=$stmt->fetch();
-                echo $currentID["objectID"];
-
-                foreach($_POST["objectID"] as $key => $value){
-                    $userFID=(int)$_POST["objectID"][$key];
-                    $sql="INSERT INTO supplierselect 
-                    (tenderFID,userFID)
-                    VALUES
-                    (:currentID,:userFID)";
-                    $stmt=connectDB()->prepare($sql);
-                    $stmt->bindParam(":currentID",$currentID);
-                    $stmt->bindParam(":userFID",$userFID);
-                    $stmt->execute();
-
-                }
-
-
 
 
 
@@ -134,7 +100,7 @@ $previousPage = $currentPage - 1;
 #"SELECT user.objectID, user.firstName, user.lastName FROM user LIMIT $startFrom, $showRecordPerPage";
 $empSQL = "SELECT objectID, firstName, lastName , branchName , rolesFID 
 FROM `user`
-WHERE rolesFID=1
+WHERE rolesFID=10
  LIMIT $startFrom, $showRecordPerPage";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
@@ -158,7 +124,6 @@ $stmt = $conn->query($empSQL);
             <th scope="row"><?php echo $emp['objectID']; ?></th>
             <?php
             echo "<th> <input type='checkbox' name='role' value='$emp[rolesFID]'></th>";
-            echo "<input type='hidden' name='objectID[]' value='$emp[objectID]'>\n";
             ?>
 
             <td><?php echo $emp['branchName']; ?></td>
@@ -192,6 +157,12 @@ $stmt = $conn->query($empSQL);
     </ul>
 </nav>
 <br>
+<button type="submit" class="btn btn-primary" name="absenden">Ausschreibung erstellen</button>
+<button  type="reset" class="btn btn-danger"  >Formular zurücksetzen</button>
+<br>
+
+
+</form>
 
 
 <?php include "include/page/bottom.php";
