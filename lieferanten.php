@@ -14,6 +14,20 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
+        <?php
+        $db=connectDB();
+        $rolesFID=4;
+        $sql="SELECT objectID, branchName
+        FROM user
+        WHERE rolesFID=:rolesFID";
+        $stmt=$db->prepare($sql);
+        $stmt->bindParam(":rolesFID",$rolesFID);
+        $stmt->execute();
+        while ( $row=$stmt->fetch()){
+
+                echo "<a href='bewertung.php?objectID=$row[objectID]'>Bewertung von $row[branchName]</a><br>";
+        }
+        ?>
     </div>
 </div>
 
