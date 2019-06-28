@@ -42,6 +42,9 @@ if (isset($_POST["send"])) {
 } else {
     $search = "%%";
 }
+
+// TODO Abfrage das einem nur die Ausschreibungen angezeigt werden zu denen man eingeladen ist
+
 ?>
     <div class="container-fluid">
         <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>

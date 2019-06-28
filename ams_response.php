@@ -8,11 +8,18 @@ $title = ""; // defines the name of the current page, displayed in the title and
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+
+
+
+$sql="SELECT userFID FROM user "
+// TODO Abfrage das einem nur die Ausschreibungen angezeigt werden zu denen man eingeladen ist
 ?>
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
+
+<h2>Erstellte Ausschreibungen</h2>
 
 
 
