@@ -23,7 +23,6 @@ require_once ("include/database.php");
     <meta charset="utf-8">
     <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
     <title>Kurs</title>
-    <link rel="stylesheet" href="css/style_css2.css">
 </head>
 <body>
        <div class="container">
@@ -55,8 +54,6 @@ require_once ("include/database.php");
             <input id="postal-code" name="country" type="number" placeholder="Land"><br><br>
 
             <input type='submit' value='Adresse ändern'>
-
-
             </fieldset>
         </form>
     </div>
