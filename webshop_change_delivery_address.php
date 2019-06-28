@@ -9,7 +9,7 @@ $title = ""; // defines the name of the current page, displayed in the title and
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-$db=connectDB();
+$db=connectDB(); 
 ?>
 
 <div class="container-fluid">
