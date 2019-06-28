@@ -51,7 +51,7 @@ if(isset($_GET["senden"])) {
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get"><br>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
             <?php
             if(isset($_GET["user"])) {
                 $sql = "SELECT * FROM user
@@ -122,7 +122,6 @@ if(isset($_GET["senden"])) {
                 <?php
                 while ($row = $statement->fetch()) {
                     echo "User: $row[email]";
-                    echo "<br>";
                     echo "<td>$row[firstName]</td>";
                     echo "<td>$row[lastName]</td>";
                     echo "<td>$row[email]</td>";
@@ -138,7 +137,7 @@ if(isset($_GET["senden"])) {
                     echo "<td>$row[city]</td>";
                     echo "<td>$row[country]</td>";
                     echo "<td>$row[sectorCode]</td>";
-                    echo "<br>";
+
                 }
             }
             ?>
