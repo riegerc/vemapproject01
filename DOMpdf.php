@@ -26,8 +26,9 @@ $pdf = new Dompdf();
 //using output buffer
 ob_start();
 //---------------------------------------------------------------------------
-$orderNr = 1; # zum TESTEN!
+
 //Variablen
+$orderNr = $_POST['orderID'];
 $lieferant = "";
 $street = "";
 $housNumber = "";
@@ -129,7 +130,7 @@ $email = "";
               <?php
               /* SQL Abfrage Mitarbeiter
               */
-              $sql = "SELECT  user.email, user.telNr, user.branchName, user.street, user.houseNumber, user.houseNumber, user.stairs, user.door, user.postCode, user.city, user.country FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.employeeUserFID";
+              $sql = "SELECT  user.email, user.telNr, user.branchName, user.street, user.houseNumber, user.stairs, user.door, user.postCode, user.city, user.country FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.employeeUserFID";
               
               $db = connectDB();
               $statement = $db->prepare($sql);
