@@ -45,6 +45,7 @@ if(isset($_POST["senden"])){
 				 echo "<h2>".$frage->getName()."</h2>";
 				 echo "<ul>";
 				 foreach($frage->getKriterien() as $kriterium){
+					 echo "";
 					echo $kriterium;
 				 }
 				 echo "</ul>";
@@ -59,8 +60,7 @@ if(isset($_POST["senden"])){
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
 <script>
-		jQuery(document).on('change', '#sld9', function() {
-			alert($(this).val());
-		});
-
+function setLabelText(rangeId,labelId){
+	$('#lbl'+labelId).html(jQuery('#sld'+rangeId).val());
+}
 	</script>

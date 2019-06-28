@@ -26,7 +26,7 @@ class Repository{
 	}
 	public function readUnterKriterien(int $id):array{
 		$kriterien=array();
-		$sql="SELECT objectID,name,weighting FROM subcriteria WHERE criteriaFID=:id AND deleted=0";
+		$sql="SELECT objectID,name,weighting,criteriaFID FROM subcriteria WHERE criteriaFID=:id AND deleted=0";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":id",$id);
 		try{
@@ -35,7 +35,7 @@ class Repository{
 			throw new PDOException($e);
 		}
 		while($row=$stmt->fetch()){
-			array_push($kriterien, new Kriterium($row["name"],$row["weighting"],$row["objectID"]));
+			array_push($kriterien, new Kriterium($row["name"],$row["weighting"],$row["objectID"],$row["criteriaFID"]));
 		}
 		$this->przt($kriterien);
 		return $kriterien;
