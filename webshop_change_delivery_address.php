@@ -8,30 +8,13 @@ $title = ""; // defines the name of the current page, displayed in the title and
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-require_once ("include/database.php");
-$db=connectDB();
 ?>
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-
-
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="utf-8">
-    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
-    <title>Kurs</title>
-</head>
-<body>
-       <div class="container">
-
-
-
-       <?php
-
-                $objectID=$_SESSION[USER_ID];
+    <?php
+            $objectID=$_SESSION[USER_ID];
             if(isset($_POST['change_address'])){
              $street=htmlspecialchars(trim($_POST['street']));
              $houseNumber=htmlspecialchars(trim($_POST['houseNumber']));
@@ -70,7 +53,6 @@ $db=connectDB();
                  $row=$stmt->fetch();   
             ?>
 
-    <div class="row">
          <form class="form-horizontal">
             <fieldset>
             <label>Straße</label><br>
@@ -91,10 +73,6 @@ $db=connectDB();
             <input type='submit' name='change_address' value='Adresse ändern'>
             </fieldset>
         </form>
-    </div>
-</div>
-</body>
-</html>
     </div>
 </div>
 
