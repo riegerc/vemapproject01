@@ -32,6 +32,7 @@ if(isset($_GET["delete"])){
             background-repeat: no-repeat;
             padding: 12px 20px 12px 40px;
         }
+        .btn-ams{background-color: #093C7D; color: #FFFFFF}
     </style>
 </head>
 <div class="container-fluid">
@@ -42,7 +43,7 @@ if(isset($_GET["delete"])){
             <label for="userName">Suche:
                 <input type="text" name="userName" id="userName" placeholder="Suchen...">
             </label>
-            <button type="submit" name="suchen">Suchen</button>
+            <button class="btn btn-ams" type="submit" name="suchen">Suchen</button>
             <br>
             <a href="create_user.php">Neuer Benutzer</a>
         </form>
