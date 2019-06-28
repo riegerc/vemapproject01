@@ -8,14 +8,14 @@ $title = ""; // defines the name of the current page, displayed in the title and
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+require_once ("include/database.php");
+
 ?>
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-    <?php
-        require_once ("include/database");
-?>
+
 
 <!DOCTYPE html>
 <html lang="de">
