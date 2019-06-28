@@ -120,7 +120,7 @@ $stmt = $conn->query($empSQL);
                     </div>
                     <div class="form-group">
                         <label>Ergänzende Dokumente hinzufügen (max. 25mb):
-                            <input name="datei[]" type="file" multiple size="25">
+                            <input name="datei[]" type="file" multiple size="25"> <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                         </label>
                         <button>hochladen</button>
                     </div>
