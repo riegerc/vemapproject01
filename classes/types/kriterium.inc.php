@@ -31,10 +31,12 @@ class Kriterium{
 		$this->przt=$przt;
 	}
 	public function __toString(){
-		$res="<li>$this->name</li>";
-		for($i=1;$i<=10;$i++){
-			$res.="<span class='cr-rb-label'>$i</span><input type='radio' name='rb$this->id' value='$i'>\n";
+			$res="<li>$this->name</li>\n";
+			$res.="<div>\n";
+			$res.="<label  for='{$this->id}'>asdfsa</label>\n";
+			$res.="<input type='range'  name='sld$this->id' id='sld{$this->id}' min='0' max='10' value='0'>\n";
+			$res.="<span class='rb{$this->id}'>0</span>\n";
+			$res.="</div>\n";
+			return $res;
 		}
-		return $res;
-	}
 }

@@ -1,55 +1,24 @@
+/* Variables */
 :root {
     --ams-blue: #093c7d;
     --ams-background: #ebf5fc;
 }
 
-#wrapper {
-    background-color: var(--ams-background);
-}
+/* HTML-Tags */
+i { text-align: center; width: 1.2em;}
 
-#page-logo {
-    width: 70px;
-    height: auto;
-}
+/* Styling for ids */
+#wrapper {background-color: var(--ams-background);}
+#page-logo {width: 70px; height: auto;}
+#no-style {list-style: none;}
 
-.form-button-wrap {
-    display: flex;
-}
-
-.form-button {
-    width: 100%;
-    align-self: flex-end;
-}
-
-i {
-    text-align: center;
-    width: 1.2em;
-}
-.cr-list{
-	list-style:none;
-	width:50%;
-}
-.cr-gewichtung{
-	width:10%;
-}
-.criterion {
-    font-weight: bold;
-    font-size: 1.3em;
-}
-.subcriterion {
-    font-style: italic;
-    font-size: 1.2em;
-}
-.buttonrow{
-	text-align:center;
-}
-.rrtable th, .rrtable td {
-	padding: 0rem;
-}
-#nostyle {
-    list-style: none;
-}
-
-.checkbox-table {
-    max-width: 1em;
-}
+/* Styling for classes */
+.form-button-wrap {display: flex;}
+.form-button {width: 100%; align-self: flex-end;}
+.cr-list {list-style:none; width:50%;}
+.cr-gewichtung {width:10%;}
+.criterion {font-weight: bold; font-size: 1.3em;}
+.subcriterion {font-style: italic; font-size: 1.2em;}
+.buttonrow {text-align:center;}
+.rrtable th, .rrtable td {padding: 0rem;}
+.checkbox-table {max-width: 1em;}
