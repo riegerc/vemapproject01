@@ -19,6 +19,9 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
@@ -27,7 +30,7 @@ if(isset($_POST["senden"])){
 		$key=Helper::getId($key,"rb");
 		$antworten[$key]=(int)Helper::sanitize($val);
 	}
-	//$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
+	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
 }
 ?>
 
@@ -42,6 +45,7 @@ if(isset($_POST["senden"])){
 				 echo "<h2>".$frage->getName()."</h2>";
 				 echo "<ul>";
 				 foreach($frage->getKriterien() as $kriterium){
+					 echo "";
 					echo $kriterium;
 				 }
 				 echo "</ul>";
@@ -49,7 +53,14 @@ if(isset($_POST["senden"])){
 		?>
 		<button type="submit" name="senden">Senden</button>
 		</form>
+		<span id="slider_value">Nothing yet.</span>
     </div>
+	
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
+<script>
+function setLabelText(rangeId,labelId){
+	$('#lbl'+labelId).html(jQuery('#sld'+rangeId).val());
+}
+	</script>

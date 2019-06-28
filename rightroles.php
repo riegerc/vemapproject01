@@ -58,7 +58,7 @@ if(isset($_POST['saverolerights'])){
         <!-- Content -->
         <form action="" method="post" name="rolerightsform">
         <div class="table-responsive">
-            <table class="table table-bordered rrtable" id="rights" style="overflow: scroll;">
+            <table class="table table-bordered table-striped table-hover rrtable" id="rights" style="overflow: scroll;">
             <thead>
             <?php
                 $sql = "SELECT r.objectID, r.name  FROM roles AS r ORDER BY objectID ASC;";

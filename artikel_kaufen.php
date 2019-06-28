@@ -14,32 +14,29 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 $amount = $_POST["amount"];
 $update = $_POST["update"];
 $userFID= $_SESSION[USER_ID];
+$employee=$userFID;
 
-/*$sql="SELECT * FROM user
-WHERE objectID = :userFID";
+// Time and Date
+$time=time();
+$date=date("Y-m-d",$time);
 
-$statement=connectDB()->prepare($sql);
-$statement->bindParam(":userFID", $userFID);
+$sql="INSERT INTO `order`
+(employeeUserFID, dateTime)
+VALUES
+(:employee, :date)
+";
+
+$db = connectDB();
+$statement=$db->prepare($sql);
+$statement->bindParam(":employee", $employee);
+$statement->bindParam(":date", $date);
 $statement->execute();
+$orderID=$db->lastInsertId();
+echo $orderID;
 
-while($row=$statement->fetch()) {
-    $employee = $row["objectID"];
-}
-
-$employee=99;
-$sql="INSERT INTO order
-(employeeUserFID)
-VALUE
-($employee)
-WHERE order.objectID=2";
-$statement=connectDB()->query($sql);
-//$statement->bindParam(":employee", $employee);
-$statement->execute();*/
-
-$sql="SELECT name,article.price FROM article
-
+//Name und Wert des Artikels aus der DB
+$sql="SELECT name, article.price as articlePrice FROM article
 INNER JOIN orderitems
-
 ON article.objectID = orderitems.articleFID
 WHERE article.objectID=$update
 ";
@@ -49,16 +46,15 @@ $statement->execute();
 
 while($row=$statement->fetch()){
     $articleName=$row["name"];
-    $price=$row["price"];
+    $articlePrice=$row["articlePrice"];
 }
-$wholeAmount=$price*$amount;
+$wholeAmount=$articlePrice*$amount;
+
+// Bestellung in die Datenbank einfügen
 $sql="INSERT INTO orderitems
-
-  (count, articleFID, price, orderFID)
-
-  VALUES
-
-  (:count, :articleFID, :price, :order)";
+(count, articleFID, price, orderFID)
+VALUES
+(:count, :articleFID, :price, :order)";
 
 $statement=connectDB()->prepare($sql);
 
@@ -69,25 +65,49 @@ $statement->bindParam(":order", $orderID);
 
 $statement->execute();
 
-$article = $_POST["update"];?>
+$article = $_POST["update"];
+
+$sql="SELECT * FROM user 
+WHERE objectID=$userFID";
+
+$statement=connectDB()->query($sql);
+$statement->execute();
+while($row=$statement->fetch()) {
+    $email=$row["email"];
+    $branchName=$row["branchName"];
+    $street=$row["street"];
+    $house=$row["houseNumber"];
+    $stairs=$row["stairs"];
+    $door=$row["door"];
+    $PLZ=$row["postCode"];
+    $city=$row["city"];
+    $country=$row["country"];
+}
+?>
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
+<h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
 
-    <div class="content">
+<div class="content">
 
-        <!-- Content -->
+    <!-- Content -->
 
-        <?php
+    <?php
 
-//        echo "Sie haben $amount Stück von Artikel $article bestellt";
-        echo "Stück: $amount";
-        echo "Artikel: $articleName";
-        echo "Preis: $wholeAmount";
+    echo "Stück: $amount <br>";
+    echo "Artikel: $articleName <br>";
+    echo "Stückpreis: $articlePrice <br>";
+    echo "Gesamtpreis: $wholeAmount <br>";
+    echo "Benutzer: $email <br>";
+    echo "Filiale: $branchName <br>";
+    echo "Adresse: $street $house / $stairs / $door, $PLZ $city $country";
 
-        ?>
-
-    </div>
+    ?>
+    <form action="DOMpdf.php" method="POST">
+        <input type="hidden" name="orderID" value="<?php echo $orderID ?>">
+        <button name="pdf">PDF</button>
+    </form>
+</div>
 
 </div><?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>

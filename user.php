@@ -23,37 +23,21 @@ if(isset($_GET["delete"])){
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
-            <label for="userName">Suche:
-                <input type="text" name="userName" id="userName">
-            </label>
-            <button type="submit" name="suchen">Suchen</button>
-            <br>
-            <a href="create_user.php">Neuer Benutzer</a>
-        </form>
-
         <?php
-        if( isset( $_GET["suchen"] ) ) {
-            $suche="%". $_GET["userName"] ."%";
-        }
         // SQL Statement LIKE userName SELECT
         // Suchfunktion
         $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS roleName, user.objectID, budget
-        FROM user
-        LEFT JOIN roles
-        ON user.rolesFID = roles.objectID
-        
-        WHERE firstName LIKE :suche
-        OR lastName LIKE :suche
-        OR telNr LIKE :suche
-        OR mobilNR LIKE :suche
-        ";
+              FROM user
+              LEFT JOIN roles
+              ON user.rolesFID = roles.objectID";
 
         $statement=connectDB()->prepare($sql);
         $statement->bindParam(":suche", $suche);
         $statement->execute();
-        echo "<table>";
-            echo "<tr>";
+        echo "<div class='table-responsive'>";
+        echo "<table class='table table-bordered table-striped table-hover' id='shortTable'>";
+        echo "<thead>";
+        echo "<tr>";
                 echo "<th>Vorname:</th>";
                 echo "<th>Nachname:</th>";
                 echo "<th>Email:</th>";
@@ -72,7 +56,8 @@ if(isset($_GET["delete"])){
                 echo "<th>Sektor:</th>";
                 echo "<th>Bearbeiten</th>";
                 echo "<th>Löschen</th>";
-            echo "</tr>";
+        echo "</tr>";
+        echo "</thead>";
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
@@ -97,6 +82,7 @@ if(isset($_GET["delete"])){
             echo "</tr>";
         }
         echo "</table>";
+        echo "</div>";
         ?>
     </div>
 </div>

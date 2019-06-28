@@ -4,7 +4,7 @@ require_once "include/constant.php";
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
-$title = "Lieferant anlegen"; // defines the name of the current page, displayed in the title and as a header on the page
+$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
@@ -59,25 +59,25 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="branchName">Firmenname</label>
-                                <input type="text" id="branchName" class="form-control" name="branchName">
+                                <input type="text" id="branchName" class="form-control" name="branchName" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="sectorCode">Sector Code</label>
-                                <input type="text" class="form-control" name="sectorCode" id="sectorCode">
+                                <input type="text" class="form-control" name="sectorCode" id="sectorCode" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="street">Strasse</label>
-                        <input type="text" class="form-control" name="street" id="street">
+                        <input type="text" class="form-control" name="street" id="street" required>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="houseNumber">Hausnummer</label>
-                                <input type="text" class="form-control" name="houseNumber" id="houseNumber">
+                                <input type="text" class="form-control" name="houseNumber" id="houseNumber" required>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -95,7 +95,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="postCode">Postleitzahl</label>
-                                <input type="text" class="form-control" name="postCode" id="postCode">
+                                <input type="text" class="form-control" name="postCode" id="postCode" required>
                             </div>
                         </div>
                     </div>
@@ -103,13 +103,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="city">Stadt</label>
-                                <input type="text" class="form-control" name="city" id="city">
+                                <input type="text" class="form-control" name="city" id="city" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="country">Land</label>
-                                <input type="text" class="form-control" name="country" id="country">
+                                <input type="text" class="form-control" name="country" id="country" required>
                             </div>
                         </div>
                     </div>
@@ -121,19 +121,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="firstName">Vorname</label>
-                                <input type="text" class="form-control" name="firstName" id="firstName">
+                                <input type="text" class="form-control" name="firstName" id="firstName" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastName">Nachname</label>
-                                <input type="text" class="form-control" name="lastName" id="lastName">
+                                <input type="text" class="form-control" name="lastName" id="lastName" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email">E-Mail</label>
-                        <input type="email" class="form-control" name="email" id="email">
+                        <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="telNr">Festnetz</label>
@@ -141,7 +141,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     </div>
                     <div class="form-group">
                         <label for="mobilNr">Mobil</label>
-                        <input type="text" class="form-control" name="mobilNr" id="mobilNr">
+                        <input type="text" class="form-control" name="mobilNr" id="mobilNr" required>
                     </div>
                     <div class="form-group form-button-wrap">
                         <input type="submit" class="form-button btn btn-primary " name="submit" value="Absenden">
@@ -157,14 +157,14 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
 
 $password = generateStrongPassword();
-
+$ams="0";
 $options = [
     'cost' => 12,
 ];
 
 if (isset($_POST['submit'])) {
 
-    $userRole = 10;
+    $userRole = 6;
     htmlspecialchars($branchName = $_POST['branchName']);
     htmlspecialchars($street = $_POST['street']);
     htmlspecialchars($houseNumber = $_POST['houseNumber']);
@@ -218,7 +218,8 @@ if (isset($_POST['submit'])) {
                   postCode,
                   city,
                   country,
-                  sectorCode)
+                  sectorCode,
+                  amsYesNo)
                   VALUES (
                           :firstName,
                           :lastName,
@@ -235,7 +236,8 @@ if (isset($_POST['submit'])) {
                           :postCode,
                           :city,
                           :country,
-                          :sectorCode)";
+                          :sectorCode,
+                          :amsYesNo)";
 
 
             $stmt = connectDB()->prepare($sql);
@@ -256,10 +258,11 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(":city", $city);
             $stmt->bindParam(":country", $country);
             $stmt->bindParam(":sectorCode", $sectorCode);
+            $stmt->bindParam(":amsYesNo", $ams);
 
             $stmt->execute();
-            echo $password;
-            echo "IN DATENBANK GESPEICHERT!";
+            echo "<pre>$password</pre>";
+            echo "<div class='alert alert-success'><p>IN DATENBANK GESPEICHERT!</p></div>"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
 //
 //
 //
@@ -277,5 +280,8 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+
+
+
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>

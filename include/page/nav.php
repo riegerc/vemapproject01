@@ -24,15 +24,13 @@ $navigationItems =
                 ],
                 ["name" => "Bewertungen",
                     "links" => [
-                        ["name" => "Einkauf", "url" => "#", "minUserLevel" => PERM_MAKE_REVIEW],
-                        ["name" => "Lieferant", "url" => "#", "minUserLevel" => PERM_VIEW_REVIEW],
-                        ["name" => "", "url" => "kriterien.php", "minUserLevel" => PERM_CED_REVIEW],
-                        ["name" => "", "url" => "fragebogen.php", "minUserLevel" => PERM_MAKE_REVIEW]
+                        ["name" => "Lieferant", "url" => "lieferant.php", "minUserLevel" => PERM_VIEW_REVIEW],
                     ],
                     "icon" => "<i class='fas fa-edit'></i>",
                     "minUserLevel" => PERM_VIEW_RATING_MENU
-                ],["name" => "User",
-                    "links" => [                        
+                ],
+                ["name" => "User",
+                    "links" => [
                         ["name" => "Übersicht", "url" => "user.php", "minUserLevel" => PERM_CED_USER],
                         ["name" => "Erstellen", "url" => "create_user.php", "minUserLevel" => PERM_CED_USER],
                         ["name" => "Update", "url" => "update_user.php", "minUserLevel" => PERM_EDIT_SELF],
@@ -40,7 +38,6 @@ $navigationItems =
                     "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => PERM_VIEW_CLIENT_MENU
                 ],
-
             ],
             "minUserLevel" => PERM_EDIT_SELF
         ],

@@ -26,10 +26,18 @@ $pdf = new Dompdf();
 //using output buffer
 ob_start();
 //---------------------------------------------------------------------------
-$timestamp = time();
-$datum = date("d-m-Y - H:i", $timestamp);
-$nur_datum = date("d-m-Y");
-$orderNr = 1; # zum TESTEN!
+
+//Variablen
+$orderNr = $_POST['orderID'];
+$lieferant = "";
+$street = "";
+$housNumber = "";
+$door = "";
+$postCode = "";
+$city = "";
+$country = "";
+$telNr = "";
+$email = "";
 
 # übernimmt die userID von $_GET
 //$userID = (int)$_GET["objectID"];
@@ -49,6 +57,17 @@ $orderNr = 1; # zum TESTEN!
     body {
         padding: 70px;
         font-size: 14px;
+    }
+
+    .logo-container {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .logo-container img {
+        display: inline-block;
+        width: 120px;
+        height: 60px;
     }
 
     header table {
@@ -102,33 +121,63 @@ $orderNr = 1; # zum TESTEN!
 
 <!-- HERE STARTS THE HTML CONTENT -->
 <body>
+<div class="logo-container"><img src="img/amsPDFlogo.png" alt="AMS Logo"></div>
 <header>
     <table>
         <tbody>
         <tr>
             <td class="header_left">
-                <p>Bestellung für: </p>
-                <p>Kundenname <?php echo $_SESSION[USER_NAME]; ?></p>
+              <?php
+              /* SQL Abfrage Mitarbeiter
+              */
+              $sql = "SELECT  user.email, user.telNr, user.branchName, user.street, user.houseNumber, user.stairs, user.door, user.postCode, user.city, user.country FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.employeeUserFID";
+              
+              $db = connectDB();
+              $statement = $db->prepare($sql);
+              $statement->bindParam(":orderNr", $orderNr);
+              $statement->execute();
+              $row = $statement->fetch();
+              
+              $branch = $row['branchName'];
+              $street = $row['street'];
+              $housNumber = $row['houseNumber'];
+              $door = $row['door'];
+              $postCode = $row['postCode'];
+              $city = $row['city'];
+              $country = $row['country'];
+              $telNr = $row['telNr'];
+              $email = $row['email'];
+              
+              
+              ?>
+                <p>Bestellung für: </p><br>
+                <p><?php echo $branch/*echo $_SESSION[USER_NAME];*/ ?></p>
               <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
-                <p>KundenAdresse</p>
+                <p><?php echo $street . " " . $housNumber . " " . $door ?></p>
 
-                <p>Ort PLZ</p>
+                <p><?php echo $postCode . " " . $city ?></p>
+                <p><?php echo $country ?></p>
                 <br>
-                <p>Tel: +43 2595474</p>
-                <p>Fax: +43 2595474 457</p>
-                <p>Email: kunde@mail.com</p>
+                <p><?php echo "Tel: " . $telNr ?></p>
+                <p><?php echo "Email: " . $email ?></p>
             </td>
 
             <td class="header_right">
-              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
-                <p>Lieferziel: </p>
-                <p>Name</p>
-                <p>Lieferadresse</p>
-                <p>Ort PLZ</p>
-                <br>
-                <p>Tel: +43 0841484</p>
-                <p>Fax: +43 0841484 555</p>
-                <p>Email: lieferziel@mail.com</p>
+              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email 
+              $sql = "SELECT  user.branchName FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.supplierUserFID";
+              $db = connectDB();
+              $statement = $db->prepare($sql);
+              $statement->bindParam(":orderNr", $orderNr);
+              $statement->execute();
+              $row = $statement->fetch();
+              $branch = $row['branchName'];
+              $sql = "SELECT order.dateTime FROM `order` WHERE order.objectID=1";
+              $statement = $db->prepare($sql);
+              $statement->bindParam(":orderNr", $orderNr);
+              $statement->execute();
+              $row = $statement->fetch();
+              $date = $row['dateTime']
+              ?>
             </td>
         </tr>
         </tbody>
@@ -137,30 +186,13 @@ $orderNr = 1; # zum TESTEN!
 
 <h1>Bestellung Nr.<?php echo "$orderNr"; ?></h1>
 
-
-<?php //$nurdatum= Tabelle order Spalte dateTime?>
-<p><strong>Bestelldatum: <?php echo $nur_datum ?></strong></p>
+<p><strong>Bestelldatum: <?php echo $date ?></strong></p>
 
 <main>
 
     <!--       TABELLE für die Artikelbestellungen                    -->
     <table class="order_table">
       <?php
-      $db = connectDB();
-
-
-      //Lieferantennamen auslesen
-      $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
-      $statement = $db->prepare($sql);
-      $statement->bindParam(":orderNr", $orderNr);
-      $statement->execute();
-      
-      $row = $statement->fetch();
-          
-          $lieferant = $row['branchName'];
-          
-      
-      
       
       //tabelle orderitems spalten atrticleFID count price
       //tabelle order spalten supplierUserFID
@@ -181,12 +213,12 @@ $orderNr = 1; # zum TESTEN!
       $statement->execute();
       
       
-      echo   "<tr>
+      echo "<tr>
                   <th>Artikel-Nr</th>
                   <th>Artikel</th>
                   <th>Menge</th>
-                  <th>je</th>
-                  <th>EUR</th>
+                  <th>pro Srück</th>
+                  <th>in EUR</th>
                   <th>Lieferant</th>
              </tr>";
       
@@ -199,12 +231,9 @@ $orderNr = 1; # zum TESTEN!
                   <td>{$row['Menge']}</td>
                   <td>{$row['je']}</td>
                   <td>{$row['EUR']}</td>
-                  <td>$lieferant</td>
+                  <td>$branch</td>
               </tr>";
       }  // while ENDE
-      
-      
-      
       ?>
 
     </table> <!--  ORDER TABELLE ENDE     -->

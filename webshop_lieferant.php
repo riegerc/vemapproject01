@@ -12,10 +12,22 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <?php 
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
+        <?php
+
         /*SQL Abfrage  */
-            $db = connectDB();
-            $sql = "SELECT 
+        $db = connectDB();
+
+        if (isset($_GET['order'])) {
+            $order_id = (int)$_GET['order'];
+            $sql = "UPDATE orderitems SET ordered='1' WHERE objectID=$order_id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":objectID", $order_id);
+            $stmt->execute();
+        }
+
+        $sql = "SELECT 
             article.objectID as article_id, 
             article.name as article_name, 
             article.articleGroupFID as article_groupFID, 
@@ -32,55 +44,45 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             
             WHERE article.objectID=orderitems.articleFID AND user.objectID=article.supplierUserFID;";
 
-            $auswahl="";
-            foreach ($db->query($sql) as $row) { 
-                $buget=$row['budget'];
-                $auswahl.= "    <tr>\n";
-                $auswahl.= "    <td>" . $row['article_name'] . "</td>\n";
-                $auswahl.= "    <td>" . $row['article_price'] . "&euro;" . "</td>\n";
-                $auswahl.= "    <td>" . $row['order_count'] . "</td>\n";
-                $auswahl.= "    <td>" . $row['article_price'] * $row['order_count'] . "&euro;" . "</td>\n";
+        $auswahl = "";
+        foreach ($db->query($sql) as $row) {
+            $buget = $row['budget'];
+            $auswahl .= "    <tr>\n";
+            $auswahl .= "    <td>" . $row['article_name'] . "</td>\n";
+            $auswahl .= "    <td>" . $row['article_price'] . "&euro;" . "</td>\n";
+            $auswahl .= "    <td>" . $row['order_count'] . "</td>\n";
+            $auswahl .= "    <td>" . $row['article_price'] * $row['order_count'] . "&euro;" . "</td>\n";
 
-                if ($row['ordered'] == 1) {
-                    $auswahl.= "<td><br>Bestätigt<br></td>\n";
-                } else {
-                    $auswahl.= "<td> <a href='?order=" . $row['order_id'] . "'>Bestätigen</a><br></td>\n";
-                }
-                $auswahl.= "    </tr>";
+            if ($row['ordered'] == 1) {
+                $auswahl .= "<td><br>Bestätigt<br></td>\n";
+            } else {
+                $auswahl .= "<td> <a href='?order=".$row['order_id']."'>Bestätigen</a><br></td>\n";
             }
+            $auswahl .= "    </tr>";
+        }
         ?>
-        <h4>Kontostand:<?php echo $buget; ?>&euro;</h4>
+        <h4>Kontostand: <?php echo number_format($buget); ?>&euro;</h4>
         <div class="row">
             <div class="col-md-12">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+
                     <div class="table-responsive-lg">
-                            <?php
-                            echo "<table class='table table-bordered' id='dataTable'>";
-                            
-                            echo "<thead>";
-                            echo "    <tr>";
-                            echo "        <th>Artikel Name</th>";
-                            echo "        <th>Preis pro Stück</th>";
-                            echo "        <th>Stückanzahl</th>";
-                            echo "        <th>Gesamtpreis</th>";
-                            echo "        <th>Lieferung</th>";
-                            echo "    </tr>";
-                            echo "</thead>";
+                        <?php
+                        echo "<table class='table table-bordered table-striped table-hover' id='dataTable'>";
+                        echo "<thead>";
+                        echo "    <tr>";
+                        echo "        <th>Artikel Name</th>";
+                        echo "        <th>Preis pro Stück</th>";
+                        echo "        <th>Stückanzahl</th>";
+                        echo "        <th>Gesamtpreis</th>";
+                        echo "        <th>Lieferung</th>";
+                        echo "    </tr>";
+                        echo "</thead>";
 
-                            echo "<tbody>";
-                            echo $auswahl;
-                            echo "</tbody>";
-                           
-                            if (isset($_GET['order'])) {
-                                $order_id = (int)$_GET['order'];
-                                $sql = "UPDATE orderitems SET ordered='1' WHERE objectID=$order_id";
-
-                                $stmt = $db->prepare($sql);
-                                $stmt->bindParam(":objectID", $order_id);
-                                $stmt->execute();
-                            }
-                            echo "</table>";
-                            ?>
+                        echo "<tbody>";
+                        echo $auswahl;
+                        echo "</tbody>";
+                        echo "</table>";
+                        ?>
                     </div>
                 </form>
             </div>
