@@ -3,6 +3,7 @@ class Kriterium{
 	private $id;
 	private $name;
 	private $gewichtung;
+	private $przt;
 	private $fkKriterium;
 	
 	public function __construct(string $name, int $gewichtung, int $id=0, int $fkKriterium=0){
@@ -22,6 +23,12 @@ class Kriterium{
 	}
 	public function getFkKriterium(){
 		return $this->fkKriterium;
+	}
+	public function getPrzt(){
+		return $this->przt;
+	}
+	public function setPrzt(float $przt){
+		$this->przt=$przt;
 	}
 	public function __toString(){
 		$res="<li>$this->name</li>";

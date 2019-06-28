@@ -21,6 +21,7 @@ class Repository{
 		while($row=$stmt->fetch()){
 			array_push($kriterien, new Kriterium($row["name"],$row["weighting"],$row["objectID"]));
 		}
+		$this->przt($kriterien);
 		return $kriterien;
 	}
 	public function readUnterKriterien(int $id):array{
@@ -36,6 +37,7 @@ class Repository{
 		while($row=$stmt->fetch()){
 			array_push($kriterien, new Kriterium($row["name"],$row["weighting"],$row["objectID"]));
 		}
+		$this->przt($kriterien);
 		return $kriterien;
 	}
 	public function create(Kriterium $k):void{
@@ -152,5 +154,20 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}catch(Exception $e){
 			throw new PDOException($e);
 		}
+	}
+	private function przt(array $kriterien):array{
+		$sum=0;
+		foreach($kriterien as $kriterium){
+			$sum+=$kriterium->getGewichtung();
+		}
+		$total=0.0;
+		foreach($kriterien as $kriterium){
+			$faktor=(100/$sum);
+			$przt=$faktor*$kriterium->getGewichtung();
+			$kriterium->setPrzt($przt);
+			$total+=$przt;
+		}
+		echo $total;
+		return $kriterien;
 	}
 }
