@@ -16,11 +16,9 @@ $update = $_POST["update"];
 $userFID= $_SESSION[USER_ID];
 $employee=$userFID;
 
+// Time and Date
 $time=time();
 $date=date("Y-m-d",$time);
-echo $date;
-//$date="2019-06-28";
-
 
 $sql="INSERT INTO `order`
 (employeeUserFID, dateTime)
@@ -67,25 +65,46 @@ $statement->bindParam(":order", $orderID);
 
 $statement->execute();
 
-$article = $_POST["update"];?>
+$article = $_POST["update"];
+
+$sql="SELECT * FROM user 
+WHERE objectID=$userFID";
+
+$statement=connectDB()->query($sql);
+$statement->execute();
+while($row=$statement->fetch()) {
+    $email=$row["email"];
+    $branchName=$row["branchName"];
+    $street=$row["street"];
+    $house=$row["houseNumber"];
+    $stairs=$row["stairs"];
+    $door=$row["door"];
+    $PLZ=$row["postCode"];
+    $city=$row["city"];
+    $country=$row["country"];
+}
+?>
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
+<h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
 
-    <div class="content">
+<div class="content">
 
-        <!-- Content -->
+    <!-- Content -->
 
-        <?php
+    <?php
 
-//        echo "Sie haben $amount Stück von Artikel $article bestellt";
-        echo "Stück: $amount";
-        echo "Artikel: $articleName";
-        echo "Preis: $wholeAmount";
+    echo "Stück: $amount <br>";
+    echo "Artikel: $articleName <br>";
+    echo "Stückpreis: $articlePrice <br>";
+    echo "Gesamtpreis: $wholeAmount <br>";
+    echo "Benutzer: $email <br>";
+    echo "Filiale: $branchName <br>";
+    echo "Adresse: $street $house / $stairs / $door, $PLZ $city $country";
 
-        ?>
+    ?>
 
-    </div>
+</div>
 
 </div><?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
