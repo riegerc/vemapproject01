@@ -49,14 +49,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 $auswahl.= "    </tr>";
             }
         ?>
-        <h4>Kontostand:<?php echo $buget; ?>&euro;</h4>
+        <h4>Kontostand: <?php echo number_format($buget); ?>&euro;</h4>
         <div class="row">
             <div class="col-md-12">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="table-responsive-lg">
                             <?php
                             echo "<table class='table table-bordered' id='dataTable'>";
-                            
                             echo "<thead>";
                             echo "    <tr>";
                             echo "        <th>Artikel Name</th>";
