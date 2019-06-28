@@ -150,4 +150,5 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         </div>
     </div>
 </div>
+<br>
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
