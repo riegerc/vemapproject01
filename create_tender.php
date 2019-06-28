@@ -132,7 +132,7 @@ $stmt = $conn->query($empSQL);
                                 <tr>
                                     <th scope="row"><?php echo $emp['objectID']; ?></th>
                                     <?php
-                                    echo "<th><input type='checkbox' class='checkbox-table' name='role' value='$emp[rolesFID]'></th>";
+                                    echo "<th class='checkbox-table'><input type='checkbox' name='role' value='$emp[rolesFID]'></th>";
                                     ?>
                                     <td><?php echo $emp['branchName']; ?></td>
                                     <td><?php echo $emp['firstName']; ?></td>
@@ -143,19 +143,17 @@ $stmt = $conn->query($empSQL);
                         </table>
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
-                                erstellen
-                            </button>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
-                        </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
+                            erstellen
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    </div>
-    <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
+</div>
+<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
