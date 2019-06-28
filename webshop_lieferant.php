@@ -17,6 +17,16 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
         /*SQL Abfrage  */
         $db = connectDB();
+
+        if (isset($_GET['order'])) {
+            $order_id = (int)$_GET['order'];
+            $sql = "UPDATE orderitems SET ordered='1' WHERE objectID=$order_id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":objectID", $order_id);
+            $stmt->execute();
+        }
+
         $sql = "SELECT 
             article.objectID as article_id, 
             article.name as article_name, 
@@ -71,16 +81,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         echo "<tbody>";
                         echo $auswahl;
                         echo "</tbody>";
-
-                        if (isset($_GET['order'])) {
-                            $order_id = (int)$_GET['order'];
-                            $sql = "UPDATE orderitems SET ordered='1' WHERE objectID=$order_id";
-
-                            $stmt = $db->prepare($sql);
-                            $stmt->bindParam(":objectID", $order_id);
-                            $stmt->execute();
-                            echo '<meta http-equiv="refresh" content= "0;URL=?a=b" />';
-                        }
                         echo "</table>";
                         ?>
                     </div>
