@@ -19,6 +19,9 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
@@ -49,7 +52,15 @@ if(isset($_POST["senden"])){
 		?>
 		<button type="submit" name="senden">Senden</button>
 		</form>
+		<span id="slider_value">Nothing yet.</span>
     </div>
+	
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
+<script>
+		jQuery(document).on('change', '#sld1', function() {
+			alert($(this).val());
+		});
+
+	</script>
