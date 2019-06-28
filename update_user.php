@@ -51,6 +51,7 @@ if(isset($_GET["senden"])) {
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
+        <a href='http://localhost/vemapproject01/user.php'>Zurück zur Übersicht</a>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
             <?php
             if(isset($_GET["user"])) {
@@ -93,11 +94,13 @@ if(isset($_GET["senden"])) {
                         $sql="SELECT DISTINCT * FROM roles";
                         $statement=connectDB()->prepare($sql);
                         $statement->execute();
+
                         while($row=$statement->fetch()){
                             $selected="";
                             if($row["objectID"]==$role){
                                 $selected="selected";
                             }
+                            //value=RoleID, inhalt ist RoleName
                             echo "<option value='$row[objectID]' $selected>$row[name]</option>";
                         }
                         ?>
@@ -120,6 +123,7 @@ if(isset($_GET["senden"])) {
 
                 <button type="submit" name="senden">Senden</button>
                 <?php
+                echo "<table>";
                 while ($row = $statement->fetch()) {
                     echo "User: $row[email]";
                     echo "<td>$row[firstName]</td>";
@@ -137,8 +141,8 @@ if(isset($_GET["senden"])) {
                     echo "<td>$row[city]</td>";
                     echo "<td>$row[country]</td>";
                     echo "<td>$row[sectorCode]</td>";
-
                 }
+                echo "</table>";
             }
             ?>
             <input type="hidden" name="user" value="<?php echo htmlspecialchars($_GET['user']);?>">
