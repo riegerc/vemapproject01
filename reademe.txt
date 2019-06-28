@@ -1,2 +1,0 @@
-vemapproject01 24_06_2019
-test for use a git for this project
