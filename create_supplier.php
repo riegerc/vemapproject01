@@ -259,7 +259,7 @@ if (isset($_POST['submit'])) {
 
             $stmt->execute();
             echo $password;
-            echo "IN DATENBANK GESPEICHERT!";
+            echo "IN DATENBANK GESPEICHERT!"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
 //
 //
 //
