@@ -55,7 +55,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="table-responsive-lg">
                             <?php
-                            echo "<table class='table table-bordered' id='dataTable'>";
+                            echo "<table class='table table-bordered table-striped table-hover' id='dataTable'>";
                             echo "<thead>";
                             echo "    <tr>";
                             echo "        <th>Artikel Name</th>";
@@ -77,6 +77,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 $stmt = $db->prepare($sql);
                                 $stmt->bindParam(":objectID", $order_id);
                                 $stmt->execute();
+                                echo '<meta http-equiv="refresh" content= "0;URL=?mc=mobile" />';
                             }
                             echo "</table>";
                             ?>

@@ -261,8 +261,8 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(":amsYesNo", $ams);
 
             $stmt->execute();
-            echo $password;
-            echo "IN DATENBANK GESPEICHERT!"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
+            echo "<pre>$password</pre>";
+            echo "<div class='alert alert-success'><p>IN DATENBANK GESPEICHERT!</p></div>"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
 //
 //
 //

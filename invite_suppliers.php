@@ -95,8 +95,6 @@ WHERE rolesFID=10
                         </a>
                     </li>
                 <?php } ?>
-            </ul>
-        </nav>
     </div>
 </div>
 
