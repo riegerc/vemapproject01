@@ -145,7 +145,9 @@ $stmt = $conn->query($empSQL);
                     <br>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung erstellen</button>
+                            <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
+                                erstellen
+                            </button>
                         </div>
                         <div class="col-md-6 form-group">
                             <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
@@ -154,4 +156,6 @@ $stmt = $conn->query($empSQL);
                 </div>
             </div>
         </form>
-        <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
+    </div>
+    </div>
+    <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
