@@ -25,7 +25,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         $stmt->execute();
         while ( $row=$stmt->fetch()){
 
-                echo "<a href='bewertung.php?objectID=$row[objectID]'>Bewertung von $row[branchName]</a><br>";
+                echo "<a href='fragebogen.php?lieferantid=$row[objectID]'>Bewertung von $row[branchName]</a><br>";
         }
         ?>
     </div>
