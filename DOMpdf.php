@@ -35,7 +35,7 @@ $door = "";
 $postCode = "";
 $city = "";
 $country = "";
-$telNr ="";
+$telNr = "";
 $email = "";
 
 # übernimmt die userID von $_GET
@@ -56,6 +56,17 @@ $email = "";
     body {
         padding: 70px;
         font-size: 14px;
+    }
+
+    .logo-container {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .logo-container img {
+        display: inline-block;
+        width: 120px;
+        height: 60px;
     }
 
     header table {
@@ -109,44 +120,45 @@ $email = "";
 
 <!-- HERE STARTS THE HTML CONTENT -->
 <body>
+<div class="logo-container"><img src="img/amsPDFlogo.png" alt="AMS Logo"></div>
 <header>
     <table>
         <tbody>
         <tr>
             <td class="header_left">
-                <?php 
-                /* SQL Abfrage Mitarbeiter
-                */
-                $sql = "SELECT  user.email, user.telNr, user.branchName, user.street, user.houseNumber, user.houseNumber, user.stairs, user.door, user.postCode, user.city, user.country FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.employeeUserFID";
-
-                $db = connectDB();
-                $statement = $db->prepare($sql);
-                $statement->bindParam(":orderNr", $orderNr);
-                $statement->execute();
-                $row = $statement->fetch();
-
-                $branch = $row['branchName'];
-                $street = $row['street'];
-                $housNumber = $row['houseNumber'];
-                $door = $row['door'];
-                $postCode = $row['postCode'];
-                $city = $row['city'];
-                $country = $row['country'];
-                $telNr = $row['telNr'];
-                $email = $row['email'];
-                
-                
-                ?>
+              <?php
+              /* SQL Abfrage Mitarbeiter
+              */
+              $sql = "SELECT  user.email, user.telNr, user.branchName, user.street, user.houseNumber, user.houseNumber, user.stairs, user.door, user.postCode, user.city, user.country FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.employeeUserFID";
+              
+              $db = connectDB();
+              $statement = $db->prepare($sql);
+              $statement->bindParam(":orderNr", $orderNr);
+              $statement->execute();
+              $row = $statement->fetch();
+              
+              $branch = $row['branchName'];
+              $street = $row['street'];
+              $housNumber = $row['houseNumber'];
+              $door = $row['door'];
+              $postCode = $row['postCode'];
+              $city = $row['city'];
+              $country = $row['country'];
+              $telNr = $row['telNr'];
+              $email = $row['email'];
+              
+              
+              ?>
                 <p>Bestellung für: </p><br>
                 <p><?php echo $branch/*echo $_SESSION[USER_NAME];*/ ?></p>
               <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
-                <p><?php echo $street." ".$housNumber." ".$door ?></p>
+                <p><?php echo $street . " " . $housNumber . " " . $door ?></p>
 
-                <p><?php echo $postCode." ".$city ?></p>
+                <p><?php echo $postCode . " " . $city ?></p>
                 <p><?php echo $country ?></p>
                 <br>
-                <p><?php echo "Tel: ".$telNr ?></p>
-                <p><?php echo "Email: ".$email ?></p>
+                <p><?php echo "Tel: " . $telNr ?></p>
+                <p><?php echo "Email: " . $email ?></p>
             </td>
 
             <td class="header_right">
@@ -173,10 +185,6 @@ $email = "";
 
 <h1>Bestellung Nr.<?php echo "$orderNr"; ?></h1>
 
-
-<?php //$nurdatum= Tabelle order Spalte dateTime
-
-?>
 <p><strong>Bestelldatum: <?php echo $date ?></strong></p>
 
 <main>
@@ -184,7 +192,7 @@ $email = "";
     <!--       TABELLE für die Artikelbestellungen                    -->
     <table class="order_table">
       <?php
-     
+      
       //tabelle orderitems spalten atrticleFID count price
       //tabelle order spalten supplierUserFID
       //tabelle article spalten name price=je
@@ -204,7 +212,7 @@ $email = "";
       $statement->execute();
       
       
-      echo   "<tr>
+      echo "<tr>
                   <th>Artikel-Nr</th>
                   <th>Artikel</th>
                   <th>Menge</th>
@@ -225,9 +233,6 @@ $email = "";
                   <td>$branch</td>
               </tr>";
       }  // while ENDE
-      
-      
-      
       ?>
 
     </table> <!--  ORDER TABELLE ENDE     -->
