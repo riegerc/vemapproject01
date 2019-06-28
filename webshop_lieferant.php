@@ -78,6 +78,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 $stmt = $db->prepare($sql);
                                 $stmt->bindParam(":objectID", $order_id);
                                 $stmt->execute();
+                                echo '<meta http-equiv="refresh" content= "0;URL=?mc=mobile" />';
                             }
                             echo "</table>";
                             ?>
