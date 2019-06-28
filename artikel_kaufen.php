@@ -104,8 +104,8 @@ while($row=$statement->fetch()) {
     echo "Adresse: $street $house / $stairs / $door, $PLZ $city $country";
     // TODO: Warenkorb
     ?>
-    <form action="dompdf.php" method="POST">
-        <input type="hidden" name="orderID" value="$orderID">
+    <form action="DOMpdf.php" method="POST">
+        <input type="hidden" name="orderID" value="<?php echo $orderID ?>">
         <button name="pdf">PDF</button>
     </form>
 </div>

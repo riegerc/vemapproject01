@@ -1,3 +1,5 @@
+<!-- Warning: you also need to include JavaScript from vendor/chart.js for this to work -->
+
 <?php
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
