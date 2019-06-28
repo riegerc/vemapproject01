@@ -22,7 +22,13 @@ $sql="SELECT userFID FROM user "
 <h2>Erstellte Ausschreibungen</h2>
 
 
-
+       <?php
+       while ($row = $stmt->fetch()){ echo "<table>
+            <thead>
+            
+            </thead>
+        </table>";
+} ?>
     </div>
 </div>
 
