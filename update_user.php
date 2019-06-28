@@ -165,6 +165,9 @@ if (isset($_GET["senden"])) {
                 <button type="submit" class="btn btn-primary form-button" name="senden">Senden</button>
                 <?php
                 echo "<table>";
+                $sql="SELECT * FROM user";
+                $statement=connectDB()->query($sql);
+                $statement->execute();
                 while ($row = $statement->fetch()) {
                     echo "User: $row[email]";
                     echo "<td>$row[firstName]</td>";
