@@ -29,8 +29,7 @@ require_once ("include/database.php");
 
        <?php
             if(isset($_POST['change_address'])){
-             $sql='UPDATE user SET ';   
-            }
+             $sql='UPDATE user SET ';   }
         ?>
 
 
