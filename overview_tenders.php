@@ -98,7 +98,7 @@ if (isset($_POST["send"])) {
         <br>
         <div class="row">
             <div class="col-md-12 table-responsive-lg">
-                <table class="table table-bordered" id="dataTable">
+                <table class="table table-bordered table-striped table-hover" id="dataTable">
                     <thead>
                     <th>Dok. Nr.</th>
                     <th>Bezeichnung des Auftrags</th>

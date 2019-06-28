@@ -18,16 +18,32 @@ if(isset($_GET["delete"])){
     $statement->execute();
 }
 ?>
-
+<head>
+    <style>
+        input[type=text] {
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('img/searchicon32x32.png');
+            background-position: 5px 7px;
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+        }
+        .btn-ams{background-color: #093C7D; color: #FFFFFF}
+    </style>
+</head>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
             <label for="userName">Suche:
-                <input type="text" name="userName" id="userName">
+                <input type="text" name="userName" id="userName" placeholder="Suchen...">
             </label>
-            <button type="submit" name="suchen">Suchen</button>
+            <button class="btn btn-ams" type="submit" name="suchen">Suchen</button>
             <br>
             <a href="create_user.php">Neuer Benutzer</a>
         </form>
@@ -52,8 +68,10 @@ if(isset($_GET["delete"])){
         $statement=connectDB()->prepare($sql);
         $statement->bindParam(":suche", $suche);
         $statement->execute();
-        echo "<table>";
-            echo "<tr>";
+        echo "<div class='table-responsive'>";
+        echo "<table class='table table-bordered table-striped table-hover' id='shortTable'>";
+        echo "<thead>";
+        echo "<tr>";
                 echo "<th>Vorname:</th>";
                 echo "<th>Nachname:</th>";
                 echo "<th>Email:</th>";
@@ -72,7 +90,8 @@ if(isset($_GET["delete"])){
                 echo "<th>Sektor:</th>";
                 echo "<th>Bearbeiten</th>";
                 echo "<th>Löschen</th>";
-            echo "</tr>";
+        echo "</tr>";
+        echo "</thead>";
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
@@ -97,6 +116,7 @@ if(isset($_GET["delete"])){
             echo "</tr>";
         }
         echo "</table>";
+        echo "</div>";
         ?>
     </div>
 </div>
