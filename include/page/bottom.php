@@ -37,7 +37,7 @@
         });
 
         $(document).ready(function() {
-            $('#branchTable').DataTable({
+            $('#shortTable').DataTable({
                 "lengthMenu": [5],
                 "language": {
                     "lengthMenu": "_MENU_ Einträge pro Seite",
