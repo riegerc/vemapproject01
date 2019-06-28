@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Christian Rieger
+ */
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once 'include/constant.php';
 $pageRestricted = true; // defines if the page is restricted to logged-in Users only

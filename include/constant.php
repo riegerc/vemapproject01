@@ -1,6 +1,7 @@
 <?php 
-#constant.php
-#first draft
+/**constant.php
+ * @author Christian Rieger
+ */
 #requires variable $checkme
 if($GLOBALS['checkme'] !== "a30ee472364c50735ad1d43cc09be0a1"){
     exit();
