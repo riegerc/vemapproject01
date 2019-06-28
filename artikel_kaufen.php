@@ -14,32 +14,31 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 $amount = $_POST["amount"];
 $update = $_POST["update"];
 $userFID= $_SESSION[USER_ID];
+$employee=$userFID;
 
-/*$sql="SELECT * FROM user
-WHERE objectID = :userFID";
+$time=time();
+$date=date("Y-m-d",$time);
+echo $date;
+//$date="2019-06-28";
 
-$statement=connectDB()->prepare($sql);
-$statement->bindParam(":userFID", $userFID);
+
+$sql="INSERT INTO `order`
+(employeeUserFID, dateTime)
+VALUES
+(:employee, :date)
+";
+
+$db = connectDB();
+$statement=$db->prepare($sql);
+$statement->bindParam(":employee", $employee);
+$statement->bindParam(":date", $date);
 $statement->execute();
+$orderID=$db->lastInsertId();
+echo $orderID;
 
-while($row=$statement->fetch()) {
-    $employee = $row["objectID"];
-}
-
-$employee=99;
-$sql="INSERT INTO order
-(employeeUserFID)
-VALUE
-($employee)
-WHERE order.objectID=2";
-$statement=connectDB()->query($sql);
-//$statement->bindParam(":employee", $employee);
-$statement->execute();*/
-
-$sql="SELECT name,article.price FROM article
-
+//Name und Wert des Artikels aus der DB
+$sql="SELECT name, article.price as articlePrice FROM article
 INNER JOIN orderitems
-
 ON article.objectID = orderitems.articleFID
 WHERE article.objectID=$update
 ";
@@ -49,16 +48,15 @@ $statement->execute();
 
 while($row=$statement->fetch()){
     $articleName=$row["name"];
-    $price=$row["price"];
+    $articlePrice=$row["articlePrice"];
 }
-$wholeAmount=$price*$amount;
+$wholeAmount=$articlePrice*$amount;
+
+// Bestellung in die Datenbank einfügen
 $sql="INSERT INTO orderitems
-
-  (count, articleFID, price, orderFID)
-
-  VALUES
-
-  (:count, :articleFID, :price, :order)";
+(count, articleFID, price, orderFID)
+VALUES
+(:count, :articleFID, :price, :order)";
 
 $statement=connectDB()->prepare($sql);
 
