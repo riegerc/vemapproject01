@@ -69,7 +69,7 @@ WHERE objectID = :user";
   }
 ?>
 
- <br><a href='change_address.php'>An eine andere Adresse liefern</a>
+ <br><a href='webshop_change_delivery_address.php'>An eine andere Adresse liefern</a>
 <br>
     <input type="hidden" name="update" value="<?php echo htmlspecialchars($_GET["update"]);?>">
     <input type='submit' name='order' value='Bestellen'>

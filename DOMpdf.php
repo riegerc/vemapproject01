@@ -26,10 +26,17 @@ $pdf = new Dompdf();
 //using output buffer
 ob_start();
 //---------------------------------------------------------------------------
-$timestamp = time();
-$datum = date("d-m-Y - H:i", $timestamp);
-$nur_datum = date("d-m-Y");
 $orderNr = 1; # zum TESTEN!
+//Variablen
+$lieferant = "";
+$street = "";
+$housNumber = "";
+$door = "";
+$postCode = "";
+$city = "";
+$country = "";
+$telNr ="";
+$email = "";
 
 # übernimmt die userID von $_GET
 //$userID = (int)$_GET["objectID"];
@@ -107,28 +114,57 @@ $orderNr = 1; # zum TESTEN!
         <tbody>
         <tr>
             <td class="header_left">
-                <p>Bestellung für: </p>
-                <p>Kundenname <?php echo $_SESSION[USER_NAME]; ?></p>
-              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
-                <p>KundenAdresse</p>
+                <?php 
+                /* SQL Abfrage Mitarbeiter
+                */
+                $sql = "SELECT  user.email, user.telNr, user.branchName, user.street, user.houseNumber, user.houseNumber, user.stairs, user.door, user.postCode, user.city, user.country FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.employeeUserFID";
 
-                <p>Ort PLZ</p>
+                $db = connectDB();
+                $statement = $db->prepare($sql);
+                $statement->bindParam(":orderNr", $orderNr);
+                $statement->execute();
+                $row = $statement->fetch();
+
+                $branch = $row['branchName'];
+                $street = $row['street'];
+                $housNumber = $row['houseNumber'];
+                $door = $row['door'];
+                $postCode = $row['postCode'];
+                $city = $row['city'];
+                $country = $row['country'];
+                $telNr = $row['telNr'];
+                $email = $row['email'];
+                
+                
+                ?>
+                <p>Bestellung für: </p><br>
+                <p><?php echo $branch/*echo $_SESSION[USER_NAME];*/ ?></p>
+              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
+                <p><?php echo $street." ".$housNumber." ".$door ?></p>
+
+                <p><?php echo $postCode." ".$city ?></p>
+                <p><?php echo $country ?></p>
                 <br>
-                <p>Tel: +43 2595474</p>
-                <p>Fax: +43 2595474 457</p>
-                <p>Email: kunde@mail.com</p>
+                <p><?php echo "Tel: ".$telNr ?></p>
+                <p><?php echo "Email: ".$email ?></p>
             </td>
 
             <td class="header_right">
-              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email ?>
-                <p>Lieferziel: </p>
-                <p>Name</p>
-                <p>Lieferadresse</p>
-                <p>Ort PLZ</p>
-                <br>
-                <p>Tel: +43 0841484</p>
-                <p>Fax: +43 0841484 555</p>
-                <p>Email: lieferziel@mail.com</p>
+              <?php //tabelle user Spalten street, houseNumber, door, postCode, city, country,teNr, email 
+              $sql = "SELECT  user.branchName FROM `order`,`user` WHERE order.objectID=:orderNr AND user.objectID=order.supplierUserFID";
+              $db = connectDB();
+              $statement = $db->prepare($sql);
+              $statement->bindParam(":orderNr", $orderNr);
+              $statement->execute();
+              $row = $statement->fetch();
+              $branch = $row['branchName'];
+              $sql = "SELECT order.dateTime FROM `order` WHERE order.objectID=1";
+              $statement = $db->prepare($sql);
+              $statement->bindParam(":orderNr", $orderNr);
+              $statement->execute();
+              $row = $statement->fetch();
+              $date = $row['dateTime']
+              ?>
             </td>
         </tr>
         </tbody>
@@ -138,30 +174,17 @@ $orderNr = 1; # zum TESTEN!
 <h1>Bestellung Nr.<?php echo "$orderNr"; ?></h1>
 
 
-<?php //$nurdatum= Tabelle order Spalte dateTime?>
-<p><strong>Bestelldatum: <?php echo $nur_datum ?></strong></p>
+<?php //$nurdatum= Tabelle order Spalte dateTime
+
+?>
+<p><strong>Bestelldatum: <?php echo $date ?></strong></p>
 
 <main>
 
     <!--       TABELLE für die Artikelbestellungen                    -->
     <table class="order_table">
       <?php
-      $db = connectDB();
-
-
-      //Lieferantennamen auslesen
-      $sql = "SELECT user.branchName FROM `order` LEFT JOIN user ON order.supplierUserFID=user.objectID WHERE order.objectID=:orderNr";
-      $statement = $db->prepare($sql);
-      $statement->bindParam(":orderNr", $orderNr);
-      $statement->execute();
-      
-      $row = $statement->fetch();
-          
-          $lieferant = $row['branchName'];
-          
-      
-      
-      
+     
       //tabelle orderitems spalten atrticleFID count price
       //tabelle order spalten supplierUserFID
       //tabelle article spalten name price=je
@@ -185,8 +208,8 @@ $orderNr = 1; # zum TESTEN!
                   <th>Artikel-Nr</th>
                   <th>Artikel</th>
                   <th>Menge</th>
-                  <th>je</th>
-                  <th>EUR</th>
+                  <th>pro Srück</th>
+                  <th>in EUR</th>
                   <th>Lieferant</th>
              </tr>";
       
@@ -199,7 +222,7 @@ $orderNr = 1; # zum TESTEN!
                   <td>{$row['Menge']}</td>
                   <td>{$row['je']}</td>
                   <td>{$row['EUR']}</td>
-                  <td>$lieferant</td>
+                  <td>$branch</td>
               </tr>";
       }  // while ENDE
       
