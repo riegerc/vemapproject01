@@ -12,7 +12,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
         <?php
+
         /*SQL Abfrage  */
         $db = connectDB();
         $sql = "SELECT 
@@ -44,7 +46,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             if ($row['ordered'] == 1) {
                 $auswahl .= "<td><br>Bestätigt<br></td>\n";
             } else {
-                $auswahl .= "<td> <a href='?order=" . $row['order_id'] . "'>Bestätigen</a><br></td>\n";
+                $auswahl .= "<td> <a href='?order=".$row['order_id']."'>Bestätigen</a><br></td>\n";
             }
             $auswahl .= "    </tr>";
         }
@@ -52,7 +54,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <h4>Kontostand: <?php echo number_format($buget); ?>&euro;</h4>
         <div class="row">
             <div class="col-md-12">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+
                     <div class="table-responsive-lg">
                         <?php
                         echo "<table class='table table-bordered table-striped table-hover' id='dataTable'>";
