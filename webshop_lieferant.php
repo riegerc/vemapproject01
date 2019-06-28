@@ -12,9 +12,21 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
         <?php
+
         /*SQL Abfrage  */
         $db = connectDB();
+
+        if (isset($_GET['order'])) {
+            $order_id = (int)$_GET['order'];
+            $sql = "UPDATE orderitems SET ordered='1' WHERE objectID=$order_id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":objectID", $order_id);
+            $stmt->execute();
+        }
+
         $sql = "SELECT 
             article.objectID as article_id, 
             article.name as article_name, 
@@ -44,7 +56,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             if ($row['ordered'] == 1) {
                 $auswahl .= "<td><br>Bestätigt<br></td>\n";
             } else {
-                $auswahl .= "<td> <a href='?order=" . $row['order_id'] . "'>Bestätigen</a><br></td>\n";
+                $auswahl .= "<td> <a href='?order=".$row['order_id']."'>Bestätigen</a><br></td>\n";
             }
             $auswahl .= "    </tr>";
         }
@@ -52,7 +64,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <h4>Kontostand: <?php echo number_format($buget); ?>&euro;</h4>
         <div class="row">
             <div class="col-md-12">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+
                     <div class="table-responsive-lg">
                         <?php
                         echo "<table class='table table-bordered table-striped table-hover' id='dataTable'>";
@@ -69,16 +81,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         echo "<tbody>";
                         echo $auswahl;
                         echo "</tbody>";
-
-                        if (isset($_GET['order'])) {
-                            $order_id = (int)$_GET['order'];
-                            $sql = "UPDATE orderitems SET ordered='1' WHERE objectID=$order_id";
-
-                            $stmt = $db->prepare($sql);
-                            $stmt->bindParam(":objectID", $order_id);
-                            $stmt->execute();
-                            echo '<meta http-equiv="refresh" content= "0;URL=?a=b" />';
-                        }
                         echo "</table>";
                         ?>
                     </div>
