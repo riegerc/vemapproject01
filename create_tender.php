@@ -75,68 +75,67 @@ $previousPage = $currentPage - 1;
 #"SELECT user.objectID, user.firstName, user.lastName FROM user LIMIT $startFrom, $showRecordPerPage";
 $empSQL = "SELECT objectID, firstName, lastName , branchName , rolesFID 
 FROM `user`
-WHERE rolesFID=6 OR rolesFID=4 
- LIMIT $startFrom, $showRecordPerPage";
+WHERE rolesFID=6 OR rolesFID=4";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
 ?>
-    <div class="container-fluid">
-        <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
-        <div class="content">
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <?php echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Ausschreibung</label>
-                    <input type="text" name="tender" class="form-control">
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
+    <div class="content">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <?php echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Ausschreibung</label>
+                        <input type="text" name="tender" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Ausschreibungs type</label>
+                        <select name="tenderType" class="form-control">
+                            <option name="Dienstleistung" value="Dienstleistung">
+                                Dienstleistung
+                            </option>
+                            <option name="Lieferauftrag" value="Lieferauftrag">
+                                Lieferauftrag
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Beginn</label>
+                        <input type="date" name="begin" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Ende</label>
+                        <input type="date" name="end" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Menge</label>
+                        <input type="number" name="amount" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Auftragsbeschreibung</label>
+                        <textarea name="description" class="form-control" rows="4"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Ausschreibungs type</label>
-                    <select name="tenderType" class="form-control">
-                        <option name="Dienstleistung" value="Dienstleistung">
-                            Dienstleistung
-                        </option>
-                        <option name="Lieferauftrag" value="Lieferauftrag">
-                            Lieferauftrag
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Beginn</label>
-                    <input type="date" name="begin" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Ende</label>
-                    <input type="date" name="end" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Menge</label>
-                    <input type="number" name="amount" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="description">Auftragsbeschreibung</label>
-                    <textarea name="description" class="form-control" rows="4"></textarea>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Upload für Ausschreibungs Excel</label>
-                    <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
-                </div>
-                <div class="table-responsive-lg">
-                    <table class="table table-bordered table-striped table-hover" id="shortTable">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th></th>
-                            <th>branchName</th>
-                            <th>firstName</th>
-                            <th>lastName</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Upload für Ausschreibungs Excel</label>
+                        <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
+                    </div>
+                    <div class="table-responsive-lg">
+                        <table class="table table-bordered table-striped table-hover" id="shortTable">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th></th>
+                                <th>branchName</th>
+                                <th>firstName</th>
+                                <th>lastName</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
                             <?php
 
@@ -156,23 +155,23 @@ $stmt = $conn->query($empSQL);
                                 </tr>
                             <?php } ?>
 
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
-                        erstellen
-                    </button>
-                </div>
-                <div class="form-group">
-                    <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
+                            erstellen
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-        </div>
+        </form>
     </div>
+</div>
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. )
 ?>
 ?>
