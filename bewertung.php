@@ -12,12 +12,6 @@ include "classes/repository.inc.php"; // top-part of html-template (stylesheets,
 
 $rep=new Repository();
 $kriterien=$rep->readKriterien();
-foreach($kriterien as $kriterium){
-	$unterkriterien=$rep->readUnterKriterien($kriterium->getId());
-	echo "<pre>";
-	print_r($unterkriterien);
-	echo "</pre>";
-}
 
 ?>
 

@@ -160,14 +160,11 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		foreach($kriterien as $kriterium){
 			$sum+=$kriterium->getGewichtung();
 		}
-		$total=0.0;
 		foreach($kriterien as $kriterium){
 			$faktor=(100/$sum);
 			$przt=$faktor*$kriterium->getGewichtung();
 			$kriterium->setPrzt($przt);
-			$total+=$przt;
 		}
-		echo $total;
 		return $kriterien;
 	}
 }
