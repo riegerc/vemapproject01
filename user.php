@@ -68,8 +68,10 @@ if(isset($_GET["delete"])){
         $statement=connectDB()->prepare($sql);
         $statement->bindParam(":suche", $suche);
         $statement->execute();
-        echo "<table>";
-            echo "<tr>";
+        echo "<div class='table-responsive'>";
+        echo "<table class='table table-bordered table-striped table-hover' id='shortTable'>";
+        echo "<thead>";
+        echo "<tr>";
                 echo "<th>Vorname:</th>";
                 echo "<th>Nachname:</th>";
                 echo "<th>Email:</th>";
@@ -88,7 +90,8 @@ if(isset($_GET["delete"])){
                 echo "<th>Sektor:</th>";
                 echo "<th>Bearbeiten</th>";
                 echo "<th>Löschen</th>";
-            echo "</tr>";
+        echo "</tr>";
+        echo "</thead>";
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
@@ -113,6 +116,7 @@ if(isset($_GET["delete"])){
             echo "</tr>";
         }
         echo "</table>";
+        echo "</div>";
         ?>
     </div>
 </div>
