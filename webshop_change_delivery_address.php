@@ -9,7 +9,7 @@ $title = ""; // defines the name of the current page, displayed in the title and
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once ("include/database.php");
-
+$db=connectDB();
 ?>
 
 <div class="container-fluid">
@@ -27,9 +27,39 @@ require_once ("include/database.php");
 <body>
        <div class="container">
 
+
+
        <?php
             if(isset($_POST['change_address'])){
-             $sql='UPDATE user SET ';   }
+             $street=htmlspecialchars(trim($_POST['street']));
+             $houseNumber=htmlspecialchars(trim($_POST['houseNumber']));
+             $stairs=htmlspecialchars(trim($_POST['stairs']));
+             $door=htmlspecialchars(trim($_POST['door']));
+             $postCode=htmlspecialchars(trim($_POST['postCode']));
+             $city=htmlspecialchars(trim($_POST['city']));
+             $country=htmlspecialchars(trim($_POST['country']));
+         
+             $sql="UPDATE user SET
+             street=:street,
+             houseNumber=:houseNumber,
+             stairs=:stairs,
+             door=:door,
+             postCode=:postCode,
+             city=:city,
+             country=:country
+             WHERE objectID=:objectID;";
+         
+          $stmt = $db->prepare($sql);
+             $stmt->bindParam(":objectID",$objectID);
+             $stmt->bindParam(":street",$street);
+             $stmt->bindParam(":houseNumber",$houseNumber);
+             $stmt->bindParam(":stairs",$stairs);
+             $stmt->bindParam(":door",$door);
+             $stmt->bindParam(":postCode",$postCode);
+             $stmt->bindParam(":city",$city);
+             $stmt->bindParam(":country",$country);
+         
+             $stmt->execute();}
         ?>
 
 
@@ -38,21 +68,21 @@ require_once ("include/database.php");
          <form class="form-horizontal">
             <fieldset>
             <label>Straße</label><br>
-            <input id="postal-code" name="street" type="number" placeholder="Straße"><br>
+            <input name="street" type="text"><br>
             <label>Hausnummer</label><br>
-            <input id="postal-code" name="houseNumber" type="number" placeholder="Hausnummer"><br>
+            <input name="houseNumber" type="number"><br>
             <label>Stiege</label><br>
-            <input id="postal-code" name="stairs" type="number" placeholder="Stiege"><br>
+            <input name="stairs" type="number"><br>
             <label>Türnummer</label><br>
-            <input id="postal-code" name="door" type="number" placeholder="Türnummer"><br>
+            <input name="door" type="number"><br>
             <label>Postleitzahl</label><br>
-            <input id="postal-code" name="postCode" type="number" placeholder="Postleitzahl"><br>
+            <input name="postCode" type="number"><br>
             <label>Stadt</label><br>
-            <input id="postal-code" name="city" type="number" placeholder="Stadt"><br>
+            <input name="city" type="text"><br>
             <label>Land</label><br>
-            <input id="postal-code" name="country" type="number" placeholder="Land"><br><br>
+            <input name="country" type="text>"><br><br>
 
-            <input type='submit' value='Adresse ändern'>
+            <input type='submit' name='change_address' value='Adresse ändern'>
             </fieldset>
         </form>
     </div>
