@@ -1,6 +1,7 @@
 <?php
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
+require_once "include/database.php";
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
@@ -8,6 +9,7 @@ $title = ""; // defines the name of the current page, displayed in the title and
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+$db=connectDB();
 ?>
 
 <div class="container-fluid">
