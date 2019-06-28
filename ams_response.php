@@ -27,6 +27,9 @@ $sql="SELECT userFID FROM user "
             <thead>
             
             </thead>
+            <tbody>
+            <tr> </tr>
+            </tbody>
         </table>";
 } ?>
     </div>
