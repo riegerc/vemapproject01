@@ -32,13 +32,11 @@ class Kriterium{
 	}
 	public function __toString(){
 			$res="<li>$this->name</li>\n";
-			for($i=1;$i<=10;$i++){
 				$res.="<div>\n";
-				$res.="<label class='cr-rb-label' for='{$this->id}-{$i}'>$i</label>\n";
-				$res.="<input type='range'  name='rb$this->id' id='rb{$this->id}-{$i}' min='0' max='10' value='0'>\n";
-				$res.="<span class='rb{$this->id}-{$i}'>0</span>\n";
+				$res.="<label  for='{$this->id}'>asdfsa</label>\n";
+				$res.="<input type='range'  name='sld$this->id' id='sld{$this->id}' min='0' max='10' value='0'>\n";
+				$res.="<span class='rb{$this->id}'>0</span>\n";
 				$res.="</div>\n";
-			}
 			return $res;
 		}
 }
