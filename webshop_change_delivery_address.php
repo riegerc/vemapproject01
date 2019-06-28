@@ -27,6 +27,17 @@ require_once ("include/database.php");
 </head>
 <body>
        <div class="container">
+
+       <?php
+            if(isset($_POST['change_address'])){
+                
+            }
+       
+       
+       ?>
+
+
+
     <div class="row">
          <form class="form-horizontal">
             <fieldset>
@@ -315,7 +326,7 @@ require_once ("include/database.php");
                             <option value="ZM">Zambia</option>
                             <option value="ZW">Zimbabwe</option>
                         </select>
-                       <br><br><input type="submit" name="order" value='Bestellen'>
+                       <br><br><input type="submit" name="change_address" value='Adresse ändern'>
                     </div>
                 </div>
             </fieldset>
