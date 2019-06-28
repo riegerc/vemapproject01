@@ -60,7 +60,6 @@ if(isset($_POST["senden"])){
 		$rep->update($extKriterien);
 	}
 	echo '<meta http-equiv="refresh" content="0">';
-
 }
 
 foreach($kriterien as $kriterium){
@@ -73,7 +72,7 @@ foreach($kriterien as $kriterium){
     <div class="content">
 	<div class="meldung"><?php echo (strlen($meldung)>0)?$meldung:'' ?></div>
 	<form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
-		<ul>
+		<ul id="nostyle">
         <?php
 		$ausgabe="";
 		if(isset($kid)){
@@ -90,7 +89,7 @@ foreach($kriterien as $kriterium){
 							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
 							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ")</label> ";
 					if(count($unterkriterien)>0&&!isset($kid)){
-						$ausgabe.="<ul id='nostyle'>";
+						$ausgabe.= "<ul id='no-style'>";
 							foreach($unterkriterien as $unterkriterium){
 								$ausgabe.="<li><a href='?deletesub=". $unterkriterium->getID() . "'><div class='fas fa-minus-circle' title='Unterkategorie löschen' style='color:red'></div></a>
 											<span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
