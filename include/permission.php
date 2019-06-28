@@ -3,6 +3,7 @@ require_once "constant.php";
 require_once "include/database.php";
 /**
  * class Permissson handels all permission releated methods
+ * @author Christian Rieger
  */
 class Permission {
 

@@ -11,47 +11,63 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 ?>
 
 <?php
+$amount = $_POST["amount"];
+$update = $_POST["update"];
+$userFID= $_SESSION[USER_ID];
 
-$sql="SELECT name FROM article
+/*$sql="SELECT * FROM user
+WHERE objectID = :userFID";
+
+$statement=connectDB()->prepare($sql);
+$statement->bindParam(":userFID", $userFID);
+$statement->execute();
+
+while($row=$statement->fetch()) {
+    $employee = $row["objectID"];
+}
+
+$employee=99;
+$sql="INSERT INTO order
+(employeeUserFID)
+VALUE
+($employee)
+WHERE order.objectID=2";
+$statement=connectDB()->query($sql);
+//$statement->bindParam(":employee", $employee);
+$statement->execute();*/
+
+$sql="SELECT name,article.price FROM article
 
 INNER JOIN orderitems
 
 ON article.objectID = orderitems.articleFID
-
+WHERE article.objectID=$update
 ";
 
-/*SELECT*
-
-FROM article
-
-INNER JOIN orderitems
-
-ON `article`.objectID = `orderitems`.articleFID
-
-INNER JOIN order
-
-ON `order`.objectID = `orderitems`.orderFID*/
-
 $statement=connectDB()->query($sql);
+$statement->execute();
 
-$statement->execute();$sql="INSERT INTO orderitems
+while($row=$statement->fetch()){
+    $articleName=$row["name"];
+    $price=$row["price"];
+}
+$wholeAmount=$price*$amount;
+$sql="INSERT INTO orderitems
 
-  (count, articleFID)
+  (count, articleFID, price, orderFID)
 
   VALUES
 
-  (:count, :articleFID)";
+  (:count, :articleFID, :price, :order)";
 
 $statement=connectDB()->prepare($sql);
 
 $statement->bindParam(":count", $_POST["amount"]);
-
 $statement->bindParam(":articleFID", $_POST["update"]);
+$statement->bindParam(":price", $wholeAmount);
+$statement->bindParam(":order", $orderID);
 
 $statement->execute();
-
-$amount = $_POST["amount"];
-echo "hallo";
 
 $article = $_POST["update"];?>
 
@@ -65,7 +81,10 @@ $article = $_POST["update"];?>
 
         <?php
 
-        echo "Sie haben $amount Stück von Artikel $article bestellt";
+//        echo "Sie haben $amount Stück von Artikel $article bestellt";
+        echo "Stück: $amount";
+        echo "Artikel: $articleName";
+        echo "Preis: $wholeAmount";
 
         ?>
 
