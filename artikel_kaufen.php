@@ -102,7 +102,7 @@ while($row=$statement->fetch()) {
     echo "Benutzer: $email <br>";
     echo "Filiale: $branchName <br>";
     echo "Adresse: $street $house / $stairs / $door, $PLZ $city $country";
-
+    // TODO: Warenkorb
     ?>
     <form action="dompdf.php" method="POST">
         <input type="hidden" name="orderID" value="$orderID">
