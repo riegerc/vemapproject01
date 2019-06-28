@@ -59,7 +59,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 $counter = 0;
 
                 if (isset ($_POST['suche_senden'])) {
-                    echo "<table class='table table-bordered' id='dataTable'>";
+                    echo "<table class='table table-bordered table-striped table-hover' id='dataTable'>";
                     $vonPreis = $_POST['vonPreis'];
                     $bisPreis = $_POST['bisPreis'];
                     $product_type = $_POST['product_type'];

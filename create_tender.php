@@ -114,7 +114,7 @@ $stmt = $conn->query($empSQL);
                         <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
                     </div>
                     <div class="table-responsive-lg">
-                        <table class="table table-bordered" id="dataTable">
+                        <table class="table table-bordered table-striped table-hover" id="branchTable">
                             <thead>
                             <tr>
                                 <th>ID</th>
