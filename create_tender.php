@@ -118,13 +118,19 @@ $stmt = $conn->query($empSQL);
                         <label for="description">Auftragsbeschreibung</label>
                         <textarea name="description" class="form-control" rows="4"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label>Ergänzende Dokumente hinzufügen (max. 25mb):
+                            <input name="datei[]" type="file" multiple size="25">
+                        </label>
+                        <button>hochladen</button>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Upload für Ausschreibungs Excel</label>
-                        <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
+                        <input class="form-control-file"  type="file" name="file" id="file" accept=".xls,.xlsx">
                     </div>
-                    <!-- TODO: Upload für 3 zusätzliche Dokumente max. 25 mb -->
+
                     <div class="table-responsive-lg">
                         <table class="table table-bordered table-striped table-hover" id="shortTable">
                             <thead>
