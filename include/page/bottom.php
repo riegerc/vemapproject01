@@ -21,7 +21,6 @@
 <script>
     $(document).ready(function() {
         $('#dataTable').DataTable({
-            "search": false,
             "language": {
                 "lengthMenu": "_MENU_ Einträge pro Seite",
                 "zeroRecords": "Keine Einträge gefunden",
