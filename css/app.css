@@ -49,3 +49,7 @@ i {
 #nostyle {
     list-style: none;
 }
+
+.checkbox-table {
+    max-width: 1em;
+}
