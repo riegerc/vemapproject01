@@ -12,7 +12,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "classes/types/fragebogen.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
-
+$userId=$_SESSION[USER_ID];
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
 $lieferantid=0;
@@ -20,16 +20,13 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
-	echo "<pre>";
-	print_r($_POST);
-	echo "</pre>";
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
 	$antworten=array();
 	foreach($_POST as $key=>$val){
-		$key=Helper::getId($key,"rb");
-		$antworten[$key]=(int)Helper::sanitize($val);
+		$key=Helper::getId($key,"sld");
+		$antworten[$key]=(float)Helper::sanitize($val);
 	}
 	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
 }

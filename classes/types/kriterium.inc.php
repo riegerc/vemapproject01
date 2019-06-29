@@ -36,7 +36,8 @@ class Kriterium{
 	public function __toString(){
 			$res="<li>$this->name\n";
 			$res.="<div>\n";
-			$res.="<input type='range'  name='sld$this->id' id='sld{$this->id}' min='0' max='10' value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>\n";
+			$res.="0<input type='range'  name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
+			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>".round($this->getPrzt(),0)."\n";
 			$res.="<label id='lbl".$this->getFkKriterium()."'></label>\n";
 			$res.="</div></li>\n";
 			return $res;
