@@ -1,16 +1,17 @@
 <?php
+/*
+ Autoren: Christian Riedler, Lubomir Mitana
+ */
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
-$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
+//$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$title = "Bewertung Lieferant"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "classes/types/fragebogen.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
-
-$userId=$_SESSION[USER_ID];
 
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
@@ -43,9 +44,8 @@ if(isset($_POST["senden"])){
 		<?php
 			foreach($fragen as $frage){
 				 echo "<h2>".$frage->getName()."</h2>";
-				 echo "<ul>";
+				 echo "<ul id='slds".$frage->getId()."'>";
 				 foreach($frage->getKriterien() as $kriterium){
-					 echo "";
 					echo $kriterium;
 				 }
 				 echo "</ul>";
@@ -59,8 +59,5 @@ if(isset($_POST["senden"])){
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
-<script>
-function setLabelText(rangeId,labelId){
-	$('#lbl'+labelId).html(jQuery('#sld'+rangeId).val());
-}
-	</script>
+<script src="js/review.js"></script>
+

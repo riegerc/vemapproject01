@@ -1,4 +1,7 @@
 <?php
+/*
+Autoren: Christian Riedler, Theo Isporidi
+*/
 require_once("include/database.php");
 require_once("classes/types/kriterium.inc.php");
 require_once("classes/types/frage.inc.php");

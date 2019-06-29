@@ -1,9 +1,12 @@
 <?php
+/*
+Autoren: Theo Isporidi, Christian Riedler
+*/
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 
-$pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$pageRestricted = true; // defines if the page is restricted to logged-in Users only
+$userLevel = PERM_CED_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Willkommen am Beschaffungsportal vom AMS Wien"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
@@ -12,6 +15,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 require_once("classes/types/kriterium.inc.php");
 require_once("classes/repository.inc.php");
 require_once("include/helper.inc.php");
+
 
 $rep=new Repository();
 $summekriterien=0;
@@ -72,7 +76,7 @@ foreach($kriterien as $kriterium){
     <div class="content">
 	<div class="meldung"><?php echo (strlen($meldung)>0)?$meldung:'' ?></div>
 	<form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
-		<ul id="nostyle">
+		<ul id="no-style">
         <?php
 		$ausgabe="";
 		if(isset($kid)){
