@@ -130,7 +130,7 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 	}
 	public function createReview(int $userid, int $supplierId):int{
 		$reviewId=0;
-		$sql="INSERT INTO reviews(userFID, supplierUserFID) VALUES(:userFid, :supplierId)";
+		$sql="INSERT INTO reviews(userFID, supplierUserFID, datetime) VALUES(:userFid, :supplierId,'2019-05-05 08:59:09')";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":userFid",$userid);
 		$stmt->bindParam(":supplierId",$supplierId);
