@@ -1,25 +1,27 @@
-<!-- Warning: you also need to include JavaScript from vendor/chart.js for this to work -->
-
 <?php
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
+
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = 1; // defines the minimum userRole to access the page, if the userRole is lower than the level, a 403 Error-Page is returned
+$userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = ""; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 ?>
+<link rel="stylesheet" type="text/css" href="css/reviews.css" media="all" />
 
-<!-- PHP Define data for the chart -->
-
-<!-- JS Draw the chart -->
-
-<!-- The template continues here -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <!-- Content -->
         <canvas id="mainCanvas"></canvas>
-        <script>
+		
+    </div>
+</div>
+
+<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
+<script>
             // Grab canvas
             var ctx = document.getElementById('mainCanvas').getContext('2d');
 
@@ -80,7 +82,4 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             }
         }); // END chart
         </script>
-    </div>
-</div>
 
-<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
