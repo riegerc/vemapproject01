@@ -185,15 +185,20 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		$row=$stmt->fetch();
 		return $row["surveyCount"];
 	}
-	public function readBewertungen():array{
+	public function readBewertungen(int $lieferantFid=0):array{
 		$bewertungen=array();
 		$sql="SELECT c.objectID as 'criteriaId', c.name as 'criteraName', MONTH(rm.datetime) as 'month',sum(rm.mark) as 'sum'
 			FROM criteria c
 				JOIN subcriteria sc
 					ON c.objectID = sc.criteriaFID
 				JOIN reviewsmark rm
-					ON sc.objectID = rm.undercriteriaFID
-			GROUP BY c.objectID, c.name, month";
+					ON sc.objectID = rm.undercriteriaFID ";
+					if($lieferantFid>0){
+						$sql.="JOIN reviews r
+							ON rm.reviewsFID=r.objectID
+						WHERE r.supplierUserFid=12 ";
+					}
+			$sql.="GROUP BY c.objectID, c.name, month";
 		$stmt=$this->db->prepare($sql);
 		try{
 			$stmt->execute();

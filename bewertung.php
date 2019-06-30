@@ -13,22 +13,27 @@ include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
 require_once("classes/types/bewertung.inc.php");
+require_once("include/helper.inc.php");
 $rep=new Repository();
-$bewertungen=$rep->readBewertungen();
-/*
-echo "<pre>";
-print_r($bewertungen);
-echo "</pre>";
-*/
+if(isset($_GET["lieferantid"])){
+	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);
+	$bewertungen=$rep->readBewertungen($lieferantid);
+}else{
+	$bewertungen=$rep->readBewertungen();
+}
+
+
 $labels=array();
+$months=array();
+$monthNames=["Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 foreach($bewertungen as $bewertung){
 	if(!in_array( $bewertung->getCriteriaName(),$labels)){
 		array_push($labels, $bewertung->getCriteriaName());
 	}
+	if(!in_array( $bewertung->getMonth(),$months)){
+		array_push($months, $bewertung->getMonth());
+	}	
 }
-	echo "<pre>";
-print_r($bewertungen);
-echo "</pre>";
 
 ?>
 <link rel="stylesheet" type="text/css" href="css/reviews.css" media="all" />
@@ -46,65 +51,44 @@ echo "</pre>";
 <script>
             // Grab canvas
             var ctx = document.getElementById('mainCanvas').getContext('2d');
-
+			
             var chart = new Chart(ctx, {
             // The type of chart
             type: 'line',
             // The data for dataset
             data: {
-                labels: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli'],
+				labels: [
+					<?php
+						$monthNames=["Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+						foreach($months as $month){
+							echo "'".$monthNames[$month]."',";
+						}
+					?>
+				],
                 datasets: [
 					<?php 
+					$colors=["#e56bcd","#579dbc", "#e0a02e"];
 					$ausgabe="";
-						foreach($labels as $label){
+						for($i=0;$i<=count($labels)-1;$i++){
 							$ausgabe.="{";
-							 $ausgabe.= "label: '".$label."',";
+							 $ausgabe.= "label: '".$labels[$i]."',";
+							 $ausgabe.= "backgroundColor: '$colors[$i]',";
+							 $ausgabe.= "borderColor: '$colors[$i]',";
+							 $ausgabe.= "lineTension:0,";
 							 $ausgabe.= "data:[";
 							
 							 foreach($bewertungen as $bewertung){
-								if($bewertung->getCriteriaName() == $label){
+								if($bewertung->getCriteriaName() == $labels[$i]){
 									$ausgabe.= round($bewertung->getAvg()).",";
 								}
 							 }
 							 
-							//$ausgabe.="data:[75,85,71,92,72,72,70,92,80,76,73,88,80,70,71,87,83,100],";
 							 $ausgabe.= "],";
+							 $ausgabe .= "fill: false,";
 							$ausgabe.= "},";
 						}
 						echo $ausgabe;
 					?>
-					/*
-                    label: 'Einkauf',
-                    backgroundColor: '#e56bcd',
-                    borderColor: '#e56bcd',
-                    lineTension: 0,
-                    data: [30, 50, 60, 65, 50, 30, 45],
-                    fill: false,
-                    },
-                    {
-                    label: 'Logistik',
-                    backgroundColor: '#579dbc',
-                    borderColor: '#579dbc',
-                    lineTension: 0,
-                    data: [50, 45, 30, 60, 50, 20, 30],
-                    fill: false,
-                    },
-                    {
-                    label: 'Qualität',
-                    backgroundColor: '#e0a02e',
-                    borderColor: '#e0a02e',
-                    lineTension: 0,
-                    data: [40, 40, 35, 40, 50, 35, 50],
-                    fill: false,
-                    },
-                    {
-                    label: 'Technologie',
-                    backgroundColor: '#88ac00',
-                    borderColor: '#88ac00',
-                    lineTension: 0,
-                    data: [45, 25, 35, 45, 55, 65, 50],
-                    fill: false,
-					*/
                 ]
             },
             // Configuration options

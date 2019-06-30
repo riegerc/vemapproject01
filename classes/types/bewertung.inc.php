@@ -34,4 +34,7 @@ class Bewertung{
 	public function getAvg(){
 		return $this->markSum/$this->surveyCount;
 	}
+	public function getMonth(){
+		return $this->month;
+	}
 }
