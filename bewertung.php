@@ -11,6 +11,25 @@ $title = ""; // defines the name of the current page, displayed in the title and
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+require_once("classes/repository.inc.php");
+require_once("classes/types/bewertung.inc.php");
+$rep=new Repository();
+$bewertungen=$rep->readBewertungen();
+/*
+echo "<pre>";
+print_r($bewertungen);
+echo "</pre>";
+*/
+$labels=array();
+foreach($bewertungen as $bewertung){
+	if(!in_array( $bewertung->getCriteriaName(),$labels)){
+		array_push($labels, $bewertung->getCriteriaName());
+	}
+}
+	echo "<pre>";
+print_r($bewertungen);
+echo "</pre>";
+
 ?>
 <link rel="stylesheet" type="text/css" href="css/reviews.css" media="all" />
 
@@ -34,7 +53,27 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             // The data for dataset
             data: {
                 labels: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli'],
-                datasets: [{
+                datasets: [
+					<?php 
+					$ausgabe="";
+						foreach($labels as $label){
+							$ausgabe.="{";
+							 $ausgabe.= "label: '".$label."',";
+							 $ausgabe.= "data:[";
+							
+							 foreach($bewertungen as $bewertung){
+								if($bewertung->getCriteriaName() == $label){
+									$ausgabe.= round($bewertung->getAvg()).",";
+								}
+							 }
+							 
+							//$ausgabe.="data:[75,85,71,92,72,72,70,92,80,76,73,88,80,70,71,87,83,100],";
+							 $ausgabe.= "],";
+							$ausgabe.= "},";
+						}
+						echo $ausgabe;
+					?>
+					/*
                     label: 'Einkauf',
                     backgroundColor: '#e56bcd',
                     borderColor: '#e56bcd',
@@ -65,7 +104,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     lineTension: 0,
                     data: [45, 25, 35, 45, 55, 65, 50],
                     fill: false,
-                }]
+					*/
+                ]
             },
             // Configuration options
             options: {            

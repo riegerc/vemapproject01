@@ -130,7 +130,7 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 	}
 	public function createReview(int $userid, int $supplierId):int{
 		$reviewId=0;
-		$sql="INSERT INTO reviews(userFID, supplierUserFID, datetime) VALUES(:userFid, :supplierId,'2019-05-05 08:59:09')";
+		$sql="INSERT INTO reviews(userFID, supplierUserFID) VALUES(:userFid, :supplierId)";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":userFid",$userid);
 		$stmt->bindParam(":supplierId",$supplierId);
@@ -171,5 +171,39 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 			$kriterium->setPrzt($przt);
 		}
 		return $kriterien;
+	}
+	private function surveyCount(int $month):int{
+		$res=array();
+		$sql="SELECT count(objectID) as 'surveyCount' FROM reviews WHERE MONTH(datetime)=:month";
+		$stmt=$this->db->prepare($sql);
+		$stmt->bindParam(":month", $month);
+		try{
+			$stmt->execute();
+		}catch(Exception $e){
+			throw new PDOException($e);
+		}
+		$row=$stmt->fetch();
+		return $row["surveyCount"];
+	}
+	public function readBewertungen():array{
+		$bewertungen=array();
+		$sql="SELECT c.objectID as 'criteriaId', c.name as 'criteraName', MONTH(rm.datetime) as 'month',sum(rm.mark) as 'sum'
+			FROM criteria c
+				JOIN subcriteria sc
+					ON c.objectID = sc.criteriaFID
+				JOIN reviewsmark rm
+					ON sc.objectID = rm.undercriteriaFID
+			GROUP BY c.objectID, c.name, month";
+		$stmt=$this->db->prepare($sql);
+		try{
+			$stmt->execute();
+		}catch(Exception $e){
+			throw new PDOException($e);
+		}
+		while($row=$stmt->fetch()){
+			$surveyCount=$this->surveyCount($row['month']);
+			array_push($bewertungen, new Bewertung($row["criteriaId"],$row["criteraName"],$row["sum"],$surveyCount,$row['month']));
+		}
+		return $bewertungen;
 	}
 }

@@ -9,4 +9,7 @@ FROM criteria c
 		ON sc.objectID = rm.undercriteriaFID
 GROUP BY c.objectID, c.name
 
-SELECT count(objectID) FROM reviews;
+SELECT MONTH(datetime) as 'month', count(objectID) as 'surveycount' FROM reviews
+GROUP BY month;
+
+SELECT MONTH('2019-02-05 08:59:09');
