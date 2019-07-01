@@ -1,3 +1,5 @@
+// Author: Oliver Stingl
+
 let app = new Vue({
     el: "#content",
     data: {
