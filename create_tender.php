@@ -92,11 +92,11 @@ $stmt = $conn->query($empSQL);
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Ausschreibung</label>
-                        <input type="text" name="tender" class="form-control">
+                        <input type="text" name="tender" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Ausschreibungs type</label>
-                        <select name="tenderType" class="form-control">
+                        <select name="tenderType" class="form-control" required>
                             <option name="Dienstleistung" value="Dienstleistung">
                                 Dienstleistung
                             </option>
@@ -107,19 +107,19 @@ $stmt = $conn->query($empSQL);
                     </div>
                     <div class="form-group">
                         <label>Beginn</label>
-                        <input type="date" name="begin" class="form-control">
+                        <input type="date" name="begin" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Ende</label>
-                        <input type="date" name="end" class="form-control">
+                        <input type="date" name="end" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Menge</label>
-                        <input type="number" name="amount" class="form-control">
+                        <input type="number" name="amount" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="description">Auftragsbeschreibung</label>
-                        <textarea name="description" class="form-control" rows="4"></textarea>
+                        <textarea name="description" class="form-control" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Ergänzende Dokumente hinzufügen (max. 25mb):
