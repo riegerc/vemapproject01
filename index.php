@@ -39,11 +39,11 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <div class="col-lg-4">
                 <div class="card card-landing border-primary">
                     <div class="card-header bg-gradient-primary text-light">
-                        <i class="fas fa-piggy-bank"></i> Kostensparen
+                        <i class="fas fa-piggy-bank"></i> Kosten sparen
                     </div>
                     <div class="card-body">
                         Ein Multilieferentenkatalog ermöglicht Produkte bei Lieferanten zu bestellen, welche die
-                        niedrigste Preise anbieten.
+                        niedrigsten Preise anbieten.
                     </div>
                 </div>
             </div>
@@ -54,8 +54,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     </div>
                     <div class="card-body">
                         Die Übersichtlichkeit des Portals ermöglicht eine einfache Produktbestellung. Über wenige,
-                        einfache Schritte werden Ausschreibungen erstellt und an Lieferanten weitergeleitet und
-                        letztlich, beim bestmöglichen Lieferant, bestellt.
+                        einfache Schritte werden Ausschreibungen erstellt, an Lieferanten weitergeleitet und
+                        letztlich beim bestmöglichen Lieferant bestellt.
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <i class="fas fa-clipboard-check"></i> Qualitätssicherung
                     </div>
                     <div class="card-body">
-                        Ein Bewertungssystem der Lieferanten soll sicher stellen, dass nur bei besten Lieferanten
-                        bestellt wird. Der Mechanismus fördert die Lieferanten sich an den Förderungen anzupassen.
+                        Ein Bewertungssystem der Lieferanten soll sicherstellen, dass nur bei den besten Lieferanten
+                        bestellt wird. Die Bewertungen fordert die Lieferanten auf, sich an die Förderungen anzupassen.
                     </div>
                 </div>
             </div>
