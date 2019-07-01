@@ -30,9 +30,9 @@ if(isset($_POST['update'])){
 <?php
 var_dump($_POST);
 if(isset($_POST['update'])){
-//    $name=$_POST['name'];
-//    $price=$_POST['price'];
-//    $description=$_POST['description'];
+    $name=$_POST['name'];
+    $price=$_POST['price'];
+    $description=$_POST['description'];
 }
 
 $sql="SELECT * FROM article WHERE objectID=:objectID";
