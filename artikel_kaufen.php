@@ -9,81 +9,80 @@ $title = "Bestellübersicht"; // defines the name of the current page, displayed
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
+//POST & SESSION
 $amount = $_POST["amount"];
-$update = $_POST["update"];
-$userFID = $_SESSION[USER_ID];
-$employee = $userFID;
-
-
-//Name und Wert des Artikels aus der DB
-$sql = "SELECT name, article.price as articlePrice, article.supplierUserFID FROM article
-INNER JOIN orderitems
-ON article.objectID = orderitems.articleFID
-WHERE article.objectID=$update
-";
-
-$statement = connectDB()->query($sql);
-$statement->execute();
-
-while ($row = $statement->fetch()) {
-    $supplierID = $row["supplierUserFID"];
-    $articleName = $row["name"];
-    $articlePrice = $row["articlePrice"];
-}
-$wholeAmount = $articlePrice * $amount;
+$articleID = $_POST["update"];
+$employee=$_SESSION[USER_ID];
 
 // Time and Date
 $time = time();
 $date = date("Y-m-d", $time);
 
-$sql = "INSERT INTO `order`
-(employeeUserFID, dateTime, supplierUserFID)
-VALUES
-(:employee, :date, :supplier)
-";
+//SQL Abfragen und Variable $orderID befüllen
+   
+    //Name und Wert des Artikels und LieferantenID aus der DB auslesen
+    $sql = "SELECT  article.name , article.price, article.supplierUserFID as supplier FROM  article WHERE article.objectID=$articleID ";
+    $db = connectDB();
+    $statement = $db->query($sql);
 
-$db = connectDB();
-$statement = $db->prepare($sql);
-$statement->bindParam(":employee", $employee);
-$statement->bindParam(":supplier", $supplierID);
-$statement->bindParam(":date", $date);
-$statement->execute();
-$orderID = $db->lastInsertId();
-//echo $orderID;
+    while ($row = $statement->fetch()) {
+        $supplierID = $row["supplier"];
+        $articleName = $row["name"];
+        $articlePrice = $row["price"];
+    }
 
-// Bestellung in die Datenbank einfügen
-$sql = "INSERT INTO orderitems
-(count, articleFID, price, orderFID)
-VALUES
-(:count, :articleFID, :price, :order)";
+    $wholeAmount = $articlePrice * $amount;
 
-$statement = connectDB()->prepare($sql);
+    //Bestellerdaten auslesen (user)
+    $sql = "SELECT  user.branchName, user.email, user.street, user.houseNumber,user.stairs, user.door, user.postCode, user.city, user.country FROM user 
+    WHERE objectID=$employee";
 
-$statement->bindParam(":count", $_POST["amount"]);
-$statement->bindParam(":articleFID", $_POST["update"]);
-$statement->bindParam(":price", $wholeAmount);
-$statement->bindParam(":order", $orderID);
+    $statement = $db->query($sql);
 
-$statement->execute();
 
-$article = $_POST["update"];
+    while ($row = $statement->fetch()) {
+        $email = $row["email"];
+        $branchName = $row["branchName"];
+        $street = $row["street"];
+        $house = $row["houseNumber"];
+        $stairs = $row["stairs"];
+        $door = $row["door"];
+        $PLZ = $row["postCode"];
+        $city = $row["city"];
+        $country = $row["country"];
+    }
 
-$sql = "SELECT * FROM user 
-WHERE objectID=$userFID";
+    //order Tabelle befüllen
+    $sql = "INSERT INTO `order`
+    (employeeUserFID, dateTime, supplierUserFID)
+    VALUES
+    (:employee, :date, :supplier)";
 
-$statement = connectDB()->query($sql);
-$statement->execute();
-while ($row = $statement->fetch()) {
-    $email = $row["email"];
-    $branchName = $row["branchName"];
-    $street = $row["street"];
-    $house = $row["houseNumber"];
-    $stairs = $row["stairs"];
-    $door = $row["door"];
-    $PLZ = $row["postCode"];
-    $city = $row["city"];
-    $country = $row["country"];
-}
+    $statement = $db->prepare($sql);
+
+    $statement->bindParam(":employee", $employee);
+    $statement->bindParam(":supplier", $supplierID);
+    $statement->bindParam(":date", $date);
+
+    $statement->execute();
+    //orderID abfragen
+    $orderID = $db->lastInsertId();
+
+    // Bestellung in die orderitems Tabelle einfügen
+    $sql = "INSERT INTO orderitems
+    (count, articleFID, price, orderFID)
+    VALUES
+    (:count, :articleFID, :price, :order)";
+
+    $statement = $db->prepare($sql);
+
+    $statement->bindParam(":count",$amount);
+    $statement->bindParam(":articleFID", $articleID);
+    $statement->bindParam(":price", $wholeAmount);
+    $statement->bindParam(":order", $orderID);
+
+    $statement->execute();
+
 ?>
 
 <div class="container-fluid">
