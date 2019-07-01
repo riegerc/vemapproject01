@@ -61,7 +61,7 @@ if(isset($_POST["senden"])){
 				</div>
 			</div>
 			<div class="form-row">
-				<div class="col-md-6">
+				<div class="col-md-2">
 					<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>
 				</div>
 			</div>

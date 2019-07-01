@@ -17,7 +17,7 @@ if (isset($_GET['update'])) {
     exit("Kein Objekt gewählt");
 }
 ?>
-
+<!-- update -->
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <form action="artikel_kaufen.php" method="post">
