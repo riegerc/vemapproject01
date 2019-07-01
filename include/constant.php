@@ -25,7 +25,7 @@ const MAX_PWD_LEN = 50;
 const PWD_REQ_UPPER_CASE = 0;
 const PWD_REQ_LOWER_CASE = 0;
 const PWD_REQ_SPECIAL_CHAR = 0;
-
+ 
 #permissions in use ------------------------------------------
 const PERM_EDIT_PERM = "editPermission"; //external admin only, this permission grants permission to edit PERMISSIONS (rolerights.php)
 const PERM_VIEW_OFFER_MENU = "viewOfferMenu"; // user can see the whole of "Ausschreibungen" category (nav)
@@ -57,7 +57,8 @@ const PERM_REVIEW_ARTICLE = "reviewArticle";
 const PERM_SUBMIT_OFFER = "submitOffer";
 
 
-
+#add select all/none links on rightroles.php
+const SHOW_SELECT_ALL_LINKS = 0;
 
 #db data
 //const DB_HOST = "192.168.1.84";

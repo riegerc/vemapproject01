@@ -67,7 +67,11 @@ if(isset($_POST['saverolerights'])){
                 $tableStr = "<tr><td>&nbsp;</td>\n";
                 $columncount = count($result);
                 foreach ($result as $row) {
-                    $tableStr .= "<td><a href='?selRoleId=$row[objectID]&selRoleSel=$selRoleSel'>$row[name]</a></td>\n";                    
+                    if(SHOW_SELECT_ALL_LINKS != 0){
+                        $tableStr .= "<td><a href='?selRoleId=$row[objectID]&selRoleSel=$selRoleSel'>$row[name]</a></td>\n";    
+                    } else {
+                        $tableStr .= "<td>$row[name]</td>\n";  
+                    }               
                 }
                 $tableStr .= "</tr>\n</thead>\n<tbody>\n";
                 $sql1 = "SELECT rights.objectID, rights.name FROM rights";
@@ -90,7 +94,11 @@ if(isset($_POST['saverolerights'])){
                             ORDER BY THErolesID;"; 
                     $param = [":rightID"=>$rightID];
                     $result = readDB($sql, $param);
-                    $tableStr .= "<tr>\n<td><a href='?selRightId=$rightID&selRightSel=$selRightSel' >$roleRow[name]</a></td>\n";
+                    if(SHOW_SELECT_ALL_LINKS != 0){
+                        $tableStr .= "<tr>\n<td><a href='?selRightId=$rightID&selRightSel=$selRightSel' >$roleRow[name]</a></td>\n";
+                    }else {
+                        $tableStr .= "<tr>\n<td>$roleRow[name]</td>\n";
+                    }
                     
                     foreach ($result as $row) {
                         $checked = $row['haspermission'] != NULL ? "checked" : "";
