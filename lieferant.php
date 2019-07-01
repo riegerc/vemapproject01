@@ -11,6 +11,22 @@ $title = "Lieferanten Übersicht"; // defines the name of the current page, disp
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
+$seite=0;
+if(isset($_GET["what"])){
+	$what=(int)Helper::sanitize($_GET["what"]);
+	switch($what){
+		case 1:
+			$seite="fragebogen";
+			break;
+		case 2:
+			$seite="bewertung";
+			break;
+	}
+}
+else{
+	exit();
+}
 ?>
 
 <div class="container-fluid">
@@ -28,7 +44,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         $stmt->execute();
         while ( $row=$stmt->fetch()){
 
-                echo "<a href='fragebogen.php?lieferantid=$row[objectID]'>Bewertung von $row[branchName]</a><br>";
+                echo "<a href='$seite.php?lieferantid=$row[objectID]'>$row[branchName]</a><br>";
         }
         ?>
     </div>
