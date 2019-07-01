@@ -9,18 +9,18 @@ $title = "Benutzerdaten ändern"; // defines the name of the current page, displ
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
-if (isset($_GET["user"])) {
-    $user = $_GET["user"];
+if (isset($_POST["user"])) {
+    $user = $_POST["user"];
 } else {
     echo "Kein Benutzer ausgewählt";
 }
-if (isset($_GET["senden"])) {
-    foreach ($_GET as $key => $value) {
+if (isset($_POST["senden"])) {
+    foreach ($_POST as $key => $value) {
         if ($key !== "") {
             if ($key == "user") {
-                echo "UserID: $value";
+                /*echo "UserID: $value";*/
             } elseif ($key == "rolesFID") {
-                echo $value;
+                /*echo $value;*/
             } elseif ($key == "senden") {
 
             } //Budget ist integer also kein Leerstring erlaubt
@@ -37,7 +37,7 @@ if (isset($_GET["senden"])) {
                 $statement->bindParam(":param", $value);
                 $statement->execute();
 
-                echo "$key : $value";
+                /*echo "$key : $value";*/
             }
         }
 
@@ -49,13 +49,13 @@ if (isset($_GET["senden"])) {
     <div class="content">
         <!-- Content -->
         <a href='http://localhost/vemapproject01/user.php'>Zurück zur Übersicht</a>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
-            if (isset($_GET["user"])) {
+            if (isset($_POST["user"])) {
                 $sql = "SELECT * FROM user
                 WHERE objectID = :user";
                 $statement = connectDB()->prepare($sql);
-                $statement->bindParam(":user", $_GET["user"]);
+                $statement->bindParam(":user", $user);
                 $statement->execute();
                 while ($row = $statement->fetch()) {
                     $fname = $row["firstName"];
@@ -76,10 +76,6 @@ if (isset($_GET["senden"])) {
                     $city = $row["city"];
                     $country = $row["country"];
                     $sector = $row["sectorCode"];
-                }
-
-                if (isset($_GET["senden"])) {
-
                 }
                 ?>
                 <div class="form-group">
@@ -164,7 +160,7 @@ if (isset($_GET["senden"])) {
 
                 <button type="submit" class="btn btn-primary form-button" name="senden">Senden</button>
                 <?php
-                echo "<table>";
+                /*echo "<table>";
                 $sql="SELECT * FROM user";
                 $statement=connectDB()->query($sql);
                 $statement->execute();
@@ -186,10 +182,10 @@ if (isset($_GET["senden"])) {
                     echo "<td>$row[country]</td>";
                     echo "<td>$row[sectorCode]</td>";
                 }
-                echo "</table>";
+                echo "</table>";*/
             }
             ?>
-            <input type="hidden" name="user" value="<?php echo htmlspecialchars($_GET['user']); ?>">
+            <input type="hidden" name="user" value="<?php echo htmlspecialchars($_POST['user']); ?>">
         </form>
     </div>
 </div>

@@ -12,7 +12,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 $suche="%%";
 if(isset($_GET["delete"])){
     $sql="DELETE FROM user 
-                WHERE objectID = :user";
+    WHERE objectID = :user";
     $statement=connectDB()->prepare($sql);
     $statement->bindParam(":user", $_GET["delete"]);
     $statement->execute();
@@ -27,9 +27,9 @@ if(isset($_GET["delete"])){
         // SQL Statement LIKE userName SELECT
         // Suchfunktion
         $sql="SELECT firstName, lastName, email, telNr, mobilNr, branchName, street, houseNumber, stairs, door, postCode, city, country, sectorCode, roles.name AS roleName, user.objectID, budget
-              FROM user
-              LEFT JOIN roles
-              ON user.rolesFID = roles.objectID";
+        FROM user
+        LEFT JOIN roles
+        ON user.rolesFID = roles.objectID";
 
         $statement=connectDB()->prepare($sql);
         $statement->bindParam(":suche", $suche);
@@ -61,7 +61,17 @@ if(isset($_GET["delete"])){
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
-            echo "<td><a href='update_user.php?user=$row[objectID]'>bearbeiten</a></td>";
+            echo "<td>
+            <form action='update_user.php' method='post'>
+            <button type='submit' name='user' value='$row[objectID]' style='
+            /*border:0;
+            background-color:transparent;
+            color: blue;
+            text-decoration:underline;*/'
+            >bearbeiten</button>
+            </form>
+            </td>";
+//            <a href='update_user.php?user=$row[objectID]'>bearbeiten</a>
             echo "<td>$row[firstName]</td>";
             echo "<td>$row[lastName]</td>";
             echo "<td>$row[email]</td>";
