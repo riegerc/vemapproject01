@@ -7,7 +7,7 @@
 }
 
 /* HTML-Tags */
-body {color: darkslategrey}
+body {color: #3a3a3a}
 
 /* Styling for ids */
 #wrapper {background-color: var(--ams-background);}
