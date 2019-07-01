@@ -34,12 +34,14 @@ class Kriterium{
 		$this->przt=$przt;
 	}
 	public function __toString(){
-			$res="<li>$this->name\n";
-			$res.="<div>\n";
-			$res.="0<input  type='range'  name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
-			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>".round($this->getPrzt(),0)."\n";
-			$res.="<label id='lbl".$this->getFkKriterium()."'></label>\n";
+			$res="<li class='list-group-item'>$this->name\n";
+			$res.="<div class='form-group'>\n";
+			$res.="<span>0</span>";
+			$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
+			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>" . round($this->getPrzt(),0) . "\n";
 			$res.="</div></li>\n";
+			// move the label outside list group
+			$res.="<label id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
 			return $res;
 		}
 }

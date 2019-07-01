@@ -1,3 +1,5 @@
+// Author: Oliver Stingl
+
 let app = new Vue({
     el: "#content",
     data: {
@@ -8,9 +10,11 @@ let app = new Vue({
     mounted() {
         let vue = this;
         setTimeout(() => {
-            vue.branches = JSON.parse(document.getElementById("transferToJavaScript").innerHTML);
-            vue.$forceUpdate();
-            vue.tableName = 'shortTable';
+            if (document.getElementById("transferToJavaScript")) {
+                vue.branches = JSON.parse(document.getElementById("transferToJavaScript").innerHTML);
+                vue.$forceUpdate();
+                vue.tableName = 'shortTable';
+            }
 
             jQuery(document).ready(function () {
                 jQuery('#dataTable').DataTable({
@@ -46,8 +50,7 @@ let app = new Vue({
                         }
                     });
                 });
-            });
-        }, 1500);
-    },
-    computed: {}
+            }, 1500);
+        });
+    }
 });

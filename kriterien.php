@@ -116,7 +116,6 @@ foreach($kriterien as $kriterium){
 		<button type="submit" name="senden">Absenden</button>
 	</form>
     </div>
-	<script src="js/functions.js"></script>
 </div>
 
 <?php include "include/page/bottom.php"; ?>

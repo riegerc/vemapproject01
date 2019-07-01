@@ -9,6 +9,7 @@ $title = "Ausschreibungen"; // defines the name of the current page, displayed i
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
+
 if (isset($_POST["send"])) {
     if (isset($_POST["search"]) AND $_POST["search"] != "") {
         $search = ("%" . htmlspecialchars($_POST["search"]) . "%");
@@ -110,23 +111,51 @@ if (isset($_POST["send"])) {
                     <th>Schlusstermin</th>
                     </thead>
                     <?php
-                    $sql = "SELECT tenders.objectID AS DocNumber, 
+                    $amsUser = "WHERE tenders.objectID LIKE :search 
+                                OR tenders.tender LIKE :search
+                                OR tenders.tenderType LIKE :tenderTyp
+                                OR user.branchName LIKE :branchName
+                                OR tenders.begin LIKE :dateBegin
+                                OR tenders.end LIKE :dateEnd";
+
+                    $supplier = "WHERE supplierselect.userFID=:userID
+                        AND (tenders.objectID LIKE :search 
+                                OR tenders.tender LIKE :search
+                                OR tenders.tenderType LIKE :tenderTyp
+                                OR user.branchName LIKE :branchName
+                                OR tenders.begin LIKE :dateBegin
+                                OR tenders.end LIKE :dateEnd)";
+                    if ($_SESSION[USER_ROLE] != 4 OR 6) {
+
+                        $sql = "SELECT tenders.objectID AS DocNumber, 
                                tenders.tender, 
                                tenders.description,
                                tenders.tenderType,
-                               user.branchName AS branchName,
                                tenders.begin,
-                               tenders.end
+                               tenders.end,
+                               user.branchName AS branchName,
+                               user.amsYesNo as ASM
+                        FROM tenders
+                        LEFT JOIN user ON tenders.userFID = user.objectID INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
+                          $amsUser GROUP BY DocNumber";
+                    }else{
+                        $sql = "SELECT tenders.objectID AS DocNumber, 
+                               tenders.tender, 
+                               tenders.description,
+                               tenders.tenderType,
+                               tenders.begin,
+                               tenders.end,
+                               user.branchName AS branchName,
+                               user.amsYesNo as ASM
                         FROM tenders
                         LEFT JOIN user ON tenders.userFID = user.objectID 
-                        WHERE tenders.objectID LIKE :search 
-                        OR tenders.tender LIKE :search
-                        OR tenders.tenderType LIKE :tenderTyp
-                        OR user.branchName LIKE :branchName
-                        OR tenders.begin LIKE :dateBegin
-                        OR tenders.end LIKE :dateEnd";
+                            INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
+                          $supplier
+                           GROUP BY DocNumber";
+                    }
 
                     $stmt = connectDB()->prepare($sql);
+                    $stmt->bindParam(":userID", $_SESSION[USER_ID]);
                     $stmt->bindParam(":search", $search);
                     $stmt->bindParam(":tenderTyp", $tenderTyp);
                     $stmt->bindParam(":branchName", $branchName);
@@ -146,6 +175,7 @@ if (isset($_POST["send"])) {
                         echo "<td>" . date_format($edate, 'd.m.Y') . "</td>";
                         echo "</tr>";
                     }
+
                     ?>
                 </table>
             </div>

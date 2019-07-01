@@ -196,9 +196,9 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 					if($lieferantFid>0){
 						$sql.="JOIN reviews r
 							ON rm.reviewsFID=r.objectID
-						WHERE r.supplierUserFid=12 ";
+						WHERE r.supplierUserFid=$lieferantFid ";
 					}
-			$sql.="GROUP BY c.objectID, c.name, month";
+			$sql.="GROUP BY c.objectID, c.name, month"; 
 		$stmt=$this->db->prepare($sql);
 		try{
 			$stmt->execute();
