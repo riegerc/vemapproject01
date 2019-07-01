@@ -89,6 +89,43 @@ if (isset($_POST["absenden"])) {
     move_uploaded_file($_FILES["datei"]["tmp_name"], "$ordner/$dateiname");
     echo "DANKE FÜR IHRE DATEI!!!";
 }
+
+function readCSV($filename = "upload.csv")
+{
+    $file = file("temp/$filename");
+    $sql = "INSERT INTO tenderDetail(
+                                             tendersFID,
+                                             position,
+                                             `longtext`,
+                                             amount)
+                    VALUES (
+                            :tendersFID,
+                            :position,
+                            :langtext,
+                            :amount)";
+    foreach ($file as $output) {
+        $dismantle = explode(";", $output);
+        if (!in_array("tendersFID", $dismantle)) {
+            if (!in_array("tendersFID", $dismantle)) $tendersFID = $dismantle[0];
+            if (!in_array("position", $dismantle)) $position = $dismantle[1];
+            if (!in_array("langtext", $dismantle)) $amount = $dismantle[3];
+            if (!in_array("amount", $dismantle)) $longtext = $dismantle[2];
+
+            $stmt = connectDB()->prepare($sql);
+            $stmt->bindParam(":tendersFID", $tendersFID);
+            $stmt->bindParam(":position", $position);
+            $stmt->bindParam(":longtext", $longtext);
+            $stmt->bindParam(":amount", $amount);
+            $stmt->execute();
+        }
+    }
+}
+
+if (isset($_FILES)) {
+    readCSV();
+};
+
+
 ?>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
@@ -138,13 +175,17 @@ if (isset($_POST["absenden"])) {
                         </label>
                     </div>
                     <div class="form-group">
+                        <a href="temp/test.csv">CSV Herunterladen</a><br>
+                    </div>
+                    <div class="form-group">
                         <label>Upload für Ausschreibungs Excel</label>
                         <input type="file" class="form-control-file" name="datei" accept=".csv,.xls,.xlsx"><br>
                     </div>
+
                 </div>
                 <div class="col-md-6">
-                       <div class="table-responsive-lg">
-                        <table class="table table-bordered table-striped table-hover" :id="tableName">
+                    <div class="table-responsive-lg">
+                        <table class="table table-bordered table-striped table-hover" id="tableName">
                             <thead>
                             <tr>
                                 <th>ID</th>
