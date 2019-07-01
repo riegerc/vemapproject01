@@ -172,11 +172,12 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $kriterien;
 	}
-	private function surveyCount(int $month):int{
+	private function surveyCount(int $month,int $lieferantFid):int{
 		$res=array();
-		$sql="SELECT count(objectID) as 'surveyCount' FROM reviews WHERE MONTH(datetime)=:month";
+		$sql="SELECT count(objectID) as 'surveyCount' FROM reviews WHERE MONTH(datetime)=:month AND supplierUserFID=:lieferantid";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":month", $month);
+		$stmt->bindParam(":lieferantid", $lieferantFid);
 		try{
 			$stmt->execute();
 		}catch(Exception $e){
@@ -199,7 +200,6 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 						WHERE r.supplierUserFid=$lieferantFid ";
 					}
 			$sql.="GROUP BY c.objectID, c.name, month"; 
-			echo $sql;
 		$stmt=$this->db->prepare($sql);
 		try{
 			$stmt->execute();
@@ -207,7 +207,7 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 			throw new PDOException($e);
 		}
 		while($row=$stmt->fetch()){
-			$surveyCount=$this->surveyCount($row['month']);
+			$surveyCount=$this->surveyCount($row['month'],$lieferantFid);
 			array_push($bewertungen, new Bewertung($row["criteriaId"],$row["criteraName"],$row["sum"],$surveyCount,$row['month']));
 		}
 		return $bewertungen;
