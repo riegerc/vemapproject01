@@ -105,6 +105,7 @@ if (isset($_POST["send"])) {
                     <th>Dok. Nr.</th>
                     <th>Bezeichnung des Auftrags</th>
                     <th>Auftraggeber</th>
+                    <th>Art des Auftrags</th>
                     <th>Zeitraum</th>
                     <th>Schlusstermin</th>
                     </thead>
@@ -169,6 +170,7 @@ if (isset($_POST["send"])) {
                         echo "<td>" . $row["DocNumber"] . "</td>";
                         echo "<td> <a href='tender_detail.php?tenderID=$row[DocNumber]'>$row[tender]</a> </td>";
                         echo "<td>" . $row["branchName"] . "</td>";
+                        echo "<td>" . $row["tenderType"] . "</td>";
                         echo "<td>" . date_format($bdate, 'd.m.Y') . "</td>";
                         echo "<td>" . date_format($edate, 'd.m.Y') . "</td>";
                         echo "</tr>";

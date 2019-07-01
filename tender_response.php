@@ -15,11 +15,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?tenderID=".$tenderFID); ?>" method="POST">
         <div class="row">
-            <div class="col-md-6">
-                <a href="overview_tenders.php"><h6>&#8636 Zurück zur Ausschreibung</h6></a>
-            </div>
-            <div class="form-group form-button-wrap">
-                <input type="submit" class="btn btn-primary form-button" name="send" value="Angebot absenden">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary float-right" name="send" value="Angebot absenden">
+                    <a href="overview_tenders.php"><h6>&#8636 Zurück zur Ausschreibung</h6></a>
+
+                </div>
             </div>
         </div>
 
