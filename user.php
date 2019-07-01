@@ -62,18 +62,13 @@ if(isset($_POST["delete"])){
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
-//            Button schickt mit POST
             echo "<td>
             <form action='update_user.php' method='post'>
-            <button type='submit' name='user' value='$row[objectID]' style='
-            /*border:0;
-            background-color:transparent;
-            color: blue;
-            text-decoration:underline;*/'
-            >bearbeiten</button>
+                <button type='submit' name='user' value='$row[objectID]' class='btn btn-primary form-button'>
+                    <i class='fas fa-user-edit'></i>
+                </button>
             </form>
             </td>";
-//            <a href='update_user.php?user=$row[objectID]'>bearbeiten</a>
             echo "<td>$row[firstName]</td>";
             echo "<td>$row[lastName]</td>";
             echo "<td>$row[email]</td>";
