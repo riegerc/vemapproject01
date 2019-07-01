@@ -122,20 +122,18 @@ $stmt = $conn->query($empSQL);
                         <textarea name="description" class="form-control" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Ergänzende Dokumente hinzufügen (max. 25mb):
-                            <input name="datei[]" type="file" multiple size="25">
+                        <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb):
+                            <input name="datei[]" type="file" multiple size="25" accept=".pdf">
                             <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                         </label>
-                        <button>hochladen</button>
                     </div>
+                        <div class="form-group">
+                            <label>Upload für Ausschreibungs Excel</label>
+                            <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx">
+                        </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Upload für Ausschreibungs Excel</label>
-                        <input class="form-control-file" type="file" name="file" id="file" accept=".xls,.xlsx">
-                    </div>
-
-                    <div class="table-responsive-lg">
+                       <div class="table-responsive-lg">
                         <table class="table table-bordered table-striped table-hover" :id="tableName">
                             <thead>
                             <tr>

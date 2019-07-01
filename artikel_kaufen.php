@@ -32,7 +32,7 @@ $statement->bindParam(":employee", $employee);
 $statement->bindParam(":date", $date);
 $statement->execute();
 $orderID=$db->lastInsertId();
-echo $orderID;
+//echo $orderID;
 
 //Name und Wert des Artikels aus der DB
 $sql="SELECT name, article.price as articlePrice FROM article

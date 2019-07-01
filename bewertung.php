@@ -45,7 +45,7 @@ foreach($chart->getBewertungen() as $bewertung){
     <div class="content">
 	<h2><?php echo $chart->getSupplierName() ?></h2>
         <canvas id="mainCanvas"></canvas>
-		<a href="review_auswertung.php">Details</a>
+		<a href="review_auswertung.php?lieferantid=<?=$lieferantid?>">Details</a>
     </div>
 </div>
 
@@ -69,7 +69,7 @@ foreach($chart->getBewertungen() as $bewertung){
 				],
                 datasets: [
 					<?php 
-					$colors=["#e56bcd","#579dbc", "#e0a02e"];
+					$colors=["#e56bcd","#579dbc", "#e0a02e","#e0a02e","#e0a02e","#e0a02e"];
 					$ausgabe="";
 						for($i=0;$i<=count($labels)-1;$i++){
 							$ausgabe.="{";

@@ -1,3 +1,5 @@
+/* Author: Oliver Stingl */
+
 /* Variables */
 :root {
     --ams-blue: #093c7d;
@@ -5,7 +7,7 @@
 }
 
 /* HTML-Tags */
-.fa, .fas { text-align: center; width: 1.2em;}
+
 
 /* Styling for ids */
 #wrapper {background-color: var(--ams-background);}
@@ -13,14 +15,15 @@
 #no-style {list-style: none;}
 
 /* Styling for classes */
+.fa, .fas { text-align: center; width: 1.2em;}
 .form-button-wrap {display: flex;}
 .form-button {width: 100%; align-self: flex-end;}
 .cr-list {list-style:none; width:50%;}
 .cr-gewichtung {width:10%;}
 .criterion {font-weight: bold; font-size: 1.3em;}
 .subcriterion {font-style: italic; font-size: 1.2em;}
-.buttonrow {text-align:center;}
-.rrtable th, .rrtable td {padding: 0rem;}
+.buttonrow {text-align: center;}
+.rrtable th, .rrtable td {padding: 0;}
 .checkbox-table {max-width: 1em;}
 .card-landing {margin-bottom: 1em;}
 .card-landing:hover {
