@@ -12,6 +12,10 @@ $title = "Lieferanten Übersicht"; // defines the name of the current page, disp
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
+
+$role=$_SESSION[USER_ROLE];
+$userid=$_SESSION[USER_ID];
+
 $seite=0;
 if(isset($_GET["what"])){
 	$what=(int)Helper::sanitize($_GET["what"]);
@@ -39,6 +43,9 @@ else{
         $sql="SELECT objectID, branchName
         FROM user
         WHERE rolesFID=:rolesFID";
+		if($role == 4){
+			$sql.=" AND objectID=$userid";
+		}
         $stmt=$db->prepare($sql);
         $stmt->bindParam(":rolesFID",$rolesFID);
         $stmt->execute();
