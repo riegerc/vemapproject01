@@ -168,7 +168,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     }
                     echo "</table>";
                 }
-
+                
                 if (isset($_POST['suche_senden'])) {
                     if ($counter == 0) {
                         echo "Keine Ergebnisse gefunden.";
