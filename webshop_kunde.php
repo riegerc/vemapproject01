@@ -141,7 +141,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
                 if (isset($_POST['suche_senden'])) {
                     if ($counter == 0) {
-                        echo "Keine Ergebnisse gefunden. <a href='webshop_bestellen.php'>Jetzt Bestellen</a>";
+                        echo "Keine Ergebnisse gefunden.";
                     } else {
                         echo "$counter Ergebnisse";
                     }
