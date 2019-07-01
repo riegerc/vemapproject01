@@ -14,7 +14,30 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <h5>Budget: 941.64&euro;</h5>
+    <?php 
+        //dropDown articlegroup
+        $sql="SELECT articlegroup.name, articlegroup.objectID FROM articlegroup WHERE articlegroup.service=0";
+        $stmt = connectDB()->query($sql);
+        $grouparticle="";
+        foreach($stmt as $row){
+            $grouparticle.= "<option value='".$row['objectID']."'>".$row['name']."</option>";
+        }
+        //dropDown servicegroup
+        $sql="SELECT articlegroup.name, articlegroup.objectID FROM articlegroup WHERE articlegroup.service=1";
+        $stmt = connectDB()->query($sql);
+        $groupservice="";
+        foreach($stmt as $row){
+            $groupservice.= "<option value='".$row['objectID']."'>".$row['name']."</option>";
+        }
+        //budget
+        $sql="SELECT user.budget FROM user WHERE user.objectID=".$_SESSION[USER_ID]."";
+        $stmt = connectDB()->query($sql);
+        $budget="";
+        foreach($stmt as $row){
+            $budget.= $row['budget'];
+        }
+        ?>
+        <h5>Budget: <?php echo  number_format($budget,2,',','.'); ?> &euro;</h5>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="row">
                 <div class="col-md-3">
@@ -28,13 +51,10 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <label for="product_type">Produkt-Typ</label>
                         <select name='product_type' id='product_type' class="form-control">
                             <optgroup label="Material">
-                                <option>Büroartikel</option>
-                                <option>Reinigungsmittel</option>
-                                <option>Computer&Zubehör</option>
+                                <?php echo $grouparticle; ?>
                             </optgroup>
                             <optgroup label="Dienstleistung">
-                                <option>Kurse</option>
-                                <option>Trainer</option>
+                                <?php echo $groupservice; ?>
                             </optgroup>
                         </select>
                     </div>
@@ -85,11 +105,11 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         }
                         $sql = "SELECT article.objectID as articleID, article.name, article.price, article.description, user.branchName as branch FROM `article`
                                 LEFT JOIN user ON article.supplierUserFID=user.objectID
-                                WHERE (description=:product_type) 
+                                WHERE (article.articleGroupFID=:group) 
                                 AND (name LIKE :suche) 
                                 AND (price BETWEEN :vonPreis AND :bisPreis)";
                         $stmt = connectDB()->prepare($sql);
-                        $stmt->bindParam(":product_type", $product_type);
+                        $stmt->bindParam(":group", $product_type);
                         $stmt->bindParam(':vonPreis', $vonPreis);
                         $stmt->bindParam(':bisPreis', $bisPreis);
                         $stmt->bindParam(":suche", $suche);
@@ -119,10 +139,10 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         $sql = "SELECT article.objectID, article.name as name, article.price as price, article.description as description, user.branchName as branch 
                         FROM `article`
                         LEFT JOIN user ON article.supplierUserFID=user.objectID
-                        WHERE (description=:product_type) AND (name LIKE :suche)";
+                        WHERE (article.articleGroupFID=:group) AND (name LIKE :suche)";
 
                         $stmt = connectDB()->prepare($sql);
-                        $stmt->bindParam(":product_type", $product_type);
+                        $stmt->bindParam(":group", $product_type);
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
 

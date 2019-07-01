@@ -50,16 +50,19 @@ if(isset($_POST["senden"])){
 					<?php
 					foreach($fragen as $frage) {
 						echo "<h2>" . $frage->getName() . "</h2>\n";
-						echo "<ul class='list-group' id='slds" . $frage->getId() . "'>\n";
+						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
 						foreach($frage->getKriterien() as $kriterium) {
 							echo $kriterium;
 						}
 						echo "</ul>\n";
+						echo "<br>\n";
 					}
 					?>
-					<div class="col-md-2 form-button-wrap">
-						<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>
-					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6">
+					<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>
 				</div>
 			</div>
 		</form>
