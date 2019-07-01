@@ -88,12 +88,9 @@ if(isset($_POST["delete"])){
             // Löscht den User aus der Datenbank
             echo "<td>
             <form action='update_user.php' method='post'>
-            <button type='submit' name='delete' value='$row[objectID]' style='
-            /*border:0;
-            background-color:transparent;
-            color: blue;
-            text-decoration:underline;*/'
-            >löschen</button>
+            <button type='submit' name='delete' value='$row[objectID]' class='btn btn-danger form-button'>
+                <i class='fas fa-user-minus'></i>            
+            </button>
             </form>
             </td>";
             // <a href='?delete=$row[objectID]'>löschen</a>
