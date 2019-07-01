@@ -5,8 +5,8 @@
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once 'include/constant.php';
 $pageRestricted = true; // defines if the page is restricted to logged-in Users only
-$userLevel = PERM_EDIT_PERM; //uses a PERM_ const now and hasPermission($userLevel) now if fails  a 403 Error-Page is returned
-$title = "Recht Rollenzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
+$userLevel = PERM_VIEW_PERMISSIONS; //uses a PERM_ const now and hasPermission($userLevel) now if fails  a 403 Error-Page is returned # #PERM_EDIT_PERM
+$title = "Rechte und Rollenzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
 require_once "include/init.php"; // includes base function like session handling
 require_once "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 $selRoleId  = -1;
@@ -23,8 +23,9 @@ if(isset($_GET['selRightId']) && isset($_GET['selRightSel'])){
     $selRightSel = (int)$_GET['selRightSel'];
     $selRightSel = $selRightSel > 0 ? 0 : 1;
 }
+$hasEditPermission = $perm->hasPermission(PERM_EDIT_PERM);
 
-if(isset($_POST['saverolerights'])){    
+if(isset($_POST['saverolerights']) && $hasEditPermission){    
     unset($_POST['saverolerights']);
     
     try{
@@ -67,7 +68,11 @@ if(isset($_POST['saverolerights'])){
                 $tableStr = "<tr><td>&nbsp;</td>\n";
                 $columncount = count($result);
                 foreach ($result as $row) {
-                    $tableStr .= "<td><a href='?selRoleId=$row[objectID]&selRoleSel=$selRoleSel'>$row[name]</a></td>\n";                    
+                    if(SHOW_SELECT_ALL_LINKS != 0){
+                        $tableStr .= "<td><a href='?selRoleId=$row[objectID]&selRoleSel=$selRoleSel'>$row[name]</a></td>\n";    
+                    } else {
+                        $tableStr .= "<td>$row[name]</td>\n";  
+                    }               
                 }
                 $tableStr .= "</tr>\n</thead>\n<tbody>\n";
                 $sql1 = "SELECT rights.objectID, rights.name FROM rights";
@@ -90,7 +95,11 @@ if(isset($_POST['saverolerights'])){
                             ORDER BY THErolesID;"; 
                     $param = [":rightID"=>$rightID];
                     $result = readDB($sql, $param);
-                    $tableStr .= "<tr>\n<td><a href='?selRightId=$rightID&selRightSel=$selRightSel' >$roleRow[name]</a></td>\n";
+                    if(SHOW_SELECT_ALL_LINKS != 0){
+                        $tableStr .= "<tr>\n<td><a href='?selRightId=$rightID&selRightSel=$selRightSel' >$roleRow[name]</a></td>\n";
+                    }else {
+                        $tableStr .= "<tr>\n<td>$roleRow[name]</td>\n";
+                    }
                     
                     foreach ($result as $row) {
                         $checked = $row['haspermission'] != NULL ? "checked" : "";
@@ -110,12 +119,22 @@ if(isset($_POST['saverolerights'])){
                                     $checked = "";
                             }
                         }
-                        $tableStr .= "<td><input type='checkbox' name='$row[THErolesID]-$rightID' $checked></td>\n";
+                        if($hasEditPermission){
+                            $deactivated = "";
+                        }else {
+                            $deactivated = "disabled ";
+                        }
+                        $tableStr .= "<td><input type='checkbox' name='$row[THErolesID]-$rightID' $checked $deactivated></td>\n";
                     }  
                     $tableStr .= "</tr>\n";
                 }
                 $columncount++;
-                $tableStr .= "<tr><td colspan='$columncount' class='buttonrow'><input type='submit' name='saverolerights' value='Speichern' class='btn'></td></tr>\n";
+                if($hasEditPermission){
+                    $deactivated = "";
+                }else {
+                    $deactivated = "disabled ";
+                }
+                $tableStr .= "<tr><td colspan='$columncount' class='buttonrow'><input type='submit' name='saverolerights' value='Speichern' class='btn' $deactivated></td></tr>\n";
                 $tableStr .= "</tbody>\n";
                 echo $tableStr;
             ?>

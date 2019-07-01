@@ -128,9 +128,9 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $fragen;
 	}
-	public function createReview(int $userid, int $supplierId):int{
+	public function createReview(int $userid, int $supplierId, int $month):int{
 		$reviewId=0;
-		$sql="INSERT INTO reviews(userFID, supplierUserFID) VALUES(:userFid, :supplierId)";
+		$sql="INSERT INTO reviews(userFID, supplierUserFID,datetime) VALUES(:userFid, :supplierId, '2019-0$month-05 08:59:09')";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":userFid",$userid);
 		$stmt->bindParam(":supplierId",$supplierId);
@@ -142,15 +142,15 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $reviewId;
 	}
-	public function createAnswers(Fragebogen $fb):void{
+	public function createAnswers(Fragebogen $fb, int $month):void{
 		$userFid=$fb->getUserId();
 		$lieferantFid=$fb->getLieferantId();
-		$reviewId=$this->createReview($userFid,$lieferantFid);
+		$reviewId=$this->createReview($userFid,$lieferantFid, $month);
 		$kriterien=$fb->getFragen();
-		$sql="INSERT INTO reviewsmark(reviewsFID,undercriteriaFID,mark) VALUES";
+		$sql="INSERT INTO reviewsmark(reviewsFID,undercriteriaFID,mark, datetime) VALUES";
 	
 		foreach($kriterien as $key=>$val){
-			$sql.="($reviewId,$key,$val),";
+			$sql.="($reviewId,$key,$val,'2019-0$month-05 08:59:09'),";
 		}
 		$sql=rtrim($sql, ",");
 		$stmt=$this->db->prepare($sql);

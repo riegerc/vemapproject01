@@ -20,37 +20,50 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
+	$month=$_POST["month"];
+	//JUST 4 TEST !!!!!!!!!!
+	if($month<1){
+		exit();
+	}
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
+	// JUST 4 TEST !!!!!!!!!!!
+	unset($_POST["month"]);
 	$antworten=array();
 	foreach($_POST as $key=>$val){
 		$key=Helper::getId($key,"sld");
 		$antworten[$key]=(float)Helper::sanitize($val);
 	}
-	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
+	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
 }
 ?>
 <link rel="stylesheet" type="text/css" href="css/reviews.css" media="all" />
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <h1></h1>
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-		<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
-		<?php
-			foreach($fragen as $frage){
-				 echo "<h2>".$frage->getName()."</h2>";
-				 echo "<ul class='no-style' id='slds".$frage->getId()."'>";
-				 foreach($frage->getKriterien() as $kriterium){
-					echo $kriterium;
-				 }
-				 echo "</ul>";
-			}
-		?>
-		<button type="submit" name="senden">Senden</button>
-    </div>
-	
+			 <div class="form-row">
+				<div class="col-md-6">
+					<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
+					<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
+					<?php
+					foreach($fragen as $frage){
+						echo "<h2>".$frage->getName()."</h2>";
+						echo "<ul class='no-style' id='slds".$frage->getId()."'>";
+						foreach($frage->getKriterien() as $kriterium){
+							echo $kriterium;
+						}
+						echo "</ul>";
+					}
+					?>
+					<div class="col-md-2 form-button-wrap">
+						<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>	
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
