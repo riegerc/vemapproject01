@@ -61,8 +61,7 @@ if (isset($_GET['update'])) {
 
                         while ($row = $stmt->fetch()) {
                             echo $row['branchName'];
-                            echo "<br>" . $row['street'];
-                            echo $row['houseNumber'];
+                            echo "<br>" . $row['street'] . " " . $row['houseNumber'];
                             echo "<br>" . $row['postCode'] . "&nbsp;";
                             echo $row['city'];
                             echo "<br>" . $row['country'];
