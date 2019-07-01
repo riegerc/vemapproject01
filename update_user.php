@@ -17,15 +17,16 @@ if (isset($_POST["user"])) {
 if (isset($_POST["senden"])) {
     foreach ($_POST as $key => $value) {
         if ($key !== "") {
+            // Nur eingegebene Werte werden übergeben, leere Inputs ignoriert
             if ($key == "user") {
-                /*echo "UserID: $value";*/
+                /*echo "UserID: $value";*/ // user wird im Array ignoriert
             } elseif ($key == "rolesFID") {
                 /*echo $value;*/
             } elseif ($key == "senden") {
-
-            } //Budget ist integer also kein Leerstring erlaubt
+                // senden wird ignoriert
+            }
             elseif ($key == "budget" AND $value == "") {
-
+                //Budget ist integer also kein Leerstring erlaubt
             } elseif ($key == "rolesFID") {
                 $key = 0;
             } else {
@@ -52,6 +53,7 @@ if (isset($_POST["senden"])) {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
             if (isset($_POST["user"])) {
+                // Der gewünschte User wird angezeigt
                 $sql = "SELECT * FROM user
                 WHERE objectID = :user";
                 $statement = connectDB()->prepare($sql);
@@ -90,6 +92,7 @@ if (isset($_POST["senden"])) {
                     <label for="rolesFID">Rolle</label>
                     <select name="rolesFID" class="form-control">
                         <?php
+                        //DropDown Menü mit allen Rollen zum auswählen
                         $sql = "SELECT DISTINCT * FROM roles";
                         $statement = connectDB()->prepare($sql);
                         $statement->execute();
