@@ -31,7 +31,7 @@ if(isset($_POST["senden"])){
 	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
 }
 ?>
-
+<link rel="stylesheet" type="text/css" href="css/reviews.css" media="all" />
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
@@ -41,7 +41,7 @@ if(isset($_POST["senden"])){
 		<?php
 			foreach($fragen as $frage){
 				 echo "<h2>".$frage->getName()."</h2>";
-				 echo "<ul id='slds".$frage->getId()."'>";
+				 echo "<ul class='no-style' id='slds".$frage->getId()."'>";
 				 foreach($frage->getKriterien() as $kriterium){
 					echo $kriterium;
 				 }
@@ -49,8 +49,6 @@ if(isset($_POST["senden"])){
 			}
 		?>
 		<button type="submit" name="senden">Senden</button>
-		</form>
-		<span id="slider_value">Nothing yet.</span>
     </div>
 	
 </div>

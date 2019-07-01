@@ -43,7 +43,7 @@ foreach($bewertungen as $bewertung){
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <canvas id="mainCanvas"></canvas>
-		
+		<a href="review_auswertung.php">Details</a>
     </div>
 </div>
 
