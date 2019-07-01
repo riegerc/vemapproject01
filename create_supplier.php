@@ -4,7 +4,7 @@ require_once "include/constant.php";
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
-$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Lieferant anlegen"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
@@ -144,7 +144,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <input type="text" class="form-control" name="mobilNr" id="mobilNr" required>
                     </div>
                     <div class="form-group form-button-wrap">
-                        <input type="submit" class="form-button btn btn-primary " name="submit" value="Absenden">
+                        <button type="submit" class="form-button btn btn-primary " name="submit">
+                            <i class="fas fa-save"></i> Speichern
+                        </button>
                     </div>
                 </div>
             </div>

@@ -34,33 +34,44 @@ class Kriterium{
 		$this->przt=$przt;
 	}
 	public function __toString(){
+		
+			// begin outer form row
+			$res="<div class='form-row'>";
+			
+				$res.="<li class='list-group-item'>$this->name\n";			
+
+				$res.="<div class='form-group'>\n";
+
+				// begin outer form col
+				$res.="<div class='col-12'>";
+
+					// begin inner form row
+					$res.="<div class='form-row'>";
+					
+						$res.="<div class='col-1'>";
+						$res.="<span>0</span>\n";
+						$res.="</div>";
+						
+						$res.="<div class='col-9'>";
+						$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
+						value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
+						$res.="</div>";
+						
+						$res.="<div class='col-1'>";
+						$res.= round($this->getPrzt(),0) . "\n";
+						$res.="</div>";
+					
+					// end outer form row
+					$res.="</div>";
+			
+				// end outer form col
+				$res.="</div>";
+			
 			// moved the label outside list group
-			$res="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
-			
-			$res.="<li class='list-group-item'>$this->name\n";
-			
-			$res.="<div class='form-group'>\n";
-			
-			// begin form row
-			$res.="<div class='form-row justify-content-center align-items-center'>";
-			
-			$res.="<span>0</span>\n";
-			
-			// begin form col
-			$res.="<div class='col-md-11'>";
-			
-			$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
-			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
-			
-			// end form coll
+			$res.="<div class='col-1'>";
+			$res.="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
 			$res.="</div>";
 			
-			$res.= round($this->getPrzt(),0) . "\n";
-			
-			// end form row
-			$res.="</div>";
-			
-			$res.="</div>\n";
 			$res.="</li>\n";
 			return $res;
 		}

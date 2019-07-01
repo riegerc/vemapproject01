@@ -44,8 +44,6 @@ if (isset($_POST["send"])) {
     $search = "%%";
 }
 
-// TODO Abfrage das einem nur die Ausschreibungen angezeigt werden zu denen man eingeladen ist
-
 ?>
     <div class="container-fluid">
         <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
@@ -107,16 +105,18 @@ if (isset($_POST["send"])) {
                     <th>Dok. Nr.</th>
                     <th>Bezeichnung des Auftrags</th>
                     <th>Auftraggeber</th>
+                    <th>Art des Auftrags</th>
                     <th>Zeitraum</th>
                     <th>Schlusstermin</th>
                     </thead>
                     <?php
+
                     $amsUser = "WHERE tenders.objectID LIKE :search 
                                 OR tenders.tender LIKE :search
                                 OR tenders.tenderType LIKE :tenderTyp
                                 OR user.branchName LIKE :branchName
                                 OR tenders.begin LIKE :dateBegin
-                                OR tenders.end LIKE :dateEnd";
+                                OR tenders.end LIKE :dateEnd GROUP BY DocNumber";
 
                     $supplier = "WHERE supplierselect.userFID=:userID
                         AND (tenders.objectID LIKE :search 
@@ -124,9 +124,8 @@ if (isset($_POST["send"])) {
                                 OR tenders.tenderType LIKE :tenderTyp
                                 OR user.branchName LIKE :branchName
                                 OR tenders.begin LIKE :dateBegin
-                                OR tenders.end LIKE :dateEnd)";
-                    if ($_SESSION[USER_ROLE] != 4 OR 6) {
-
+                                OR tenders.end LIKE :dateEnd) GROUP BY DocNumber";
+                    if ($_SESSION[USER_ROLE] != 4 AND $_SESSION[USER_ROLE] != 6) {
                         $sql = "SELECT tenders.objectID AS DocNumber, 
                                tenders.tender, 
                                tenders.description,
@@ -136,8 +135,9 @@ if (isset($_POST["send"])) {
                                user.branchName AS branchName,
                                user.amsYesNo as ASM
                         FROM tenders
-                        LEFT JOIN user ON tenders.userFID = user.objectID INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
-                          $amsUser GROUP BY DocNumber";
+                        LEFT JOIN user ON tenders.userFID = user.objectID
+                          $amsUser";
+
                     }else{
                         $sql = "SELECT tenders.objectID AS DocNumber, 
                                tenders.tender, 
@@ -150,8 +150,7 @@ if (isset($_POST["send"])) {
                         FROM tenders
                         LEFT JOIN user ON tenders.userFID = user.objectID 
                             INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
-                          $supplier
-                           GROUP BY DocNumber";
+                          $supplier";
                     }
 
                     $stmt = connectDB()->prepare($sql);
@@ -171,6 +170,7 @@ if (isset($_POST["send"])) {
                         echo "<td>" . $row["DocNumber"] . "</td>";
                         echo "<td> <a href='tender_detail.php?tenderID=$row[DocNumber]'>$row[tender]</a> </td>";
                         echo "<td>" . $row["branchName"] . "</td>";
+                        echo "<td>" . $row["tenderType"] . "</td>";
                         echo "<td>" . date_format($bdate, 'd.m.Y') . "</td>";
                         echo "<td>" . date_format($edate, 'd.m.Y') . "</td>";
                         echo "</tr>";
@@ -181,7 +181,4 @@ if (isset($_POST["send"])) {
             </div>
         </div>
     </div>
-    <script>
-        $('#search-results').DataTable();
-    </script>
 <?php include "include/page/bottom.php"; ?>
