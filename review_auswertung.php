@@ -74,7 +74,7 @@ foreach ($reviewedcompanies as $company) {
 
 
 ?>
-	<a href="bewertung.php">Zur Übersicht</a>
+	<a href="bewertung.php?lieferantid=<?= $lieferantid?>">Zur Übersicht</a>
     </div>
 </div>
 
