@@ -114,23 +114,18 @@ $stmt = $conn->query($empSQL);
                         <input type="date" name="end" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Menge</label>
-                        <input type="number" name="amount" class="form-control" required>
-                    </div>
-                    <div class="form-group">
                         <label for="description">Auftragsbeschreibung</label>
-                        <textarea name="description" class="form-control" rows="4" required></textarea>
+                        <textarea name="description" class="form-control" rows="7" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb):
-                            <input name="datei[]" type="file" multiple size="25" accept=".pdf">
-                            <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
-                        </label>
+                        <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb)</label>
+                        <input name="datei[]" class="form-control-file" type="file" multiple size="25" accept=".pdf">
+                        <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                     </div>
-                        <div class="form-group">
-                            <label>Upload für Ausschreibungs Excel</label>
-                            <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx">
-                        </div>
+                    <div class="form-group">
+                        <label>Upload für Ausschreibungs Excel</label>
+                        <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx">
+                    </div>
                 </div>
                 <div class="col-md-6">
                        <div class="table-responsive-lg">
@@ -174,12 +169,14 @@ $stmt = $conn->query($empSQL);
                     </div>
                     <br>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
-                            erstellen
+                        <button type="submit" class="btn btn-primary form-button" name="absenden">
+                            <i class="fas fa-check"></i> Ausschreibung erstellen
                         </button>
                     </div>
                     <div class="form-group">
-                        <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
+                        <button type="reset" class="btn btn-danger form-button">
+                            <i class="fas fa-undo-alt"></i> Formular zurücksetzen
+                        </button>
                     </div>
                 </div>
             </div>
