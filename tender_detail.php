@@ -97,7 +97,7 @@ $dateEnd=date_create($row["end"]);
 
         </table>
 
-        <a href="tender_response.php"><button class="btn btn-outline-success">Angebot abgeben</button></a>
+        <a href="tender_response.php?tenderID=<?php echo $row["DocNumber"]?>"><button class="btn btn-outline-success">Angebot abgeben</button></a>
 
     </div>
 </div>
