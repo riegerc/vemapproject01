@@ -1,4 +1,7 @@
 <?php
+/*
+Autor: Christian Riedler
+*/
 class Fragebogen{
 	private $fragen;
 	private $userId;

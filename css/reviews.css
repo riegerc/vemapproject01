@@ -1,0 +1,13 @@
+canvas{
+	height:70% !important;
+	width:70% !important;
+}
+ul.no-style{
+	list-style:none;
+}
+.mth-label{
+	color: red;
+}
+.mth-inp{
+	width:3%;
+}
