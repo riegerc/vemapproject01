@@ -44,7 +44,7 @@ if(isset($_POST["senden"])){
     <div class="content">
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 			 <div class="form-row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 					<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 					<?php
