@@ -4,7 +4,7 @@
  */
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-//$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Bewertung Lieferant"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
@@ -44,7 +44,7 @@ if(isset($_POST["senden"])){
     <div class="content">
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 			 <div class="form-row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 					<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 					<?php
@@ -61,7 +61,7 @@ if(isset($_POST["senden"])){
 				</div>
 			</div>
 			<div class="form-row">
-				<div class="col-md-6">
+				<div class="col-md-2">
 					<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>
 				</div>
 			</div>

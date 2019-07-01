@@ -35,10 +35,10 @@ let app = new Vue({
 
                 jQuery(document).ready(function () {
                     jQuery('#shortTable').DataTable({
-                        "lengthMenu": [5],
+                        "lengthMenu": [10],
                         "language": {
                             "lengthMenu": "_MENU_ Einträge pro Seite",
-                            "zeroRecords": "Keine Einträge gefunden",
+                            "zeroRecords": "K0eine Einträge gefunden",
                             "info": "Seite _PAGE_ von _PAGES_",
                             "infoEmpty": "Keine Einträge verfügbar",
                             "infoFiltered": "(von _MAX_ Einträgen)",

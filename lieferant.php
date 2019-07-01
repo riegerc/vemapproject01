@@ -6,12 +6,16 @@ $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 
 $pageRestricted = true; // defines if the page is restricted to logged-in Users only
-$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$userLevel = PERM_VIEW_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Lieferanten Übersicht"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
+
+$role=$_SESSION[USER_ROLE];
+$userid=$_SESSION[USER_ID];
+
 $seite=0;
 if(isset($_GET["what"])){
 	$what=(int)Helper::sanitize($_GET["what"]);
@@ -39,6 +43,9 @@ else{
         $sql="SELECT objectID, branchName
         FROM user
         WHERE rolesFID=:rolesFID";
+		if($role == 4){
+			$sql.=" AND objectID=$userid";
+		}
         $stmt=$db->prepare($sql);
         $stmt->bindParam(":rolesFID",$rolesFID);
         $stmt->execute();

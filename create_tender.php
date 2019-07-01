@@ -79,6 +79,16 @@ WHERE rolesFID=6 OR rolesFID=4";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
+if (isset($_POST["absenden"])) {
+    $ordner = "temp";
+    $dateiname = $_FILES["datei"]["name"];
+    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
+    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
+    $dateiname = str_replace($alt, $neu, $dateiname);
+
+    move_uploaded_file($_FILES["datei"]["tmp_name"], "$ordner/$dateiname");
+    echo "DANKE FÜR IHRE DATEI!!!";
+}
 ?>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
@@ -123,14 +133,14 @@ $stmt = $conn->query($empSQL);
                     </div>
                     <div class="form-group">
                         <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb):
-                            <input name="datei[]" type="file" multiple size="25" accept=".pdf">
+                            <input name="datei" type="file" multiple size="25" accept=".pdf">
                             <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                         </label>
                     </div>
-                        <div class="form-group">
-                            <label>Upload für Ausschreibungs Excel</label>
-                            <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx">
-                        </div>
+                    <div class="form-group">
+                        <label>Upload für Ausschreibungs Excel</label>
+                        <input type="file" class="form-control-file" name="datei" accept=".csv,.xls,.xlsx"><br>
+                    </div>
                 </div>
                 <div class="col-md-6">
                        <div class="table-responsive-lg">
