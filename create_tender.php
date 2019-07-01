@@ -96,7 +96,7 @@ if (isset($_POST["absenden"])) {
         <?php
         echo "<span style='display: none;' id='transferToJavaScript'>" . json_encode($stmt->fetchAll()) . "</span>";
         ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <?php echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
             <div class="row">
                 <div class="col-md-6">
@@ -143,7 +143,7 @@ if (isset($_POST["absenden"])) {
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="table-responsive-lg">
+                       <div class="table-responsive-lg">
                         <table class="table table-bordered table-striped table-hover" :id="tableName">
                             <thead>
                             <tr>

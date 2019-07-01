@@ -14,58 +14,65 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
+    <hr>
     <div class="content">
-        <p>
-            Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
-            Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
-            <br>
-        </p>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
+                <p>
+                    Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
+                    Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                    <br>
+                </p>
+                <ul>
+                    <li>Von uns eingeladene Anbieter können sich hier Ausschreibungsdokumente herunterladen und Angebote
+                        abgeben.
+                    </li>
+                    <li>Mitarbeiter können Standardartikel über den Multilieferantenkatalog abrufen.</li>
+                    <li>Um die Zusammenarbeit ständig zu verbessern, werden die Auftragnehmer einer regelmäßigen Bewertung
+                        unterzogen.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-4">
                 <div class="card card-landing border-primary">
                     <div class="card-header bg-gradient-primary text-light">
-                        Überschrift 1
+                        <i class="fas fa-piggy-bank"></i> Kostensparen
                     </div>
                     <div class="card-body">
-                        Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
-                        Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                        Ein Multilieferentenkatalog ermöglicht Produkte bei Lieferanten zu bestellen, welche die
+                        niedrigste Preise anbieten.
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="card card-landing border-secondary">
                     <div class="card-header bg-gradient-secondary text-light">
-                        Überschrift 2
+                        <i class="fas fa-project-diagram"></i> Einfacher Prozessablauf
                     </div>
                     <div class="card-body">
-                        Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
-                        Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                        Die Übersichtlichkeit des Portals ermöglicht eine einfache Produktbestellung. Über wenige,
+                        einfache Schritte werden Ausschreibungen erstellt und an Lieferanten weitergeleitet und
+                        letztlich, beim bestmöglichen Lieferant, bestellt.
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="card card-landing border-danger">
                     <div class="card-header bg-gradient-danger text-light">
-                        Überschrift 3
+                        <i class="fas fa-clipboard-check"></i> Qualitätssicherung
                     </div>
                     <div class="card-body">
-                        Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
-                        Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                        Ein Bewertungssystem der Lieferanten soll sicher stellen, dass nur bei besten Lieferanten
+                        bestellt wird. Der Mechanismus fördert die Lieferanten sich an den Förderungen anzupassen.
                     </div>
                 </div>
             </div>
-            <ul>
-            <li>Von uns eingeladene Anbieter können sich hier Ausschreibungsdokumente herunterladen und Angebote
-                abgeben.
-            </li>
-            <li>Mitarbeiter können Standardartikel über den Multilieferantenkatalog abrufen.</li>
-            <li>Um die Zusammenarbeit ständig zu verbessern, werden die Auftragnehmer einer regelmäßigen Bewertung
-                unterzogen.
-            </li>
-            </ul>
         </div>
+        <hr>
         <p>
-            <br>
             Es werden ausschließlich Technologien verwendet, die einen sicheren Datenaustausch ermöglichen.
         </p>
     </div>
