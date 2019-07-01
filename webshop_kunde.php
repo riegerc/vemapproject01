@@ -104,9 +104,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
-                            echo "    <td> <a href='webshop_kaufen.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
-                            
-                            
+                            echo "    
+                            <td> 
+                            <form action='webshop_kaufen.php' method='post'>
+                            <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
+                                <i class='fas fa-shopping-cart'></i>            
+                            </button>
+                            </form>";
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;
@@ -130,7 +134,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
-                            echo "    <td> <a href='webshop_kaufen.php?update=" . $row['objectID'] . "'>Kaufen</a><br>";
+                            echo "
+                            <td> 
+                            <form action='webshop_kaufen.php' method='post'>
+                            <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
+                                <i class='fas fa-shopping-cart'></i>            
+                            </button>
+                            </form>";
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;
