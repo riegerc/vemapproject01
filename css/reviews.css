@@ -5,3 +5,9 @@ canvas{
 ul.no-style{
 	list-style:none;
 }
+.mth-label{
+	color: red;
+}
+.mth-inp{
+	width:3%;
+}

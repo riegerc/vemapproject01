@@ -36,7 +36,7 @@ if (isset($_POST["absenden"])) {
             $arr = explode("-", $value);
             $userFID = $arr[1];
 
-            $sql = "INSERT INTO supplierselect 
+            $sql = "INSERT INTO supplierselect
                     (tenderFID,userFID)
                     VALUES
                     (:currentID,:userFID)";
@@ -151,9 +151,7 @@ $stmt = $conn->query($empSQL);
                                 <td v-text="branch.objectID"></td>
                                 <th>
                                     <input type='checkbox'
-                                           v-model='branchCheckboxes[branch.objectID]'
-                                           :name='branchCheckboxes[branch.objectID] + "chkRole"'
-                                           :value='branch.rolesFID +  "-" + branch.objectID'>
+                                           v-model='branchCheckboxes[branch.objectID]'>
                                 </th>
                                 <td v-text="branch.branchName"></td>
                                 <td v-text="branch.firstName"></td>
@@ -161,15 +159,14 @@ $stmt = $conn->query($empSQL);
                             </tr>
                             </tbody>
                         </table>
-                        <!-- TODO: Make second invisible table that is send with the form because dataTables is stupid -->
                         <table style="display: none;">
                             <tr v-for="branch in branches">
-                                <td v-text="branch.objectID"></td>
+                                <td v-text='branch.objectID'></td>
                                 <th>
                                     <input type='checkbox'
                                            v-model='branchCheckboxes[branch.objectID]'
-                                           :name='branchCheckboxes[branch.objectID] + "chkRole"'
-                                           :value='branch.rolesFID +  "-" + branch.objectID'>
+                                           :name='branch.objectID + "chkRole"'
+                                           :value='branch.rolesFID + "-" + branch.objectID'>
                                 </th>
                                 <td v-text="branch.branchName"></td>
                                 <td v-text="branch.firstName"></td>
@@ -191,6 +188,4 @@ $stmt = $conn->query($empSQL);
         </form>
     </div>
 </div>
-<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. )
-?>
-?>
+<?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
