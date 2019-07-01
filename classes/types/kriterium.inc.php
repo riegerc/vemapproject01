@@ -34,15 +34,10 @@ class Kriterium{
 		$this->przt=$przt;
 	}
 	public function __toString(){
-		
 			// begin outer form row
-			$res="<div class='form-row'>";
-			
+			$res="<div class='form-row'>";			
 				$res.="<li class='list-group-item'>$this->name\n";			
-
-				
-
-					// begin inner form row
+					// inner form row
 					$res.="<div class='form-row'>";
 						$res.="<div class='col-1'>0</div>";
 						$res.="<div class='col-10'>";
@@ -62,6 +57,8 @@ class Kriterium{
 				$res.="</div>";
 
 				$res.="</li>\n";
+				
+				
 
 			return $res;
 		}
