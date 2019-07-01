@@ -41,6 +41,7 @@ const PERM_MAKE_REVIEW = "makeReview"; //user can GIVE RATINGS
 const PERM_CED_REVIEW = "cedReview"; //internal/external Admin may edit the rating FORM itself under Bewertungen->kriterien
 const PERM_CED_USER = "cedUser"; //internal/external Admin can CREATE users under User->Erstellen
 const PERM_EDIT_SELF = "editUser"; //everyone can edit THEIR OWN DETAILS
+const PERM_VIEW_PERMISSIONS = "viewPermissions"; #the right to view rightRoles.php
 
 #permissions not in use now----------------------------------
 const PERM_VIEW_USER = "viewUser";
