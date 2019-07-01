@@ -8,7 +8,8 @@ $title = "Ausschreibung erstellen"; // defines the name of the current page, dis
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-
+if(isset($_GET))
+{var_dump($_GET);}
 
 if (isset($_POST["absenden"])) {
     if (isset($_SESSION[USER_ID])) {
