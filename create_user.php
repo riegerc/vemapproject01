@@ -73,7 +73,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="row">
                         <div class="col-md-6">
                             <label for="branchName">Wählen Sie die Geschäftsstelle</label>
-                            <select type="text" id="branchName" class="form-control" name="branchName">
+                            <select type="text" id="branchName" class="form-control" name="branchName" required>
                                 <option selected disabled>Bitte Auswählen...</option>
                                 <?php foreach ($branchName as $value) {
                                     echo "<option value='$value'>$value</option>";
@@ -162,7 +162,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     </div>
                     <div class="form-group">
                         <label for="email">E-Mail</label>
-                        <input type="email" class="form-control" name="email" id="email">
+                        <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="telNr">Festnetz</label>
