@@ -3,7 +3,7 @@
 $navigationItems =
     [
         [
-            "section" => "Allgemein",
+            "section" => "",
             "categories" => [
                 ["name" => "Ausschreibungen",
                     "links" => [
