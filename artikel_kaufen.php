@@ -93,36 +93,34 @@ while ($row = $statement->fetch()) {
             <div class="col-md-4">
                 <!-- Content -->
                 <table id="overview">
-                <tr>
-                    <th>Stück</th>
-                    <td><?php echo $amount ?></td>
-                </tr>
-                <tr>
-                    <th>Artikel</th>
-                    <td><?php echo $articleName ?></td>
-                </tr>
-                <tr>
-                    <th>Stückpreis</th>
-                    <td><?php echo $articlePrice ?></td>
-                </tr>
-                <tr>
-                    <th>Gesamtpreis</th>
-                    <td><?php echo $wholeAmount ?></td>
-
-                </tr>
-                <tr>
-                    <th>Benutzer</th>
-                    <td><?php echo $email ?></td>
-                </tr>
-                <tr>
-                    <th>Filiale</th>
-                    <td><?php echo $branchName ?></td>
-
-                </tr>
-                <tr>
-                    <th>Adresse</th>
-                    <td><?php echo "$street $house / $stairs / $door, $PLZ $city $country"; ?></td>
-                </tr>
+                    <tr>
+                        <th>Stück</th>
+                        <td><?php echo $amount ?></td>
+                    </tr>
+                    <tr>
+                        <th>Artikel</th>
+                        <td><?php echo $articleName ?></td>
+                    </tr>
+                    <tr>
+                        <th>Stückpreis</th>
+                        <td><?php echo $articlePrice ?></td>
+                    </tr>
+                    <tr>
+                        <th>Gesamtpreis</th>
+                        <td><?php echo $wholeAmount ?></td>
+                    </tr>
+                    <tr>
+                        <th>Benutzer</th>
+                        <td><?php echo $email ?></td>
+                    </tr>
+                    <tr>
+                        <th>Filiale</th>
+                        <td><?php echo $branchName ?></td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td><?php echo "$street $house / $stairs / $door, $PLZ $city $country"; ?></td>
+                    </tr>
                 </table>
                 <hr>
                 <form action="DOMpdf.php" method="POST">
