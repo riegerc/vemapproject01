@@ -137,8 +137,7 @@ if (isset($_POST["send"])) {
                                user.amsYesNo as ASM
                         FROM tenders
                         LEFT JOIN user ON tenders.userFID = user.objectID INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
-                          $amsUser";
-
+                          $amsUser GROUP BY DocNumber";
                     }else{
                         $sql = "SELECT tenders.objectID AS DocNumber, 
                                tenders.tender, 
@@ -149,9 +148,10 @@ if (isset($_POST["send"])) {
                                user.branchName AS branchName,
                                user.amsYesNo as ASM
                         FROM tenders
-                        LEFT JOIN user ON tenders.userFID = user.objectID INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
-                          $supplier";
-
+                        LEFT JOIN user ON tenders.userFID = user.objectID 
+                            INNER JOIN supplierselect ON tenders.objectID = supplierselect.tenderFID
+                          $supplier
+                           GROUP BY DocNumber";
                     }
 
                     $stmt = connectDB()->prepare($sql);
