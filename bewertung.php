@@ -69,7 +69,7 @@ foreach($chart->getBewertungen() as $bewertung){
 				],
                 datasets: [
 					<?php 
-					$colors=["#e56bcd","#579dbc", "#e0a02e","#e0a02e","#e0a02e","#e0a02e"];
+					$colors=["#e56bcd","#579dbc", "#e0a02e","#FF5430","#44EB1C","#1949B3", "#BFFF4A"];
 					$ausgabe="";
 						for($i=0;$i<=count($labels)-1;$i++){
 							$ausgabe.="{";
