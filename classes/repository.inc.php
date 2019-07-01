@@ -211,4 +211,17 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $bewertungen;
 	}
+	public function readLieferant(int $lieferantId):string{
+		$sql="SELECT branchName FROM user WHERE rolesFID=4 AND objectID=:lieferantId";
+		$stmt=$this->db->prepare($sql);
+		$stmt->bindParam(":lieferantId",$lieferantId);
+		$stmt->execute();
+		$row=$stmt->fetch();
+		return $row["branchName"];
+	}
+	public function readChart(int $lieferantFid=0):Chart{
+		$bewertungen=$this->readBewertungen($lieferantFid);
+		$branchName=$this->readLieferant($lieferantFid);
+		return new Chart($lieferantFid,$branchName,$bewertungen);
+	}
 }
