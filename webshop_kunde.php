@@ -157,8 +157,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "
                             <td> 
                             <form action='webshop_kaufen.php' method='get'>
-                            <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
-                                <i class='fas fa-shopping-cart'></i>            
+                            <button type='submit' name='update' value='$row[objectID]' class='btn btn-primary form-button'>
+                                <i class='fas fa-shopping-cart'></i> Kaufen
                             </button>
                             </form>";
                             echo "    </tr>";

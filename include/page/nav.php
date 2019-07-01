@@ -35,7 +35,6 @@ $navigationItems =
                     "links" => [
                         ["name" => "Übersicht", "url" => "user.php", "minUserLevel" => PERM_CED_USER],
                         ["name" => "Erstellen", "url" => "create_user.php", "minUserLevel" => PERM_CED_USER],
-                        ["name" => "Update", "url" => "update_user.php", "minUserLevel" => PERM_EDIT_SELF],
                     ],
                     "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => PERM_VIEW_CLIENT_MENU

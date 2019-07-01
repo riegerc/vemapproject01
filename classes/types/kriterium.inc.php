@@ -40,8 +40,7 @@ class Kriterium{
 			
 				$res.="<li class='list-group-item'>$this->name\n";			
 
-				// begin outer form col
-				$res.="<div class='col-11'>";
+				
 
 					// begin inner form row
 					$res.="<div class='form-row'>";
@@ -55,18 +54,17 @@ class Kriterium{
 						$res.="<div class='col-1'>";
 						$res.= round($this->getPrzt(),0) . "\n";
 						$res.="</div>";
-					// end outer form row
+					// end inner form row
 					$res.="</div>";
 			
-				// end outer form col
-				$res.="</div>";
-			
+				
 				// moved the label outside list group
 				$res.="<div class='col-1'>";
 				$res.="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
 				$res.="</div>";
-			
+
 				$res.="</li>\n";
+
 			return $res;
 		}
 }
