@@ -18,7 +18,41 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
             <br>
         </p>
-        <ul>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-landing border-primary">
+                    <div class="card-header bg-gradient-primary text-light">
+                        Überschrift 1
+                    </div>
+                    <div class="card-body">
+                        Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
+                        Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-landing border-secondary">
+                    <div class="card-header bg-gradient-secondary text-light">
+                        Überschrift 2
+                    </div>
+                    <div class="card-body">
+                        Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
+                        Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-landing border-danger">
+                    <div class="card-header bg-gradient-danger text-light">
+                        Überschrift 3
+                    </div>
+                    <div class="card-body">
+                        Dieses B2B Portal ist das zentrale Kommunikationsmedium zu unseren Anbietern und<br>
+                        Auftragnehmern, über das wir Einkaufsprojekte abwickeln und damit Prozesse optimieren.<br>
+                    </div>
+                </div>
+            </div>
+            <ul>
             <li>Von uns eingeladene Anbieter können sich hier Ausschreibungsdokumente herunterladen und Angebote
                 abgeben.
             </li>
@@ -26,8 +60,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <li>Um die Zusammenarbeit ständig zu verbessern, werden die Auftragnehmer einer regelmäßigen Bewertung
                 unterzogen.
             </li>
-
-        </ul>
+            </ul>
+        </div>
         <p>
             <br>
             Es werden ausschließlich Technologien verwendet, die einen sicheren Datenaustausch ermöglichen.
