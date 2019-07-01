@@ -38,12 +38,28 @@ class Kriterium{
 			$res="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
 			
 			$res.="<li class='list-group-item'>$this->name\n";
+			
 			$res.="<div class='form-group'>\n";
+			
+			// begin form row
+			$res.="<div class='form-row justify-content-center align-items-center'>";
 			
 			$res.="<span>0</span>\n";
 			
+			// begin form col
+			$res.="<div class='col-md-11'>";
+			
 			$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
-			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>" . round($this->getPrzt(),0) . "\n";
+			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
+			
+			// end form coll
+			$res.="</div>";
+			
+			$res.= round($this->getPrzt(),0) . "\n";
+			
+			// end form row
+			$res.="</div>";
+			
 			$res.="</div>\n";
 			$res.="</li>\n";
 			return $res;
