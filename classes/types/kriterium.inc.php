@@ -48,13 +48,11 @@ class Kriterium{
 					// begin inner form row
 					$res.="<div class='form-row'>";
 					
-						// begin inner form col
 						$res.="<div class='col-1'>";
 						$res.="<span>0</span>\n";
 						$res.="</div>";
 						
 						$res.="<div class='col-9'>";
-						
 						$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
 						value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
 						$res.="</div>";
@@ -62,15 +60,12 @@ class Kriterium{
 						$res.="<div class='col-1'>";
 						$res.= round($this->getPrzt(),0) . "\n";
 						$res.="</div>";
-						
-						// end innerform col
-						$res.="</div>";
 					
-					// end inner form col
+					// end outer form row
 					$res.="</div>";
 			
-			// end outer form row
-			$res.="</div>";
+				// end outer form col
+				$res.="</div>";
 			
 			// moved the label outside list group
 			$res.="<div class='col-1'>";
