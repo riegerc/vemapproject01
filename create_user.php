@@ -90,8 +90,8 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                     <?php
                                     $sql = "SELECT roles.objectID AS userRoleID, roles.name 
                                             FROM roles 
-                                            WHERE roles.objectID BETWEEN 2 AND 5 OR objectID=12 
-                                            ORDER BY userRoleID = 12 DESC, userRoleID";
+                                            WHERE roles.objectID <> 2 
+                                            ORDER BY userRoleID DESC";
                                     $stmt = connectDB()->query($sql);
                                     while ($row = $stmt->fetch()) {
                                         echo "<option value='$row[userRoleID]'>$row[name]</option>";
