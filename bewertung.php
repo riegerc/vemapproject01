@@ -45,7 +45,7 @@ foreach($chart->getBewertungen() as $bewertung){
     <div class="content">
 	<h2><?php echo $chart->getSupplierName() ?></h2>
         <canvas id="mainCanvas"></canvas>
-		<a href="review_auswertung.php">Details</a>
+		<a href="review_auswertung.php?lieferantid=<?=$lieferantid?>">Details</a>
     </div>
 </div>
 

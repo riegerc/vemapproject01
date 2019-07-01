@@ -11,6 +11,7 @@ $title = "Reviewauswertung"; // defines the name of the current page, displayed 
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
+require_once("include/helper.inc.php");
 ?>
 
 <div class="container-fluid">
@@ -21,13 +22,17 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <?php
 $db = connectDB();
 
-$reviewedcompanies = [];
-$statement = $db->query("SELECT DISTINCT supplierUserFID FROM reviews");
-while ($row = $statement->fetch()) {
-	array_push($reviewedcompanies, (int) $row["supplierUserFID"]);
+if (isset($_GET["lieferantid"])) {
+	$lieferantid = (int) Helper::sanitize($_GET["lieferantid"]);
+	$reviewedcompanies = [$lieferantid];
+} else {
+	$reviewedcompanies = [];
+	$statement = $db->query("SELECT DISTINCT supplierUserFID FROM reviews");
+	while ($row = $statement->fetch()) {
+		array_push($reviewedcompanies, (int) $row["supplierUserFID"]);
+	}
 }
 
-$Kriterium = "";
 foreach ($reviewedcompanies as $company) {
 	$statement = $db->prepare("SELECT branchName FROM user WHERE objectID=?");
 	$statement->execute([$company]);
@@ -42,14 +47,27 @@ foreach ($reviewedcompanies as $company) {
 	WHERE supplierUserFID=?
 	GROUP BY undercriteriaFID");
 	$statement->execute([$company]);
+
+	$result = $statement->fetchAll(PDO::FETCH_ASSOC);
 	
-	while($row = $statement->fetch()) {
+	$sum = [];
+	foreach ($result as $row) {
+		if (!isset($sum[$row["critname"]])) {
+			$sum[$row["critname"]] = round($row["avgmark"], 2);
+		} else {
+			$sum[$row["critname"]] += round($row["avgmark"], 2);
+		}
+	}
+
+	$Kriterium = "";
+
+	foreach($result as $row) {
 		if ($Kriterium != $row["critname"]) {
 			if ($Kriterium != "") echo "</ul>";
 			$Kriterium = $row["critname"];
-			echo "<span class='criterion'>$Kriterium</span>\n<ul id='nostyle'>\n";
+			echo "<span class='criterion'>$Kriterium</span> (Summe: " . number_format($sum[$Kriterium],2,",",".") . ")\n<ul id='nostyle'>\n";
 		}
-		echo "<li><span class='subcriterion'>$row[subname] : $row[avgmark]</span></li>\n";
+		echo "<li><span class='subcriterion'>$row[subname] : " . number_format($row["avgmark"],2,",",".") . "</span></li>\n";
 	}
 	echo "</ul>\n";
 }
