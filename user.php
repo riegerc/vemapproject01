@@ -10,11 +10,12 @@ include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 $suche="%%";
-if(isset($_GET["delete"])){
+// Löschfunktion
+if(isset($_POST["delete"])){
     $sql="DELETE FROM user 
     WHERE objectID = :user";
     $statement=connectDB()->prepare($sql);
-    $statement->bindParam(":user", $_GET["delete"]);
+    $statement->bindParam(":user", $_POST["delete"]);
     $statement->execute();
 }
 ?>
@@ -61,6 +62,7 @@ if(isset($_GET["delete"])){
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
+//            Button schickt mit POST
             echo "<td>
             <form action='update_user.php' method='post'>
             <button type='submit' name='user' value='$row[objectID]' style='
@@ -88,7 +90,18 @@ if(isset($_GET["delete"])){
             echo "<td>$row[city]</td>";
             echo "<td>$row[country]</td>";
             echo "<td>$row[sectorCode]</td>";
-            echo "<td><a href='?delete=$row[objectID]'>löschen</a></td>";
+            // Löscht den User aus der Datenbank
+            echo "<td>
+            <form action='update_user.php' method='post'>
+            <button type='submit' name='delete' value='$row[objectID]' style='
+            /*border:0;
+            background-color:transparent;
+            color: blue;
+            text-decoration:underline;*/'
+            >löschen</button>
+            </form>
+            </td>";
+            // <a href='?delete=$row[objectID]'>löschen</a>
             echo "</tr>";
         }
         echo "</table>";
