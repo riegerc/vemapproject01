@@ -46,11 +46,17 @@ if(isset($_GET['update'])){
     echo "Produkt: <strong>".$row['name']."</strong>";
 ?>
 
-<br><br>Menge: <br>
+<br>
+    <br>
+    <fieldset>
+        <legend>Menge: </legend>
+
         <input type="number" class="form-control" value="1" min="1" name="amount"/>
+    </fieldset>
 
-<br><br><strong>Adresse:</strong>
-
+<br>
+<fieldset>
+    <legend>Adresse: </legend>
 <?php
 $user=1;
  $sql="SELECT * FROM user 
@@ -60,17 +66,17 @@ WHERE objectID = :user";
   $stmt->execute();
 
   while( $row=$stmt->fetch() ) {
-      echo "<br>".$row['branchName'];
+      echo $row['branchName'];
       echo "<br>".$row['street'];
       echo $row['houseNumber'];
       echo "<br>".$row['postCode']."&nbsp;";
       echo $row['city'];
-      echo "<br>".$row['country'];
+      echo "<br>".$row['country']."<br>";
   }
 ?>
 
- <br><a href='webshop_change_delivery_address.php'>An eine andere Adresse liefern</a>
-<br>
+    <a href='webshop_change_delivery_address.php'>An eine andere Adresse liefern</a><br>
+    </fieldset>
     <input type="hidden" name="update" value="<?php echo htmlspecialchars($_GET["update"]);?>">
     <input type='submit' name='order' value='Bestellen'>
 
