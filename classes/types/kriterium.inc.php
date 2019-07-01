@@ -74,7 +74,10 @@ class Kriterium{
 			// moved the label outside list group
 			$res.="<div class='col-1'>";
 			$res.="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
-			$res.="</div'>";
+			$res.="</div>";
+			
+			// end outer form row
+			$res.="</div>";
 			
 			$res.="</li>\n";
 			return $res;
