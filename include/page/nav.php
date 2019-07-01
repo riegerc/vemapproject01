@@ -24,7 +24,9 @@ $navigationItems =
                 ],
                 ["name" => "Bewertungen",
                     "links" => [
-                        ["name" => "Lieferant", "url" => "lieferant.php", "minUserLevel" => PERM_VIEW_REVIEW],
+                        ["name" => "Bewertung verwalten", "url" => "kriterien.php", "minUserLevel" => PERM_VIEW_REVIEW],
+                        ["name" => "Lieferant bewerten", "url" => "lieferant.php?what=1", "minUserLevel" => PERM_VIEW_REVIEW],
+                        ["name" => "Auswertung", "url" => "lieferant.php?what=2", "minUserLevel" => PERM_VIEW_REVIEW],
                     ],
                     "icon" => "<i class='fas fa-edit'></i>",
                     "minUserLevel" => PERM_VIEW_RATING_MENU

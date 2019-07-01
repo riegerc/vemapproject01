@@ -1,4 +1,7 @@
 <?php
+/*
+Autor: Theo Isporidi
+*/
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 
@@ -53,8 +56,7 @@ foreach ($reviewedcompanies as $company) {
 
 
 ?>
-		
-
+	<a href="bewertung.php">Zur Übersicht</a>
     </div>
 </div>
 

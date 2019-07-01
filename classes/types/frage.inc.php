@@ -1,4 +1,7 @@
 <?php
+/*
+Autor: Christian Riedler
+*/
 class Frage{
 	private $id;
 	private $gewichtung;
