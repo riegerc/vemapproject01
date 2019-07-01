@@ -48,13 +48,13 @@ if(isset($_POST["senden"])){
 					<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 					<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 					<?php
-					foreach($fragen as $frage){
-						echo "<h2>".$frage->getName()."</h2>";
-						echo "<ul class='no-style' id='slds".$frage->getId()."'>";
-						foreach($frage->getKriterien() as $kriterium){
+					foreach($fragen as $frage) {
+						echo "<h2>" . $frage->getName() . "</h2>\n";
+						echo "<ul class='list-group' id='slds" . $frage->getId() . "'>\n";
+						foreach($frage->getKriterien() as $kriterium) {
 							echo $kriterium;
 						}
-						echo "</ul>";
+						echo "</ul>\n";
 					}
 					?>
 					<div class="col-md-2 form-button-wrap">
