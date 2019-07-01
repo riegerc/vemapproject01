@@ -23,7 +23,7 @@ if(isset($_GET['selRightId']) && isset($_GET['selRightSel'])){
     $selRightSel = (int)$_GET['selRightSel'];
     $selRightSel = $selRightSel > 0 ? 0 : 1;
 }
-$hasEditPermission = $perm->hasPermission(PERM_EDIT_PERM);
+$hasEditPermission = $perm->hasPermission(PERM_EDIT_PERM); #has user edit permission?
 
 if(isset($_POST['saverolerights']) && $hasEditPermission){    
     unset($_POST['saverolerights']);
