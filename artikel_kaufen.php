@@ -16,26 +16,10 @@ $update = $_POST["update"];
 $userFID= $_SESSION[USER_ID];
 $employee=$userFID;
 
-// Time and Date
-$time=time();
-$date=date("Y-m-d",$time);
 
-$sql="INSERT INTO `order`
-(employeeUserFID, dateTime)
-VALUES
-(:employee, :date)
-";
-
-$db = connectDB();
-$statement=$db->prepare($sql);
-$statement->bindParam(":employee", $employee);
-$statement->bindParam(":date", $date);
-$statement->execute();
-$orderID=$db->lastInsertId();
-//echo $orderID;
 
 //Name und Wert des Artikels aus der DB
-$sql="SELECT name, article.price as articlePrice FROM article
+$sql="SELECT name, article.price as articlePrice, article.supplierUserFID FROM article
 INNER JOIN orderitems
 ON article.objectID = orderitems.articleFID
 WHERE article.objectID=$update
@@ -45,10 +29,30 @@ $statement=connectDB()->query($sql);
 $statement->execute();
 
 while($row=$statement->fetch()){
+    $supplierID=$row["supplierUserFID"];
     $articleName=$row["name"];
     $articlePrice=$row["articlePrice"];
 }
 $wholeAmount=$articlePrice*$amount;
+
+// Time and Date
+$time=time();
+$date=date("Y-m-d",$time);
+
+$sql="INSERT INTO `order`
+(employeeUserFID, dateTime, supplierUserFID)
+VALUES
+(:employee, :date, :supplier)
+";
+
+$db = connectDB();
+$statement=$db->prepare($sql);
+$statement->bindParam(":employee", $employee);
+$statement->bindParam(":supplier", $supplierID);
+$statement->bindParam(":date", $date);
+$statement->execute();
+$orderID=$db->lastInsertId();
+//echo $orderID;
 
 // Bestellung in die Datenbank einfügen
 $sql="INSERT INTO orderitems
