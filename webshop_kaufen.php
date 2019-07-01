@@ -9,14 +9,13 @@ $title = "Webshop kaufen"; // defines the name of the current page, displayed in
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
-if(isset($_GET['update'])){
-            $objectID=(int)$_GET['update'];
+if(isset($_POST['update'])){
+            $objectID=(int)$_POST['update'];
 }elseif(isset($_POST['update'])){
     $objectID=(int)$_POST['objectID'];
 }else{
     exit("Kein object gewaehlt");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -28,52 +27,55 @@ if(isset($_GET['update'])){
 <body>
 <div class="container-fluid">
 <form action="artikel_kaufen.php" method="post">
-    <?php
+<?php
+var_dump($_POST);
+if(isset($_POST['update'])){
+//    $name=$_POST['name'];
+//    $price=$_POST['price'];
+//    $description=$_POST['description'];
+}
 
-    if(isset($_POST['update'])){
-        $name=$_POST['name'];
-        $price=$_POST['price'];
-        $description=$_POST['description'];
-    }
+$sql="SELECT * FROM article WHERE objectID=:objectID";
+$stmt=connectDB()->prepare($sql);
+$stmt->bindParam(":objectID",$objectID);
+$stmt->execute();
 
-    $sql="SELECT * FROM article WHERE objectID=:objectID";
-    $stmt=connectDB()->prepare($sql);
-    $stmt->bindParam(":objectID",$objectID);
-    $stmt->execute();
-
-    $row=$stmt->fetch();
-    echo "<h3>Artikel Bestellen:</h3><br>\n";
-    echo "Produkt: <strong>".$row['name']."</strong>";
+$row=$stmt->fetch();
+echo "<h3>Artikel Bestellen:</h3><br>\n";
+echo "Produkt: <strong>".$row['name']."</strong>";
 ?>
 
-<br><br>Menge: <br>
-        <input type="number" class="form-control" value="1" min="1" name="amount"/>
-
-<br><br><strong>Adresse:</strong>
-
+<br>
+<br>
+<fieldset>
+    <legend>Menge: </legend>
+    <input type="number" class="form-control" value="1" min="1" name="amount"/>
+</fieldset>
+<br>
+<fieldset>
+    <legend>Adresse: </legend>
 <?php
-$user=1;
- $sql="SELECT * FROM user 
+$user= $_SESSION[USER_ID];
+
+$sql="SELECT * FROM user 
 WHERE objectID = :user";
   $stmt=connectDB()->prepare($sql);
   $stmt->bindParam(":user", $user);
   $stmt->execute();
 
-  while( $row=$stmt->fetch() ) {
-      echo "<br>".$row['branchName'];
-      echo "<br>".$row['street'];
-      echo $row['houseNumber'];
-      echo "<br>".$row['postCode']."&nbsp;";
-      echo $row['city'];
-      echo "<br>".$row['country'];
-  }
+while( $row=$stmt->fetch() ) {
+  echo $row['branchName'];
+  echo "<br>".$row['street'];
+  echo $row['houseNumber'];
+  echo "<br>".$row['postCode']."&nbsp;";
+  echo $row['city'];
+  echo "<br>".$row['country']."<br>";
+}
 ?>
-
- <br><a href='webshop_change_delivery_address.php'>An eine andere Adresse liefern</a>
-<br>
-    <input type="hidden" name="update" value="<?php echo htmlspecialchars($_GET["update"]);?>">
+    <a href='webshop_change_delivery_address.php'>An eine andere Adresse liefern</a><br>
+    </fieldset>
+    <input type="hidden" name="update" value="<?php echo htmlspecialchars($_POST["update"]);?>" readonly>
     <input type='submit' name='order' value='Bestellen'>
-
 </form>
 </div>
 </body>
