@@ -7,12 +7,14 @@
 }
 
 /* HTML-Tags */
+body {color: #3a3a3a}
 
 
 /* Styling for ids */
 #wrapper {background-color: var(--ams-background);}
 #page-logo {width: 70px; height: auto;}
 #no-style {list-style: none;}
+table#overview th {min-width: 10em}
 
 /* Styling for classes */
 .fa, .fas { text-align: center; width: 1.2em;}
@@ -25,7 +27,7 @@
 .buttonrow {text-align: center;}
 .rrtable th, .rrtable td {padding: 0;}
 .checkbox-table {max-width: 1em;}
-.card-landing {margin-bottom: 1em; height: 13em;}
+.card-landing {margin-bottom: 1em; min-height: 13em;}
 .card-landing:hover {
     -webkit-box-shadow: 10px 10px 26px -8px rgba(9,59,125,1);
     -moz-box-shadow: 10px 10px 26px -8px rgba(9,59,125,1);

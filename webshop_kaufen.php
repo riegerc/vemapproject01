@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 
@@ -61,8 +61,7 @@ if (isset($_GET['update'])) {
 
                         while ($row = $stmt->fetch()) {
                             echo $row['branchName'];
-                            echo "<br>" . $row['street'];
-                            echo $row['houseNumber'];
+                            echo "<br>" . $row['street'] . " " . $row['houseNumber'];
                             echo "<br>" . $row['postCode'] . "&nbsp;";
                             echo $row['city'];
                             echo "<br>" . $row['country'];
