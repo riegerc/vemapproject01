@@ -38,29 +38,30 @@ if(isset($_GET["delete"])){
         echo "<table class='table table-bordered table-striped table-hover' id='shortTable'>";
         echo "<thead>";
         echo "<tr>";
-                echo "<th>Vorname:</th>";
-                echo "<th>Nachname:</th>";
-                echo "<th>Email:</th>";
-                echo "<th>role:</th>";
-                echo "<th>Budget:</th>";
-                echo "<th>Telefon:</th>";
-                echo "<th>Mobil:</th>";
-                echo "<th>Filiale:</th>";
-                echo "<th>Straße:</th>";
-                echo "<th>Haus Nr.:</th>";
-                echo "<th>Stiege:</th>";
-                echo "<th>Tür:</th>";
-                echo "<th>PLZ:</th>";
-                echo "<th>Stadt:</th>";
-                echo "<th>Land:</th>";
-                echo "<th>Sektor:</th>";
-                echo "<th>Bearbeiten</th>";
-                echo "<th>Löschen</th>";
+            echo "<th>Bearbeiten</th>";
+            echo "<th>Vorname:</th>";
+            echo "<th>Nachname:</th>";
+            echo "<th>Email:</th>";
+            echo "<th>role:</th>";
+            echo "<th>Budget:</th>";
+            echo "<th>Telefon:</th>";
+            echo "<th>Mobil:</th>";
+            echo "<th>Filiale:</th>";
+            echo "<th>Straße:</th>";
+            echo "<th>Haus Nr.:</th>";
+            echo "<th>Stiege:</th>";
+            echo "<th>Tür:</th>";
+            echo "<th>PLZ:</th>";
+            echo "<th>Stadt:</th>";
+            echo "<th>Land:</th>";
+            echo "<th>Sektor:</th>";
+            echo "<th>Löschen</th>";
         echo "</tr>";
         echo "</thead>";
 
         while( $row=$statement->fetch() ) {
             echo "<tr>";
+            echo "<td><a href='update_user.php?user=$row[objectID]'>bearbeiten</a></td>";
             echo "<td>$row[firstName]</td>";
             echo "<td>$row[lastName]</td>";
             echo "<td>$row[email]</td>";
@@ -77,7 +78,6 @@ if(isset($_GET["delete"])){
             echo "<td>$row[city]</td>";
             echo "<td>$row[country]</td>";
             echo "<td>$row[sectorCode]</td>";
-            echo "<td><a href='update_user.php?user=$row[objectID]'>bearbeiten</a></td>";
             echo "<td><a href='?delete=$row[objectID]'>löschen</a></td>";
             echo "</tr>";
         }
