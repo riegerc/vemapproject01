@@ -1,4 +1,6 @@
 <?php
+// Author: Oliver Stingl
+
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "constant.php";
 require_once "include/database.php";

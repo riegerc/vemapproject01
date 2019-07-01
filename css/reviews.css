@@ -3,11 +3,11 @@ canvas{
 	width:70% !important;
 }
 ul.no-style{
-	list-style:none;
+	list-style:none; // will be replaced with BS classes
 }
 .mth-label{
 	color: red;
 }
 .mth-inp{
-	width:3%;
+	width:5%;
 }

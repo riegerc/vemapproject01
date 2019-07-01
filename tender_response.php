@@ -4,49 +4,85 @@ require_once "include/constant.php";
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
 $userLevel = ""; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
-$title = ""; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Angebot abgeben"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-?>
 
+$tenderFID = (int)$_GET["tenderID"];
+
+
+if (isset($_POST["Absenden"])) {
+
+    $price[] = htmlspecialchars($_POST["price$row[detailID]"]);
+    foreach ($_POST as $value) {
+        $sql = "INSERT INTO tendersresponse (supplierFID, tenderDetailFID, price, timeOfResponse, dateOfResponse, description)
+                  VALUES (:supplierFID, :tenderDetailFID,:price,:timeOfResponse,:dateOfResponse,:description)";
+
+        $stmt = connectDB()->prepare($sql);
+        $stmt->bindParam(":supplierFID", $row["supplierFID"]);
+        $stmt->bindParam(":tenderDetailFID", $row["detailID"]);
+//                    $stmt->bindParam(":price", $row["price"]);
+        $stmt->bindParam(":timeOfResponse", $time);
+        $stmt->bindParam(":dateOfResponse", $date);
+        $stmt->bindParam(":description", $row["supplierFID"]);
+        $stmt->execute();
+        echo "IN DATENBANK GESPEICHERT!";
+    }
+}
+
+?>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="tender_detail.php"><h6>&#8636 Zurück zur Ausschreibung</h6></a>
+            </div>
+            <div class="form-group form-button-wrap">
+                <input type="submit" class="btn btn-primary form-button" name="send" value="Angebot absenden">
+            </div>
+        </div>
+
+        <table class="table table-bordered" id="dataTable">
+            <thead>
+            <th>Pos. Nr.:</th>
+            <th>Position</th>
+            <th>Ihr Gebot</th>
+            <th>Langtext</th>
+            </thead>
+            <?php
+            $date = date("Y-m-d");
+            $time = date("H:i:s");
+
+            $sql = "SELECT *,tenderDetail.objectID AS detailID 
+                    FROM tenderDetail LEFT JOIN tenders ON tendersFID = tenders.objectID
+                    WHERE tendersFID = :tenderFID";
+            $stmt = connectDB()->prepare($sql);
+            $stmt->bindParam(":tenderFID", $tenderFID);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            echo "<h2>$row[tender]</h2>";
+
+            $posnr = 1;
+            var_dump($_POST);
+            while ($row = $stmt->fetch()) {
+                echo "<tr>";
+                echo "<td> 1.$posnr";
+                echo "<td>" . $row["position"] . "</td>";
+                echo "<td><input name='price$row[detailID]' id='price$row[detailID]' type='number'>\n";
+                echo "<td>" . $row["longtext"] . "</td>";
+                echo "</tr>";
+                $posnr++;
+
+            }
 
 
 
-        <?php //while ($row=$stmt->fetch()) {
 
-
-
-        //}; ?>
-    <a href="tender_detail.php?= <!-- hier ID der Ausschreibungfetchen -->" >&#8636 Zurück zur Ausschreibung</a>
-        <h2>Webdesign Büro</h2>
-
-    <!-- alle options etc. aus der Datenbank holen und daraus automatisch unterpunkte (1.1, 1.2, 1.3...) erstellen-->
-
-        1.1.:
-        10 Desktops <p>Langtext:  Prozessor: 3,4 GHz Quad-Core Intel Core i5 Prozessor
-        Arbeitsspeicher: 8 GB DDR 4 - 2400 RAM
-        Speicher: 1 TB Fusion Drive
-        Grafik: Radeon Pro 570 mit 4 GB GDDR5 Grafikspeicher </p> Preis: <input name="" type="number">
-          <br>
-        1.2.:
-        10  Monitore <p>Langtext: 27 Zoll (68,58 cm) Retina 5K Display mit 5.120 x 2.880 Pixeln </p> Preis: <input name="" type="number">
-        <br>
-        1.3.:
-        10 Mäuse <p>Langtext: Logitech MX Vertical Ergonomische Maus 910-005448</p> Preis: <input name="" type="number">
-        <br>
-        1.4.:
-        10 Tastatur <p>Langtext: Microsoft Surface Ergonomische Tastatur </p> Preis: <input name="" type="number">
-        <br>
-        1.5.:
-        10 HDMI Kabel <p>Langtext: 5m - Ultra HD 4k HDMI Kabel 2.0b 60Hz 18GBit/s </p> Preis: <input name="" type="number">
-       <br>
-<br>
-    <button class="btn btn-success">Angebot verpflichtend abgeben</button> <!-- mit submit button austauschen -->
-
-    </div>
+            ?>
+        </table>
+    </form>
 </div>
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
