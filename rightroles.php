@@ -6,7 +6,7 @@ $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once 'include/constant.php';
 $pageRestricted = true; // defines if the page is restricted to logged-in Users only
 $userLevel = PERM_VIEW_PERMISSIONS; //uses a PERM_ const now and hasPermission($userLevel) now if fails  a 403 Error-Page is returned # #PERM_EDIT_PERM
-$title = "Recht Rollenzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Rechte und Rollenzuweisung"; // defines the name of the current page, displayed in the title and as a header on the page
 require_once "include/init.php"; // includes base function like session handling
 require_once "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 $selRoleId  = -1;
