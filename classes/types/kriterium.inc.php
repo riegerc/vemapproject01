@@ -33,7 +33,7 @@ class Kriterium{
 	public function setPrzt(float $przt){
 		$this->przt=$przt;
 	}
-	public function __toString(){
+	public function not_use(){
 			// begin outer form row
 			$res="<div class='form-row'>";			
 				$res.="<li class='list-group-item'>$this->name\n";			

@@ -42,10 +42,11 @@ else{
         $rolesFID=4;
         $sql="SELECT objectID, branchName
         FROM user
-        WHERE rolesFID=:rolesFID";
+        WHERE rolesFID=:rolesFID ";
 		if($role == 4){
-			$sql.=" AND objectID=$userid";
+			$sql.=" AND objectID=$userid ";
 		}
+		$sql.="ORDER BY branchName";
         $stmt=$db->prepare($sql);
         $stmt->bindParam(":rolesFID",$rolesFID);
         $stmt->execute();

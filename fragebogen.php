@@ -50,7 +50,17 @@ if(isset($_POST["senden"])){
 						echo "<h2>" . $frage->getName() . "</h2>\n";
 						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
 						foreach($frage->getKriterien() as $kriterium) {
-							echo $kriterium;
+							
+							$maxInputRange=round($kriterium->getPrzt(),0);
+							
+							echo "<div class='form-group'>";
+						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>";
+							
+							echo "<span>0</span>";
+							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001'>";
+							echo "<span>" . $maxInputRange . "</span>";
+							
+							echo "</div>";
 						}
 						echo "</ul>\n";
 						echo "<br>\n";
