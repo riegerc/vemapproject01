@@ -24,12 +24,15 @@ if (isset($_GET['update'])) {
         <div class="row">
             <div class="col-md-6">
                 <?php
-                if (isset($_POST['update'])) {
+              /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
+              derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
+              wenn ja geb ma die beiden nach den Select noch ein article.price, article.description 
+               if (isset($_POST['update'])) {
                     $name = $_POST['name'];
                     $price = $_POST['price'];
                     $description = $_POST['description'];
-                }
-                $sql = "SELECT * FROM article WHERE objectID=:objectID";
+                }*/
+                $sql = "SELECT article.name FROM article WHERE article.objectID=:objectID";
                 $stmt = connectDB()->prepare($sql);
                 $stmt->bindParam(":objectID", $objectID);
                 $stmt->execute();
@@ -52,9 +55,9 @@ if (isset($_GET['update'])) {
                 <div class="card">
                     <div class="card-body">
                         <?php
-                        $user = 1;
-                        $sql = "SELECT * FROM user
-                              WHERE objectID = :user";
+                        $user = $_SESSION[USER_ID];
+                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country FROM user
+                              WHERE user.objectID = :user";
                         $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":user", $user);
                         $stmt->execute();
