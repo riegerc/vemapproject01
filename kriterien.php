@@ -99,8 +99,9 @@ foreach($kriterien as $kriterium){
                             <input class='form-control form-control-critera' type='number'  min='1' max='10' name='inp".$kriterium->getId().
 							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
 							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ") ";
-					if(count($unterkriterien)>0&&!isset($kid)){
-						$ausgabe.= "<ul id='no-style'>";
+							$ausgabe.= "<ul id='no-style'>";
+
+							if(count($unterkriterien)>0&&!isset($kid)){
 							foreach($unterkriterien as $unterkriterium){
 								$ausgabe.="<li>
                                                 <a href='?deletesub=". $unterkriterium->getID() . "'>
@@ -110,6 +111,7 @@ foreach($kriterien as $kriterium){
 											<span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
 											", in Prozent: " . number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
+						}
 						if(!isset($kid)){
 							$ausgabe.="<li>
                                             <a href='?add=".$kriterium->getId()."'>
@@ -117,9 +119,8 @@ foreach($kriterien as $kriterium){
                                                 </div>
                                             </a>
                                        </li>";
-						}
-						$ausgabe.="</ul>";
 					}
+				$ausgabe.="</ul>";
 				$ausgabe.="</li>";
 			}
 			echo $ausgabe;
