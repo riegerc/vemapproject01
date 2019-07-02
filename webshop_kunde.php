@@ -32,7 +32,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         //budget
         $sql="SELECT user.budget FROM user WHERE user.objectID=".$_SESSION[USER_ID]."";
         $stmt = connectDB()->query($sql);
-        $budget="";
+        $budget=0;
         foreach($stmt as $row){
             $budget.= $row['budget'];
         }
@@ -68,7 +68,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <input type="number" name='bisPreis' id='bisPreis' class="form-control">
                 </div>
                 <div class="form-group col-md-2 form-button-wrap" >
-                    <input type="submit" class="btn btn-primary form-button" name="suche_senden" id="suche_senden" value='Suchen'/><br>
+                    <button type="submit" class="btn btn-primary form-button" name="suche_senden" id="suche_senden" value='Suchen'>
+                        <i class="fas fa-search"></i> Suchen
+                    </button>
                 </div>
             </div>
         </form>
