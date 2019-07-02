@@ -11,7 +11,7 @@ function countVals(labelid){
 	var ul=document.getElementById("slds"+labelid);
 	var lis=ul.children;
 	for(var i=0;i<lis.length;i++){
-		var inputs =lis[i].getElementsByTagName("input");
+		var inputs =lis[i].querySelectorAll('input[type=range]');
 		for(var j=0;j<inputs.length;j++){
 			console.log(inputs[j].value);
 			sum+=parseFloat(inputs[j].value);
