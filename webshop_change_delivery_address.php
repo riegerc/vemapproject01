@@ -48,7 +48,7 @@ $db = connectDB();
 
                 $stmt->execute();
 
-               echo "<meta http-equiv='refresh' content='0; url=webshop_kaufen.php?update=".(int)$_SESSION['artikelID']."'>";  
+               echo "<meta http-equiv='refresh' content='0; url=webshop_kaufen.php?update=".(int)$_SESSION['artikelID']."'>";  //up
             }
             ?>
 
