@@ -8,8 +8,7 @@ $title = "Ausschreibung erstellen"; // defines the name of the current page, dis
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
-if(isset($_GET))
-{var_dump($_GET);}
+
 
 if (isset($_POST["absenden"])) {
     if (isset($_SESSION[USER_ID])) {
@@ -80,53 +79,6 @@ WHERE rolesFID=6 OR rolesFID=4";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
-if (isset($_POST["absenden"])) {
-    $ordner = "temp";
-    $dateiname = $_FILES["datei"]["name"];
-    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
-    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
-    $dateiname = str_replace($alt, $neu, $dateiname);
-
-    move_uploaded_file($_FILES["datei"]["tmp_name"], "$ordner/$dateiname");
-    echo "DANKE FÜR IHRE DATEI!!!";
-}
-
-function readCSV($filename = "upload.csv")
-{
-    $file = file("temp/$filename");
-    $sql = "INSERT INTO tenderDetail(
-                                             tendersFID,
-                                             position,
-                                             `longtext`,
-                                             amount)
-                    VALUES (
-                            :tendersFID,
-                            :position,
-                            :langtext,
-                            :amount)";
-    foreach ($file as $output) {
-        $dismantle = explode(";", $output);
-        if (!in_array("tendersFID", $dismantle)) {
-            if (!in_array("tendersFID", $dismantle)) $tendersFID = $dismantle[0];
-            if (!in_array("position", $dismantle)) $position = $dismantle[1];
-            if (!in_array("langtext", $dismantle)) $amount = $dismantle[3];
-            if (!in_array("amount", $dismantle)) $longtext = $dismantle[2];
-
-            $stmt = connectDB()->prepare($sql);
-            $stmt->bindParam(":tendersFID", $tendersFID);
-            $stmt->bindParam(":position", $position);
-            $stmt->bindParam(":longtext", $longtext);
-            $stmt->bindParam(":amount", $amount);
-            $stmt->execute();
-        }
-    }
-}
-
-if (isset($_FILES)) {
-    readCSV();
-};
-
-
 ?>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
@@ -139,11 +91,11 @@ if (isset($_FILES)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Ausschreibung *</label>
+                        <label>Ausschreibung</label>
                         <input type="text" name="tender" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Ausschreibungs type *</label>
+                        <label>Ausschreibungs type</label>
                         <select name="tenderType" class="form-control" required>
                             <option name="Dienstleistung" value="Dienstleistung">
                                 Dienstleistung
@@ -154,36 +106,30 @@ if (isset($_FILES)) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Beginn *</label>
+                        <label>Beginn</label>
                         <input type="date" name="begin" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Ende *</label>
+                        <label>Ende</label>
                         <input type="date" name="end" class="form-control" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="description">Auftragsbeschreibung *</label>
-                        <textarea name="description" class="form-control" rows="4" required></textarea>
+                        <label for="description">Auftragsbeschreibung</label>
+                        <textarea name="description" class="form-control" rows="7" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb):
-                            <input name="datei" type="file" multiple size="25" accept=".pdf">
-                            <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
-                        </label>
+                        <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb)</label>
+                        <input name="datei[]" class="form-control-file" type="file" multiple size="25" accept=".pdf">
+                        <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                     </div>
                     <div class="form-group">
-                        <a href="temp/test.csv">CSV Herunterladen</a><br>
+                        <label>Upload für Ausschreibungs Excel</label>
+                        <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx">
                     </div>
-                    <div class="form-group">
-                        <label>Upload für Ausschreibungs Excel *</label>
-                        <input type="file" class="form-control-file" name="datei" accept=".csv,.xls,.xlsx"><br>
-                    </div>
-
                 </div>
                 <div class="col-md-6">
                     <div class="table-responsive-lg">
-                        <table class="table table-bordered table-striped table-hover" id="tableName">
+                        <table class="table table-bordered table-striped table-hover" :id="tableName">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -223,19 +169,18 @@ if (isset($_FILES)) {
                     </div>
                     <br>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary form-button" name="absenden">Ausschreibung
-                            erstellen
+                        <button type="submit" class="btn btn-primary form-button" name="absenden">
+                            <i class="fas fa-check"></i> Ausschreibung erstellen
                         </button>
                     </div>
                     <div class="form-group">
-                        <button type="reset" class="btn btn-danger form-button">Formular zurücksetzen</button>
+                        <button type="reset" class="btn btn-danger form-button">
+                            <i class="fas fa-undo-alt"></i> Formular zurücksetzen
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
-    </div>
-    <div class="alert alert-dark" role="alert">
-        * Pflichtfeld
     </div>
 </div>
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
