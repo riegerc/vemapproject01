@@ -52,7 +52,6 @@ $navigationItems =
         <div class="sidebar-brand-icon">
             <img src="<?php echo PAGE_ICON ?>" id="page-logo" alt="Seiten-Logo"/>
         </div>
-        <div class="sidebar-brand-text mx-3"><?php echo PAGE_NAME ?></div>
     </a>
     <hr class="sidebar-divider my-0">
     <?php
