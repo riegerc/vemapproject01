@@ -14,7 +14,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <div class="content">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
         <?php
-
+        $userID= $_SESSION[USER_ID];
         /*SQL Abfrage  */
         $db = connectDB();
 
@@ -26,7 +26,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             $stmt->bindParam(":objectID", $order_id);
             $stmt->execute();
         }
-
+            //Lieferant darf nur seine eigenen Daten sehen
         $sql = "SELECT 
             article.objectID as article_id, 
             article.name as article_name, 
@@ -38,15 +38,33 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             orderitems.articleFID as order_articleFID, 
             orderitems.count as order_count, 
             orderitems.price as order_price,
-            orderitems.ordered as ordered,
-            user.budget as budget 
+            orderitems.ordered as ordered
+            FROM article, orderitems, user
+            
+            WHERE article.objectID=orderitems.articleFID AND $userID=article.supplierUserFID;";
+
+           //wenn SuperAdmin dann darf er alle Einträge sehen und bearbeiten
+        if($_SESSION[USER_ROLE]==2){
+            $sql = "SELECT 
+            article.objectID as article_id, 
+            article.name as article_name, 
+            article.articleGroupFID as article_groupFID, 
+            article.price as article_price, 
+            article.description article_description, 
+            orderitems.objectID as order_id, 
+            orderitems.orderFID as orderFID, 
+            orderitems.articleFID as order_articleFID, 
+            orderitems.count as order_count, 
+            orderitems.price as order_price,
+            orderitems.ordered as ordered
             FROM article, orderitems, user
             
             WHERE article.objectID=orderitems.articleFID AND user.objectID=article.supplierUserFID;";
+        }
 
         $auswahl = "";
         foreach ($db->query($sql) as $row) {
-            $buget = $row['budget'];
+            
             $auswahl .= "    <tr>\n";
             $auswahl .= "    <td>" . $row['article_name'] . "</td>\n";
             $auswahl .= "    <td>" . $row['article_price'] . "&euro;" . "</td>\n";
@@ -59,6 +77,11 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 $auswahl .= "<td> <a href='?order=".$row['order_id']."'>Bestätigen</a><br></td>\n";
             }
             $auswahl .= "    </tr>";
+        }
+        //budget aus DB befüllen
+        $sql = "SELECT user.budget FROM `user` WHERE user.objectID= $userID";
+        foreach ($db->query($sql) as $row) {
+           $buget = $row['budget'];
         }
         ?>
         <h4>Kontostand: <?php echo number_format($buget,2,',','.'); ?>&euro;</h4>
