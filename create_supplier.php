@@ -274,7 +274,7 @@ if (isset($_POST['submit'])) {
             $msg = wordwrap($msg,90);
 
 
-            mb_send_mail("Dominik Navid <d.navid.electronics@gmail.com>", "Ihre Zugangsdaten zu unserem Portal", $msg);
+            mb_send_mail("Dominik Navid <d.navid.electronics@gmail.com>", "Ihre Zugangsdaten zu unserem Portal", $msg, "e.schwartz@ams.at");
 echo $msg;
         }
 
