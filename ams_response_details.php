@@ -31,15 +31,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         $stmt->bindParam(":supplierFID", $supplierFID);
         $stmt->bindParam(":tenderID", $tenderID);
         $stmt->execute();
+        echo "<table>
+                <th>Position</th>
+                <th>Preis</th>";
         while ($row=$stmt->fetch()){
-            echo $row["price"];
-            echo "<br>";
-            echo $row["position"];
-            echo "<br>";
-
+            echo "<tr><td>".$row["position"]."</td>";
+            echo "<td>". number_format($row["price"],2,",",".") ." €" ."</td></tr>";
         }
-
-
         ?>
     </div>
 </div>
