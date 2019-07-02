@@ -161,10 +161,7 @@ if (isset($_FILES)) {
                         <label>Ende</label>
                         <input type="date" name="end" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label>Menge</label>
-                        <input type="number" name="amount" class="form-control" required>
-                    </div>
+
                     <div class="form-group">
                         <label for="description">Auftragsbeschreibung</label>
                         <textarea name="description" class="form-control" rows="4" required></textarea>
