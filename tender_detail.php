@@ -44,7 +44,7 @@ $dateEnd=date_create($row["end"]);
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-        <a href="overview_tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
+        <a href="overview_tenders.php" >&#8636 Zurück zu Ihren Ausschreibungen</a>
         <h2><?php echo $row["tender"] ?></h2>
         <a href="pdf.php?id=<?php echo $tenderGetID ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i>Ausschreibung als PDF herunterladen</button> </a>
         <a href="/uploads/anhang03_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 3</button> </a>
