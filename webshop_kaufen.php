@@ -9,13 +9,15 @@ $title = "Produkt bestellen"; // defines the name of the current page, displayed
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
-if (isset($_GET['update'])) {
+ if (isset($_GET['update'])) {
     $objectID = (int)$_GET['update'];
+    $_SESSION['artikelID']=$objectID;
 } else if (isset($_POST['update'])) {
     $objectID = (int)$_POST['objectID'];
+    $_SESSION['artikelID']=$objectID;
 } else {
     exit("Kein Objekt gewählt");
-}
+} 
 ?>
 <!-- update -->
 <div class="container-fluid">
@@ -24,6 +26,7 @@ if (isset($_GET['update'])) {
         <div class="row">
             <div class="col-md-12">
                 <?php
+        
               /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
               derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
               wenn ja geb ma die beiden nach den Select noch ein article.price, article.description 

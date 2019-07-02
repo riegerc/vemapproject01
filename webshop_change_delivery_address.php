@@ -47,6 +47,8 @@ $db = connectDB();
                 $stmt->bindParam(":country", $country);
 
                 $stmt->execute();
+
+               echo "<meta http-equiv='refresh' content='0; url=webshop_kaufen.php?update=".(int)$_SESSION['artikelID']."'>";  
             }
             ?>
 
