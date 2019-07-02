@@ -10,7 +10,9 @@ include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 
-$sql="SELECT objectID, tender FROM tenders ";
+$sql="SELECT tenders.objectID, tenders.tender,tenderDetail.amount AS amount FROM tenders 
+        INNER JOIN tenderDetail
+        ON tenders.objectID = tenderDetail.tendersFID ";
 $st = connectDB()->query($sql);
 #$x=$st->fetch();
 
@@ -49,16 +51,17 @@ $st = connectDB()->query($sql);
             #var_dump($row);
             echo "<tr><th colspan='3'><h3>$ten</h3></th></tr>";
             echo "<th>Firma</th>
-                <th>Preis</th>
+                <th>Gesamtpreis</th>
                 <th>Details</th>";
 
             do{
                 #echo $row["tender"];
+                $total=(float)$row["TotalPrice"] * $id["amount"];
                 echo "
                 <tr>
                 <td>$row[branchName]</td>" .
-                "<td>" . number_format($row["TotalPrice"],2,",",".") ." €" ."</td>".
-                "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]' class='btn btn-info'>Details</a></td>
+                "<td>" . number_format($total,2,",",".") ." €" ."</td>".
+                "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]&amount=$id[amount]' class='btn btn-info'>Details</a></td>
                 </tr>";
             }while ($row = $stmt->fetch());
             echo "<tr><td>&nbsp;</td></tr>";
