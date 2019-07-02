@@ -89,12 +89,6 @@ $dateEnd=date_create($row["end"]);
                     echo "/" . $row["door"] . "<br>" . $row["postCode"] . " " . $row["city"] . "<br>" . $row["country"] ?></td>
             </tr>
 
-            <tr> <!-- If Dienstleistung keine Menge einzeigen -->
-                <th scope="row">Menge:</th> <!-- If Dienstleistung keine Menge einzeigen -->
-                <td><?php echo $row["amount"] ?></td> <!-- If Dienstleistung keine Menge einzeigen -->
-            </tr> <!-- If Dienstleistung keine Menge einzeigen -->
-
-
             </thead>
 
         </table>
