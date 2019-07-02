@@ -97,8 +97,11 @@ if(isset($_POST["senden"])){
 				
 						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
 						
+						$collapse = "collapse";
+
+						$invalid="";
+						
 						if ($isFormSubmitted) {
-							// if the form was submitted, we collapse or not, otherwise always collapse (do not show the textarea)			
 							
 							if (($key = array_search($kriterium->getFkKriterium(), $toComment)) !== false) {
 								$shouldComment=true;
@@ -110,12 +113,12 @@ if(isset($_POST["senden"])){
 							} else {
 								$collapse = "collapse";
 								$invalid = "";
-							}
-							
-							echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
-							echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
-							echo "<textarea class='form-control $collapse $invalid' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
+							}							
 						}
+						
+						echo "<p class='up-down' data-toggle='collapse' data-target='#target" . $kriterium->getFkKriterium() . "' id='chk" . $kriterium->getFkKriterium() . "'><span class='fa fa-caret-right'></span>\n";
+						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label></p>\n";
+						echo "<textarea class='form-control $collapse $invalid' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
 					}
 					?>			
 			<div class="form-row">
