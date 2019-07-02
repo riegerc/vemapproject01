@@ -58,10 +58,10 @@ if(isset($_POST["senden"])){
 							echo "<div class='form-group'>";
 						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>";
 							
-							echo "<span>0</span>";
-							
 							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>";
-							echo "<span>" . $maxInputRange . "</span>";
+							
+							echo "<span class='float-left'>0</span>";
+							echo "<span class='float-right'>" . $maxInputRange . "</span>";
 							
 							echo "</div>";
 							
