@@ -50,6 +50,8 @@ if(isset($_POST["senden"])){
 						echo "<h2>" . $frage->getName() . "</h2>\n";
 						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
 						foreach($frage->getKriterien() as $kriterium) {
+							echo "<li class='list-group-item'>";
+							
 							
 							$maxInputRange=round($kriterium->getPrzt(),0);
 							
@@ -57,13 +59,22 @@ if(isset($_POST["senden"])){
 						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>";
 							
 							echo "<span>0</span>";
-							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001'>";
+							
+							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>";
 							echo "<span>" . $maxInputRange . "</span>";
 							
 							echo "</div>";
+							
+							echo "</li>";
 						}
 						echo "</ul>\n";
-						echo "<br>\n";
+				
+						echo "<label id='lbl" . $kriterium->getFkKriterium() . "' for='lbl" . $kriterium->getFkKriterium() . "'>0</label>\n";
+						/*
+						echo "<input type='checkbox' class='form-check-input' id='kommentarXX'>";
+						echo "<label class='form-check-label' for='kommentarXX'>Kommentar</label>";
+						echo "<textarea class='form-control'></textarea>";
+						*/
 					}
 					?>			
 			<div class="form-row">
