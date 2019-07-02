@@ -70,22 +70,7 @@ if(isset($_POST["senden"])){
 						echo "</ul>\n";
 				
 						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
-						
-						
-						/*
-						echo "<a href='#' class='btn btn-primary btn-lg' data-target='#targetElement' data-toggle='collapse'>Toggle Me Button</a>";
-						echo "<hr>";
-						echo "<div class='collapse' id='targetElement'>";
-							echo "<div class='panel panel-default'>";
-								echo "<div class='panel-heading'>Hello</div>";
-								echo "<div class='panel-body'>";
-									echo "Now click it again";
-								echo "</div>";
-							echo "</div>";
-						echo "</div>";
-						*/
-						
-						
+
 						echo "<input type='checkbox' data-target='#targetElement' data-toggle='collapse' class='form-check-input' id='chk" . $kriterium->getFkKriterium() . "'>";
 						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>";
 						echo "<textarea class='form-control collapse' id='targetElement'></textarea>";
