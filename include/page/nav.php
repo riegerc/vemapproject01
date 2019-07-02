@@ -55,7 +55,10 @@ $navigationItems =
     </a>
     <hr class="sidebar-divider my-0">
     <?php
-    if (empty($_SESSION)) {
+    if (empty($_SESSION) || 
+    !isset($_SESSION[USER_ID]) || 
+    !isset($_SESSION[USER_NAME]) || 
+    !isset($_SESSION[USER_PERMISSION])) {
         echo "
             <li class='nav-item'>
                 <div class='nav-link'>
