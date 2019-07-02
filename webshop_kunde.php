@@ -32,7 +32,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         //budget
         $sql="SELECT user.budget FROM user WHERE user.objectID=".$_SESSION[USER_ID]."";
         $stmt = connectDB()->query($sql);
-        $budget="";
+        $budget=0;
         foreach($stmt as $row){
             $budget.= $row['budget'];
         }
