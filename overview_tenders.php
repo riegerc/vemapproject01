@@ -181,7 +181,4 @@ if (isset($_POST["send"])) {
             </div>
         </div>
     </div>
-    <script>
-        $('#search-results').DataTable();
-    </script>
 <?php include "include/page/bottom.php"; ?>

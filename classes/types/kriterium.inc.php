@@ -34,52 +34,30 @@ class Kriterium{
 		$this->przt=$przt;
 	}
 	public function __toString(){
-		
 			// begin outer form row
-			$res="<div class='form-row'>";
+			$res="<div class='form-row'>";			
+				$res.="<li class='list-group-item'>$this->name\n";			
+					// inner form row
+					$res.="<div class='form-row'>";
+						$res.="<div class='col-1'>0</div>";
+						$res.="<div class='col-10'>";
+						$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
+						value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
+						$res.="</div>";
+						$res.="<div class='col-1'>";
+						$res.= round($this->getPrzt(),0) . "\n";
+						$res.="</div>";
+					// end inner form row
+					$res.="</div>";
 			
-			$res.="<li class='list-group-item'>$this->name\n";			
+				
+				// moved the label outside list group
+				$res.="<div class='col-1'>";
+				$res.="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
+				$res.="</div>";
 
-			// begin outer form col
-			$res.="<div class='col-12'>";
-		
-			$res.="<div class='form-group'>\n";
+				$res.="</li>\n";
 
-			// begin inner form row
-			$res.="<div class='form-row'>";
-			
-			// begin inner form col
-			$res.="<div class='col-1'>";
-			$res.="<span>0</span>\n";
-			$res.="</div>";
-			
-			$res.="<div class='col-19'>";
-			
-			$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
-			value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
-			
-			// end inner form col
-			$res.="</div>";
-			
-			$res.="<div class='col-1'>";
-			$res.= round($this->getPrzt(),0) . "\n";
-			$res.="</div>";
-			
-			// end innerform col
-			$res.="</div>";
-			
-			// end inner form row
-			$res.="</div>";
-			
-			// end outer form row
-			$res.="</div>";
-			
-			// moved the label outside list group
-			$res.="<div class='col-1'>";
-			$res.="<label class='badge badge-secondary' id='lbl".$this->getFkKriterium()."' for='lbl".$this->getFkKriterium()."'></label>\n";
-			$res.="</div>";
-			
-			$res.="</li>\n";
 			return $res;
 		}
 }

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 
@@ -9,29 +9,30 @@ $title = "Produkt bestellen"; // defines the name of the current page, displayed
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
-if ( isset($_GET['update']) ) {
+if (isset($_GET['update'])) {
     $objectID = (int)$_GET['update'];
 } else if (isset($_POST['update'])) {
     $objectID = (int)$_POST['objectID'];
 } else {
-    exit("Kein Objekt gewählt.");
+    exit("Kein Objekt gewählt");
 }
-
 ?>
-
+<!-- update -->
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <form action="artikel_kaufen.php" method="post">
         <div class="row">
             <div class="col-md-6">
                 <?php
-                if (isset($_POST['update'])) {
+              /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
+              derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
+              wenn ja geb ma die beiden nach den Select noch ein article.price, article.description 
+               if (isset($_POST['update'])) {
                     $name = $_POST['name'];
                     $price = $_POST['price'];
                     $description = $_POST['description'];
-                }
-
-                $sql = "SELECT * FROM article WHERE objectID=:objectID";
+                }*/
+                $sql = "SELECT article.name FROM article WHERE article.objectID=:objectID";
                 $stmt = connectDB()->prepare($sql);
                 $stmt->bindParam(":objectID", $objectID);
                 $stmt->execute();
@@ -54,16 +55,16 @@ if ( isset($_GET['update']) ) {
                 <div class="card">
                     <div class="card-body">
                         <?php
-                        $user = $_SESSION[USER_ID];;
-                        $sql = "SELECT * FROM user WHERE objectID = :user";
+                        $user = $_SESSION[USER_ID];
+                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country FROM user
+                              WHERE user.objectID = :user";
                         $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":user", $user);
                         $stmt->execute();
 
                         while ($row = $stmt->fetch()) {
                             echo $row['branchName'];
-                            echo "<br>" . $row['street'];
-                            echo $row['houseNumber'];
+                            echo "<br>" . $row['street'] . " " . $row['houseNumber'];
                             echo "<br>" . $row['postCode'] . "&nbsp;";
                             echo $row['city'];
                             echo "<br>" . $row['country'];

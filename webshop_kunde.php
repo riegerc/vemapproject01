@@ -156,9 +156,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>".$row['branch']."</td>\n";
                             echo "
                             <td> 
-                            <form action='webshop_kaufen.php' method='post'>
-                            <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
-                                <i class='fas fa-shopping-cart'></i>            
+                            <form action='webshop_kaufen.php' method='get'>
+                            <button type='submit' name='update' value='$row[objectID]' class='btn btn-primary form-button'>
+                                <i class='fas fa-shopping-cart'></i> Kaufen
                             </button>
                             </form>";
                             echo "    </tr>";
@@ -168,7 +168,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     }
                     echo "</table>";
                 }
-
+                
                 if (isset($_POST['suche_senden'])) {
                     if ($counter == 0) {
                         echo "Keine Ergebnisse gefunden.";
