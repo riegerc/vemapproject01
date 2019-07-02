@@ -79,6 +79,11 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             }
             ?>
         </table>
+
+        <div class="alert alert-primary" role="alert">
+        <p class="font-weight-light">Mehrwertsteuersatz = 20%</p>
+        </div>
+
     </form>
 </div>
 

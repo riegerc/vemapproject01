@@ -46,8 +46,10 @@ $dateEnd=date_create($row["end"]);
     <div class="content">
         <a href="overview_tenders.php" >&#8636 Zurück zu ihren Ausschreibungen</a>
         <h2><?php echo $row["tender"] ?></h2>
-
-        <a href="pdf.php?id=<?php echo $tenderGetID ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-download"></i> Als PDF herunterladen</button> </a>
+        <a href="pdf.php?id=<?php echo $tenderGetID ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i>Ausschreibung als PDF herunterladen</button> </a>
+        <a href="/uploads/anhang03_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 3</button> </a>
+        <a href="/uploads/anhang02_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 2</button> </a>
+        <a href="/uploads/anhang01_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 1</button> </a>
         <br>
         <table class="table">
             <thead class="thead-dark">
@@ -86,12 +88,6 @@ $dateEnd=date_create($row["end"]);
 
                     echo "/" . $row["door"] . "<br>" . $row["postCode"] . " " . $row["city"] . "<br>" . $row["country"] ?></td>
             </tr>
-
-            <tr> <!-- If Dienstleistung keine Menge einzeigen -->
-                <th scope="row">Menge:</th> <!-- If Dienstleistung keine Menge einzeigen -->
-                <td><?php echo $row["amount"] ?></td> <!-- If Dienstleistung keine Menge einzeigen -->
-            </tr> <!-- If Dienstleistung keine Menge einzeigen -->
-
 
             </thead>
 

@@ -35,6 +35,9 @@ if(isset($_POST["senden"])){
 		$key=Helper::getId($key,"sld");
 		$antworten[$key]=(float)Helper::sanitize($val);
 	}
+	echo "<pre>";
+	print_r($antworten);
+	echo "</pre>";
 	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
 }
 ?>
@@ -55,13 +58,13 @@ if(isset($_POST["senden"])){
 							
 							$maxInputRange=round($kriterium->getPrzt(),0);
 							
-							echo "<div class='form-group'>";
-						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>";
+							echo "<div class='form-group'>\n";
+						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>\n";
 							
-							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>";
+							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' name='sld" . $kriterium->getId() . "' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>\n";
 							
-							echo "<span class='float-left'>0</span>";
-							echo "<span class='float-right'>" . $maxInputRange . "</span>";
+							echo "<span class='float-left'>0</span>\n";
+							echo "<span class='float-right'>" . $maxInputRange . "</span>\n";
 							
 							echo "</div>";
 							
@@ -71,9 +74,9 @@ if(isset($_POST["senden"])){
 				
 						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
 
-						echo "<input type='checkbox' data-target='#targetElement' data-toggle='collapse' class='form-check-input' id='chk" . $kriterium->getFkKriterium() . "'>";
-						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>";
-						echo "<textarea class='form-control collapse' id='targetElement'></textarea>";
+						echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
+						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
+						echo "<textarea class='form-control collapse' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
 						
 					}
 					?>			
