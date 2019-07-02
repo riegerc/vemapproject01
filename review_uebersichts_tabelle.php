@@ -62,6 +62,8 @@ foreach ($reviewedcompanies as $company) {
 		}
 	}
 
+	// IMPORTANT !!!
+	// Values for good, average and bad are hardcoded at the moment to 0-29, 30-69, 70-100
 	echo "<tr><td>$row[userID]</td><td>$row[branchname]</td>";
 	$gesamt = 0;
 	$anzahl = 0;
