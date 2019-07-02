@@ -91,7 +91,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     echo "    <thead><tr>\n";
                     echo "    <th>Artikel Name</th>\n";
                     echo "    <th>Artikel Preis</th>\n";
-                    echo "    <th>Artikel Gruppe</th>\n";
+                    echo "    <th>Artikel Beschreibung</th>\n";
                     echo "    <th>Lieferant</th>\n";
                     echo "    <th>Kaufen</th>\n";
                     echo "    </tr></thead>";
