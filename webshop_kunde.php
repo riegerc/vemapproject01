@@ -103,9 +103,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 if (isset($_POST['suche'])) {
                     if (!empty($_POST['vonPreis'])) {
                         if (empty($_POST['bisPreis'])) {
-                            $bisPreis = 1000000;
+                            $bisPreis = 1000000; 
                         }
-                        $sql = "SELECT article.objectID as articleID, article.name, article.price, article.description, user.branchName as branch FROM `article`
+                        $sql = "SELECT article.objectID, article.name, article.price, article.description, user.branchName as branch FROM `article`
                                 LEFT JOIN user ON article.supplierUserFID=user.objectID
                                 WHERE (article.articleGroupFID=:group) 
                                 AND (name LIKE :suche) 
@@ -127,7 +127,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>".$row['branch']."</td>\n";
                             echo "    
                             <td> 
-                            <form action='webshop_kaufen.php' method='post'>
+                            <form action='webshop_kaufen.php' method='get'>
                             <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
                                 <i class='fas fa-shopping-cart'></i>            
                             </button>
@@ -137,13 +137,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             $counter++;
                         }
                     } else {
-                        $sql = "SELECT article.objectID, article.name as name, article.price as price, article.description as description, user.branchName as branch 
+                        if (empty($_POST['bisPreis'])) {
+                            $bisPreis = 1000000; 
+                        }
+                        $vonPreis=0;
+                        $sql = "SELECT article.objectID, article.name, article.price, article.description, user.branchName as branch 
                         FROM `article`
                         LEFT JOIN user ON article.supplierUserFID=user.objectID
-                        WHERE (article.articleGroupFID=:group) AND (name LIKE :suche)";
+                        WHERE (article.articleGroupFID=:group) AND (name LIKE :suche) AND (price BETWEEN :vonPreis AND :bisPreis)";
 
                         $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":group", $product_type);
+                        $stmt->bindParam(':vonPreis', $vonPreis);
+                        $stmt->bindParam(':bisPreis', $bisPreis);
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
 
