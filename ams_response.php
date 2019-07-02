@@ -10,7 +10,9 @@ include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 
-$sql="SELECT objectID, tender FROM tenders ";
+$sql="SELECT tenders.objectID, tenders.tender,tenderDetail.amount AS amount FROM tenders 
+        INNER JOIN tenderDetail
+        ON tenders.objectID = tenderDetail.tendersFID ";
 $st = connectDB()->query($sql);
 #$x=$st->fetch();
 
@@ -32,7 +34,7 @@ $st = connectDB()->query($sql);
         while($id=$st->fetch()){
             $tenderID=(int)$id["objectID"];
             $ten=$id["tender"];
-            $sql="SELECT tenders.objectID AS tenderID,tenders.amount,tendersresponse.supplierFID AS supplierFID,tenders.tender,user.branchName,SUM(tendersresponse.price) As TotalPrice,supplierselect.userFID FROM tendersresponse
+            $sql="SELECT tenders.objectID AS tenderID,tendersresponse.supplierFID AS supplierFID,tenders.tender,user.branchName,SUM(tendersresponse.price) As TotalPrice,supplierselect.userFID FROM tendersresponse
                 INNER JOIN user
                 ON tendersresponse.supplierFID = user.objectID
                 INNER JOIN supplierselect
@@ -54,12 +56,12 @@ $st = connectDB()->query($sql);
 
             do{
                 #echo $row["tender"];
-                $total=(float)$row["TotalPrice"] * $row["amount"];
+                $total=(float)$row["TotalPrice"] * $id["amount"];
                 echo "
                 <tr>
                 <td>$row[branchName]</td>" .
                 "<td>" . number_format($total,2,",",".") ." €" ."</td>".
-                "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]&amount=$row[amount]' class='btn btn-info'>Details</a></td>
+                "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]&amount=$id[amount]' class='btn btn-info'>Details</a></td>
                 </tr>";
             }while ($row = $stmt->fetch());
             echo "<tr><td>&nbsp;</td></tr>";
