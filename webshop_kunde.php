@@ -114,8 +114,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         $stmt->bindParam(':bisPreis', $bisPreis);
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
-                        
-                        //this is the counter for the amount of results you get
+
 
                         //foreach loop for the table rows
                         foreach ($stmt as $row) {
@@ -146,7 +145,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
 
-                        //this is the counter for the amount of results you get
                         //foreach loop for the table rows
                         foreach ($stmt as $row) {
                             echo "    <tr>\n";
