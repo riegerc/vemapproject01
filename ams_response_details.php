@@ -35,12 +35,15 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         echo "<table>
                 <th>Position</th>
                 <th>Menge</th>
-                <th>Preis</th>";
+                <th>Gesamtpreis</th>
+                <th>Preis per Stück</th>";
         while ($row=$stmt->fetch()){
             $total=(float)$row["price"] * $amount;
+            $proPice=(float)$row["price"];
             echo "<tr><td>".$row["position"]."</td>";
             echo "<td>$amount</td>";
-            echo "<td>". number_format($total,2,",",".") ." €" ."</td></tr>";
+            echo "<td>". number_format($total,2,",",".") ." €" ."</td>";
+            echo "<td>". number_format($proPice,2,",",".") ." €" ."</td></tr>";
         }
         ?>
     </div>
