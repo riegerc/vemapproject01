@@ -103,7 +103,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 if (isset($_POST['suche'])) {
                     if (!empty($_POST['vonPreis'])) {
                         if (empty($_POST['bisPreis'])) {
-                            $bisPreis = 1000000;
+                            $bisPreis = 1000000; 
                         }
                         $sql = "SELECT article.objectID, article.name, article.price, article.description, user.branchName as branch FROM `article`
                                 LEFT JOIN user ON article.supplierUserFID=user.objectID
@@ -127,7 +127,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>".$row['branch']."</td>\n";
                             echo "    
                             <td> 
-                            <form action='webshop_kaufen.php' method='post'>
+                            <form action='webshop_kaufen.php' method='get'>
                             <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
                                 <i class='fas fa-shopping-cart'></i>            
                             </button>
@@ -137,6 +137,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             $counter++;
                         }
                     } else {
+                        if (empty($_POST['bisPreis'])) {
+                            $bisPreis = 1000000; 
+                        }
                         $vonPreis=0;
                         $sql = "SELECT article.objectID, article.name, article.price, article.description, user.branchName as branch 
                         FROM `article`
