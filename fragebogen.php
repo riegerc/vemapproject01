@@ -4,7 +4,7 @@
  */
 
 $pageRestricted = false; // defines if the page is restricted to logged-in Users only
-$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+//$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Bewertung Lieferant"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
@@ -50,7 +50,17 @@ if(isset($_POST["senden"])){
 						echo "<h2>" . $frage->getName() . "</h2>\n";
 						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
 						foreach($frage->getKriterien() as $kriterium) {
-							echo $kriterium;
+							
+							$maxInputRange=round($kriterium->getPrzt(),0);
+							
+							echo "<div class='form-group'>";
+						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>";
+							
+							echo "<span>0</span>";
+							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001'>";
+							echo "<span>" . $maxInputRange . "</span>";
+							
+							echo "</div>";
 						}
 						echo "</ul>\n";
 						echo "<br>\n";

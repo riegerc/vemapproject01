@@ -33,3 +33,7 @@ table#overview th {min-width: 10em}
     -moz-box-shadow: 10px 10px 26px -8px rgba(9,59,125,1);
     box-shadow: 10px 10px 26px -8px rgba(9,59,125,1);
 }
+.form-control-critera {
+    display: inline;
+    max-width: 4em;
+}

@@ -32,22 +32,36 @@ if (isset($_GET['update'])) {
                     $price = $_POST['price'];
                     $description = $_POST['description'];
                 }*/
-                $sql = "SELECT article.name FROM article WHERE article.objectID=:objectID";
+                $sql = "SELECT article.name, article.price, article.description 
+                FROM article 
+                WHERE article.objectID =  :objectID";
                 $stmt = connectDB()->prepare($sql);
                 $stmt->bindParam(":objectID", $objectID);
                 $stmt->execute();
                 $row = $stmt->fetch();
                 ?>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-3">
                         <label>Produkt</label>
                         <h4><?php echo $row['name'] ?></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Preis</label>
+                        <h4><?php echo number_format($row['price'],2,',','\'')." €"; ?></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Beschreibung</label>
+                        <h4><?php echo $row['description'] ?></h4>
                     </div>
                     <div class="col-md-3 float-right">
                         <div class="form-group">
                             <label>Menge</label>
                             <input type="number" class="form-control" value="1" min="1" name="amount"/>
                         </div>
+                    </div>
+                    <div class="col-md-9">
+                        <label>Summe</label>
+                        <h4><?php  ?></h4>
                     </div>
                 </div>
                 <hr>
@@ -56,8 +70,9 @@ if (isset($_GET['update'])) {
                     <div class="card-body">
                         <?php
                         $user = $_SESSION[USER_ID];
-                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country FROM user
-                              WHERE user.objectID = :user";
+                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country 
+                        FROM user
+                        WHERE user.objectID = :user";
                         $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":user", $user);
                         $stmt->execute();
@@ -85,7 +100,7 @@ if (isset($_GET['update'])) {
                             <i class="fas fa-shopping-cart"></i> Bestellen
                         </button>
                     </div>
-                </div>
+                </div><!-- Buttons-->
             </div>
         </div>
     </form>
