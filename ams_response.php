@@ -29,9 +29,9 @@ $st = connectDB()->query($sql);
         <?php
         echo "<table>";
 
-        while($x=$st->fetch()){
-            $tenderID=(int)$x["objectID"];
-            $ten=$x["tender"];
+        while($id=$st->fetch()){
+            $tenderID=(int)$id["objectID"];
+            $ten=$id["tender"];
             $sql="SELECT tenders.objectID AS tenderID,tendersresponse.supplierFID AS supplierFID,tenders.tender,user.branchName,SUM(tendersresponse.price) As TotalPrice,supplierselect.userFID FROM tendersresponse
                 INNER JOIN user
                 ON tendersresponse.supplierFID = user.objectID
@@ -47,22 +47,20 @@ $st = connectDB()->query($sql);
             $row = $stmt->fetch();
             if(!$row) continue;
             #var_dump($row);
-            echo "<tr><th colspan='3'>$ten</th></tr>";
-            do{
-
-                #echo $row["tender"];
-
-                echo "<th>Firma</th>
+            echo "<tr><th colspan='3'><h3>$ten</h3></th></tr>";
+            echo "<th>Firma</th>
                 <th>Preis</th>
                 <th>Details</th>";
-                echo "
-            <tr>
-            <td>$row[branchName]</td>" .
-            "<td>" . number_format($row["TotalPrice"],2,",",".") ." €" ."</td>".
-            "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]' class='btn btn-info'>Details</a></td>
-             </tr>";
-            }while ($row = $stmt->fetch());
 
+            do{
+                #echo $row["tender"];
+                echo "
+                <tr>
+                <td>$row[branchName]</td>" .
+                "<td>" . number_format($row["TotalPrice"],2,",",".") ." €" ."</td>".
+                "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]' class='btn btn-info'>Details</a></td>
+                </tr>";
+            }while ($row = $stmt->fetch());
             echo "<tr><td>&nbsp;</td></tr>";
         }
         echo "</table>";
