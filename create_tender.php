@@ -139,11 +139,11 @@ if (isset($_FILES)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Ausschreibung</label>
+                        <label>Ausschreibung *</label>
                         <input type="text" name="tender" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Ausschreibungs type</label>
+                        <label>Ausschreibungs type *</label>
                         <select name="tenderType" class="form-control" required>
                             <option name="Dienstleistung" value="Dienstleistung">
                                 Dienstleistung
@@ -154,16 +154,16 @@ if (isset($_FILES)) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Beginn</label>
+                        <label>Beginn *</label>
                         <input type="date" name="begin" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Ende</label>
+                        <label>Ende *</label>
                         <input type="date" name="end" class="form-control" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Auftragsbeschreibung</label>
+                        <label for="description">Auftragsbeschreibung *</label>
                         <textarea name="description" class="form-control" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
@@ -176,7 +176,7 @@ if (isset($_FILES)) {
                         <a href="temp/test.csv">CSV Herunterladen</a><br>
                     </div>
                     <div class="form-group">
-                        <label>Upload für Ausschreibungs Excel</label>
+                        <label>Upload für Ausschreibungs Excel *</label>
                         <input type="file" class="form-control-file" name="datei" accept=".csv,.xls,.xlsx"><br>
                     </div>
 
@@ -233,6 +233,9 @@ if (isset($_FILES)) {
                 </div>
             </div>
         </form>
+    </div>
+    <div class="alert alert-dark" role="alert">
+        * Pflichtfeld
     </div>
 </div>
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
