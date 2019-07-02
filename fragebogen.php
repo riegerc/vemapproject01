@@ -71,7 +71,7 @@ if(isset($_POST["senden"])){
 				
 						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
 
-						echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' class='form-check-input' id='chk" . $kriterium->getFkKriterium() . "'>\n";
+						echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
 						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
 						echo "<textarea class='form-control collapse' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
 						
