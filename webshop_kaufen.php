@@ -47,7 +47,7 @@ if (isset($_GET['update'])) {
                     </div>
                     <div class="col-md-3">
                         <label>Preis</label>
-                        <h4><?php echo $row['price'] ?></h4>
+                        <h4><?php echo number_format($row['price'],2,',','\'')." €"; ?></h4>
                     </div>
                     <div class="col-md-3">
                         <label>Beschreibung</label>
