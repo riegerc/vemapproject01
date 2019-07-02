@@ -97,7 +97,7 @@ foreach($chart->getBewertungen() as $bewertung){
             options: {            
                     responsive: true,
                     title: {
-                        display: true,
+                        display: false,
                         text: 'Chart.js Template'
                     },
                     scales: {
