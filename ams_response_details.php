@@ -23,6 +23,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <?php
         $supplierFID=$_GET["supplierFID"];
         $tenderID=$_GET["tenderID"];
+        $amount=(int)$_GET["amount"];
         $sql="SELECT  tendersresponse.price,tenderDetail.position FROM tendersresponse
                 INNER JOIN tenderDetail
                 ON tendersresponse.tenderDetailFID= tenderDetail.objectID
@@ -33,10 +34,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         $stmt->execute();
         echo "<table>
                 <th>Position</th>
+                <th>Menge</th>
                 <th>Preis</th>";
         while ($row=$stmt->fetch()){
+            $total=(float)$row["price"] * $amount;
             echo "<tr><td>".$row["position"]."</td>";
-            echo "<td>". number_format($row["price"],2,",",".") ." €" ."</td></tr>";
+            echo "<td>$amount</td>";
+            echo "<td>". number_format($total,2,",",".") ." €" ."</td></tr>";
         }
         ?>
     </div>
