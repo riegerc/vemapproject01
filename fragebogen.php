@@ -12,6 +12,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "classes/types/fragebogen.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
+$isFormSubmitted=false;
 $userId=$_SESSION[USER_ID];
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
@@ -20,6 +21,7 @@ if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
 if(isset($_POST["senden"])){
+	$isFormSubmitted=true;
 	echo "<pre>";
 	//print_r($_POST);
 	echo "</pre>";
@@ -68,12 +70,14 @@ if(isset($_POST["senden"])){
 			<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 			<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 				<?php
+				$shouldComment=false;
+				
 					foreach($fragen as $frage) {
+
 						echo "<h2>" . $frage->getName() . "</h2>\n";
 						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
 						foreach($frage->getKriterien() as $kriterium) {
 							echo "<li class='list-group-item'>";
-							
 							
 							$maxInputRange=round($kriterium->getPrzt(),0);
 							
@@ -92,11 +96,16 @@ if(isset($_POST["senden"])){
 						echo "</ul>\n";
 				
 						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
-
-						echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
-						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
-						echo "<!--textarea class='form-control collapse' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea-->\n";
 						
+						if ($isFormSubmitted) {
+							// if the form was submitted, we collapse or not, otherwise always collapse (do not show the textarea)			
+							if ($shouldComment==true) {
+							$collapse = "";
+							} else $collapse = "collapse";
+							echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
+							echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
+							echo "<textarea class='form-control $collapse' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
+						}
 					}
 					?>			
 			<div class="form-row">
