@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $checkme = "a30ee472364c50735ad1d43cc09be0a1";
 require_once "include/constant.php";
 
@@ -24,21 +24,34 @@ if (isset($_GET['update'])) {
         <div class="row">
             <div class="col-md-6">
                 <?php
-                if (isset($_POST['update'])) {
+              /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
+              derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
+              wenn ja geb ma die beiden nach den Select noch ein article.price, article.description 
+               if (isset($_POST['update'])) {
                     $name = $_POST['name'];
                     $price = $_POST['price'];
                     $description = $_POST['description'];
-                }
-                $sql = "SELECT * FROM article WHERE objectID=:objectID";
+                }*/
+                $sql = "SELECT article.name, article.price, article.description 
+                FROM article 
+                WHERE article.objectID =  :objectID";
                 $stmt = connectDB()->prepare($sql);
                 $stmt->bindParam(":objectID", $objectID);
                 $stmt->execute();
                 $row = $stmt->fetch();
                 ?>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-3">
                         <label>Produkt</label>
                         <h4><?php echo $row['name'] ?></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Preis</label>
+                        <h4><?php echo number_format($row['price'],2,',','\'')." €"; ?></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Beschreibung</label>
+                        <h4><?php echo $row['description'] ?></h4>
                     </div>
                     <div class="col-md-3 float-right">
                         <div class="form-group">
@@ -46,23 +59,27 @@ if (isset($_GET['update'])) {
                             <input type="number" class="form-control" value="1" min="1" name="amount"/>
                         </div>
                     </div>
+                    <div class="col-md-9">
+                        <label>Summe</label>
+                        <h4><?php  ?></h4>
+                    </div>
                 </div>
                 <hr>
                 <h5>Adresse</h5>
                 <div class="card">
                     <div class="card-body">
                         <?php
-                        $user = 1;
-                        $sql = "SELECT * FROM user
-                              WHERE objectID = :user";
+                        $user = $_SESSION[USER_ID];
+                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country 
+                        FROM user
+                        WHERE user.objectID = :user";
                         $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":user", $user);
                         $stmt->execute();
 
                         while ($row = $stmt->fetch()) {
                             echo $row['branchName'];
-                            echo "<br>" . $row['street'];
-                            echo $row['houseNumber'];
+                            echo "<br>" . $row['street'] . " " . $row['houseNumber'];
                             echo "<br>" . $row['postCode'] . "&nbsp;";
                             echo $row['city'];
                             echo "<br>" . $row['country'];
@@ -83,7 +100,7 @@ if (isset($_GET['update'])) {
                             <i class="fas fa-shopping-cart"></i> Bestellen
                         </button>
                     </div>
-                </div>
+                </div><!-- Buttons-->
             </div>
         </div>
     </form>

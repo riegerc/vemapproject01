@@ -62,7 +62,7 @@ if(isset($_POST['saverolerights']) && $hasEditPermission){
             <table class="table table-bordered table-striped table-hover rrtable" id="rights" style="overflow: scroll;">
             <thead>
             <?php
-                $sql = "SELECT r.objectID, r.name  FROM roles AS r ORDER BY objectID ASC;";
+                $sql = "SELECT r.objectID, r.name  FROM roles AS r ORDER BY r.name ASC;";
                 $result = readDB($sql); #, NULL, PDO::FETCH_BOTH
                 $columncount = 0;
                 $tableStr = "<tr><td>&nbsp;</td>\n";
@@ -92,7 +92,7 @@ if(isset($_POST['saverolerights']) && $hasEditPermission){
                             WHERE rolesrights.rightsFID = :rightID ) 
                             AS auswahl
                             ON roles.objectID = auswahl.rolesFID
-                            ORDER BY THErolesID;"; 
+                            ORDER BY rolesName, THErolesID;"; 
                     $param = [":rightID"=>$rightID];
                     $result = readDB($sql, $param);
                     if(SHOW_SELECT_ALL_LINKS != 0){

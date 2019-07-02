@@ -10,8 +10,11 @@ include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
 
+$sql="SELECT objectID, tender FROM tenders ";
+$st = connectDB()->query($sql);
+#$x=$st->fetch();
 
-$sql="SELECT userFID FROM user "
+
 // TODO Abfrage das einem nur die Ausschreibungen angezeigt werden zu denen man eingeladen ist
 ?>
 
@@ -19,19 +22,50 @@ $sql="SELECT userFID FROM user "
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
 
-<h2>Erstellte Ausschreibungen</h2>
+        <h2>Erstellte Ausschreibungen</h2>
 
 
-       <?php
-       while ($row = $stmt->fetch()){ echo "<table>
-            <thead>
-            
-            </thead>
-            <tbody>
-            <tr> </tr>
-            </tbody>
-        </table>";
-} ?>
+
+        <?php
+        echo "<table>";
+
+        while($id=$st->fetch()){
+            $tenderID=(int)$id["objectID"];
+            $ten=$id["tender"];
+            $sql="SELECT tenders.objectID AS tenderID,tendersresponse.supplierFID AS supplierFID,tenders.tender,user.branchName,SUM(tendersresponse.price) As TotalPrice,supplierselect.userFID FROM tendersresponse
+                INNER JOIN user
+                ON tendersresponse.supplierFID = user.objectID
+                INNER JOIN supplierselect
+                ON tendersresponse.supplierFID = supplierselect.userFID
+                INNER join tenders
+                ON supplierselect.tenderFID = tenders.objectID
+                WHERE tenders.objectID=:tenderID
+                GROUP BY tendersresponse.supplierFID,tenders.tender";
+            $stmt = connectDB()->prepare($sql);
+            $stmt->bindParam(":tenderID", $tenderID);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if(!$row) continue;
+            #var_dump($row);
+            echo "<tr><th colspan='3'><h3>$ten</h3></th></tr>";
+            echo "<th>Firma</th>
+                <th>Preis</th>
+                <th>Details</th>";
+
+            do{
+                #echo $row["tender"];
+                echo "
+                <tr>
+                <td>$row[branchName]</td>" .
+                "<td>" . number_format($row["TotalPrice"],2,",",".") ." €" ."</td>".
+                "<td><a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]' class='btn btn-info'>Details</a></td>
+                </tr>";
+            }while ($row = $stmt->fetch());
+            echo "<tr><td>&nbsp;</td></tr>";
+        }
+        echo "</table>";
+
+        ?>
     </div>
 </div>
 

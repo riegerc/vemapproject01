@@ -51,7 +51,10 @@ if (isset($_POST["login"])) {
 }
 
 if ($pageRestricted === true) {
-    if (empty($_SESSION)) {
+    if (empty($_SESSION) || 
+        !isset($_SESSION[USER_ID]) || 
+        !isset($_SESSION[USER_NAME]) || 
+        !isset($_SESSION[USER_PERMISSION])) {
         header("location:logout.php");
     }
     
