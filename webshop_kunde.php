@@ -127,7 +127,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>".$row['branch']."</td>\n";
                             echo "    
                             <td> 
-                            <form action='webshop_kaufen.php' method='post'>
+                            <form action='webshop_kaufen.php' method='get'>
                             <button type='submit' name='update' value='$row[objectID]' class='btn btn-alert form-button'>
                                 <i class='fas fa-shopping-cart'></i>            
                             </button>
