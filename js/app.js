@@ -6,6 +6,7 @@ let app = new Vue({
         branches: null,
         branchCheckboxes: [],
         tableName: null,
+        customerBuyAmount: 1,
     },
     mounted() {
         let vue = this;
@@ -52,5 +53,10 @@ let app = new Vue({
                 });
             }, 1500);
         });
+    },
+    computed: {
+        customerBuyPrice: () => {
+            return document.getElementById('customerBuyPrice') ? (document.getElementById('customerBuyPrice').innerHTML) : null;
+        }
     }
 });

@@ -22,7 +22,7 @@ if (isset($_GET['update'])) {
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <form action="artikel_kaufen.php" method="post">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <?php
               /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
               derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
@@ -40,6 +40,7 @@ if (isset($_GET['update'])) {
                 $stmt->execute();
                 $row = $stmt->fetch();
                 ?>
+                <span style="display: none" id="customerBuyPrice"><? echo $row['price'] ?></span>
                 <div class="row">
                     <div class="col-md-3">
                         <label>Produkt</label>
@@ -56,12 +57,12 @@ if (isset($_GET['update'])) {
                     <div class="col-md-3 float-right">
                         <div class="form-group">
                             <label>Menge</label>
-                            <input type="number" class="form-control" value="1" min="1" name="amount"/>
+                            <input type="number" class="form-control" value="1" min="1" max="999999999" name="amount" v-model="customerBuyAmount"/>
                         </div>
                     </div>
                     <div class="col-md-9">
                         <label>Summe</label>
-                        <h4><?php  ?></h4>
+                        <h4 v-html="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
                     </div>
                 </div>
                 <hr>
