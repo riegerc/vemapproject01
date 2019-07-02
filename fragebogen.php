@@ -70,7 +70,10 @@ if(isset($_POST["senden"])){
 			<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 			<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 				<?php
+				$shouldComment=false;
+				
 					foreach($fragen as $frage) {
+
 						echo "<h2>" . $frage->getName() . "</h2>\n";
 						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
 						foreach($frage->getKriterien() as $kriterium) {
@@ -95,8 +98,10 @@ if(isset($_POST["senden"])){
 						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
 						
 						if ($isFormSubmitted) {
-							// if the form was submitted, we collapse or not, otherwise always collapse (do not show the textarea)
+							// if the form was submitted, we collapse or not, otherwise always collapse (do not show the textarea)			
+							if ($shouldComment==true) {
 							$collapse = "";
+							} else $collapse = "collapse";
 							echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
 							echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
 							echo "<textarea class='form-control $collapse' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
