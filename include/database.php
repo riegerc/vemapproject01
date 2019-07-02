@@ -11,7 +11,7 @@ function connectDB(): PDO
 
     try {
         return new PDO(
-            "mysql:host=$dbHost;dbname=$dbName;dbcharset=$dbCharset;",
+            "mysql:host=$dbHost;dbname=$dbName;charset=$dbCharset;", //replacing dbcharset with just charset to see if it fixed the utf8 issue. will change back soon if fail
             "$dbUser",
             "$dbPw",
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
