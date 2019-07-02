@@ -12,7 +12,7 @@ body {color: #3a3a3a}
 
 /* Styling for ids */
 #wrapper {background-color: var(--ams-background);}
-#page-logo {width: 100px; height: auto;}
+#page-logo {max-width: 100px; height: auto;}
 #no-style {list-style: none;}
 table#overview th {min-width: 10em}
 
