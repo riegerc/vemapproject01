@@ -26,15 +26,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <div class="row">
             <div class="col-md-12">
                 <?php
-        
-              /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
-              derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
-              wenn ja geb ma die beiden nach den Select noch ein article.price, article.description 
-               if (isset($_POST['update'])) {
-                    $name = $_POST['name'];
-                    $price = $_POST['price'];
-                    $description = $_POST['description'];
-                }*/
                 $sql = "SELECT article.name, article.price, article.description 
                 FROM article 
                 WHERE article.objectID =  :objectID";
