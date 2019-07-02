@@ -35,6 +35,9 @@ if(isset($_POST["senden"])){
 		$key=Helper::getId($key,"sld");
 		$antworten[$key]=(float)Helper::sanitize($val);
 	}
+	echo "<pre>";
+	print_r($antworten);
+	echo "</pre>";
 	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
 }
 ?>
@@ -58,7 +61,7 @@ if(isset($_POST["senden"])){
 							echo "<div class='form-group'>\n";
 						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>\n";
 							
-							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>\n";
+							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' name='sld" . $kriterium->getId() . "' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>\n";
 							
 							echo "<span class='float-left'>0</span>\n";
 							echo "<span class='float-right'>" . $maxInputRange . "</span>\n";
