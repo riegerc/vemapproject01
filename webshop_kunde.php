@@ -105,7 +105,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         if (empty($_POST['bisPreis'])) {
                             $bisPreis = 1000000;
                         }
-                        $sql = "SELECT article.objectID as articleID, article.name, article.price, article.description, user.branchName as branch FROM `article`
+                        $sql = "SELECT article.objectID, article.name, article.price, article.description, user.branchName as branch FROM `article`
                                 LEFT JOIN user ON article.supplierUserFID=user.objectID
                                 WHERE (article.articleGroupFID=:group) 
                                 AND (name LIKE :suche) 
@@ -116,7 +116,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         $stmt->bindParam(':bisPreis', $bisPreis);
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
-
 
                         //foreach loop for the table rows
                         foreach ($stmt as $row) {
