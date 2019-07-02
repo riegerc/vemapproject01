@@ -67,6 +67,10 @@ $st = connectDB()->query($sql);
 
         ?>
     </div>
+    <div class="alert alert-primary" role="alert">
+        <p class="font-weight-light">Mehrwertsteuersatz = 20%</p>
+    </div>
 </div>
+
 
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
