@@ -7,7 +7,7 @@ require_once "include/constant.php";
 
 $pageRestricted = true; // defines if the page is restricted to logged-in Users only
 $userLevel = PERM_CED_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
-$title = "Willkommen am Beschaffungsportal vom AMS Wien"; // defines the name of the current page, displayed in the title and as a header on the page
+$title = "Bewertungen verwalten"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
@@ -88,19 +88,35 @@ foreach($kriterien as $kriterium){
 				foreach($unterkriterien as $unterkriterium){
 					$summeunterkriterien+=$unterkriterium->getGewichtung();
 				}
-								
-				$ausgabe.="<li><a href='?delete=" . $kriterium->getId() . "'><div class='fas fa-minus-circle' title='Kategorie löschen' style='color:red'></div></a> <span class='criterion'>" . $kriterium->getName(). "</span> <label>Gewichtung: <input type='number' min='1' max='10' name='inp".$kriterium->getId().
+
+				$ausgabe.="<li>
+                            <a href='?delete=" . $kriterium->getId() . "'>
+                                <div class='fas fa-minus-circle' title='Kategorie löschen' style='color:red'>
+                                </div>
+                            </a>
+                            <span class='criterion'>" . $kriterium->getName(). "</span>
+                            <label>Gewichtung:</label>
+                            <input class='form-control form-control-critera' type='number'  min='1' max='10' name='inp".$kriterium->getId().
 							"' value='".$kriterium->getGewichtung()."' class='cr-gewichtung'> (in Prozent: " .
-							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ")</label> ";
+							number_format(($kriterium->getGewichtung() * 100)/$summekriterien, 2, ",", ".") . ") ";
 					if(count($unterkriterien)>0&&!isset($kid)){
 						$ausgabe.= "<ul id='no-style'>";
 							foreach($unterkriterien as $unterkriterium){
-								$ausgabe.="<li><a href='?deletesub=". $unterkriterium->getID() . "'><div class='fas fa-minus-circle' title='Unterkategorie löschen' style='color:red'></div></a>
+								$ausgabe.="<li>
+                                                <a href='?deletesub=". $unterkriterium->getID() . "'>
+                                                    <div class='fas fa-minus-circle' title='Unterkategorie löschen' style='color:red'>
+                                                    </div>
+                                                </a>
 											<span class='subcriterion'>" . $unterkriterium->getName() . "</span> (Gewichtung: ". $unterkriterium->getGewichtung() .
 											", in Prozent: " . number_format(($unterkriterium->getGewichtung() * 100)/$summeunterkriterien, 2, ",", ".")." %)</li>";
 							}
 						if(!isset($kid)){
-							$ausgabe.="<li><a href='?add=".$kriterium->getId()."'><div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'></div></a></li>";
+							$ausgabe.="<li>
+                                            <a href='?add=".$kriterium->getId()."'>
+                                                <div class='fas fa-plus-circle' title='Neue Unterkategorie anlegen' style='color:green'>
+                                                </div>
+                                            </a>
+                                       </li>";
 						}
 						$ausgabe.="</ul>";
 					}
@@ -109,11 +125,21 @@ foreach($kriterien as $kriterium){
 			echo $ausgabe;
 		?>
 		<hr>
-		<li><label for="kriterium">neues Kriterium: </label><br><input type="text" name="kriterium" id="kriterium" placeholder="Name des neuen Kriteriums" value="<?php echo $name; ?>"><br>
-		<input type="text" name="gewichtung" id="gewichtung"
-				placeholder="Gewichtung" value="<?php echo $gewichtung; ?>"></li>
-		</ul>
-		<button type="submit" name="senden">Absenden</button>
+        <h4>Neues Kriterium</h4>
+		<div class="row">
+            <div class="col-md-6">
+                <label for="kriterium">Name</label>
+                <input class="form-control" type="text" name="kriterium" id="kriterium" placeholder="" value="<?php echo $name; ?>" required>
+            </div>
+            <div class="col-md-2">
+                <label for="kriterium">Gewichtung</label>
+                <input type="number" name="gewichtung" id="gewichtung"
+                       min="1" max="5" class="form-control" value="<?php echo $gewichtung; ?>" required>
+            </div>
+            <div class="col-md-4 form-button-wrap">
+                <button class="btn btn-primary form-button" type="submit" name="senden">Absenden</button>
+            </div>
+        </div>
 	</form>
     </div>
 </div>
