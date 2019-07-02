@@ -55,7 +55,7 @@ if(isset($_POST["senden"])){
 						echo "</ul>\n";
 						echo "<br>\n";
 					}
-					?>		
+					?>			
 			<div class="form-row">
 				<div class="col-md-2">
 					<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>

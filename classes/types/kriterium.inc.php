@@ -34,17 +34,21 @@ class Kriterium{
 		$this->przt=$przt;
 	}
 	public function __toString(){
-			// begin outer form row
-			$res="<div class='form-row'>";			
-				$res.="<li class='list-group-item'>$this->name\n";			
+		$res="";				
+		$res.="<li class='list-group-item'>$this->name\n";			
+		// begin outer form row
+		$res.="<div class='form-row'>";
 					// inner form row
 					$res.="<div class='form-row'>";
 						$res.="<div class='col-1'>0</div>";
 						$res.="<div class='col-10'>";
 						$res.="<input type='range' class='custom-range' name='sld$this->id' id='sld{$this->id}' min='0' max='".$this->getPrzt()."' step='0.001' 
 						value='0' onchange='setLabelText(".$this->getId().",".$this->getFkKriterium().")'>";			
-						$res.="</div>";
+						
 						$res.="<div class='col-1'>";
+						
+						$res.="</div>";
+						
 						$res.= round($this->getPrzt(),0) . "\n";
 						$res.="</div>";
 					// end inner form row
@@ -57,8 +61,6 @@ class Kriterium{
 				$res.="</div>";
 
 				$res.="</li>\n";
-				
-				
 
 			return $res;
 		}
