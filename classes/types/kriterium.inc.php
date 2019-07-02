@@ -57,8 +57,6 @@ class Kriterium{
 				$res.="</div>";
 
 				$res.="</li>\n";
-				
-				
 
 			return $res;
 		}
