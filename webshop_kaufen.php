@@ -22,7 +22,7 @@ if (isset($_GET['update'])) {
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <form action="artikel_kaufen.php" method="post">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <?php
               /* brauchen wir nicht da wir es über das sql statment eh reinholen kann
               derzeit wird nur der article name verwendet, die Frage die sich stellt ist brauch ma die anderen Angaben
@@ -32,22 +32,37 @@ if (isset($_GET['update'])) {
                     $price = $_POST['price'];
                     $description = $_POST['description'];
                 }*/
-                $sql = "SELECT article.name FROM article WHERE article.objectID=:objectID";
+                $sql = "SELECT article.name, article.price, article.description 
+                FROM article 
+                WHERE article.objectID =  :objectID";
                 $stmt = connectDB()->prepare($sql);
                 $stmt->bindParam(":objectID", $objectID);
                 $stmt->execute();
                 $row = $stmt->fetch();
                 ?>
+                <span style="display: none" id="customerBuyPrice"><? echo $row['price'] ?></span>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-3">
                         <label>Produkt</label>
                         <h4><?php echo $row['name'] ?></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Preis</label>
+                        <h4><?php echo number_format($row['price'],2,',','\'')." €"; ?></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Beschreibung</label>
+                        <h4><?php echo $row['description'] ?></h4>
                     </div>
                     <div class="col-md-3 float-right">
                         <div class="form-group">
                             <label>Menge</label>
-                            <input type="number" class="form-control" value="1" min="1" name="amount"/>
+                            <input type="number" class="form-control" value="1" min="1" max="999999999" name="amount" v-model="customerBuyAmount"/>
                         </div>
+                    </div>
+                    <div class="col-md-9">
+                        <label>Summe</label>
+                        <h4 v-html="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
                     </div>
                 </div>
                 <hr>
@@ -56,8 +71,9 @@ if (isset($_GET['update'])) {
                     <div class="card-body">
                         <?php
                         $user = $_SESSION[USER_ID];
-                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country FROM user
-                              WHERE user.objectID = :user";
+                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country 
+                        FROM user
+                        WHERE user.objectID = :user";
                         $stmt = connectDB()->prepare($sql);
                         $stmt->bindParam(":user", $user);
                         $stmt->execute();
@@ -85,7 +101,7 @@ if (isset($_GET['update'])) {
                             <i class="fas fa-shopping-cart"></i> Bestellen
                         </button>
                     </div>
-                </div>
+                </div><!-- Buttons-->
             </div>
         </div>
     </form>

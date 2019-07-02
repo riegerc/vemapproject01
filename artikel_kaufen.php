@@ -102,11 +102,11 @@ $date = date("Y-m-d", $time);
                     </tr>
                     <tr>
                         <th>Stückpreis</th>
-                        <td><?php echo $articlePrice ?></td>
+                        <td><?php echo number_format($articlePrice,2,',','\'')." €"; ?></td>
                     </tr>
                     <tr>
                         <th>Gesamtpreis</th>
-                        <td><?php echo $wholeAmount ?></td>
+                        <td><?php echo number_format($wholeAmount,2,',','\'')." €"; ?></td>
                     </tr>
                     <tr>
                         <th>Benutzer</th>
@@ -118,7 +118,7 @@ $date = date("Y-m-d", $time);
                     </tr>
                     <tr>
                         <th>Adresse</th>
-                        <td><?php echo "$street $house / $stairs / $door, $PLZ $city $country"; ?></td>
+                        <td><?php echo "$street $house , $PLZ $city $country"; ?></td>
                     </tr>
                 </table>
                 <hr>
