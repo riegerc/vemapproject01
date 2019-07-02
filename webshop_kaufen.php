@@ -62,7 +62,7 @@ if (isset($_GET['update'])) {
                     </div>
                     <div class="col-md-9">
                         <label>Summe</label>
-                        <h4 v-html="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
+                        <h4 v-text="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
                     </div>
                 </div>
                 <hr>
