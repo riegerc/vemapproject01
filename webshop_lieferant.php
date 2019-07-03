@@ -39,9 +39,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             orderitems.count as order_count, 
             orderitems.price as order_price,
             orderitems.ordered as ordered
-            FROM article, orderitems, user
+            FROM article, orderitems
             
-            WHERE article.objectID=orderitems.articleFID AND $userID=article.supplierUserFID AND user.objectID=$userID;";
+            WHERE article.objectID=orderitems.articleFID AND $userID=article.supplierUserFID;";
 
            //wenn SuperAdmin dann darf er alle Einträge sehen und bearbeiten
         if($_SESSION[USER_ROLE]==2){
