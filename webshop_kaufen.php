@@ -42,7 +42,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     </div>
                     <div class="col-md-3">
                         <label>Preis</label>
-                        <h4><?php echo number_format($row['price'],2,',','\'')." €"; ?></h4>
+                        <h4><?php echo number_format($row['price'],2,',','.')." €"; ?></h4>
                     </div>
                     <div class="col-md-3">
                         <label>Beschreibung</label>
