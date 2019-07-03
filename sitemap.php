@@ -22,27 +22,35 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         // Output Navigation-Sections
         foreach ($navigationItems as $sectionKey => $section) {
             // Check user-permission
-            echo "<h5>$section[section]</h5>";
-            echo "<ul class='no-style'>";
+            if ($perm->hasPermission($section["minUserLevel"])) {
+                echo "<h5>$section[section]</h5>";
+                echo "<ul class='no-style'>";
 
-            // Output Navigation-Categories
-            foreach ($section["categories"] as $categoryKey => $category) {
-                if ($category["name"] !== "Sitemap") {
-                    // Check user-permission
-                    echo "<li>$category[icon] $category[name]</li>";
-                    echo "<ul class='no-style'>";
-                    foreach ($category["links"] as $linkKey => $link) {
+                // Output Navigation-Categories
+                foreach ($section["categories"] as $categoryKey => $category) {
+                    if ($category["name"] !== "Sitemap") {
                         // Check user-permission
-                        echo "<li>";
-                        echo "<a href='$link[url]'>";
-                        echo $link["name"] == "" ? $link["url"] : $link["name"];
-                        echo "</a>";
-                        echo "</li>";
+                        if ($perm->hasPermission($category["minUserLevel"])) {
+                            echo "<li>$category[icon] $category[name]</li>";
+                            echo "<ul class='no-style'>";
+                            foreach ($category["links"] as $linkKey => $link) {
+                                // Check user-permission
+                                if ($perm->hasPermission($link["minUserLevel"])) {
+                                echo "<li>";
+                                echo "<a href='$link[url]'>";
+                                echo $link["name"] == "" ? $link["url"] : $link["name"];
+                                echo "</a>";
+                                echo "</li>";
+                            }
+                        }
+                        echo "</ul>";
                     }
-                    echo "</ul>";
                 }
             }
             echo "</ul>";
+        }
+        
+        
         }
         ?>
     </div>
