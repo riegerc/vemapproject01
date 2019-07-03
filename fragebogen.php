@@ -70,7 +70,8 @@ if(isset($_POST["senden"])){
 					echo "</li>\n";
 				}
 				echo "</ul>\n";
-				echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";					
+				echo "<div class='border text-center text-light bg-dark'>Gesamt: <span id='lbl" . $kriterium->getFkKriterium() . "'>0</span> %</div>\n";
+				echo "<br>";
 				}
 				?>			
 			<div class="form-row">
