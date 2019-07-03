@@ -121,7 +121,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         foreach ($stmt as $row) {
                             echo "    <tr>\n";
                             echo "    <td>" . $row['name'] . "</td>\n";
-                            echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
+                            echo "    <td>" . $row['price'] . " &euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
                             echo "    
@@ -156,7 +156,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         foreach ($stmt as $row) {
                             echo "    <tr>\n";
                             echo "    <td>" . $row['name'] . "</td>\n";
-                            echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
+                            echo "    <td>" . $row['price'] . " &euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
                            if($budget<=0){
