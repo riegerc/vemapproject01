@@ -196,13 +196,13 @@ if (isset($_POST['submit'])) {
     //Wenn etwas gefunden wurde
 
 
-    if ($row !== false) {
+    //if ($row !== false) {
 
-        $ok = false;
-        $bericht = "Email existiert bereits!<br>";
+        //$ok = false;
+        //$bericht = "Email existiert bereits!<br>";
 
-    } else {
-        if ($ok == true) {
+    //} else {
+        //if ($ok == true) {
 
             $sql = "INSERT INTO user (
                   firstName,
@@ -294,9 +294,9 @@ if (isset($_POST['submit'])) {
             mb_send_mail("$firstName $lastName <$email>", "Einladung zum Beschaffungsportal des Arbeitsmarktservice", $msg, $headers); /*; Content-Type: text/html; charset=ISO-8859-1*/
 
             echo "<div class='alert alert-success'><p>Lieferant erfolgreich eingeladen.</p></div>"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
-        }
+        //}
 
-    }
+    //}
 }
 ?>
 
