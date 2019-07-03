@@ -82,6 +82,11 @@ $stmt = $conn->query($empSQL);
 // Hier kommt CSV auswertung FEHLERQUELLE!!!
 
 if (isset($_POST["absenden"])) {
+
+    // if (isset($_FILES)) {
+    readCSV($_FILES["file"]["tmp_name"]);
+    // };
+
     $ordner = "temp";
     $dateiname = $_FILES["file"]["name"];
     $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
@@ -89,32 +94,36 @@ if (isset($_POST["absenden"])) {
     $dateiname = str_replace($alt, $neu, $dateiname);
 
     move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
-    echo "DANKE FÜR IHRE DATEI!!!";
+
+
+
+
+    echo "Ausschreibung erfolgreich erstellt!";
 }
 
 function readCSV($filename = "upload.csv")
 {
     $file = file("temp/$filename");
     $sql = "INSERT INTO tenderDetail(
-                                             tendersFID,
+                                             posNr,
                                              position,
                                              `longtext`,
                                              amount)
                     VALUES (
-                            :tendersFID,
+                            :posNr,
                             :position,
                             :langtext,
                             :amount)";
     foreach ($file as $output) {
         $dismantle = explode(";", $output);
-        if (!in_array("tendersFID", $dismantle)) {
-            if (!in_array("tendersFID", $dismantle)) $tendersFID = $dismantle[0];
+        if (!in_array("posNr", $dismantle)) {
+            if (!in_array("posNr", $dismantle)) $posNr = $dismantle[0];
             if (!in_array("position", $dismantle)) $position = $dismantle[1];
             if (!in_array("amount", $dismantle)) $amount = $dismantle[2];
             if (!in_array("langtext", $dismantle)) $longtext = $dismantle[3];
 
             $stmt = connectDB()->prepare($sql);
-            $stmt->bindParam(":tendersFID", $tendersFID);
+            $stmt->bindParam(":posNr", $posNr);
             $stmt->bindParam(":position", $position);
             $stmt->bindParam(":langtext", $longtext);
             $stmt->bindParam(":amount", $amount);
@@ -123,9 +132,6 @@ function readCSV($filename = "upload.csv")
     }
 }
 
-if (isset($_FILES)) {
-    readCSV();
-};
 
 // HIER ENDET FEHLERQUELLE CSV AUSWERTUNG
 
@@ -138,7 +144,7 @@ if (isset($_FILES)) {
         echo "<span style='display: none;' id='transferToJavaScript'>" . json_encode($stmt->fetchAll()) . "</span>";
         ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-            <?php echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
+            <?php //echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
