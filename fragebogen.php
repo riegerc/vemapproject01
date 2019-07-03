@@ -40,7 +40,7 @@ if(isset($_POST["senden"])){
 			$key=Helper::getId($key,"sld");
 			$antworten[$key]=(float)Helper::sanitize($val);
 	}
-	//$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
+	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
 		echo "<script type='text/javascript'>";
         echo "window.location.href='bewertung.php?lieferantid=$lieferantid';";
         echo "</script>";
