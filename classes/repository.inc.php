@@ -200,7 +200,7 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 							ON rm.reviewsFID=r.objectID
 						WHERE r.supplierUserFid=$lieferantFid ";
 					}
-			$sql.="GROUP BY c.objectID, c.name, month"; 
+			$sql.="GROUP BY c.objectID, c.name, month ORDER BY month"; 
 		$stmt=$this->db->prepare($sql);
 		try{
 			$stmt->execute();

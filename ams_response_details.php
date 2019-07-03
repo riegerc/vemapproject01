@@ -17,18 +17,18 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             <thead>
             <tr>
                 <th>Position</th>
+                <th>Preis per Stück</th>
                 <th>Menge</th>
                 <th>Gesamtpreis</th>
                 <th>Preis inkl. Mwst.</th>
-                <th>Preis per Stück</th>
+
             </tr>
             </thead>
             <tbody>
             <?php
-            $supplierFID = $_GET["supplierFID"];
-            $tenderID = $_GET["tenderID"];
-            $amount = (int)$_GET["amount"];
-            $sql = "SELECT  tendersresponse.price,tenderDetail.position FROM tendersresponse
+            $supplierFID = (int) $_GET["supplierFID"];
+            $tenderID = (int) $_GET["tenderID"];
+            $sql = "SELECT  tendersresponse.price,tenderDetail.position, tenderDetail.amount FROM tendersresponse
                 INNER JOIN tenderDetail
                 ON tendersresponse.tenderDetailFID= tenderDetail.objectID
                 WHERE tendersresponse.supplierFID=:supplierFID AND tenderDetail.tendersFID=:tenderID";
@@ -38,13 +38,15 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             $stmt->execute();
 
             while ($row = $stmt->fetch()) {
-                $total = (float)$row["price"] * $amount;
-                $proPice = (float)$row["price"];
+                $proPiece = (float)$row["price"];
+                $amount = (float) $row["amount"];
+                $total = $proPiece * $amount;
                 echo "<tr><td>" . $row["position"] . "</td>";
+                echo "<td>" . number_format($proPiece, 2, ",", ".") . " €" . "</td>";
                 echo "<td>$amount</td>";
                 echo "<td>" . number_format($total, 2, ",", ".") . " €" . "</td>";
-                echo "<td>" . number_format($total * 1.2, 2, ",", ".") . " €" . "</td>";
-                echo "<td>" . number_format($proPice, 2, ",", ".") . " €" . "</td></tr>";
+                echo "<td>" . number_format($total * 1.2, 2, ",", ".") . " €" . "</td></tr>";
+
             }
             ?>
             </tbody>

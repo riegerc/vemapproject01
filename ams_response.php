@@ -9,10 +9,10 @@ $title = "Alle Ausschreibungen"; // defines the name of the current page, displa
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 
-$sql = "SELECT tenders.objectID, tenders.tender,tenderDetail.amount AS amount FROM tenders 
+/*$sql = "SELECT tenders.objectID, tenders.tender,tenderDetail.amount AS amount FROM tenders
         INNER JOIN tenderDetail
         ON tenders.objectID = tenderDetail.tendersFID ";
-$st = connectDB()->query($sql);
+$st = connectDB()->query($sql);*/
 ?>
 
 <div class="container-fluid">
