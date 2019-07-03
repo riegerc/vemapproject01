@@ -11,7 +11,28 @@ $title = "Impressum"; // defines the name of the current page, displayed in the 
 include "include/init.php"; // includes base function like session handling
 include "include/page/top.php"; // top-part of html-template (stylesheets, navigation, ..)
 ?>
+<script type="text/javascript"> <!--
+    function UnCryptMailto( s )
+    {
+        var n = 0;
+        var r = "";
+        for( var i = 0; i < s.length; i++)
+        {
+            n = s.charCodeAt( i );
+            if( n >= 8364 )
+            {
+                n = 128;
+            }
+            r += String.fromCharCode( n - 1 );
+        }
+        return r;
+    }
 
+    function linkTo_UnCryptMailto( s )
+    {
+        location.href=UnCryptMailto( s );
+    }
+    // --> </script>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
@@ -22,8 +43,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             1200 Wien<br>
             Telefon: +43 1 33178-0<br>
             Telefax: +43 1 33178-121<br>
-            E-Mail: <a title="E-Mail AMS" href="mailto:ams.oesterreich@ams.at" style="display: inline-block;" tabindex="0">ams.oesterreich@ams.at <br>
-            </a></p>
+            E-Mail:
+            <a href="javascript:linkTo_UnCryptMailto('nbjmup;bnt/pftufssfjdiAbnt/bu');" title="E-Mail" tabindex="0">ams [dot] oesterreich [at] ams [dot] at</a>
+        </p>
         <p>UID: ATU 38908009<br>
         </p>
         <p><b>Bankverbindung:</b></p>
