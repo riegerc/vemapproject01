@@ -34,7 +34,7 @@ $date = date("Y-m-d", $time);
     $wholeAmount = $articlePrice * $amount;
 
     //Bestellerdaten auslesen (user)
-    $sql = "SELECT  user.branchName, user.email, user.street, user.houseNumber,user.stairs, user.door, user.postCode, user.city, user.country FROM user 
+    $sql = "SELECT  user.branchName, user.email, user.street, user.houseNumber,user.stairs, user.door, user.postCode, user.city, user.country, user.budget FROM user 
     WHERE objectID=$employee";
 
     $statement = $db->query($sql);
@@ -50,6 +50,7 @@ $date = date("Y-m-d", $time);
         $PLZ = $row["postCode"];
         $city = $row["city"];
         $country = $row["country"];
+        $budget = $row['budget'];
     }
 
     //order Tabelle befüllen
@@ -82,9 +83,17 @@ $date = date("Y-m-d", $time);
     $statement->bindParam(":order", $orderID);
 
     $statement->execute();
-
+    
+    //budget aktualisieren
+    
+    $budget-=($articlePrice*$amount);
+    $sql="UPDATE `user` SET `budget`=:budget WHERE `objectID`=:userID ";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":budget", $budget);
+    $stmt->bindParam(":userID", $employee);
+    $stmt->execute();
+    
 ?>
-
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
