@@ -50,10 +50,15 @@ else{
         $stmt=$db->prepare($sql);
         $stmt->bindParam(":rolesFID",$rolesFID);
         $stmt->execute();
-        while ( $row=$stmt->fetch()){
-
+		if($role==4){
+				echo "<script type='text/javascript'>";
+				echo "window.location.href='bewertung.php?lieferantid=$userid';";
+				echo "</script>";
+		}else{
+			while ( $row=$stmt->fetch()){
                 echo "<a href='$seite.php?lieferantid=$row[objectID]'>$row[branchName]</a><br>";
-        }
+			}
+		}
         ?>
     </div>
 </div>

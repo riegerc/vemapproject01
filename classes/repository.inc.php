@@ -153,6 +153,7 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 			$sql.="($reviewId,$key,$val,'2019-0$month-05 08:59:09'),";
 		}
 		$sql=rtrim($sql, ",");
+		//echo $sql;
 		$stmt=$this->db->prepare($sql);
 		try{
 			$stmt->execute();
