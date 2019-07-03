@@ -16,8 +16,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
         <!-- Content -->
+        <p>Eine Übersicht über die Web Site: </p>
         <?php
-
+        echo "<ul class='no-style'>";
         echo "<li><a href='index.php'><i class='fa fa-home'></i><span>Home</span></a></li>";
         // Output Navigation-Sections
         foreach ($navigationItems as $sectionKey => $section) {
@@ -36,22 +37,21 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             foreach ($category["links"] as $linkKey => $link) {
                                 // Check user-permission
                                 if ($perm->hasPermission($link["minUserLevel"])) {
-                                echo "<li>";
-                                echo "<a href='$link[url]'>";
-                                echo $link["name"] == "" ? $link["url"] : $link["name"];
-                                echo "</a>";
-                                echo "</li>";
+                                    echo "<li>";
+                                    echo "<a href='$link[url]'>";
+                                    echo $link["name"] == "" ? $link["url"] : $link["name"];
+                                    echo "</a>";
+                                    echo "</li>";
+                                }
                             }
+                            echo "</ul>";
                         }
-                        echo "</ul>";
                     }
                 }
+                echo "</ul>";
             }
-            echo "</ul>";
         }
-        
-        
-        }
+        echo "</ul>";
         ?>
     </div>
 </div>
