@@ -82,6 +82,11 @@ $stmt = $conn->query($empSQL);
 // Hier kommt CSV auswertung FEHLERQUELLE!!!
 
 if (isset($_POST["absenden"])) {
+
+    // if (isset($_FILES)) {
+    readCSV($_FILES["file"]["tmp_name"]);
+    // };
+
     $ordner = "temp";
     $dateiname = $_FILES["file"]["name"];
     $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
@@ -89,6 +94,10 @@ if (isset($_POST["absenden"])) {
     $dateiname = str_replace($alt, $neu, $dateiname);
 
     move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
+
+
+
+
     echo "Ausschreibung erfolgreich erstellt!";
 }
 
@@ -123,9 +132,6 @@ function readCSV($filename = "upload.csv")
     }
 }
 
-if (isset($_FILES)) {
-    readCSV();
-};
 
 // HIER ENDET FEHLERQUELLE CSV AUSWERTUNG
 
