@@ -12,7 +12,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 include "include/helper.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 include "classes/types/fragebogen.inc.php"; // top-part of html-template (stylesheets, navigation, ..)
 require_once("classes/repository.inc.php");
-$isFormSubmitted=false;
 $userId=$_SESSION[USER_ID];
 $rep=new Repository();
 $fragen=$rep->readFragebogen();
@@ -20,8 +19,7 @@ $lieferantid=0;
 if(isset($_GET["lieferantid"])){
 	$lieferantid=(int)Helper::sanitize($_GET["lieferantid"]);	
 }
-if(isset($_POST["senden"])){
-	$isFormSubmitted=true;
+if(isset($_POST["senden"])){	
 	echo "<pre>";
 	//print_r($_POST);
 	echo "</pre>";
@@ -36,28 +34,15 @@ if(isset($_POST["senden"])){
 	// JUST 4 TEST !!!!!!!!!!!
 	unset($_POST["month"]);
 	$antworten=array();
-	$toComment=array();
-	$fkKategorie=0;
+	
 	foreach($_POST as $key=>$val){
-		if(strpos($key, "fk_kategorie")===0){
-			$fkKategorie=$val;
-			unset($_POST[$key]);
-		}else{
 			$key=Helper::getId($key,"sld");
-			$antworten[$key]=["maincategory"=>$fkKategorie, "val"=>(float)Helper::sanitize($val)];
-		}
+			$antworten[$key]=(float)Helper::sanitize($val);
 	}
-		foreach($antworten as $antwort){
-			if($antwort["val"]<1){
-				if(!in_array($antwort["maincategory"],$toComment)){
-					array_push($toComment,$antwort["maincategory"]);
-				}
-			}
-		}
-	echo "<pre>";
-	print_r($toComment);
-	echo "</pre>";
 	//$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
+		echo "<script type='text/javascript'>";
+        echo "window.location.href='bewertung.php?lieferantid=$lieferantid';";
+        echo "</script>";
 }
 
 ?>
@@ -65,60 +50,30 @@ if(isset($_POST["senden"])){
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-	<h1 style="color:red">Under construction</h1>
+		<h1 style="color:red">Under construction</h1>
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 			<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 			<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
-				<?php
-				$shouldComment=false;
-				
-					foreach($fragen as $frage) {
-
-						echo "<h2>" . $frage->getName() . "</h2>\n";
-						echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
-						foreach($frage->getKriterien() as $kriterium) {
-							echo "<li class='list-group-item'>";
-							
-							$maxInputRange=round($kriterium->getPrzt(),0);
-							
-							echo "<div class='form-group'>\n";
-						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>\n";
-							echo "<input type='hidden' name='fk_kategorie".$kriterium->getFkKriterium()."' value='".$kriterium->getFkKriterium()."'>";
-							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' name='sld" . $kriterium->getId() . "' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>\n";
-							
-							echo "<span class='float-left'>0</span>\n";
-							echo "<span class='float-right'>" . $maxInputRange . "</span>\n";
-							
-							echo "</div>";
-							
-							echo "</li>";
-						}
-						echo "</ul>\n";
-				
-						echo "<div id='lbl" . $kriterium->getFkKriterium() . "'>0</div>\n";
-						
-						echo "Kriterium" . $kriterium->getFkKriterium() . "<br>";
-						
-						if ($isFormSubmitted) {
-							// if the form was submitted, we collapse or not, otherwise always collapse (do not show the textarea)			
-							
-							if (($key = array_search($kriterium->getFkKriterium(), $toComment)) !== false) {
-							unset($toComment[$key]); $shouldComment=true;
-							}
-							
-							if ($shouldComment==true) {
-							$collapse = "";
-							} else $collapse = "collapse";
-							echo "<input type='checkbox' data-target='#target" . $kriterium->getFkKriterium() . "' data-toggle='collapse' id='chk" . $kriterium->getFkKriterium() . "'>\n";
-							echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label>\n";
-							echo "<textarea class='form-control $collapse' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
-						}
-					}
-					
-						echo "<pre>";
-	print_r($toComment);
-	echo "</pre>";
-					?>			
+				<?php		
+				foreach($fragen as $frage) {
+				echo "<h2>" . $frage->getName() . "</h2>\n";
+				echo "<ul class='list-group list-group-flush' id='slds" . $frage->getId() . "'>\n";
+				foreach($frage->getKriterien() as $kriterium){
+					$maxInputRange=round($kriterium->getPrzt(),0);
+					echo "<li class='list-group-item\n'>";		
+					echo "<div class='form-group'>\n";
+					echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>\n";
+					echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' name='sld" . $kriterium->getId() . "' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>\n";		
+					echo "<span class='float-left'>0</span>\n";
+					echo "<span class='float-right'>" . $maxInputRange . "</span>\n";
+					echo "</div>\n";	
+					echo "</li>\n";
+				}
+				echo "</ul>\n";
+				echo "<div class='border text-center text-light bg-dark'>Gesamt: <span id='lbl" . $kriterium->getFkKriterium() . "'>0</span> %</div>\n";
+				echo "<br>";
+				}
+				?>			
 			<div class="form-row">
 				<div class="col-md-2">
 					<button type="submit" name="senden" class="btn btn-primary form-button">Senden</button>

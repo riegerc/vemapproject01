@@ -124,7 +124,7 @@ $date = date("Y-m-d", $time);
                 <hr>
                 <form action="DOMpdf.php" target="_blank" method="POST">
                     <input type="hidden" name="orderID" value="<?php echo $orderID ?>">
-                    <button name="pdf"  class="btn btn-danger form-button">
+                    <button name="pdf" title="PDF Datei: Bestellung, öffnet in neuem Fenster." class="btn btn-danger form-button">
                         <i class="fas fa-file-pdf"></i> PDF
                     </button>
                 </form>

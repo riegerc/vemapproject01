@@ -266,16 +266,16 @@ if (isset($_POST['submit'])) {
             echo "<pre>$password</pre>";
             echo "<div class='alert alert-success'><p>IN DATENBANK GESPEICHERT!</p></div>"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
 
-
-                    $msg = "Sehr geehrte(r) $firstName $lastName \n
+            $msg = "Sehr geehrte(r) $firstName $lastName \n
                     Diese Email enthält Ihre Zugangsdaten zu unserem Auftragsportal.\n
                      Zugangsdaten:\n
                     Email:               $email\n
                     Passwort:            $password\n";
-                   $msg = wordwrap($msg,70);
-                   mail($email,
-                      "Ihre Zugangsdaten zu unserem Portal",
-                      $msg);
+            $msg = wordwrap($msg,90);
+
+
+            mb_send_mail("Dominik Navid <d.navid.electronics@gmail.com>", "Ihre Zugangsdaten zu unserem Portal", $msg, "From: e.schwartz@ams.at");
+echo $msg;
         }
 
     }
