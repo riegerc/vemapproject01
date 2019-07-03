@@ -91,11 +91,11 @@ $stmt = $conn->query($empSQL);
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Ausschreibung</label>
+                        <label>Ausschreibung *</label>
                         <input type="text" name="tender" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Ausschreibungs type</label>
+                        <label>Ausschreibungs type *</label>
                         <select name="tenderType" class="form-control" required>
                             <option name="Dienstleistung" value="Dienstleistung">
                                 Dienstleistung
@@ -106,25 +106,26 @@ $stmt = $conn->query($empSQL);
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Beginn</label>
+                        <label>Beginn *</label>
                         <input type="date" name="begin" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Ende</label>
+                        <label>Ende *</label>
                         <input type="date" name="end" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="description">Auftragsbeschreibung</label>
+                        <label for="description">Auftragsbeschreibung *</label>
                         <textarea name="description" class="form-control" rows="7" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Ergänzende PDF Dokumente hinzufügen (max. 25mb)</label>
-                        <input name="datei[]" class="form-control-file" type="file" multiple size="25" accept=".pdf">
+                        <label>Ergänzende Dokumente hinzufügen (max. 25mb)</label>
+                        <input name="datei[]" class="form-control-file" type="file" multiple size="25" accept=".pdf, .word, .wordx, .xls, .xlsx">
                         <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
                     </div>
                     <div class="form-group">
-                        <label>Upload für Ausschreibungs Excel</label>
-                        <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx">
+                        <label>Upload für Positions Formular *</label>
+                        <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx"> <br>
+                        <button type="button" class="btn btn-outline-info">  <a href="temp/ausschreibungsMaske.csv">Maske für Positionen Herunterladen</a></button><br>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -177,6 +178,9 @@ $stmt = $conn->query($empSQL);
                         <button type="reset" class="btn btn-danger form-button">
                             <i class="fas fa-undo-alt"></i> Formular zurücksetzen
                         </button>
+                        <div class="alert alert-secondary" role="alert">
+                            * Pflichtfeld
+                        </div>
                     </div>
                 </div>
             </div>

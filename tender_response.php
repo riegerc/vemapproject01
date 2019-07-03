@@ -46,7 +46,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             $row = $stmt->fetch();
             echo "<h2>$row[tender]</h2>";
 
-            $posnr = 0;
+            //$posnr = 0;
 
             while ($row = $stmt->fetch()) {
                 echo "<tr>";
@@ -74,7 +74,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
                         $stmtInsert->execute();
                     }
-                    $posnr++;
+                    //$posnr++;
                 }
             }
             ?>
