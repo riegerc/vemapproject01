@@ -72,9 +72,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             $auswahl .= "    <td>" . $row['article_price'] * $row['order_count'] . "&euro;" . "</td>\n";
 
             if ($row['ordered'] == 1) {
-                $auswahl .= "<td><br>Bestätigt<br></td>\n";
+                $auswahl .= "<td><span class='btn form-button'><i class='fas fa-check-circle'></i> Bestätigt</span></td>\n";
             } else {
-                $auswahl .= "<td> <a href='?order=".$row['order_id']."'>Bestätigen</a><br></td>\n";
+                $auswahl .= "<td> <a class='btn btn-success form-button' href='?order=".$row['order_id']."'><i class='fas fa-check-circle'></i> Bestätigen</a><br></td>\n";
             }
             $auswahl .= "    </tr>";
         }
