@@ -117,7 +117,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         $stmt->bindParam(":suche", $suche);
                         $stmt->execute();
 
-
                         //foreach loop for the table rows
                         foreach ($stmt as $row) {
                             echo "    <tr>\n";
