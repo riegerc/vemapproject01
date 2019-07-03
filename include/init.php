@@ -68,3 +68,9 @@ if (isset($_POST["logout"])) {
     session_destroy();
     header("location:index.php");
 }
+
+if (isset($get["logout"])) {
+    session_start();
+    session_destroy();
+    header("location:index.php");
+}
