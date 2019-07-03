@@ -10,6 +10,7 @@ $navigationItems =
                         ["name" => "Ihre Ausschreibungen", "url" => "overview_tenders.php", "minUserLevel" => PERM_VIEW_OFFER],
                         ["name" => "Lieferant anlegen", "url" => "create_supplier.php", "minUserLevel" => PERM_CED_SUPPLIER],
                         ["name" => "Ausschreibung erstellen", "url" => "create_tender.php", "minUserLevel" => PERM_CED_SUPPLIER],
+                        ["name" => "Erstellte Ausschreibungen", "url" => "ams_response.php", "minUserLevel" => PERM_CED_SUPPLIER],
                     ],
                     "icon" => "<i class='fas fa-file-invoice'></i>",
                     "minUserLevel" => PERM_VIEW_OFFER_MENU

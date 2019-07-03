@@ -159,13 +159,16 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
+                           if($budget<=0){
+                                echo "    <td> kauf dir geld</td>\n";   
+                           }else{
                             echo "
                             <td> 
                             <form action='webshop_kaufen.php' method='get'>
                             <button type='submit' name='update' value='$row[objectID]' class='btn btn-primary form-button'>
                                 <i class='fas fa-shopping-cart'></i> Kaufen
                             </button>
-                            </form>";
+                            </form>";}
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;
