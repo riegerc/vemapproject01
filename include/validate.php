@@ -1,6 +1,4 @@
 <?php
-
-
 function isSqlInsert(string $sql):bool{
     return strpos(mb_strtolower($sql), "insert") == 0;
 }
@@ -12,5 +10,3 @@ function isSqlSelect(string $sql):bool{
 function isSqlUpdate(string $sql):bool{
     return strpos(mb_strtolower($sql), "update") == 0;
 }
-
-
