@@ -130,12 +130,12 @@ foreach($kriterien as $kriterium){
 		<div class="row">
             <div class="col-md-6">
                 <label for="kriterium">Name</label>
-                <input class="form-control" type="text" name="kriterium" id="kriterium" placeholder="" value="<?php echo $name; ?>" required>
+                <input class="form-control" type="text" name="kriterium" id="kriterium" placeholder="" value="<?php echo $name; ?>">
             </div>
             <div class="col-md-2">
                 <label for="kriterium">Gewichtung</label>
                 <input type="number" name="gewichtung" id="gewichtung"
-                       min="1" max="5" class="form-control" value="<?php echo $gewichtung; ?>" required>
+                       min="1" max="5" class="form-control" value="<?php echo $gewichtung; ?>">
             </div>
             <div class="col-md-4 form-button-wrap">
                 <button class="btn btn-primary form-button" type="submit" name="senden">Absenden</button>

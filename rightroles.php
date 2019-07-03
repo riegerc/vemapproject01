@@ -142,7 +142,7 @@ if(isset($_POST['saverolerights']) && $hasEditPermission){
             </div>
         </form>
     </div>
-</div>
+</div> 
 <script>
     $("#rights").dataTables();
 </script>
