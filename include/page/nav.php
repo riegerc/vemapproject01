@@ -125,9 +125,7 @@ $standaloneLinks =
                 }
                 foreach ($standaloneLinks as $link) {
                     echo "<li class='nav-item'>";
-                    echo "<a class='nav-link ' href='index.php'>";
-                    echo $link["name"] == "" ? $link["url"] : $link["name"];
-                    echo "</a>";
+                    echo "<a class='nav-link ' href='$link[url]'><span>$link[name]</span></a>";
                     echo "</li>";
                 }
             } else {
