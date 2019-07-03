@@ -19,12 +19,3 @@ function countVals(labelid){
 	}
 	return sum;
 }
-
-var carets = document.querySelectorAll('.up-down');
-
-carets.forEach(function(caret){
-  caret.addEventListener("click", function(){
-     this.getElementsByTagName('span')[0].classList.toggle('fa-caret-right');
-     this.getElementsByTagName('span')[0].classList.toggle('fa-caret-up');
-  });
-})
