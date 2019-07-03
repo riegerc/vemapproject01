@@ -48,7 +48,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <h4><?php echo $row['name'] ?></h4>
                     </div>
                     <div class="col-md-3">
-                        <label>Preis</label>
+                        <label>Preis pro Stück</label>
                         <h4><?php echo number_format($row['price'],2,',','.')." €"; ?></h4>
                     </div>
                     <div class="col-md-3">
@@ -64,6 +64,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="col-md-9">
                         <label>Summe</label>
                         <h4 v-text="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
+                    </div>
+                </div>
+                </div>
+                    <div class="col-md-9">
+                        <label>Budget</label>
+                        <h4 v-text='<?php echo $budget;?>'></h4>
                     </div>
                 </div>
                 <hr>

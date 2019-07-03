@@ -47,9 +47,12 @@ $dateEnd=date_create($row["end"]);
         <a href="overview_tenders.php" >&#8636 Zurück zu Ihren Ausschreibungen</a>
         <h2><?php echo $row["tender"] ?></h2>
         <a href="pdf.php?id=<?php echo $tenderGetID ?>" class="float-right" ><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i>Ausschreibung als PDF herunterladen</button> </a>
-        <a href="/uploads/anhang03_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 3</button> </a>
-        <a href="/uploads/anhang02_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 2</button> </a>
-        <a href="/uploads/anhang01_<?php echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 1</button> </a>
+
+        <!-- <a href="vemapproject01/uploads/anhang01_<?php //echo $row["tender"] ?>.pdf" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 1</button> </a> -->
+
+        <a href="uploads/Dsvo%201.doc" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 2</button> </a>
+
+         <a href="uploads/agb1.doc" class="float-right" ><button type="button" class="btn btn-default"><i class="fas fa-file-download"></i>Anhang 1</button> </a>
         <br>
         <table class="table">
             <thead class="thead-dark">
