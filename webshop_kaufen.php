@@ -26,6 +26,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <div class="row">
             <div class="col-md-12">
                 <?php
+                //fetch budget
+                $sql="SELECT budget FROM user WHERE objectID=" . $_SESSION[USER_ID];
+                $stmt = connectDB()->query($sql);
+                $row = $stmt->fetch();
+                $budget = $row["budget"];
+
                 $sql = "SELECT article.name, article.price, article.description 
                 FROM article 
                 WHERE article.objectID =  :objectID";
@@ -33,6 +39,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 $stmt->bindParam(":objectID", $objectID);
                 $stmt->execute();
                 $row = $stmt->fetch();
+                $max = floor($budget / $row["price"]);
                 ?>
                 <span style="display: none" id="customerBuyPrice"><? echo $row['price'] ?></span>
                 <div class="row">
@@ -41,7 +48,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <h4><?php echo $row['name'] ?></h4>
                     </div>
                     <div class="col-md-3">
-                        <label>Preis</label>
+                        <label>Preis pro Stück</label>
                         <h4><?php echo number_format($row['price'],2,',','.')." €"; ?></h4>
                     </div>
                     <div class="col-md-3">
@@ -51,12 +58,18 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="col-md-3 float-right">
                         <div class="form-group">
                             <label>Menge</label>
-                            <input type="number" class="form-control" value="<?php echo $_POST['amount']; ?>" min="1" max="999999999" name="amount" v-model="customerBuyAmount" readonly/>
+                            <input type="number" class="form-control" value="1" min="1" max="<?= $max ?>" name="amount" v-model="customerBuyAmount">
                         </div>
                     </div>
                     <div class="col-md-9">
                         <label>Summe</label>
                         <h4 v-text="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
+                    </div>
+                </div>
+                </div>
+                    <div class="col-md-9">
+                        <label>Budget</label>
+                        <h4 v-text='<?php echo $budget;?>'></h4>
                     </div>
                 </div>
                 <hr>

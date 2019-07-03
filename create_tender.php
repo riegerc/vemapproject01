@@ -19,15 +19,15 @@ if (isset($_POST["absenden"])) {
     $description = $_POST["description"];
     $begin = $_POST["begin"];
     $end = $_POST["end"];
-    $amount = (int)$_POST["amount"];
+    //$amount = (int)$_POST["amount"]; possible bug fault
 
     $sql = "INSERT INTO tenders
-                (tender,tenderType,cpvCode,begin,end,description,userFID,amount)
+                (tender,tenderType,cpvCode,begin,end,description,userFID)
                 VALUES
-                (?,?,?,?,?,?,?,?)";
+                (?,?,?,?,?,?,?)";
     $db = connectDB();
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($tender, $tenderType, "30000000-9", $begin, $end, $description, $userFID, $amount));
+    $stmt->execute(array($tender, $tenderType, "30000000-9", $begin, $end, $description, $userFID));
     $currentID = $db->lastInsertId();
 
     foreach ($_POST as $key => $value) {
@@ -79,6 +79,57 @@ WHERE rolesFID=6 OR rolesFID=4";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
+// Hier kommt CSV auswertung FEHLERQUELLE!!!
+
+if (isset($_POST["absenden"])) {
+    $ordner = "temp";
+    $dateiname = $_FILES["file"]["name"];
+    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
+    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
+    $dateiname = str_replace($alt, $neu, $dateiname);
+
+    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
+    echo "DANKE FÜR IHRE DATEI!!!";
+}
+
+function readCSV($filename = "upload.csv")
+{
+    $file = file("temp/$filename");
+    $sql = "INSERT INTO tenderDetail(
+                                             tendersFID,
+                                             position,
+                                             `longtext`,
+                                             amount)
+                    VALUES (
+                            :tendersFID,
+                            :position,
+                            :langtext,
+                            :amount)";
+    foreach ($file as $output) {
+        $dismantle = explode(";", $output);
+        if (!in_array("tendersFID", $dismantle)) {
+            if (!in_array("tendersFID", $dismantle)) $tendersFID = $dismantle[0];
+            if (!in_array("position", $dismantle)) $position = $dismantle[1];
+            if (!in_array("amount", $dismantle)) $amount = $dismantle[2];
+            if (!in_array("langtext", $dismantle)) $longtext = $dismantle[3];
+
+            $stmt = connectDB()->prepare($sql);
+            $stmt->bindParam(":tendersFID", $tendersFID);
+            $stmt->bindParam(":position", $position);
+            $stmt->bindParam(":langtext", $longtext);
+            $stmt->bindParam(":amount", $amount);
+            $stmt->execute();
+        }
+    }
+}
+
+if (isset($_FILES)) {
+    readCSV();
+};
+
+// HIER ENDET FEHLERQUELLE CSV AUSWERTUNG
+
+
 ?>
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
@@ -86,7 +137,7 @@ $stmt = $conn->query($empSQL);
         <?php
         echo "<span style='display: none;' id='transferToJavaScript'>" . json_encode($stmt->fetchAll()) . "</span>";
         ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
             <?php echo "<h6>" . "AmsID : " . $_SESSION[USER_ID] . "<h6>" . "<br>"; ?>
             <div class="row">
                 <div class="col-md-6">
@@ -119,12 +170,13 @@ $stmt = $conn->query($empSQL);
                     </div>
                     <div class="form-group">
                         <label>Ergänzende Dokumente hinzufügen (max. 25mb)</label>
-                        <input name="datei[]" class="form-control-file" type="file" multiple size="25" accept=".pdf, .word, .wordx, .xls, .xlsx">
-                        <!-- TODO muss noch mit Formular mitgesendet und auf Server gespeichert werden-->
+                        <input class="form-control-file" type="file" multiple size="25" accept=".pdf, .word, .wordx, .xls, .xlsx">
                     </div>
                     <div class="form-group">
                         <label>Upload für Positions Formular *</label>
+
                         <input class="form-control-file" type="file" name="file" id="file" accept=".csv,.xls,.xlsx"> <br>
+
                         <button type="button" class="btn btn-outline-info">  <a href="temp/ausschreibungsMaske.csv">Maske für Positionen Herunterladen</a></button><br>
                     </div>
                 </div>

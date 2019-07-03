@@ -121,7 +121,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         foreach ($stmt as $row) {
                             echo "    <tr>\n";
                             echo "    <td>" . $row['name'] . "</td>\n";
-                            echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
+                            echo "    <td>" . $row['price'] . " &euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
                             echo "    
@@ -156,19 +156,24 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         foreach ($stmt as $row) {
                             echo "    <tr>\n";
                             echo "    <td>" . $row['name'] . "</td>\n";
-                            echo "    <td>" . $row['price'] . "&euro;" . "</td>\n";
+                            echo "    <td>" . $row['price'] . " &euro;" . "</td>\n";
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
                            if($budget<=0){
                                 echo "    <td> kauf dir geld</td>\n";   
                            }else{
+
+                            if($budget>$row['price']){
                             echo "
                             <td> 
                             <form action='webshop_kaufen.php' method='get'>
                             <button type='submit' name='update' value='$row[objectID]' class='btn btn-primary form-button'>
                                 <i class='fas fa-shopping-cart'></i> Kaufen
                             </button>
-                            </form>";}
+                            </form>";}else{
+                                echo "    <td> kauf dir geld</td>\n"; 
+                            }
+                        }
                             echo "    </tr>";
                             //this variable counts each time you get a result from search.
                             $counter++;

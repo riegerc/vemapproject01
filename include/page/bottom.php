@@ -4,7 +4,7 @@
         <div class="copyright text-center my-auto">
             <span>Copyright &copy; <?php echo PAGE_NAME ?> 2019</span>
             |
-            <span>Application Services powered by <a href="https://vemap.com">vemap.com</a></span>
+            <span>Application Services powered by <a href="http://vemap.com" target="_blank" tabindex="0" rel="noopener nofollow">vemap.com</a></span>
         </div>
     </div>
 </footer>
