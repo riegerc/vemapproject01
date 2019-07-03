@@ -26,10 +26,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <div class="row">
             <div class="col-md-12">
                 <?php
+                //fetch budget
                 $sql="SELECT budget FROM user WHERE objectID=" . $_SESSION[USER_ID];
                 $stmt = connectDB()->query($sql);
                 $row = $stmt->fetch();
                 $budget = $row["budget"];
+
                 $sql = "SELECT article.name, article.price, article.description 
                 FROM article 
                 WHERE article.objectID =  :objectID";
