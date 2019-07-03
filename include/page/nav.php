@@ -41,6 +41,13 @@ $navigationItems =
                     "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => PERM_VIEW_CLIENT_MENU
                 ],
+                ["name" => "Impressum",
+                    "links" => [
+                        ["name" => "Impressum", "url" => "impressum.php", "minUserLevel" => PERM_CED_USER],
+                    ],
+                    "icon" => "<i class='fas fa-users'></i>",
+                    "minUserLevel" => PERM_VIEW_CLIENT_MENU
+                ],
                 ["name" => "Sitemap",
                     "links" => [
                         ["name" => "Sitemap", "url" => "sitemap.php", "minUserLevel" => PERM_CED_USER],
