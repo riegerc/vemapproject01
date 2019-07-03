@@ -66,6 +66,12 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <h4 v-text="Intl.NumberFormat('de-DE', {style: 'decimal'}).format(customerBuyPrice * customerBuyAmount) + ' €'"></h4>
                     </div>
                 </div>
+                </div>
+                    <div class="col-md-9">
+                        <label>Budget</label>
+                        <h4 v-text='<?php echo $budget;?>'></h4>
+                    </div>
+                </div>
                 <hr>
                 <h5>Adresse</h5>
                 <div class="card">
