@@ -55,7 +55,7 @@ if ($pageRestricted === true) {
         !isset($_SESSION[USER_ID]) || 
         !isset($_SESSION[USER_NAME]) || 
         !isset($_SESSION[USER_PERMISSION])) {
-        header("location:logout.php");
+        header("location:index.php");
     }
     
     if (!$perm->hasPermission($userLevel)) {
@@ -64,6 +64,12 @@ if ($pageRestricted === true) {
 }
 
 if (isset($_POST["logout"])) {
+    session_start();
+    session_destroy();
+    header("location:index.php");
+}
+
+if (isset($get["logout"])) {
     session_start();
     session_destroy();
     header("location:index.php");

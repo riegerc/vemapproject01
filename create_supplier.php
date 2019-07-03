@@ -58,25 +58,25 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="branchName">Firmenname</label>
+                                <label for="branchName">Firmenname *</label>
                                 <input type="text" id="branchName" class="form-control" name="branchName" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="sectorCode">Sector Code</label>
+                                <label for="sectorCode">Sector Code *</label>
                                 <input type="text" class="form-control" name="sectorCode" id="sectorCode" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="street">Strasse</label>
+                        <label for="street">Strasse *</label>
                         <input type="text" class="form-control" name="street" id="street" required>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="houseNumber">Hausnummer</label>
+                                <label for="houseNumber">Hausnummer *</label>
                                 <input type="text" class="form-control" name="houseNumber" id="houseNumber" required>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="postCode">Postleitzahl</label>
+                                <label for="postCode">Postleitzahl *</label>
                                 <input type="text" class="form-control" name="postCode" id="postCode" required>
                             </div>
                         </div>
@@ -102,13 +102,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="city">Stadt</label>
+                                <label for="city">Stadt *</label>
                                 <input type="text" class="form-control" name="city" id="city" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="country">Land</label>
+                                <label for="country">Land *</label>
                                 <input type="text" class="form-control" name="country" id="country" required>
                             </div>
                         </div>
@@ -120,19 +120,19 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="firstName">Vorname</label>
+                                <label for="firstName">Vorname *</label>
                                 <input type="text" class="form-control" name="firstName" id="firstName" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="lastName">Nachname</label>
+                                <label for="lastName">Nachname *</label>
                                 <input type="text" class="form-control" name="lastName" id="lastName" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="email">E-Mail</label>
+                        <label for="email">E-Mail *</label>
                         <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="form-group">
@@ -140,7 +140,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                         <input type="text" class="form-control" name="telNr" id="telNr">
                     </div>
                     <div class="form-group">
-                        <label for="mobilNr">Mobil</label>
+                        <label for="mobilNr">Mobil *</label>
                         <input type="text" class="form-control" name="mobilNr" id="mobilNr" required>
                     </div>
                     <div class="form-group form-button-wrap">
@@ -151,6 +151,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 </div>
             </div>
         </form>
+    </div>
+    <div class="alert alert-secondary" role="alert">
+        * Pflichtfeld
     </div>
 </div>
 
@@ -196,13 +199,13 @@ if (isset($_POST['submit'])) {
     //Wenn etwas gefunden wurde
 
 
-    if ($row !== false) {
+    //if ($row !== false) {
 
-        $ok = false;
-        $bericht = "Email existiert bereits!<br>";
+        //$ok = false;
+        //$bericht = "Email existiert bereits!<br>";
 
-    } else {
-        if ($ok == true) {
+    //} else {
+        //if ($ok == true) {
 
             $sql = "INSERT INTO user (
                   firstName,
@@ -263,27 +266,40 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(":amsYesNo", $ams);
 
             $stmt->execute();
-            echo "<pre>$password</pre>";
-            echo "<div class='alert alert-success'><p>IN DATENBANK GESPEICHERT!</p></div>"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
 
-            $msg = "Sehr geehrte(r) $firstName $lastName \n
-                    Diese Email enthält Ihre Zugangsdaten zu unserem Beschaffungsportal.\n
-                     Zugangsdaten:\n
-                    Email:               $email\n
-                    Passwort:            $password\n
+
+            $msg = "<p>Sehr geehrte(r) $firstName $lastName,
+                    <br> 
                     
-                    <a href='http://ams.vemapacademy.com/'>Zum Login</a>
+                    <br>
+                    Wir laden sie mit dieser Email herzlich zu unserem Beschaffungsportal ein. 
+                    <br> In Kürze erhalten sie eine Einladung zu einer Ausschreibung. <br>Über das Portal können sie dann Angebote zu allen Ausschreibungen an denen sie teilnehmen abgeben.<br><br>
+                    Ihre Zugangsdaten lauten:<br><br>
+                     
+                    <code>
+                    Email:               $email<br>
+                    Passwort:            $password<br>
+                    </code>
+<br>
+                    <a href='http://ams.vemapacademy.com/'>Zum Login</a><br><br>
+                    
                     
                     Mit freundlichen Grüßen,
-                    Beschaffungsportal AMS";
-            $msg = wordwrap($msg,90);
+                    <br>
+                    Beschaffungsportal AMS</p>";
 
+            //$msg = wordwrap($msg,90);
 
-            mb_send_mail("$firstName $lastName <$email>", "Einladung zum Beschaffungsportal des Arbeitsmarktservice", $msg, "From: beschaffungsportal@ams.at");
-echo $msg;
-        }
+            $headers = "From: beschaffungsportal@ams.at \r\n";
+            $headers .= "MIME-Version: 1.0\r\n";
+            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-    }
+            mb_send_mail("$firstName $lastName <$email>", "Einladung zum Beschaffungsportal des Arbeitsmarktservice", $msg, $headers); /*; Content-Type: text/html; charset=ISO-8859-1*/
+
+            echo "<div class='alert alert-success'><p>Lieferant erfolgreich eingeladen.</p></div>"; //https://getbootstrap.com/docs/4.0/components/alerts/ mit alert success
+        //}
+
+    //}
 }
 ?>
 
