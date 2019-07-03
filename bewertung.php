@@ -52,9 +52,9 @@ foreach($chart->getBewertungen() as $bewertung){
 <?php include "include/page/bottom.php"; // bottom-part of html-template (footer, scripts, .. ) ?>
 <script>
             // Grab canvas
-            var ctx = document.getElementById('mainCanvas').getContext('2d');
+            let ctx = document.getElementById('mainCanvas').getContext('2d');
 			
-            var chart = new Chart(ctx, {
+            let chart = new Chart(ctx, {
             // The type of chart
             type: 'line',
             // The data for dataset

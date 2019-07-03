@@ -20,18 +20,13 @@ if (isset($_POST["senden"])) {
             // Nur eingegebene Werte werden übergeben, leere Inputs ignoriert
             if ($key == "user") {
                 /*echo "UserID: $value";*/ // user wird im Array ignoriert
-            } elseif ($key == "rolesFID") {
-                /*echo $value;*/
             } elseif ($key == "senden") {
                 // senden wird ignoriert
-            }
-            elseif ($key == "budget" AND $value == "") {
+            } elseif ($key == "budget" AND $value == "") {
                 //Budget ist integer also kein Leerstring erlaubt
-            } elseif ($key == "rolesFID") {
-                $key = 0;
             } else {
                 $sql = "UPDATE user
-                SET $key=:param
+                SET $key = :param
                 WHERE objectID=$user";
 
                 $statement = connectDB()->prepare($sql);
@@ -93,7 +88,14 @@ if (isset($_POST["senden"])) {
                     <select name="rolesFID" class="form-control">
                         <?php
                         //DropDown Menü mit allen Rollen zum auswählen
-                        $sql = "SELECT DISTINCT * FROM roles";
+                        var_dump($_SESSION);
+                        if($_SESSION["userRole"] == 2) {
+                            $sql = "SELECT DISTINCT * FROM roles";
+                        } else{
+                            $sql = "SELECT DISTINCT * FROM roles
+                                    WHERE objectID <> 2";
+                        }
+
                         $statement = connectDB()->prepare($sql);
                         $statement->execute();
 
@@ -103,6 +105,7 @@ if (isset($_POST["senden"])) {
                                 $selected = "selected";
                             }
                             //value=RoleID, inhalt ist RoleName
+
                             echo "<option value='$row[objectID]' $selected>$row[name]</option>";
                         }
                         ?>
