@@ -2,9 +2,10 @@
 /*
  Autoren: Christian Riedler, Lubomir Mitana
  */
-
-$pageRestricted = false; // defines if the page is restricted to logged-in Users only
-//$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
+$checkme = "a30ee472364c50735ad1d43cc09be0a1";
+require_once "include/constant.php";
+$pageRestricted = true; // defines if the page is restricted to logged-in Users only
+$userLevel = PERM_MAKE_REVIEW; // uses a PERM_ const now and hasPermission($userLevel) now if fails a 403 Error-Page is returned
 $title = "Bewertung Lieferant"; // defines the name of the current page, displayed in the title and as a header on the page
 
 include "include/init.php"; // includes base function like session handling
@@ -50,7 +51,6 @@ if(isset($_POST["senden"])){
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
-		<h1 style="color:red">Under construction</h1>
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 			<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
 			<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
