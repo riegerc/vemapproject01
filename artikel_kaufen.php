@@ -86,12 +86,15 @@ $date = date("Y-m-d", $time);
     
     //budget aktualisieren
     
-    $budget-=($articlePrice*$amount);
+    $newBudget=$budget-($articlePrice*$amount);
     $sql="UPDATE `user` SET `budget`=:budget WHERE `objectID`=:userID ";
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(":budget", $budget);
+    $stmt->bindParam(":budget", $newBudget);
     $stmt->bindParam(":userID", $employee);
     $stmt->execute();
+
+    
+
     
 ?>
 <div class="container-fluid">
@@ -101,7 +104,7 @@ $date = date("Y-m-d", $time);
             <div class="col-md-4">
                 <!-- Content -->
                 <table id="overview">
-                    <tr>
+                <tr>
                         <th>Stück</th>
                         <td><?php echo $amount ?></td>
                     </tr>
@@ -111,11 +114,19 @@ $date = date("Y-m-d", $time);
                     </tr>
                     <tr>
                         <th>Stückpreis</th>
-                        <td><?php echo number_format($articlePrice,2,',','\'')." €"; ?></td>
+                        <td><?php echo number_format($articlePrice,2,',','.')." €"; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Budget</th>
+                        <td><?php echo number_format($budget,2,',','.')." €"; ?></td>
                     </tr>
                     <tr>
                         <th>Gesamtpreis</th>
-                        <td><?php echo number_format($wholeAmount,2,',','\'')." €"; ?></td>
+                        <td><?php echo number_format($wholeAmount,2,',','.')." €"; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Rest Budget</th>
+                        <td><?php echo number_format($newBudget,2,',','.')." €"; ?></td>
                     </tr>
                     <tr>
                         <th>Benutzer</th>

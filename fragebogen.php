@@ -24,11 +24,13 @@ if(isset($_POST["senden"])){
 	echo "<pre>";
 	//print_r($_POST);
 	echo "</pre>";
-	$month=$_POST["month"];
+	//$month=$_POST["month"];
 	//JUST 4 TEST !!!!!!!!!!
+	/*
 	if($month<1){
 		exit();
 	}
+	*/
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);
@@ -40,7 +42,7 @@ if(isset($_POST["senden"])){
 			$key=Helper::getId($key,"sld");
 			$antworten[$key]=(float)Helper::sanitize($val);
 	}
-	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
+	$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten));
 		echo "<script type='text/javascript'>";
         echo "window.location.href='bewertung.php?lieferantid=$lieferantid';";
         echo "</script>";
@@ -52,7 +54,7 @@ if(isset($_POST["senden"])){
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
 		<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-			<label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month">
+			<!--label class="mth-label">Just 4 Test - Monat: </label> <input class="mth-inp" type="number" min="1" max="6" name="month"-->
 			<input type="hidden" value="<?php echo $lieferantid; ?>" name="lieferantid">
 				<?php		
 				foreach($fragen as $frage) {

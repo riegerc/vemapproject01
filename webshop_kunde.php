@@ -160,7 +160,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             echo "    <td>" . $row['description'] . "</td>\n";
                             echo "    <td>".$row['branch']."</td>\n";
                            if($budget<=0){
-                                echo "    <td> kauf dir geld</td>\n";   
+                                echo "    <td> Budget zu gering </td>\n";
                            }else{
 
                             if($budget>$row['price']){
@@ -171,7 +171,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                                 <i class='fas fa-shopping-cart'></i> Kaufen
                             </button>
                             </form>";}else{
-                                echo "    <td> kauf dir geld</td>\n"; 
+                                echo "    <td> Budget zu gering </td>\n";
                             }
                         }
                             echo "    </tr>";
