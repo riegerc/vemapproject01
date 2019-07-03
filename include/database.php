@@ -1,6 +1,5 @@
 <?php
 require_once "validate.php";
-
 function connectDB(): PDO
 {
     $dbHost = DB_HOST;
@@ -20,7 +19,6 @@ function connectDB(): PDO
         die("That didn't work.<br><br>$e");
     }
 }
-
 /**
  * @deprecated do not use if not familar with it!
  * important: the SQL Statement in the $sql variable MUST start with select (case insensitive)!
@@ -54,7 +52,6 @@ function readDB(string $sql, array $params = NULL, $fetchMode = PDO::FETCH_ASSOC
 
     return $result;
 }
-
 /**
  * @deprecated do not use if not familar with it!
  * important the SQL statement MUST start with INSERT (case insensitive)!
@@ -84,7 +81,6 @@ function insertDB(string $sql, array $params): int
     }
     return $ret;
 }
-
 /**
  * @deprecated do not use if not familar with it!
  * important the SQL statement MUST start with UPDATE (case insensitive)!
@@ -112,5 +108,4 @@ function updateDB(string $sql, array $params): bool
         die("DB - Error UPDATE");
     }
     return $ret;
-
 }

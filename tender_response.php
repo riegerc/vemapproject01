@@ -27,17 +27,17 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <table class="table table-bordered">
 
             <thead>
-            <th>Pos. Nr.:</th>
+            <th>Pos.Nr.</th>
             <th>Position</th>
             <th>Menge</th>
-            <th>Ihr Gebot</th>
-            <th>Langtext</th>
+            <th>Ihr Preis pro Stück</th>
+            <th>Beschreibung</th>
             </thead>
             <?php
             $date = date("Y-m-d");
             $time = date("H:i:s");
 
-            $sql = "SELECT *,tenderDetail.objectID AS detailID 
+            $sql = "SELECT *,tenderDetail.objectID AS detailID
                     FROM tenderDetail LEFT JOIN tenders ON tendersFID = tenders.objectID
                     WHERE tendersFID = :tenderFID";
             $stmt = connectDB()->prepare($sql);
@@ -46,21 +46,21 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             $row = $stmt->fetch();
             echo "<h2>$row[tender]</h2>";
 
-            $posnr = 0;
+            //$posnr = 0;
 
             while ($row = $stmt->fetch()) {
                 echo "<tr>";
-                echo "<td> 1.$posnr";
+                echo "<td>" . $row["posNr"] . "</td>";
                 echo "<td>" . $row["position"] . "</td>";
-                echo "<td>" . $row["amount"] . "</td>";
-                echo "<td><input class='form-control' name='price$posnr' id='price$posnr' type='number' min='0'>\n";
+               echo "<td>" . $row["amount"] . "</td>";
+                echo "<td><input class='form-control' name='price'". $row["posNr"] ." id='price'". $row["posNr"] ." type='number' min='0'>\n"; //input für Preis
                 echo "<td>" . $row["longtext"] . "</td>";
                 echo "</tr>";
 
 
                 if (isset($_POST["send"])) {
-                    if (isset($_POST["price$posnr"]) AND $_POST["price$posnr"] != "") {
-                        $price = htmlspecialchars($_POST["price$posnr"]);
+                    if (isset($_POST["price".$row["posNr"]]) AND $_POST["price".$row["posNr"]] != "") {
+                        $price = htmlspecialchars($_POST["price".$row["posNr"]]);
 
                         $sqlInsert = "INSERT INTO tendersresponse (supplierFID, tenderDetailFID, price, timeOfResponse, dateOfResponse, description)
                   VALUES (:supplierFID, :tenderDetailFID,:price,:timeOfResponse,:dateOfResponse,:description)";
@@ -74,7 +74,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
                         $stmtInsert->execute();
                     }
-                    $posnr++;
+                    //$posnr++;
                 }
             }
             ?>

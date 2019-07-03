@@ -41,7 +41,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             orderitems.ordered as ordered
             FROM article, orderitems, user
             
-            WHERE article.objectID=orderitems.articleFID AND $userID=article.supplierUserFID;";
+            WHERE article.objectID=orderitems.articleFID AND $userID=article.supplierUserFID AND user.objectID=$userID;";
 
            //wenn SuperAdmin dann darf er alle Einträge sehen und bearbeiten
         if($_SESSION[USER_ROLE]==2){
@@ -67,9 +67,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             
             $auswahl .= "    <tr>\n";
             $auswahl .= "    <td>" . $row['article_name'] . "</td>\n";
-            $auswahl .= "    <td>" . $row['article_price'] . "&euro;" . "</td>\n";
-            $auswahl .= "    <td>" . $row['order_count'] . "</td>\n";
-            $auswahl .= "    <td>" . $row['article_price'] * $row['order_count'] . "&euro;" . "</td>\n";
+            $auswahl .= "    <td>" . number_format($row['article_price'],2,',','.') . "&euro;" . "</td>\n";
+            $auswahl .= "    <td>" . $row['order_count']. "</td>\n";
+            $auswahl .= "    <td>" . number_format($row['article_price'] * $row['order_count'],2,',','.') . "&euro;" . "</td>\n";
 
             if ($row['ordered'] == 1) {
                 $auswahl .= "<td><span class='btn form-button'><i class='fas fa-check-circle'></i> Bestätigt</span></td>\n";

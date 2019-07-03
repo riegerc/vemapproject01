@@ -2,15 +2,15 @@
 
 $navigationItems =
     [
-        [
+        "sections" => [
             "section" => "",
             "categories" => [
                 ["name" => "Ausschreibungen",
                     "links" => [
                         ["name" => "Ihre Ausschreibungen", "url" => "overview_tenders.php", "minUserLevel" => PERM_VIEW_OFFER],
                         ["name" => "Lieferant anlegen", "url" => "create_supplier.php", "minUserLevel" => PERM_CED_SUPPLIER],
-                        ["name" => "Ausschreibung erstellen", "url" => "create_tender.php", "minUserLevel" => PERM_CED_SUPPLIER],
-                        ["name" => "Erstellte Ausschreibungen", "url" => "ams_response.php", "minUserLevel" => PERM_CED_SUPPLIER],
+                        ["name" => "Neue Ausschreibung", "url" => "create_tender.php", "minUserLevel" => PERM_CED_SUPPLIER],
+                        ["name" => "Alle Ausschreibungen", "url" => "ams_response.php", "minUserLevel" => PERM_CED_SUPPLIER],
                     ],
                     "icon" => "<i class='fas fa-file-invoice'></i>",
                     "minUserLevel" => PERM_VIEW_OFFER_MENU
@@ -41,18 +41,16 @@ $navigationItems =
                     "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => PERM_VIEW_CLIENT_MENU
                 ],
-                ["name" => "Sitemap",
-                    "links" => [
-                        ["name" => "Sitemap", "url" => "sitemap.php", "minUserLevel" => PERM_CED_USER],
-                    ],
-                    "icon" => "<i class='fas fa-users'></i>",
-                    "minUserLevel" => PERM_VIEW_CLIENT_MENU
-                ],
             ],
-            "minUserLevel" => PERM_EDIT_SELF
+            "minUserLevel" => PERM_EDIT_SELF,
         ],
     ];
 
+$standaloneLinks =
+    [
+        ["name" => "<i class='fas fa-balance-scale'></i> Impressum", "url" => "impressum.php",],
+        ["name" => "<i class='fas fa-sitemap'></i> Sitemap", "url" => "sitemap.php",],
+    ]
 
 ?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -63,10 +61,10 @@ $navigationItems =
     </a>
     <hr class="sidebar-divider my-0">
     <?php
-    if (empty($_SESSION) || 
-    !isset($_SESSION[USER_ID]) || 
-    !isset($_SESSION[USER_NAME]) || 
-    !isset($_SESSION[USER_PERMISSION])) {
+    if (empty($_SESSION) ||
+        !isset($_SESSION[USER_ID]) ||
+        !isset($_SESSION[USER_NAME]) ||
+        !isset($_SESSION[USER_PERMISSION])) {
         echo "
             <li class='nav-item'>
                 <div class='nav-link'>
@@ -120,13 +118,18 @@ $navigationItems =
                                 echo "</a>";
                             }
                         }
-                        echo "</div>
-                  </div>
-                </li>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</li>";
                     }
                 }
-            }else{
-                echo $section["minUserLevel"]."<br>";
+                foreach ($standaloneLinks as $link) {
+                    echo "<li class='nav-item'>";
+                    echo "<a class='nav-link ' href='$link[url]'><span>$link[name]</span></a>";
+                    echo "</li>";
+                }
+            } else {
+                echo $section["minUserLevel"] . "<br>";
             }
         }
     }

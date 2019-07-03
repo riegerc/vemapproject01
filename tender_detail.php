@@ -24,13 +24,13 @@ $sql = "SELECT tenders.objectID AS DocNumber,
                                user.city,
                                user.country,
                                tenders.begin,
-                               tenders.end,
-                                tenders.amount
+                               tenders.end
+                                
                         FROM tenders
                         LEFT JOIN user ON tenders.userFID = user.objectID 
 
                         WHERE tenders.objectID=:tenderGetID  ";
-
+//tenders.amount
 $stmt = connectDB()->prepare($sql);
 $stmt->bindParam(":tenderGetID", $tenderGetID);
 $stmt->execute();
