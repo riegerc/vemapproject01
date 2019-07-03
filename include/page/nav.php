@@ -2,7 +2,7 @@
 
 $navigationItems =
     [
-        [
+        "sections" => [
             "section" => "",
             "categories" => [
                 ["name" => "Ausschreibungen",
@@ -41,25 +41,16 @@ $navigationItems =
                     "icon" => "<i class='fas fa-users'></i>",
                     "minUserLevel" => PERM_VIEW_CLIENT_MENU
                 ],
-                ["name" => "Impressum",
-                    "links" => [
-                        ["name" => "Impressum", "url" => "impressum.php", "minUserLevel" => PERM_CED_USER],
-                    ],
-                    "icon" => "<i class='fas fa-users'></i>",
-                    "minUserLevel" => PERM_VIEW_CLIENT_MENU
-                ],
-                ["name" => "Sitemap",
-                    "links" => [
-                        ["name" => "Sitemap", "url" => "sitemap.php", "minUserLevel" => PERM_CED_USER],
-                    ],
-                    "icon" => "<i class='fas fa-users'></i>",
-                    "minUserLevel" => PERM_VIEW_CLIENT_MENU
-                ],
             ],
-            "minUserLevel" => PERM_EDIT_SELF
+            "minUserLevel" => PERM_EDIT_SELF,
         ],
     ];
 
+$standaloneLinks =
+    [
+        ["name" => "<i class='fas fa-balance-scale'></i> Impressum", "url" => "impressum.php",],
+        ["name" => "<i class='fas fa-sitemap'></i> Sitemap", "url" => "sitemap.php",],
+    ]
 
 ?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -70,10 +61,10 @@ $navigationItems =
     </a>
     <hr class="sidebar-divider my-0">
     <?php
-    if (empty($_SESSION) || 
-    !isset($_SESSION[USER_ID]) || 
-    !isset($_SESSION[USER_NAME]) || 
-    !isset($_SESSION[USER_PERMISSION])) {
+    if (empty($_SESSION) ||
+        !isset($_SESSION[USER_ID]) ||
+        !isset($_SESSION[USER_NAME]) ||
+        !isset($_SESSION[USER_PERMISSION])) {
         echo "
             <li class='nav-item'>
                 <div class='nav-link'>
@@ -127,13 +118,20 @@ $navigationItems =
                                 echo "</a>";
                             }
                         }
-                        echo "</div>
-                  </div>
-                </li>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</li>";
                     }
                 }
-            }else{
-                echo $section["minUserLevel"]."<br>";
+                foreach ($standaloneLinks as $link) {
+                    echo "<li class='nav-item'>";
+                    echo "<a class='nav-link ' href='index.php'>";
+                    echo $link["name"] == "" ? $link["url"] : $link["name"];
+                    echo "</a>";
+                    echo "</li>";
+                }
+            } else {
+                echo $section["minUserLevel"] . "<br>";
             }
         }
     }
