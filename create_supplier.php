@@ -113,7 +113,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                             </div>
                         </div>
                     </div>
-
+                    <span style="color: indianred">* Pflichtfeld</span>
                 </div>
                 <div class="col-md-6">
                     <h4>Ansprechpartner</h4>
@@ -151,9 +151,6 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 </div>
             </div>
         </form>
-    </div>
-    <div class="alert alert-secondary" role="alert">
-        * Pflichtfeld
     </div>
 </div>
 
