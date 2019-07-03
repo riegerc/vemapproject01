@@ -66,7 +66,6 @@ $st = connectDB()->query($sql);
             } while (
                 $row = $stmt->fetch()
             );
-            echo "<tr><td>&nbsp;</td></tr>";
             echo "</table>";
         }
         ?>
