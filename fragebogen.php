@@ -36,28 +36,15 @@ if(isset($_POST["senden"])){
 	// JUST 4 TEST !!!!!!!!!!!
 	unset($_POST["month"]);
 	$antworten=array();
-	$toComment=array();
-	$fkKategorie=0;
+	
 	foreach($_POST as $key=>$val){
-		if(strpos($key, "fk_kategorie")===0){
-			$fkKategorie=$val;
-			unset($_POST[$key]);
-		}else{
 			$key=Helper::getId($key,"sld");
-			$antworten[$key]=["maincategory"=>$fkKategorie, "val"=>(float)Helper::sanitize($val)];
-		}
+			$antworten[$key]=(float)Helper::sanitize($val);
 	}
-		foreach($antworten as $antwort){
-			if($antwort["val"]<1){
-				if(!in_array($antwort["maincategory"],$toComment)){
-					array_push($toComment,$antwort["maincategory"]);
-				}
-			}
-		}
-	echo "<pre>";
-	print_r($toComment);
-	echo "</pre>";
 	//$rep->createAnswers(new Fragebogen($userId, $lieferantid, $antworten),$month);
+		echo "<script type='text/javascript'>";
+        echo "window.location.href='bewertung.php?lieferantid=$lieferantid';";
+        echo "</script>";
 }
 
 ?>
@@ -83,7 +70,6 @@ if(isset($_POST["senden"])){
 							
 							echo "<div class='form-group'>\n";
 						    echo "<label for='sld" . $kriterium->getId() . "'>" . $kriterium->getName() . "</label>\n";
-							echo "<input type='hidden' name='fk_kategorie".$kriterium->getFkKriterium()."' value='".$kriterium->getFkKriterium()."'>";
 							echo "<input type='range' class='form-control-range custom-range' id='sld" . $kriterium->getId() . "' min='0' max='$maxInputRange' value='0' step='0.001' name='sld" . $kriterium->getId() . "' onchange='setLabelText(" . $kriterium->getId() . "," . $kriterium->getFkKriterium() . ")'>\n";
 							
 							echo "<span class='float-left'>0</span>\n";
@@ -100,7 +86,7 @@ if(isset($_POST["senden"])){
 						$collapse = "collapse";
 
 						$invalid="";
-						
+						/*
 						if ($isFormSubmitted) {
 							
 							if (($key = array_search($kriterium->getFkKriterium(), $toComment)) !== false) {
@@ -115,10 +101,10 @@ if(isset($_POST["senden"])){
 								$invalid = "";
 							}							
 						}
-						
+						*/
 						echo "<p class='up-down' data-toggle='collapse' data-target='#target" . $kriterium->getFkKriterium() . "' id='chk" . $kriterium->getFkKriterium() . "'><span class='fa fa-caret-right'></span>\n";
 						echo "<label class='form-check-label' for='chk" . $kriterium->getFkKriterium() . "'>Kommentar</label></p>\n";
-						echo "<textarea class='form-control $collapse $invalid' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
+						//echo "<textarea class='form-control $collapse $invalid' name='txt" . $kriterium->getFkKriterium() . "' id='target" . $kriterium->getFkKriterium() . "'></textarea>\n";
 					}
 					?>			
 			<div class="form-row">
