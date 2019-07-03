@@ -24,11 +24,13 @@ if(isset($_POST["senden"])){
 	echo "<pre>";
 	//print_r($_POST);
 	echo "</pre>";
-	$month=$_POST["month"];
+	//$month=$_POST["month"];
 	//JUST 4 TEST !!!!!!!!!!
+	/*
 	if($month<1){
 		exit();
 	}
+	*/
 	$lieferantid=$_POST["lieferantid"];
 	unset($_POST["lieferantid"]);
 	unset($_POST["senden"]);

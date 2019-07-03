@@ -147,10 +147,10 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		$lieferantFid=$fb->getLieferantId();
 		$reviewId=$this->createReview($userFid,$lieferantFid);
 		$kriterien=$fb->getFragen();
-		$sql="INSERT INTO reviewsmark(reviewsFID,undercriteriaFID,mark, datetime) VALUES";
+		$sql="INSERT INTO reviewsmark(reviewsFID,undercriteriaFID,mark) VALUES";
 	
 		foreach($kriterien as $key=>$val){
-			$sql.="($reviewId,$key,$val,'2019-0$month-05 08:59:09'),";
+			$sql.="($reviewId,$key,$val),";
 		}
 		$sql=rtrim($sql, ",");
 		//echo $sql;
