@@ -128,9 +128,9 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $fragen;
 	}
-	public function createReview(int $userid, int $supplierId, int $month):int{
+	public function createReview(int $userid, int $supplierId):int{
 		$reviewId=0;
-		$sql="INSERT INTO reviews(userFID, supplierUserFID,datetime) VALUES(:userFid, :supplierId, '2019-0$month-05 08:59:09')";
+		$sql="INSERT INTO reviews(userFID, supplierUserFID) VALUES(:userFid, :supplierId)";
 		$stmt=$this->db->prepare($sql);
 		$stmt->bindParam(":userFid",$userid);
 		$stmt->bindParam(":supplierId",$supplierId);
@@ -142,10 +142,10 @@ public function deleteKriterium(int $kid, bool $is_subcriteria=false){
 		}
 		return $reviewId;
 	}
-	public function createAnswers(Fragebogen $fb, int $month):void{
+	public function createAnswers(Fragebogen $fb):void{
 		$userFid=$fb->getUserId();
 		$lieferantFid=$fb->getLieferantId();
-		$reviewId=$this->createReview($userFid,$lieferantFid, $month);
+		$reviewId=$this->createReview($userFid,$lieferantFid);
 		$kriterien=$fb->getFragen();
 		$sql="INSERT INTO reviewsmark(reviewsFID,undercriteriaFID,mark, datetime) VALUES";
 	
