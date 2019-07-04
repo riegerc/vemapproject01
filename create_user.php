@@ -189,6 +189,9 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             'cost' => 12,
         ];
 
+//        $hashTest= password_hash("12345", PASSWORD_BCRYPT, $options);
+//        echo $hashTest;
+
         if (isset($_POST['submit'])) {
 
             htmlspecialchars($userRole = $_POST["userRole"]);
