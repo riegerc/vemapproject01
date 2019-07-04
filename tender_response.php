@@ -27,11 +27,13 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
         <table class="table table-bordered">
 
             <thead>
+            <tr>
             <th>Pos.Nr.</th>
             <th>Position</th>
             <th>Menge</th>
             <th>Ihr Preis pro Stück</th>
             <th>Beschreibung</th>
+            </tr>
             </thead>
             <?php
             $date = date("Y-m-d");
@@ -45,6 +47,17 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
             $stmt->execute();
             $row = $stmt->fetch();
             echo "<h2>$row[tender]</h2>";
+            $stmt = NULL;
+
+            $sql = "SELECT *,tenderDetail.objectID AS detailID
+                    FROM tenderDetail LEFT JOIN tenders ON tendersFID = tenders.objectID
+                    WHERE tendersFID = :tenderFID";
+            $stmt = connectDB()->prepare($sql);
+
+            $stmt->bindParam(":tenderFID", $tenderFID);
+            $stmt->execute();
+
+
 
             //$posnr = 0;
 
@@ -53,7 +66,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 echo "<td>" . $row["posNr"] . "</td>";
                 echo "<td>" . $row["position"] . "</td>";
                echo "<td>" . $row["amount"] . "</td>";
-                echo "<td><input class='form-control' name='price'". $row["posNr"] ." id='price'". $row["posNr"] ." type='number' min='0'>\n"; //input für Preis
+                echo "<td><input class='form-control' name='price' " . $row["posNr"] . " id='price' ". $row["posNr"] . " type='number' min='0'>\n"; //input für Preis
                 echo "<td>" . $row["longtext"] . "</td>";
                 echo "</tr>";
 
