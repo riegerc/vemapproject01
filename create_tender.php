@@ -104,12 +104,12 @@ if (isset($_POST["absenden"])) {
 function readCSV($filename = "upload.csv")
 {
     $file = file("temp/$filename");
-    $sql = "INSERT INTO tenderDetail(
+    $sql = "INSERT INTO tenderDetail(       tendersFID,
                                              posNr,
                                              position,
-                                             `longtext`,
+                                             'longtext',
                                              amount)
-                    VALUES (
+                    VALUES (:tendersFID,
                             :posNr,
                             :position,
                             :langtext,
