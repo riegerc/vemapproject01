@@ -2,9 +2,9 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; <?php echo PAGE_NAME ?> 2019</span>
+            <span>Copyright &copy; vemap academy 2019</span>
             |
-            <span>Application Services powered by <a href="http://vemap.com" target="_blank" tabindex="0" rel="noopener nofollow">vemap.com</a></span>
+            <span>Application Services powered by <a target="_blank" href="https://vemapacademy.com">vemapacademy.com</a></span>
         </div>
     </div>
 </footer>
