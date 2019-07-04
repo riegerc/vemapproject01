@@ -84,7 +84,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
            $buget = $row['budget'];
         }
         ?>
-        <h4>Kontostand: <?php echo number_format($buget,2,',','.'); ?>&euro;</h4>
+      <!--   <h4>Kontostand: <?php echo number_format($buget,2,',','.'); ?>&euro;</h4> -->
         <div class="row">
             <div class="col-md-12">
 
