@@ -93,38 +93,31 @@ if (isset($_POST["absenden"])) {
 
 
     echo "Ausschreibung erfolgreich erstellt!";
-}
-$filename = $dateiname;
-$file = file("temp/$filename");
-$sql = "INSERT INTO tenderDetail(       tendersFID,
-                                             posNr,
-                                             position,
-                                             longtext,
-                                             amount)
-                    VALUES (:tendersFID,
-                            :posNr,
-                            :position,
-                            :langtext,
-                            :amount)";
 
-foreach ($file as $output) {
-    $dismantle = explode(";", $output);
-    if (!in_array("posNr", $dismantle)) {
-        if (!in_array("posNr", $dismantle)) $posNr = $dismantle[0];
-        if (!in_array("position", $dismantle)) $position = $dismantle[1];
-        if (!in_array("amount", $dismantle)) $amount = $dismantle[2];
-        if (!in_array("langtext", $dismantle)) $longtext = $dismantle[3];
 
-        $stmt = connectDB()->prepare($sql);
-        $stmt->bindParam(":posNr", $posNr);
-        $stmt->bindParam(":position", $position);
-        $stmt->bindParam(":langtext", $longtext);
-        $stmt->bindParam(":amount", $amount);
-        $stmt->bindParam("tendersFID",$currentID);
-        $stmt->execute();
+    $filename = $dateiname;
+    $file = file("temp/$filename");
+    $sql = "INSERT INTO tenderDetail(tendersFID, posNr, position, tenderDetail.`longtext`,amount)
+            VALUES (:tendersFID, :posNr, :position, :langtext, :amount)";
+
+    foreach ($file as $output) {
+        $dismantle = explode(";", $output);
+        if (!in_array("posNr", $dismantle)) {
+            if (!in_array("posNr", $dismantle)) $posNr = $dismantle[0];
+            if (!in_array("position", $dismantle)) $position = $dismantle[1];
+            if (!in_array("amount", $dismantle)) $amount = $dismantle[2];
+            if (!in_array("langtext", $dismantle)) $longtext = $dismantle[3];
+
+            $insertstmt = connectDB()->prepare($sql);
+            $insertstmt->bindParam(":posNr", $posNr);
+            $insertstmt->bindParam(":position", $position);
+            $insertstmt->bindParam(":langtext", $longtext);
+            $insertstmt->bindParam(":amount", $amount);
+            $insertstmt->bindParam(":tendersFID", $currentID);
+            $insertstmt->execute();
+        }
     }
 }
-
 
 // HIER ENDET FEHLERQUELLE CSV AUSWERTUNG
 
