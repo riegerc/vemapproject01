@@ -69,7 +69,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                 </div>
                     <div class="col-md-9">
                         <label>Budget</label>
-                        <h4 v-text='<?php echo $budget;?>'></h4>
+                        <h4><?php echo number_format($budget,2,',','.')." &euro;"; ?></h4>
                     </div>
                 </div>
                 <hr>

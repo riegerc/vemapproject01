@@ -43,7 +43,7 @@ $st = connectDB()->query($sql);*/
             $stmt->bindParam(":tenderID", $tenderID);
             $stmt->execute();
             $row = $stmt->fetch();
-            if (!$row) continue;
+            #if (!$row) continue;
             #var_dump($row);
             echo "<h5>$ten</h5>";
             echo "<table class='table table-response'>";
@@ -55,6 +55,9 @@ $st = connectDB()->query($sql);*/
                   <tr>";
             do {
                 #echo $row["tender"];
+                if (!$row){
+                    echo "<td>" ."kein Angebot abgegeben" . "<td></tr>";
+                }else{
                 echo "";
                 echo "
                        <td>$row[branchName]</td>" .
@@ -63,6 +66,7 @@ $st = connectDB()->query($sql);*/
                     "<td>
                        <a href='ams_response_details.php?supplierFID=$row[supplierFID]&tenderID=$row[tenderID]' 
                           class='btn btn-info form-button'><i class='fas fa-info-circle'></i> Details</a></td></tr>";
+                }
             } while (
                 $row = $stmt->fetch()
             );

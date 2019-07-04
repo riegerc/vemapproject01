@@ -13,6 +13,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?php echo $title ?></h1>
     <div class="content">
+        <a href="ams_response.php" >&#8636 Zurück zu Ihren erstellten Ausschreibungen</a>
         <table class="table table-striped">
             <thead>
             <tr>
