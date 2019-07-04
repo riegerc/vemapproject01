@@ -138,7 +138,7 @@ $date = date("Y-m-d", $time);
                     </tr>
                     <tr>
                         <th>Adresse</th>
-                        <td><?php echo "$street $house , $PLZ $city $country"; ?></td>
+                        <td><?php echo "$street $house / $stairs / $door, $PLZ $city $country"; ?></td>
                     </tr>
                 </table>
                 <hr>
