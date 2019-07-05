@@ -80,21 +80,21 @@ $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
 if (isset($_POST["absenden"])) {
-//
-//    $ordner = "temp";
-//    $dateiname = $_FILES["file"]["name"];
-//    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
-//    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
-//    $dateiname = str_replace($alt, $neu, $dateiname);
-//
-//    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
-//
-//
-//
-//
 
-    //  $filename = $dateiname;
-    $file = file("temp/ausschreibungsMaske.csv");
+    $ordner = "temp";
+    $dateiname = $_FILES["file"]["name"];
+    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
+    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
+    $dateiname = str_replace($alt, $neu, $dateiname);
+
+    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
+
+
+
+
+
+    $filename = $dateiname;
+    $file = file("temp/$dateiname");
     $sql = "INSERT INTO tenderDetail(tendersFID, posNr, position, tenderDetail.`longtext`,amount)
             VALUES (:tendersFID, :posNr, :position, :langtext, :amount)";
 
