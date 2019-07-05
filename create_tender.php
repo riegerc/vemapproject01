@@ -117,7 +117,7 @@ if (isset($_POST["absenden"])) {
         }
 
     }
-    echo "Ausschreibung erfolgreich erstellt!";
+    echo "<div class='alert alert-success'><p>Ausschreibung erfolgreich erstellt!</p></div>";
 }
 
 ?>
