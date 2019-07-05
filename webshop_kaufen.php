@@ -78,7 +78,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
                     <div class="card-body">
                         <?php
                         $user = $_SESSION[USER_ID];
-                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country 
+                        $sql = "SELECT user.branchName, user.street, user.houseNumber, user.postCode, user.city, user.country, user.stairs, user.door 
                         FROM user
                         WHERE user.objectID = :user";
                         $stmt = connectDB()->prepare($sql);
@@ -87,7 +87,7 @@ include "include/page/top.php"; // top-part of html-template (stylesheets, navig
 
                         while ($row = $stmt->fetch()) {
                             echo $row['branchName'];
-                            echo "<br>" . $row['street'] . " " . $row['houseNumber'];
+                            echo "<br>" . $row['street'] . " " . $row['houseNumber']." / ".$row['stairs']." / ".$row['door'];
                             echo "<br>" . $row['postCode'] . "&nbsp;";
                             echo $row['city'];
                             echo "<br>" . $row['country'];
