@@ -79,24 +79,23 @@ WHERE rolesFID=6 OR rolesFID=4";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
-// Hier kommt CSV auswertung FEHLERQUELLE!!!
 
 if (isset($_POST["absenden"])) {
+//
+//    $ordner = "temp";
+//    $dateiname = $_FILES["file"]["name"];
+//    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
+//    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
+//    $dateiname = str_replace($alt, $neu, $dateiname);
+//
+//    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
+//
+//
+//
+//
 
-    $ordner = "temp";
-    $dateiname = $_FILES["file"]["name"];
-    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
-    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
-    $dateiname = str_replace($alt, $neu, $dateiname);
-
-    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
-
-
-    echo "Ausschreibung erfolgreich erstellt!";
-
-
-    $filename = $dateiname;
-    $file = file("temp/$filename");
+  //  $filename = $dateiname;
+    $file = file("temp/ausschreibungsMaske.csv");
     $sql = "INSERT INTO tenderDetail(tendersFID, posNr, position, tenderDetail.`longtext`,amount)
             VALUES (:tendersFID, :posNr, :position, :langtext, :amount)";
 
@@ -115,11 +114,12 @@ if (isset($_POST["absenden"])) {
             $insertstmt->bindParam(":amount", $amount);
             $insertstmt->bindParam(":tendersFID", $currentID);
             $insertstmt->execute();
-        }
-    }
-}
 
-// HIER ENDET FEHLERQUELLE CSV AUSWERTUNG
+        }
+
+    }
+    echo "Ausschreibung erfolgreich erstellt!";
+}
 
 
 ?>
