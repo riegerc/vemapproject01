@@ -79,39 +79,25 @@ WHERE rolesFID=6 OR rolesFID=4";
 $stmt = $conn->query($empSQL);
 #$empResult = $stmt->fetch();
 
-// Hier kommt CSV auswertung FEHLERQUELLE!!!
-
 if (isset($_POST["absenden"])) {
+//
+//    $ordner = "temp";
+//    $dateiname = $_FILES["file"]["name"];
+//    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
+//    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
+//    $dateiname = str_replace($alt, $neu, $dateiname);
+//
+//    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
+//
+//
+//
+//
 
-    $ordner = "temp";
-    $dateiname = $_FILES["file"]["name"];
-    $alt = array("ö", "Ö", "ä", "Ä", "ü", "Ü", "ß", " ");
-    $neu = array("oe", "Oe", "ae", "Ae", "ue", "Ue", "ss", "_");
-    $dateiname = str_replace($alt, $neu, $dateiname);
+    //  $filename = $dateiname;
+    $file = file("temp/ausschreibungsMaske.csv");
+    $sql = "INSERT INTO tenderDetail(tendersFID, posNr, position, tenderDetail.`longtext`,amount)
+            VALUES (:tendersFID, :posNr, :position, :langtext, :amount)";
 
-    move_uploaded_file($_FILES["file"]["tmp_name"], "$ordner/$dateiname");
-
-    // if (isset($_FILES)) {
-        readCSV($dateiname);
-        // };
-
-
-    echo "Ausschreibung erfolgreich erstellt!";
-}
-
-function readCSV($filename = "upload.csv")
-{
-    $file = file("temp/$filename");
-    $sql = "INSERT INTO tenderDetail(
-                                             posNr,
-                                             position,
-                                             `longtext`,
-                                             amount)
-                    VALUES (
-                            :posNr,
-                            :position,
-                            :langtext,
-                            :amount)";
     foreach ($file as $output) {
         $dismantle = explode(";", $output);
         if (!in_array("posNr", $dismantle)) {
@@ -120,19 +106,19 @@ function readCSV($filename = "upload.csv")
             if (!in_array("amount", $dismantle)) $amount = $dismantle[2];
             if (!in_array("langtext", $dismantle)) $longtext = $dismantle[3];
 
-            $stmt = connectDB()->prepare($sql);
-            $stmt->bindParam(":posNr", $posNr);
-            $stmt->bindParam(":position", $position);
-            $stmt->bindParam(":langtext", $longtext);
-            $stmt->bindParam(":amount", $amount);
-            $stmt->execute();
+            $insertstmt = connectDB()->prepare($sql);
+            $insertstmt->bindParam(":posNr", $posNr);
+            $insertstmt->bindParam(":position", $position);
+            $insertstmt->bindParam(":langtext", $longtext);
+            $insertstmt->bindParam(":amount", $amount);
+            $insertstmt->bindParam(":tendersFID", $currentID);
+            $insertstmt->execute();
+
         }
+
     }
+    echo "Ausschreibung erfolgreich erstellt!";
 }
-
-
-// HIER ENDET FEHLERQUELLE CSV AUSWERTUNG
-
 
 ?>
 <div class="container-fluid">
